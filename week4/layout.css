@@ -1,0 +1,157 @@
+
+body {
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+p {
+    -webkit-animation-duration: 1s;
+    -webkit-animation-name: slidein;
+    text-align: right;
+    font-size: 24px;
+    font-family: "微軟正黑體", "Microsoft JhengHei", "新細明體", "PMingLiU", "標楷體", "DFKai-sb", serif;
+}
+p.clicked {
+    text-align: left;
+    font-size: 40px;
+    -webkit-animation-duration: 1s;
+    -webkit-animation-name: textScale;
+}
+img.undisplay {
+    opacity: 0;
+    height: 200px;
+    width: 200px;
+}
+img.display {
+    animation-name: showImg;
+    animation-duration: 1s;
+    opacity: 1;
+}
+img.card {
+    height: 200px;
+    width: 200px;
+    margin: 10px;
+}
+img.cardin {
+    -webkit-animation-duration: 1s;
+    -webkit-animation-name: cardin;
+}
+div.card {
+    height: 250px;
+    width: 100%;
+    float: left;
+}
+.red {
+    height: 1000px;
+    width: 50%;
+    float: right;
+    background-color: red;
+}
+.blue {
+    height: 1000px;
+    width: 50%;
+    float: left;
+    background-color: blue;
+}
+.title.clicked {
+    -webkit-animation-duration: 1s;
+    -webkit-animation-name: textScale;
+}
+.subtitle {
+    text-align: right;
+}
+.post {
+    height: 400px;
+    width: 400px;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
+    float: left;
+    padding: 10px;
+    margin: 20px;
+}
+.post.clicked {
+    -webkit-animation-duration: 1s;
+    -webkit-animation-name: clicked;
+    -webkit-transform: scale(1.5, 1.5);
+    position: relative;
+    top: 80px;
+    left: 80px;
+}
+input#back {
+    position: absolute;
+    left: 0;
+    top: 250px;
+}
+input#next {
+    position: absolute;
+    right: 0;
+    top: 250px;
+}
+
+@-webkit-keyframes slidein {
+    from {
+        margin-top: 100%;
+        height: 300%
+      }
+
+      to {
+        margin-top: 0%;
+        height: 20%;
+      }
+}
+
+@-webkit-keyframes cardin {
+    0% {
+        transform: translate(0, 0);
+        opacity: 1;
+    }
+    20% {
+        transform: translate(-100px, 0px);
+        opacity: 0;
+    }
+    
+    40% {
+        transform: translate(200px, 0);
+        opacity: 0;
+      }
+
+    60% {
+        transform: translate(100px, 0);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translate(0, 0);
+        opacity: 1;
+    }
+}
+
+@-webkit-keyframes showImg {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@-webkit-keyframes clicked { 
+    from {
+        transform: scale(1, 1);
+      }
+      to {
+        transform: scale(1.5, 1.5);
+        position: relative;
+        top: 80px;
+        left: 80px;
+      }
+}
+
+@-webkit-keyframes textScale { 
+    from {
+        text-align: right;
+        font-size: 24px;
+    }
+    to {
+        text-align: left;
+        font-size: 40px;
+    }
+}
