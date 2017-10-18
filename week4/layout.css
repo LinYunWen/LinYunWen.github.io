@@ -3,7 +3,7 @@ body {
     overflow-y: scroll;
     overflow-x: hidden;
 }
-p {
+p.divWord{
     -webkit-animation-duration: 1s;
     -webkit-animation-name: slidein;
     background-color: lightblue;
@@ -41,6 +41,27 @@ div.card {
     width: 100%;
     float: left;
 }
+div#background {
+    display: flex;
+    flex-direction: column; 
+}
+div#header{
+    display: flex;
+    justify-content: flex-end;
+}
+header.header-item {
+    flex-grow: 8;
+    flex-shrink: 8;
+    flex-basis: 1000px;
+}
+div.header-item {
+    display: flex;
+    justify-content: flex-end;
+    flex-grow: 1;
+    flex-shrink: 1;
+    flex-basis: 200px;
+}
+
 .red {
     height: 1000px;
     width: 50%;
