@@ -4,21 +4,14 @@
     <meta charset="UTF-8">
     <title>resume</title>
     <link rel="stylesheet" href="../week4/layout.css" type="text/css">
+    <script src="https://use.fontawesome.com/acc5e88698.js"></script>
     </style>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </head>
 <body>
-    <div id="background">
-        <div id="header">
-            <header class="header-item"> my page</header>
-            <div id="user" class="header-item">
-                <button id="signin">Sign in</button>
-                <button id="signup">Sign up</button>
-            </div>
-            <!--
-            <div id="login" style="background-color: red;">
-                <form action="" method="post" >
-                    <p>
+        <div id="login">
+                <form action="../week5/login.php" method="post" >
+                    <p class="login">
                         <span>Username:</span>
                         <input type="text" name="user"><br>
                         <span>Password:</span>
@@ -26,13 +19,19 @@
                         <span>Email:</span>
                         <input type="text" name="email"><br>
                     </p>
-                    <p align="center">
-                        <input type="submit" name="signin" style="" value="登入">
-                        <input type="submit" name="signup" value="註冊">
+                    <p class="login">
+                        <input type="submit" name="signin" value="Sign in">
+                        <input type="submit" name="signup" value="Sign up">
                     </p>
                 </form>
             </div>
-        -->
+
+    <div id="background">
+        <div id="header">
+            <header class="header-item"> my page</header>
+            <div id="user" class="header-item">
+                <button id="signin">Sign in</button>
+            </div>
         </div>
 
         <div id="content">
@@ -88,68 +87,12 @@
         </div>
     </div>
     </div>
-
-
-
-    <!--
-    <div class="resume">
-        <table border="3">
-          <tr>
-             <td colspan="5" align="center"><h2>Presonal Introduction</h2></td>
-          </tr>
-          <tr>
-              <td style="background-color:#C6CBCB;">姓名</td>
-              <td>林允文</td>
-              <td style="background-color:#C6CBCB;">性別</td>
-              <td align="center">Male</td>
-              <td rowspan="5"><img src="https://yt3.ggpht.com/-UgkcJ6zFXFA/AAAAAAAAAAI/AAAAAAAAAAA/5x2e-ssEaqI/s900-c-k-no-rj-c0xffffff/photo.jpg" height="300" width="300"></td>
-          </tr>
-          <tr>    
-              <td style="background-color:#C6CBCB;">出生日期</td>
-              <td>84/12/16</td>
-              <td style="background-color:#C6CBCB;">星座</td>
-              <td align="center">射手座<br>(Sagitarious)</td>
-          </tr>
-          <tr>
-
-          </tr>
-          <tr height="80px">
-              <td style="background-color:#C6CBCB;">個人學歷</td>
-              <td colspan="3">
-                  <ul>
-                      <li><a href="http://www2.smes.tyc.edu.tw/Joomla/" target="_new">桃園市立石門國民小學</a></li>
-                      <li><a href="http://163.30.162.131/" target="_new">桃園市立石門國中</a></li>
-                      <li><a href="http://ebook.clhs.tyc.edu.tw/index/index.php" target="_new">國立中央大學附屬中壢高中</a></li>
-                      <li><a href="http://web.ncku.edu.tw/bin/home.php" target="_new">國立成功大學</a></li>
-                  </ul>
-              </td>
-          </tr>
-          <tr height="80px">
-              <td style="background-color:#C6CBCB;">嗜好</td>
-              <td colspan="3">
-                  <ol>
-                      <li>打排球</li>
-                      <li>看電影</li>
-                      <li>聽音樂</li>
-                      <li>繪畫</li>
-                  </ol>
-              </td>
-          </tr>
-          <tr>
-              <td style="background-color:#C6CBCB;">個人經歷</td>
-                  <td colspan="4">
-                      <b><br>&nbsp&nbsp大二</b>
-                      <ol>
-                          <li>資訊系學會美宣長</li>
-                          <li>資訊週活動長兼音舞劇組代</li>
-                          <li>武壢桃之夜音樂劇組代</li>
-                          <li>永齡希望小學課輔老師</li>
-                      </ol>
-                  </td>
-          </tr>
-        </table>
+    <div id="result">
+        <i class="fa fa-sun-o fa-5x" ></i>fa-camera-retro
     </div>
--->
-<script src="../week4/animation.js"></script>
+
+    <script src="../week4/animation.js"></script>
+    <script src="../week5/signUp.js"></script>
+    <script src="../week5/wether.js"></script>
 </body>
 </html>
