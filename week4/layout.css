@@ -36,6 +36,10 @@ img.cardin {
     -webkit-animation-duration: 1s;
     -webkit-animation-name: cardin;
 }
+img.question {
+    height: 10vh;
+    width: 10vh;
+}
 div.card {
     height: 250px;
     width: 100%;
