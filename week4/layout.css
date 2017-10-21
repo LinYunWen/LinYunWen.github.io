@@ -37,8 +37,12 @@ img.cardin {
     -webkit-animation-name: cardin;
 }
 img.question {
-    height: 10vh;
-    width: 10vh;
+    height: 20vh;
+    width: 20vh;
+    margin: 5px;
+    border-style: solid;
+    border-width: 5px;
+    border-color: rgba(255, 255, 255, 0)
 }
 div.card {
     height: 250px;
@@ -84,6 +88,9 @@ div.header-item {
 }
 .subtitle {
     text-align: right;
+}
+.selected {
+    
 }
 .post {
     height: 400px;

@@ -11,3 +11,4 @@ if ($_REQUEST["sigup"]) {
 	$pw = $_REQUEST["pw"];	
 }
 
+>
