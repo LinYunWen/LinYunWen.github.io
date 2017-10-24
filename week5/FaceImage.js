@@ -105,13 +105,41 @@ function markFalse(image) {
     }
 }
 
+function showRecord() {
+    document.getElementById("record").style.display = "inline";
+    document.getElementById("recordSubmit").addEventListener("click", submitName);
+}
+
+function doEscape(str) {
+    return str.replace(/[&"'<>]/g, (m) => ({ "&": "&amp;", '"': "&quot;", "'": "&#39;", "<": "&lt;", ">": "&gt;" })[m]);    
+}
+
+function submitName(event) {
+    event.preventDefault();
+    event.stopPropagation();
+    let typeName =  doEscape($("#recordInput").val());
+    let playScore =  $("#result").text.substring(8);
+    $.ajax({
+        data: {
+            mode: "write",
+            name: typeName,
+            score: playScore
+        },
+        url: "week5/file.php",
+        success: function(data) {
+            console.log("success record");
+            document.getElementById("record").style.display = "none";
+        }
+    });
+
+}
+
 function clickFaceSubmit(event) {
     event.preventDefault();
     let select = getImage($("img.selected"));
     console.log("select: ", select);
 
     let correctNum = getCorrectNum();
-    ///*
     $.ajax({
         data: {
             selectedImages: select
@@ -123,10 +151,9 @@ function clickFaceSubmit(event) {
             console.log("correct num: ", correctNum);
             $("div#result")[0].textContent = "result: " + (data*100/correctNum).toString() + "分";
             showAnswers();
+            showRecord();
         }
     });
-    //*/
-    
 }
 
 document.getElementById("faceSubmit").addEventListener("click", clickFaceSubmit);
