@@ -1,10 +1,39 @@
 function setFaceImage() {
-    var base;
-    for (let i=0 ; i<9 ; i++){
-        base = Math.floor(Math.random()*3 + 1)*10 + Math.floor(Math.random()*4 + 1);
-        // $("img.question")[i].attr("src", "/image/face/" +  base.toString() + ".jpg");
-        $("img.question")[i].src = "week5/image/face/" +  base.toString() + ".jpg";
+    let sources = [];
+    let sourcesTable = [1, 1, 1, 1, 1, 1, 1, 1, 1];
+    let mode = [[2, 3, 4], [3, 3, 3], [3, 4, 2]];
+    let modeRan = Math.floor(Math.random()*3 + 1);
+    for (let i=0 ; i<3 ; i++) {
+        let temp = getImageSources(mode[modeRan][i], i+1);
+        console.log("temp: ", temp);
+        sources = sources.concat(temp);
     }
+    console.log("sources: ", sources);
+    let i=0;
+    while (i<9){
+        // base = Math.floor(Math.random()*3 + 1)*10 + Math.floor(Math.random()*4 + 1);
+        // $("img.question")[i].attr("src", "/image/face/" +  base.toString() + ".jpg");
+        let base = Math.floor(Math.random()*sources.length);
+        if (sourcesTable[base] == 1) {
+            $("img.question")[i].src = "week5/image/face/after/" +  sources[base] + ".jpg";
+            sourcesTable[base] = 0;
+            console.log("base: ", base);
+            i++;
+        }
+    }
+}
+
+function getImageSources(num, type) {
+    let array = [];
+    let checkTable = [1, 1, 1, 1, 1];
+    while (array.length < num) {
+        let index = Math.floor(Math.random()*5 + 1);
+        if (checkTable[index] == 1) {
+            checkTable[index] = 0;
+            array.push((index+type*10).toString());
+        }
+    }
+    return array;
 }
 
 function addImageEvent() {
@@ -40,7 +69,7 @@ function getCorrectNum() {
   let imageId = getImage($("img.question"));
   let correctNum = 0;
   for (let i=0 ; i<imageId.length ; i++) {
-      if ((imageId[i] % 2) == 0) {
+      if ((imageId[i] / 30) >= 1) {
           correctNum++;
       }
   }
@@ -52,7 +81,7 @@ function showAnswers() {
   let imagesId = getImage(images);
 
   for (let i=0 ; i<images.length ; i++) {
-      if ((imagesId[i] % 2) == 0) {
+      if ((imagesId[i] / 30) >= 1) {
           console.log("correct: ", i);
           markCorrect(images[i]);
       } else {
