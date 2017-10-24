@@ -1,6 +1,9 @@
 <?php
 
-    $selected = $_REQUEST["selectedTmages"];
+    $selected = $_REQUEST["selectedImages"];
+    // echo $selected;
+    // return $selected;
+    
     $length = count($selected);
 
     $correct = 0;
@@ -10,5 +13,6 @@
         }
     }
 
-    return $correct;
->
+    echo $correct;
+    
+?>
