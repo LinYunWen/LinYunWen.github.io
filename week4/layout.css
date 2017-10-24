@@ -57,6 +57,9 @@ div#header{
     display: flex;
     justify-content: flex-end;
 }
+div#record {
+    display: none;
+}
 header.header-item {
     flex-grow: 8;
     flex-shrink: 8;
