@@ -2,7 +2,8 @@ function setFaceImage() {
     let sources = [];
     let sourcesTable = [1, 1, 1, 1, 1, 1, 1, 1, 1];
     let mode = [[2, 3, 4], [3, 3, 3], [3, 4, 2]];
-    let modeRan = Math.floor(Math.random()*3 + 1);
+    let modeRan = Math.floor(Math.random()*3);
+    // console.log("made Ran: ", modeRan);
     for (let i=0 ; i<3 ; i++) {
         let temp = getImageSources(mode[modeRan][i], i+1);
         console.log("temp: ", temp);
