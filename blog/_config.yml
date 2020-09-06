@@ -3,17 +3,17 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: Hexo
-subtitle: ''
+title: Lin Yunwen's Blog
+subtitle: 'keep moving forward'
 description: ''
 keywords:
-author: John Doe
-language: en
+author: Lin Yunwen
+language: zh-TW
 timezone: ''
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://example.com/child' and root as '/child/'
-url: http://example.com
+url: https://linyunwen.github.io/
 root: /
 permalink: :year/:month/:day/:title/
 permalink_defaults:
@@ -103,4 +103,6 @@ theme: landscape
 # Deployment
 ## Docs: https://hexo.io/docs/one-command-deployment
 deploy:
-  type: ''
+  type: git
+  repo: https://github.com/LinYunWen/LinYunWen.github.io
+  branch: master
