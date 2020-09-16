@@ -14,7 +14,7 @@ tags: traffic, note
     - 內側車道是否有禁行機車的標誌 [4]
         - ![](https://pgw.udn.com.tw/gw/photo.php?u=https://uc.udn.com.tw/photo/2020/07/05/realtime/8140643.jpg&x=0&y=0&sw=0&sh=0&sl=W&fw=800&exp=3600&w=930&nt=1)
     - 是否設有兩段式左轉標誌 [5]
-        - ![](http://163.32.129.12/tm2017/C03/images/10.png)
+        - ![](https://i.imgur.com/ykclATR.png)
 - 若是單純只有待轉格，可以自行選擇要進行待轉或是直接左轉 [3]
 - 若三者都沒有則不能待轉 [1]
 
