@@ -11,6 +11,8 @@ tags: other, note
 - 同系列但不同尺寸的紙張，其幾何比例相同，因此可以直接縮放影印而不會造成紙面圖案有邊緣裁切的問題。
 - ![](https://pic.pimg.tw/hondayellow/1476245024-2549991408_n.jpg)
 
+<!--more-->
+
 ### A 系列
 - ![](https://pic.pimg.tw/hondayellow/1476244969-3969289826_n.png)
 ### B 系列
