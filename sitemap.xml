@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://linyunwen.github.io/2020/09/22/alignment-in-css/</loc>
+    <loc>https://linyunwen.github.io/2020/09/14/two-stage-left-turn/</loc>
     
     <lastmod>2020-09-22</lastmod>
     
@@ -11,14 +11,14 @@
   <url>
     <loc>https://linyunwen.github.io/2020/09/14/paper-size/</loc>
     
-    <lastmod>2020-09-17</lastmod>
+    <lastmod>2020-09-22</lastmod>
     
   </url>
   
   <url>
-    <loc>https://linyunwen.github.io/2020/09/14/two-stage-left-turn/</loc>
+    <loc>https://linyunwen.github.io/2020/09/22/alignment-in-css/</loc>
     
-    <lastmod>2020-09-17</lastmod>
+    <lastmod>2020-09-22</lastmod>
     
   </url>
   
@@ -39,14 +39,14 @@
   </url>
   
   <url>
-    <loc>https://linyunwen.github.io/tags/traffic-note/</loc>
+    <loc>https://linyunwen.github.io/tags/other-note/</loc>
     <lastmod>2020-09-23</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://linyunwen.github.io/tags/other-note/</loc>
+    <loc>https://linyunwen.github.io/tags/traffic-note/</loc>
     <lastmod>2020-09-23</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
