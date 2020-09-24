@@ -4,21 +4,35 @@
   <url>
     <loc>https://linyunwen.github.io/2020/09/14/two-stage-left-turn/</loc>
     
-    <lastmod>2020-09-23</lastmod>
+    <lastmod>2020-09-24</lastmod>
     
   </url>
   
   <url>
     <loc>https://linyunwen.github.io/2020/09/14/paper-size/</loc>
     
-    <lastmod>2020-09-23</lastmod>
+    <lastmod>2020-09-24</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://linyunwen.github.io/2020/09/24/hexo-tutorial/</loc>
+    
+    <lastmod>2020-09-24</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://linyunwen.github.io/2020/09/24/env-param/</loc>
+    
+    <lastmod>2020-09-24</lastmod>
     
   </url>
   
   <url>
     <loc>https://linyunwen.github.io/2020/09/22/alignment-in-css/</loc>
     
-    <lastmod>2020-09-23</lastmod>
+    <lastmod>2020-09-24</lastmod>
     
   </url>
   
@@ -33,6 +47,20 @@
   
   <url>
     <loc>https://linyunwen.github.io/tags/note-css-web/</loc>
+    <lastmod>2020-09-24</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://linyunwen.github.io/tags/note-path-book-section/</loc>
+    <lastmod>2020-09-24</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://linyunwen.github.io/tags/note-hexo-blog/</loc>
     <lastmod>2020-09-24</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
