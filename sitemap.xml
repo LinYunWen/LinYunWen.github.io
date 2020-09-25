@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://linyunwen.github.io/2020/09/25/lsof/</loc>
+    
+    <lastmod>2020-09-25</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://linyunwen.github.io/2020/09/24/typography/</loc>
     
     <lastmod>2020-09-24</lastmod>
@@ -46,7 +53,7 @@
 
   <url>
     <loc>https://linyunwen.github.io/</loc>
-    <lastmod>2020-09-24</lastmod>
+    <lastmod>2020-09-25</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
@@ -54,42 +61,49 @@
   
   <url>
     <loc>https://linyunwen.github.io/tags/note-css-web/</loc>
-    <lastmod>2020-09-24</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://linyunwen.github.io/tags/note-hexo-blog/</loc>
-    <lastmod>2020-09-24</lastmod>
+    <lastmod>2020-09-25</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://linyunwen.github.io/tags/note-path-book-section/</loc>
-    <lastmod>2020-09-24</lastmod>
+    <lastmod>2020-09-25</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://linyunwen.github.io/tags/note-hexo-blog/</loc>
+    <lastmod>2020-09-25</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://linyunwen.github.io/tags/note-lsof-tip-book-section/</loc>
+    <lastmod>2020-09-25</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://linyunwen.github.io/tags/other-note/</loc>
-    <lastmod>2020-09-24</lastmod>
+    <lastmod>2020-09-25</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://linyunwen.github.io/tags/traffic-note/</loc>
-    <lastmod>2020-09-24</lastmod>
+    <lastmod>2020-09-25</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://linyunwen.github.io/tags/note-design-typography/</loc>
-    <lastmod>2020-09-24</lastmod>
+    <lastmod>2020-09-25</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
