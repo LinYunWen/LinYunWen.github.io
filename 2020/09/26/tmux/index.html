@@ -20,23 +20,20 @@
     var CONFIG = {"hostname":"linyunwen.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="法源依據 主要以道路交通安全規則§99規範  機車行駛至交岔路口，其轉彎，應依標誌或標線之規定行駛；無標誌或標線者，應依第一百零二條及下列規定行駛： 一、內側車道設有禁行機車標誌或標線者，應依兩段方式進行左轉，不得由內側或其他車道左轉。 二、在三快車道以上單行道道路，行駛於右側車道或慢車道者，應以兩段方式進行左轉彎；行駛於左側車道或慢車道者，應以兩段方式進行右轉彎。">
+  <meta name="description" content="TmuxIntroduction 他可以快速且簡單的分割 terminal 的視窗 其實基本上他就是開啟一個 server 共同管理所有的 session，並同步輸入、輸出 所以可以在離線後保留狀態 做背景執行 以不同電腦上可以同步的狀況   如果使用 who 指令可以看出他的 session 值很特別Install123\# Ubuntu Linux 安裝 tmuxsudo apt instal">
 <meta property="og:type" content="article">
-<meta property="og:title" content="機車待轉 (兩段式左轉)">
-<meta property="og:url" content="https://linyunwen.github.io/2020/09/14/two-stage-left-turn/index.html">
+<meta property="og:title" content="Tmux">
+<meta property="og:url" content="https://linyunwen.github.io/2020/09/26/tmux/index.html">
 <meta property="og:site_name" content="Lin Yunwen&#39;s Blog">
-<meta property="og:description" content="法源依據 主要以道路交通安全規則§99規範  機車行駛至交岔路口，其轉彎，應依標誌或標線之規定行駛；無標誌或標線者，應依第一百零二條及下列規定行駛： 一、內側車道設有禁行機車標誌或標線者，應依兩段方式進行左轉，不得由內側或其他車道左轉。 二、在三快車道以上單行道道路，行駛於右側車道或慢車道者，應以兩段方式進行左轉彎；行駛於左側車道或慢車道者，應以兩段方式進行右轉彎。">
+<meta property="og:description" content="TmuxIntroduction 他可以快速且簡單的分割 terminal 的視窗 其實基本上他就是開啟一個 server 共同管理所有的 session，並同步輸入、輸出 所以可以在離線後保留狀態 做背景執行 以不同電腦上可以同步的狀況   如果使用 who 指令可以看出他的 session 值很特別Install123\# Ubuntu Linux 安裝 tmuxsudo apt instal">
 <meta property="og:locale" content="zh_TW">
-<meta property="og:image" content="https://pgw.udn.com.tw/gw/photo.php?u=https://uc.udn.com.tw/photo/2020/07/05/realtime/8140643.jpg&x=0&y=0&sw=0&sh=0&sl=W&fw=800&exp=3600&w=930&nt=1">
-<meta property="og:image" content="https://i.imgur.com/ykclATR.png">
-<meta property="article:published_time" content="2020-09-14T14:16:03.000Z">
-<meta property="article:modified_time" content="2020-09-25T15:06:55.792Z">
+<meta property="article:published_time" content="2020-09-26T13:18:15.000Z">
+<meta property="article:modified_time" content="2020-09-26T13:20:22.407Z">
 <meta property="article:author" content="Lin Yunwen">
-<meta property="article:tag" content="traffic, note">
+<meta property="article:tag" content="note, tmux, book section">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://pgw.udn.com.tw/gw/photo.php?u=https://uc.udn.com.tw/photo/2020/07/05/realtime/8140643.jpg&x=0&y=0&sw=0&sh=0&sl=W&fw=800&exp=3600&w=930&nt=1">
 
-<link rel="canonical" href="https://linyunwen.github.io/2020/09/14/two-stage-left-turn/">
+<link rel="canonical" href="https://linyunwen.github.io/2020/09/26/tmux/">
 
 
 <script id="page-configurations">
@@ -49,7 +46,7 @@
   };
 </script>
 
-  <title>機車待轉 (兩段式左轉) | Lin Yunwen's Blog</title>
+  <title>Tmux | Lin Yunwen's Blog</title>
   
 
 
@@ -155,7 +152,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-TW">
-    <link itemprop="mainEntityOfPage" href="https://linyunwen.github.io/2020/09/14/two-stage-left-turn/">
+    <link itemprop="mainEntityOfPage" href="https://linyunwen.github.io/2020/09/26/tmux/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="https://scontent.ftpe7-2.fna.fbcdn.net/v/t31.0-8/29664833_1315234395242834_3657557940215006890_o.jpg?_nc_cat=109&_nc_sid=174925&_nc_ohc=J6_1yTnmm4cAX8xform&_nc_ht=scontent.ftpe7-2.fna&oh=029231d5d6d31168c6e133e274b45331&oe=5F91F3DD">
@@ -168,7 +165,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          機車待轉 (兩段式左轉)
+          Tmux
         </h1>
 
         <div class="post-meta">
@@ -177,16 +174,10 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">發表於</span>
+              
 
-              <time title="創建時間：2020-09-14 22:16:03" itemprop="dateCreated datePublished" datetime="2020-09-14T22:16:03+08:00">2020-09-14</time>
+              <time title="創建時間：2020-09-26 21:18:15 / 修改時間：21:20:22" itemprop="dateCreated datePublished" datetime="2020-09-26T21:18:15+08:00">2020-09-26</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新於</span>
-                <time title="修改時間：2020-09-25 23:06:55" itemprop="dateModified" datetime="2020-09-25T23:06:55+08:00">2020-09-25</time>
-              </span>
 
           
   
@@ -197,8 +188,8 @@
       </span>
       <span class="post-meta-item-text">Disqus：</span>
     
-    <a title="disqus" href="/2020/09/14/two-stage-left-turn/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/09/14/two-stage-left-turn/" itemprop="commentCount"></span>
+    <a title="disqus" href="/2020/09/26/tmux/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/09/26/tmux/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -208,14 +199,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">文章字數：</span>
-              <span>827</span>
+              <span>2.2k</span>
             </span>
             <span class="post-meta-item" title="所需閱讀時間">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
-              <span>2 分鐘</span>
+              <span>4 分鐘</span>
             </span>
 
         </div>
@@ -227,59 +218,154 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="法源依據"><a href="#法源依據" class="headerlink" title="法源依據"></a>法源依據</h2><ul>
-<li>主要以道路交通安全規則§99規範<blockquote>
+        <h1 id="Tmux"><a href="#Tmux" class="headerlink" title="Tmux"></a>Tmux</h1><h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><ul>
+<li>他可以快速且簡單的分割 terminal 的視窗</li>
+<li>其實基本上他就是開啟一個 server 共同管理所有的 session，並同步輸入、輸出<ul>
+<li>所以可以在離線後保留狀態<ul>
+<li>做背景執行</li>
+<li>以不同電腦上可以同步的狀況</li>
+</ul>
+</li>
+<li>如果使用 <code>who</code> 指令可以看出他的 session 值很特別<h2 id="Install"><a href="#Install" class="headerlink" title="Install"></a>Install</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">\# Ubuntu Linux 安裝 tmux</span><br><span class="line">sudo apt install tmux</span><br><span class="line">brew install tmux \# Mac</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+</li>
+</ul>
+<a id="more"></a>
+<h2 id="Config"><a href="#Config" class="headerlink" title="Config"></a>Config</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">vim ~&#x2F;.tmux.conf</span><br><span class="line">tmux source-file ~&#x2F;.tmux.conf</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://mropengate.blogspot.com/2017/12/tmux.html">終端機管理工具：tmux</a></p>
+</blockquote>
 <ul>
-<li>機車行駛至交岔路口，其轉彎，應依標誌或標線之規定行駛；無標誌或標線者，應依第一百零二條及下列規定行駛：<ul>
-<li>一、<strong>內側車道設有禁行機車標誌或標線者</strong>，應依兩段方式進行左轉，不得由內側或其他車道左轉。</li>
-<li>二、在三快車道以上單行道道路，行駛於右側車道或<strong>慢車道者</strong>，應以兩段方式進行左轉彎；行駛於左側車道或慢車道者，應以兩段方式進行右轉彎。</li>
+<li><p>設定完之後的結果</p>
+<ul>
+<li><p>prefix: <code>ctrl+a</code></p>
+</li>
+<li><p>split pane</p>
+<ul>
+<li>horizontal: <code>$&#123;prefix&#125;  | </code> </li>
+<li>vertical: <code>$&#123;prefix&#125; - </code> </li>
+</ul>
+</li>
+<li><p>pane navigation</p>
+<ul>
+<li>left: <code>$&#123;prefix&#125; h </code> </li>
+<li>down: <code>$&#123;prefix&#125; j </code> </li>
+<li>up: <code>$&#123;prefix&#125; k </code> </li>
+<li>right: <code>$&#123;prefix&#125; l </code> </li>
+</ul>
+</li>
+<li><p>pane resize</p>
+<ul>
+<li><code>$&#123;prefix&#125; Left </code></li>
+<li><code>$&#123;prefix&#125; Down </code></li>
+<li><code>$&#123;prefix&#125; Up </code></li>
+<li><code>$&#123;prefix&#125; Right </code></li>
+</ul>
+</li>
+<li><p>clear history</p>
+<ul>
+<li><code>ctrl+i</code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="Command"><a href="#Command" class="headerlink" title="Command"></a>Command</h2><ul>
+<li><code>tmux</code>      啟動</li>
+<li><code>tmux ls</code>      列出所有 session</li>
+<li><code>tmux detach</code>      背景執行<ul>
+<li><code>$&#123;prefix&#125; d</code></li>
+</ul>
+</li>
+<li><code>tmux attach -t n</code>     回到第 n 個 session (target)</li>
+<li><code>tmux kill-session -t n</code>     關閉第 n 個 session</li>
+<li><code>tmux kill-session -a</code>     關閉除了自己的所有 session (all)</li>
+<li>Copy/paste the text<ul>
+<li>method 1:<ul>
+<li>copy: select the text with <code>shift</code>.</li>
+<li>paste: <code>shift</code> key + <code>middle-button</code></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>method 2:<ul>
+<li>copy:<ul>
+<li><code>Ctrl+b, [</code> Enter edit mode</li>
+<li><code>Ctrl + space</code> highlight texts</li>
+<li><code>Alt+w</code> Copies selected text into <strong>tmux clipboard</strong></li>
+</ul>
+</li>
+<li>paste:<ul>
+<li><code>Ctrl+b, ]</code><blockquote>
+<ul>
+<li>copy to system clipboard<ul>
+<li>see ref</li>
 </ul>
 </li>
 </ul>
 </blockquote>
 </li>
 </ul>
-<a id="more"></a>
-
-<ul>
-<li>所以基本上主要就是兩個判斷依據<ul>
-<li>內側車道是否有禁行機車的標誌 [4]<ul>
-<li><img src="https://pgw.udn.com.tw/gw/photo.php?u=https://uc.udn.com.tw/photo/2020/07/05/realtime/8140643.jpg&x=0&y=0&sw=0&sh=0&sl=W&fw=800&exp=3600&w=930&nt=1"></li>
+</li>
 </ul>
 </li>
-<li>是否設有兩段式左轉標誌 [5]<ul>
-<li><img src="https://i.imgur.com/ykclATR.png"></li>
+<li>ref:<ul>
+<li><a target="_blank" rel="noopener" href="https://unix.stackexchange.com/questions/58763/copy-text-from-one-tmux-pane-to-another-using-vim">Copy text from one tmux pane to another (using vim)</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.rushiagr.com/blog/2016/06/16/everything-you-need-to-know-about-tmux-copy-pasting-ubuntu/">Everything you need to know about Tmux copy paste - Ubuntu</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li>若是單純只有待轉格，可以自行選擇要進行待轉或是直接左轉 [3]</li>
-<li>若三者都沒有則不能待轉 [1]</li>
 </ul>
-<h2 id="個人心得"><a href="#個人心得" class="headerlink" title="個人心得"></a>個人心得</h2><ul>
-<li>我個人是覺得這個制度起初心意十足啦，出於安全的考量，但是漸漸的因為機車數量蓬勃發展，日治後期行為模式的改變，很多觀念不太一樣</li>
-<li>有人會說待轉區變成待撞區<ul>
-<li>也不是沒理由啦～因為有些路口規劃設計不良，導致待轉區叫突出路口，反而對違反本意。</li>
+<h2 id="Session"><a href="#Session" class="headerlink" title="Session"></a>Session</h2><ul>
+<li><code>$&#123;prefix&#125; d</code>     將目前的 session 放到背景執行 (detach)</li>
+<li><code>$&#123;prefix&#125; s</code>     以視覺化選單切換 session（select)</li>
+<li><code>$&#123;prefix&#125; L</code>     切換至上一個使用過的 session</li>
+<li><code>$&#123;prefix&#125; (</code>     切換至上一個 session</li>
+<li><code>$&#123;prefix&#125; )</code>     切換至下一個 session</li>
+<li><code>$&#123;prefix&#125; $</code>     重新命名目前的 session。</li>
+<li><code>$&#123;prefix&#125; [</code>     進入複製模式</li>
+<li><code>$&#123;prefix&#125; :</code>     進入命令模式</li>
+<li><code>$&#123;prefix&#125; ?</code>     查詢快捷鍵</li>
+</ul>
+<h2 id="Window"><a href="#Window" class="headerlink" title="Window"></a>Window</h2><ul>
+<li><code>$&#123;prefix&#125; c</code>     開啟新 window（create）</li>
+<li><code>$&#123;prefix&#125; &amp;</code>     關閉 window</li>
+<li><code>$&#123;prefix&#125; w</code>     以視覺化選單切換 window </li>
+<li><code>$&#123;prefix&#125; 0~9</code>   切換至指定 window</li>
+<li><code>$&#123;prefix&#125; n</code>     切換到下一個 window (next)</li>
+<li><code>$&#123;prefix&#125; p</code>     切換到上一個 window (previous)</li>
+<li><code>$&#123;prefix&#125; f</code>     找尋指定 pattern 並跳到該 window (find)</li>
+<li><code>$&#123;prefix&#125; ,</code>     命名 window</li>
+</ul>
+<h2 id="Pane"><a href="#Pane" class="headerlink" title="Pane"></a>Pane</h2><ul>
+<li><code>$&#123;prefix&#125; |</code>     水平分割出 pane<ul>
+<li><del><code>$&#123;prefix&#125; %</code>     水平分割出 pane</del></li>
 </ul>
 </li>
-<li>但是其實很多三寶仍然應切直接左轉的案例也層出不窮</li>
-<li>近幾年開始吵得比較兇，尤其蘇花改的進行重型機車騎行所帶來的相應效應</li>
-<li>近幾年有些縣市已經在慢慢取消待轉的方式啦，但是我覺得還需要一點時間才能夠看出結果 [4][6]</li>
-<li>但是我個人覺得很多部分還是一個習慣問題<ul>
-<li>有一堆人就是不打方向燈就直接從慢車道硬切，這已經該待轉沒什麼關係了</li>
-<li>另外雖然有些路可以直接左轉，但是車速較快，我個人還是會為了安全，想說兩段式個，不要切進快車道</li>
-<li>當然現在慢慢觀念有在改善了，但是仍有很多不平等的對待，而需要一段時間</li>
-<li>我支持先以自行選擇要不要待轉的狀況，但是這個前提是在轉彎前，有正確切入內車道，並禮讓直行車的狀況</li>
+<li><code>$&#123;prefix&#125; -</code>     垂直分割出 pane<ul>
+<li><del><code>$&#123;prefix&#125; &quot;</code>     垂直分割出 pane</del></li>
 </ul>
 </li>
+<li><code>$&#123;prefix&#125; !</code>     將目前的 pane 獨立生成一個 window</li>
+<li><code>$&#123;prefix&#125; 方向鍵</code>     pane 大小調整</li>
+<li><code>$&#123;prefix&#125; o</code>     以輪流方式輪流切換 pane (order)</li>
+<li><code>$&#123;prefix&#125; h,j,k,l</code> (vim 方向鍵)     切換游標所在的 pane<ul>
+<li><del><code>$&#123;prefix&#125; 方向鍵</code>   切換游標所在的 pane</del> </li>
+</ul>
+</li>
+<li><code>$&#123;prefix&#125; space</code>     重新佈局分割視窗，內建多種佈局。 (沒試過)</li>
+<li><code>$&#123;prefix&#125; x</code>     關閉目前 pane</li>
+<li><code>$&#123;prefix&#125; q</code>     顯示 pane 編號</li>
+<li><code>$&#123;prefix&#125; &#123;</code>     交換 pane 位置（向前）</li>
+<li><code>$&#123;prefix&#125; &#125;</code>     交換 pane 位置（向後）</li>
 </ul>
 <h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><ul>
-<li>[1] <a target="_blank" rel="noopener" href="https://law.moj.gov.tw/LawClass/LawSingle.aspx?pcode=K0040013&flno=102">道路交通安全規則 - 第 102 條</a></li>
-<li>[2] <a target="_blank" rel="noopener" href="https://law.moj.gov.tw/LawClass/LawSingle.aspx?pcode=K0040013&flno=99">道路交通安全規則 - 第 99 條</a></li>
-<li>[3] <a target="_blank" rel="noopener" href="https://auto.ltn.com.tw/news/5666/43">機車一定要兩段式左轉？那可不一定！</a></li>
-<li>[4] <a target="_blank" rel="noopener" href="https://udn.com/news/story/7323/4680702">取消禁行機車道 北市交安多惡化</a></li>
-<li>[5] <a target="_blank" rel="noopener" href="http://163.32.129.12/tm2017/C03/untitled/4/p4-4.html">機、慢車兩段左轉標誌為中華民國現有《道路交通標誌標線號誌設置規則》之一種《道路遵行方向標誌》。</a></li>
-<li>[6] <a target="_blank" rel="noopener" href="https://www.ettoday.net/news/20200808/1780288.htm">新北、桃園取消「機車兩段式左轉」　提升行車動線順暢</a>]</li>
+<li><a target="_blank" rel="noopener" href="https://mropengate.blogspot.com/2017/12/tmux.html">終端機管理工具：tmux</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.gtwang.org/linux/linux-tmux-terminal-multiplexer-tutorial/">Linux tmux 終端機管理工具使用教學</a></li>
+<li><a target="_blank" rel="noopener" href="https://andyyou.github.io/2017/11/27/tmux-notes/">tmux 快速入門筆記</a></li>
 </ul>
 
     </div>
@@ -290,7 +376,7 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/traffic-note/" rel="tag"># traffic, note</a>
+              <a href="/tags/note-tmux-book-section/" rel="tag"># note, tmux, book section</a>
           </div>
 
         
@@ -298,10 +384,13 @@
 
         
     <div class="post-nav">
-      <div class="post-nav-item"></div>
       <div class="post-nav-item">
-    <a href="/2020/09/14/paper-size/" rel="next" title="紙張大小">
-      紙張大小 <i class="fa fa-chevron-right"></i>
+    <a href="/2020/09/25/lsof/" rel="prev" title="lsof">
+      <i class="fa fa-chevron-left"></i> lsof
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/09/26/python-virtual-env/" rel="next" title="Python Virtual Environment">
+      Python Virtual Environment <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -368,7 +457,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B3%95%E6%BA%90%E4%BE%9D%E6%93%9A"><span class="nav-number">1.</span> <span class="nav-text">法源依據</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%80%8B%E4%BA%BA%E5%BF%83%E5%BE%97"><span class="nav-number">2.</span> <span class="nav-text">個人心得</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Reference"><span class="nav-number">3.</span> <span class="nav-text">Reference</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Tmux"><span class="nav-number">1.</span> <span class="nav-text">Tmux</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Introduction"><span class="nav-number">1.1.</span> <span class="nav-text">Introduction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Install"><span class="nav-number">1.2.</span> <span class="nav-text">Install</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Config"><span class="nav-number">1.3.</span> <span class="nav-text">Config</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Command"><span class="nav-number">1.4.</span> <span class="nav-text">Command</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Session"><span class="nav-number">1.5.</span> <span class="nav-text">Session</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Window"><span class="nav-number">1.6.</span> <span class="nav-text">Window</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Pane"><span class="nav-number">1.7.</span> <span class="nav-text">Pane</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Reference"><span class="nav-number">1.8.</span> <span class="nav-text">Reference</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -512,9 +601,9 @@
 </script>
 <script>
   var disqus_config = function() {
-    this.page.url = "https://linyunwen.github.io/2020/09/14/two-stage-left-turn/";
-    this.page.identifier = "2020/09/14/two-stage-left-turn/";
-    this.page.title = "機車待轉 (兩段式左轉)";
+    this.page.url = "https://linyunwen.github.io/2020/09/26/tmux/";
+    this.page.identifier = "2020/09/26/tmux/";
+    this.page.title = "Tmux";
     };
   NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
     if (window.DISQUS) {

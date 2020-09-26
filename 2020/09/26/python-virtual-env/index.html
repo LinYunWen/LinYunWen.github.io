@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.1.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"linyunwen.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="Python Virtual Environment  各個專案可以控制自己的套件 不同版本的環境，不互相影響 有獨立的環境   套件版本升級不會影響到其他專案 在沒有權限的情況下安裝新套件 像是在 server 上安裝環境，沒有 root 權限">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python Virtual Environment">
+<meta property="og:url" content="https://linyunwen.github.io/2020/09/26/python-virtual-env/index.html">
+<meta property="og:site_name" content="Lin Yunwen&#39;s Blog">
+<meta property="og:description" content="Python Virtual Environment  各個專案可以控制自己的套件 不同版本的環境，不互相影響 有獨立的環境   套件版本升級不會影響到其他專案 在沒有權限的情況下安裝新套件 像是在 server 上安裝環境，沒有 root 權限">
+<meta property="og:locale" content="zh_TW">
+<meta property="article:published_time" content="2020-09-26T13:20:36.000Z">
+<meta property="article:modified_time" content="2020-09-26T13:51:55.437Z">
+<meta property="article:author" content="Lin Yunwen">
+<meta property="article:tag" content="note, python, conda">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://linyunwen.github.io/2020/09/26/python-virtual-env/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-TW'
+  };
+</script>
+
+  <title>Python Virtual Environment | Lin Yunwen's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Lin Yunwen's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">keep moving forward</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://linyunwen.github.io/2020/09/26/python-virtual-env/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://scontent.ftpe7-2.fna.fbcdn.net/v/t31.0-8/29664833_1315234395242834_3657557940215006890_o.jpg?_nc_cat=109&_nc_sid=174925&_nc_ohc=J6_1yTnmm4cAX8xform&_nc_ht=scontent.ftpe7-2.fna&oh=029231d5d6d31168c6e133e274b45331&oe=5F91F3DD">
+      <meta itemprop="name" content="Lin Yunwen">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Lin Yunwen's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Python Virtual Environment
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">發表於</span>
+              
+
+              <time title="創建時間：2020-09-26 21:20:36 / 修改時間：21:51:55" itemprop="dateCreated datePublished" datetime="2020-09-26T21:20:36+08:00">2020-09-26</time>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2020/09/26/python-virtual-env/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/09/26/python-virtual-env/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="文章字數">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">文章字數：</span>
+              <span>2k</span>
+            </span>
+            <span class="post-meta-item" title="所需閱讀時間">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+              <span>4 分鐘</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="Python-Virtual-Environment"><a href="#Python-Virtual-Environment" class="headerlink" title="Python Virtual Environment"></a>Python Virtual Environment</h1><blockquote>
+<ul>
+<li>各個專案可以控制自己的套件<ul>
+<li>不同版本的環境，不互相影響</li>
+<li>有獨立的環境</li>
+</ul>
+</li>
+<li>套件版本升級不會影響到其他專案</li>
+<li>在沒有權限的情況下安裝新套件<ul>
+<li>像是在 server 上安裝環境，沒有 root 權限</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<a id="more"></a>
+
+<h2 id="Python-Virtenv"><a href="#Python-Virtenv" class="headerlink" title="Python Virtenv"></a>Python Virtenv</h2><h3 id="Installation"><a href="#Installation" class="headerlink" title="Installation"></a>Installation</h3><ul>
+<li><code>pip3 install virtualenv</code></li>
+</ul>
+<h3 id="Common-Commands"><a href="#Common-Commands" class="headerlink" title="Common Commands"></a>Common Commands</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 建立虛擬環境</span></span><br><span class="line">virtualenv -p &#123;PATH_TO_PYTHON&#125; &#123;ENV_NAME&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 啟動虛擬環境</span></span><br><span class="line">source plusoneEnv/bin/activate</span><br><span class="line"></span><br><span class="line"><span class="comment">// 退出虛擬環境</span></span><br><span class="line">deactivate</span><br></pre></td></tr></table></figure>
+
+<h3 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://ithelp.ithome.com.tw/articles/10202335?sc=iThelpR">[Day 02] 用Virtual Environment吧！</a></li>
+</ul>
+<h2 id="Pipenv"><a href="#Pipenv" class="headerlink" title="Pipenv"></a>Pipenv</h2><blockquote>
+<ul>
+<li>只需要 pipenv，不需要再分別使用 pip 跟virtualenv 。</li>
+<li>自動產生與更新Pipfile and Pipfile.lock 解決了維護 requirements.txt 的問題。</li>
+<li>透過套件的 Hash 安全性檢查確認 （當安裝套件 hash 值不同時，跳出錯誤，防止惡意套件侵入）<ul>
+<li>但是這個也是最常出錯的部分，並且會增加安裝時間</li>
+</ul>
+</li>
+<li>可以透過.env 自動載入不同環境變數。</li>
+<li>[<a target="_blank" rel="noopener" href="https://medium.com/@chihsuan/pipenv-%E6%9B%B4%E7%B0%A1%E5%96%AE-%E6%9B%B4%E5%BF%AB%E9%80%9F%E7%9A%84-python-%E5%A5%97%E4%BB%B6%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7-135a47e504f4">Pipenv 更簡單、更快速的 Python 套件管理工具</a>]</li>
+</ul>
+</blockquote>
+<h3 id="Installation-1"><a href="#Installation-1" class="headerlink" title="Installation"></a>Installation</h3><ul>
+<li><code>pip3 install pipenv</code></li>
+</ul>
+<h3 id="Common-Commands-1"><a href="#Common-Commands-1" class="headerlink" title="Common Commands"></a>Common Commands</h3><ul>
+<li>basic<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 檢視版本</span></span><br><span class="line">pipenv --version</span><br></pre></td></tr></table></figure></li>
+<li>env<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 產生 Python 3 虛擬環境</span></span><br><span class="line">pipenv --three</span><br><span class="line"><span class="comment">// 產生 Python 2 虛擬環境</span></span><br><span class="line">pipenv --two</span><br><span class="line">pipenv --python=&#123;VERSION&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 進入虛擬環境中</span></span><br><span class="line">pipenv shell</span><br><span class="line"><span class="comment">// 刪除此虛擬環境</span></span><br><span class="line">pipenv --rm</span><br></pre></td></tr></table></figure></li>
+<li>package<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">pipenv install &#123;PACKAGENAME&#125;</span><br><span class="line">pipenv install &#123;PACKAGENAME&#125; --dev  <span class="comment">// development 環境</span></span><br><span class="line">pipenv uninstall request</span><br></pre></td></tr></table></figure></li>
+<li>others<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 根據 virtualenv 執行相關 python 指令 （不進入虛擬環境中）</span></span><br><span class="line">pipenv run python test.py</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h3 id="Reference-1"><a href="#Reference-1" class="headerlink" title="Reference"></a>Reference</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/pypa/pipenv">Pipenv - Github</a></li>
+<li><a target="_blank" rel="noopener" href="https://medium.com/@chihsuan/pipenv-%E6%9B%B4%E7%B0%A1%E5%96%AE-%E6%9B%B4%E5%BF%AB%E9%80%9F%E7%9A%84-python-%E5%A5%97%E4%BB%B6%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7-135a47e504f4">Pipenv 更簡單、更快速的 Python 套件管理工具</a></li>
+<li><a target="_blank" rel="noopener" href="https://medium.com/@johnnyellisjohnny/pipenv%E6%8C%87%E4%BB%A4%E5%A4%A7%E5%85%A8-6e4415cc8a15">Pipenv指令大全</a></li>
+</ul>
+<h2 id="Anaconda"><a href="#Anaconda" class="headerlink" title="Anaconda"></a>Anaconda</h2><blockquote>
+<ul>
+<li>可以建立不僅 python 套件的環境<ul>
+<li>其他像是 cuda 等等</li>
+<li>但是環境需要的空間會很大</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<h3 id="Installation-2"><a href="#Installation-2" class="headerlink" title="Installation"></a>Installation</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://docs.anaconda.com/anaconda/install/">Installation - Anaconda Docs</a><h3 id="Common-Commands-2"><a href="#Common-Commands-2" class="headerlink" title="Common Commands"></a>Common Commands</h3></li>
+<li>basic<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">conda --version</span><br><span class="line"><span class="comment">// 清理環境中 unused packages and zip/tar files</span></span><br><span class="line">conda clean --all</span><br></pre></td></tr></table></figure></li>
+<li>env<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 建立新的工作環境且指定 Python 版本</span></span><br><span class="line">conda create --name &#123;ENVIRONMENT&#125; python=&#123;MAIN.MINOR.PATCH&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// clone a one env</span></span><br><span class="line">conda create --name new_name --clone old_name</span><br><span class="line"></span><br><span class="line"><span class="comment">// create the env by yml</span></span><br><span class="line">conda env create -f &#123;FILE&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// update the env by yml</span></span><br><span class="line">conda env update --file env.yml</span><br><span class="line"></span><br><span class="line"><span class="comment">// 檢視電腦中的虛擬環境</span></span><br><span class="line">conda env <span class="built_in">list</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 啟動虛擬環境</span></span><br><span class="line">conda activate &#123;ENVIRONMENT&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 回到 base 工作環境</span></span><br><span class="line">conda deactivate</span><br><span class="line"></span><br><span class="line"><span class="comment">// 將虛擬環境的設定匯出為 .yml 檔</span></span><br><span class="line">conda env <span class="keyword">export</span> --name &#123;ENVIRONMENT&#125; --file &#123;ENVIRONMENT&#125;.yml</span><br><span class="line"></span><br><span class="line"><span class="comment">// 移除虛擬環境</span></span><br><span class="line">conda env remove --name &#123;ENVIRONMENT&#125;</span><br></pre></td></tr></table></figure></li>
+<li>package<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 更新指定套件</span></span><br><span class="line">conda update &#123;PACKAGE_NAME&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 檢視虛擬環境安裝的套件清單</span></span><br><span class="line">conda <span class="built_in">list</span> --&#123;ENVIRONMENT&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 在目前的虛擬環境安裝指定套件</span></span><br><span class="line">conda install &#123;PACAKGE_NAME&#125;=&#123;MAJOR.MINOR.PATCH&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 在目前的虛擬環境移除指定套件</span></span><br><span class="line">conda remove &#123;PACKAGE_NAME&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Reference-2"><a href="#Reference-2" class="headerlink" title="Reference"></a>Reference</h3></li>
+<li><a target="_blank" rel="noopener" href="https://www.anaconda.com/">Anaconda Offical Website</a></li>
+<li><a target="_blank" rel="noopener" href="https://docs.anaconda.com/">Anaconda Documents</a></li>
+<li><a target="_blank" rel="noopener" href="https://medium.com/datainpoint/python-essentials-conda-quickstart-1f1e9ecd1025">輕鬆學習 Python：conda 的核心功能</a></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/note-python-conda/" rel="tag"># note, python, conda</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/09/26/tmux/" rel="prev" title="Tmux">
+      <i class="fa fa-chevron-left"></i> Tmux
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/09/26/npm/" rel="next" title="npm">
+      npm <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Python-Virtual-Environment"><span class="nav-number">1.</span> <span class="nav-text">Python Virtual Environment</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Python-Virtenv"><span class="nav-number">1.1.</span> <span class="nav-text">Python Virtenv</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Installation"><span class="nav-number">1.1.1.</span> <span class="nav-text">Installation</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Common-Commands"><span class="nav-number">1.1.2.</span> <span class="nav-text">Common Commands</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Reference"><span class="nav-number">1.1.3.</span> <span class="nav-text">Reference</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Pipenv"><span class="nav-number">1.2.</span> <span class="nav-text">Pipenv</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Installation-1"><span class="nav-number">1.2.1.</span> <span class="nav-text">Installation</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Common-Commands-1"><span class="nav-number">1.2.2.</span> <span class="nav-text">Common Commands</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Reference-1"><span class="nav-number">1.2.3.</span> <span class="nav-text">Reference</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Anaconda"><span class="nav-number">1.3.</span> <span class="nav-text">Anaconda</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Installation-2"><span class="nav-number">1.3.1.</span> <span class="nav-text">Installation</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Common-Commands-2"><span class="nav-number">1.3.2.</span> <span class="nav-text">Common Commands</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Reference-2"><span class="nav-number">1.3.3.</span> <span class="nav-text">Reference</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Lin Yunwen"
+      src="https://scontent.ftpe7-2.fna.fbcdn.net/v/t31.0-8/29664833_1315234395242834_3657557940215006890_o.jpg?_nc_cat=109&_nc_sid=174925&_nc_ohc=J6_1yTnmm4cAX8xform&_nc_ht=scontent.ftpe7-2.fna&oh=029231d5d6d31168c6e133e274b45331&oe=5F91F3DD">
+  <p class="site-author-name" itemprop="name">Lin Yunwen</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">10</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">標籤</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/LinYunWen" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;LinYunWen" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:l40303k@gmail.com" title="E-Mail → mailto:l40303k@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/yunwenlin" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;yunwenlin" rel="noopener" target="_blank"><i class="fab fa-twitter fa-fw"></i>Twitter</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.facebook.com/yunwen.lin.7" title="FB Page → https:&#x2F;&#x2F;www.facebook.com&#x2F;yunwen.lin.7" rel="noopener" target="_blank"><i class="fab fa-facebook fa-fw"></i>FB Page</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Lin Yunwen</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="總字數">18k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="所需總閱讀時間">33 分鐘</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 強力驅動
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://lin-yunwens-blog.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "https://linyunwen.github.io/2020/09/26/python-virtual-env/";
+    this.page.identifier = "2020/09/26/python-virtual-env/";
+    this.page.title = "Python Virtual Environment";
+    };
+  NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://lin-yunwens-blog.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
+
+</body>
+</html>
