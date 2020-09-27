@@ -493,9 +493,7 @@
       // IncreaseCount will be false when not in article page
       return doc.get().then(d => {
         var count = 0;
-        console.log('1-1', d, !d.exists);
         if (!d.exists) { // Has no data, initialize count
-          console.log('1-2', increaseCount);
           if (increaseCount) {
             doc.set({
               count: 1
@@ -512,7 +510,7 @@
             count++;
           }
         }
-        console.log('1-3', count);
+
         return count;
       });
     }
@@ -528,13 +526,11 @@
     (function() {
       var db = firebase.firestore();
       var articles = db.collection('articles');
-      console.log('1', articles);
+
       if (CONFIG.page.isPost) { // Is article page
         var title = document.querySelector('.post-title').innerText.trim();
         var doc = articles.doc(title);
         var increaseCount = CONFIG.hostname === location.hostname;
-        console.log('2', CONFIG, location)
-        console.log('three', CONFIG.hostname, location.hostname, CONFIG.hostname === location.hostname)
         if (localStorage.getItem(title)) {
           increaseCount = false;
         } else {
