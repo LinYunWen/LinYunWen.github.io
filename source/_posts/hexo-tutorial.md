@@ -124,8 +124,49 @@ tags: note, hexo, blog
     -   **tags** \- Add site's tags
     -   **categories** \- Add site's categories
 
-### Trouble shoot
+    - set up sitemap
+        > - ref:
+        >     - [【Hexo】SEO優化 - 連接 Google Search Console 工具](https://codeewander.github.io/2020/01/22/hexo-console/)
+        >     - [[實作] 讓 Google 能搜尋到自己的 Hexo Blog](https://kennyliblog.nctu.me/2019/06/24/Google-search-Hexo-Blog/#2-%E5%8A%A0%E5%85%A5-sitemap-%E8%B7%AF%E5%BE%91)
+        - go to [Google Search Console](https://search.google.com/search-console/welcome)
+        - ![](https://i.imgur.com/fFZaF7N.png)
+        - 有多種驗證方式
+            - 以 hexo 來說，比較方便是直接用 google analysis
+            - 先到 [gooogle analysis](https://analytics.google.com/analytics/web/) 建立一個專案
+            - 到 `_config.yml` 中
+            ```
+            # Google Analytics
+            google_analytics:
+              tracking_id: {add_your_track_id}
+              # By default, NexT will load an external gtag.js script on your site.
+              # If you only need the pageview feature, set the following option to true to get a better performance.
+              only_pageview: false
+            ```
+        - 提交 sitemape.xml
+            - ![](https://i.imgur.com/Ggzb5v5.png)
 
+            - ![](https://i.imgur.com/Xb1Sb2o.png)
+
+- count viewer
+    > - ref:
+    >     - [Hexo NexT 主題的閱讀次數統計](https://blog.maple3142.net/2017/11/04/hexo-next-readcount/)
+    >     - [How To Add Visitors Counter on Hexo](https://blog.johnwu.cc/article/how-to-add-visitors-counter-on-hexo.html)
+    >     - [Add Visitors Counter into Hexo Next](https://www.dazhuanlan.com/2020/01/21/5e270198d5726/?__cf_chl_jschl_tk__=02349608feed804f4bdedffb8748cebef258c574-1601129710-0-AYa5FN3KpehtmejWCrERQNuZRrbNycJne-yrmz-cQd3htw9XhK0sf7QdHmUHtzKLgb0S_zHPFobmEJPtmGUZexeQTQQtD5Y_oBu3pRX-JC6TePzfKU_76QPJmcSxVnwNsghr8a4NI6PbKqMSc6hPJrBERWwKAqvN4v_KAH5XlXsaiDqmWSPIrkbPKlRe7LBVRYMXd-hAeNb7_VMbP1GzY2X7XTr3UsnBAwr-MottUDXkNeQ2BunGtxMldGMJg_mxf14zuZRsLPfxAAUGRHMQctk8ca5-5YGllUJb14cjjmeAx5wxbMp45ZNJl0fdXluvsA)
+    >     - [Hexo NexT文章阅读量排行（热榜）功能](https://www.jianshu.com/p/27b971d84f76)
+
+### Trouble shoot
+- TypeError: Cannot read property 'enable' of undefined
+    - 因為 `themes/next/_config.yml` 中 `update_at` 的設定不能為 false，如果不要設定要留空
+- visit counter not works
+    - 在沒有設定好時就開始測試與設定會出錯，因為根據程式碼所寫的，有三個條件要滿足才會加一
+        - CONFIG.hostname === location.hostname
+            - 在 localhost 的狀況下會無效
+        - localStorage.getItem(title)
+            - 他會在 Local storage 中暫存 title ，代表已經看過就不會更新
+            - ![](https://i.imgur.com/kPBAXa3.png)
+        - !d.exists
+
+    - 
 
 ### Reference
 - [[教學] Hexo 部落格升級、Next 主題升級、客製功能及樣板編輯全記錄](https://ed521.github.io/2020/05/hexo-next-upgrade/)
