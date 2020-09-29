@@ -27,11 +27,16 @@
 <meta property="og:site_name" content="Lin Yunwen&#39;s Blog">
 <meta property="og:description" content="Hexo Tutorialblog  ref 個人技術站一把罩！部落格建置大全（一）- 使用 Hexo 搭配 Github Page 建置自己的部落格 建立自己Blog系列(三) Hexo next theme 介紹 The Top 87 Hexo Theme Open Source Projects">
 <meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://i.imgur.com/fFZaF7N.png">
+<meta property="og:image" content="https://i.imgur.com/Ggzb5v5.png">
+<meta property="og:image" content="https://i.imgur.com/Xb1Sb2o.png">
+<meta property="og:image" content="https://i.imgur.com/kPBAXa3.png">
 <meta property="article:published_time" content="2020-09-24T01:04:27.000Z">
-<meta property="article:modified_time" content="2020-09-25T15:06:55.789Z">
+<meta property="article:modified_time" content="2020-09-29T15:45:02.161Z">
 <meta property="article:author" content="Lin Yunwen">
 <meta property="article:tag" content="note, hexo, blog">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.imgur.com/fFZaF7N.png">
 
 <link rel="canonical" href="https://linyunwen.github.io/2020/09/24/hexo-tutorial/">
 
@@ -191,7 +196,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新於</span>
-                <time title="修改時間：2020-09-25 23:06:55" itemprop="dateModified" datetime="2020-09-25T23:06:55+08:00">2020-09-25</time>
+                <time title="修改時間：2020-09-29 23:45:02" itemprop="dateModified" datetime="2020-09-29T23:45:02+08:00">2020-09-29</time>
               </span>
 
           
@@ -221,14 +226,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">文章字數：</span>
-              <span>2.2k</span>
+              <span>3k</span>
             </span>
             <span class="post-meta-item" title="所需閱讀時間">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
-              <span>4 分鐘</span>
+              <span>6 分鐘</span>
             </span>
 
         </div>
@@ -338,10 +343,81 @@
 </li>
 <li><p><strong>categories</strong> - Add site’s categories</p>
 </li>
+<li><p>set up sitemap</p>
+<blockquote>
+<ul>
+<li>ref:<ul>
+<li><a target="_blank" rel="noopener" href="https://codeewander.github.io/2020/01/22/hexo-console/">【Hexo】SEO優化 - 連接 Google Search Console 工具</a></li>
+<li><a target="_blank" rel="noopener" href="https://kennyliblog.nctu.me/2019/06/24/Google-search-Hexo-Blog/#2-%E5%8A%A0%E5%85%A5-sitemap-%E8%B7%AF%E5%BE%91">[實作] 讓 Google 能搜尋到自己的 Hexo Blog</a></li>
 </ul>
 </li>
 </ul>
-<h3 id="Trouble-shoot"><a href="#Trouble-shoot" class="headerlink" title="Trouble shoot"></a>Trouble shoot</h3><h3 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h3><ul>
+</blockquote>
+<ul>
+<li><p>go to <a target="_blank" rel="noopener" href="https://search.google.com/search-console/welcome">Google Search Console</a></p>
+</li>
+<li><p><img src="https://i.imgur.com/fFZaF7N.png"></p>
+</li>
+<li><p>有多種驗證方式</p>
+<ul>
+<li>以 hexo 來說，比較方便是直接用 google analysis</li>
+<li>先到 <a target="_blank" rel="noopener" href="https://analytics.google.com/analytics/web/">gooogle analysis</a> 建立一個專案</li>
+<li>到 <code>_config.yml</code> 中<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># Google Analytics</span><br><span class="line">google_analytics:</span><br><span class="line">  tracking_id: &#123;add_your_track_id&#125;</span><br><span class="line">  # By default, NexT will load an external gtag.js script on your site.</span><br><span class="line">  # If you only need the pageview feature, set the following option to true to get a better performance.</span><br><span class="line">  only_pageview: false</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>提交 sitemape.xml</p>
+<ul>
+<li><p><img src="https://i.imgur.com/Ggzb5v5.png"></p>
+</li>
+<li><p><img src="https://i.imgur.com/Xb1Sb2o.png"></p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>count viewer</p>
+<blockquote>
+<ul>
+<li>ref:<ul>
+<li><a target="_blank" rel="noopener" href="https://blog.maple3142.net/2017/11/04/hexo-next-readcount/">Hexo NexT 主題的閱讀次數統計</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.johnwu.cc/article/how-to-add-visitors-counter-on-hexo.html">How To Add Visitors Counter on Hexo</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.dazhuanlan.com/2020/01/21/5e270198d5726/?__cf_chl_jschl_tk__=02349608feed804f4bdedffb8748cebef258c574-1601129710-0-AYa5FN3KpehtmejWCrERQNuZRrbNycJne-yrmz-cQd3htw9XhK0sf7QdHmUHtzKLgb0S_zHPFobmEJPtmGUZexeQTQQtD5Y_oBu3pRX-JC6TePzfKU_76QPJmcSxVnwNsghr8a4NI6PbKqMSc6hPJrBERWwKAqvN4v_KAH5XlXsaiDqmWSPIrkbPKlRe7LBVRYMXd-hAeNb7_VMbP1GzY2X7XTr3UsnBAwr-MottUDXkNeQ2BunGtxMldGMJg_mxf14zuZRsLPfxAAUGRHMQctk8ca5-5YGllUJb14cjjmeAx5wxbMp45ZNJl0fdXluvsA">Add Visitors Counter into Hexo Next</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/27b971d84f76">Hexo NexT文章阅读量排行（热榜）功能</a></li>
+</ul>
+</li>
+</ul>
+</blockquote>
+</li>
+</ul>
+<h3 id="Trouble-shoot"><a href="#Trouble-shoot" class="headerlink" title="Trouble shoot"></a>Trouble shoot</h3><ul>
+<li><p>TypeError: Cannot read property ‘enable’ of undefined</p>
+<ul>
+<li>因為 <code>themes/next/_config.yml</code> 中 <code>update_at</code> 的設定不能為 false，如果不要設定要留空</li>
+</ul>
+</li>
+<li><p>visit counter not works</p>
+<ul>
+<li><p>在沒有設定好時就開始測試與設定會出錯，因為根據程式碼所寫的，有三個條件要滿足才會加一</p>
+<ul>
+<li>CONFIG.hostname === location.hostname<ul>
+<li>在 localhost 的狀況下會無效</li>
+</ul>
+</li>
+<li>localStorage.getItem(title)<ul>
+<li>他會在 Local storage 中暫存 title ，代表已經看過就不會更新</li>
+<li><img src="https://i.imgur.com/kPBAXa3.png"></li>
+</ul>
+</li>
+<li>!d.exists</li>
+</ul>
+</li>
+<li></li>
+</ul>
+</li>
+</ul>
+<h3 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h3><ul>
 <li><a target="_blank" rel="noopener" href="https://ed521.github.io/2020/05/hexo-next-upgrade/">[教學] Hexo 部落格升級、Next 主題升級、客製功能及樣板編輯全記錄</a></li>
 </ul>
 
@@ -450,12 +526,12 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">10</span>
+          <span class="site-state-item-count">11</span>
           <span class="site-state-item-name">文章</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-count">11</span>
         <span class="site-state-item-name">標籤</span>
       </div>
   </nav>
@@ -505,12 +581,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="總字數">18k</span>
+    <span title="總字數">21k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="所需總閱讀時間">33 分鐘</span>
+    <span title="所需總閱讀時間">38 分鐘</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 強力驅動
   </div>
