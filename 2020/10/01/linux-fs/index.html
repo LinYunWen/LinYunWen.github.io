@@ -20,15 +20,20 @@
     var CONFIG = {"hostname":"linyunwen.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Lin Yunwen&#39;s Blog">
-<meta property="og:url" content="https://linyunwen.github.io/tags/note-design-typography/index.html">
+  <meta name="description" content="Linux 檔案系統基本架構  理論上所有的 Linux 發佈版本應該都要遵守檔案系統的標準（Filesystem Hierarchy Standard, FHS） 以目錄的資訊可分為 shareable, unshareable 和 static, variable">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux 檔案系統基本架構">
+<meta property="og:url" content="https://linyunwen.github.io/2020/10/01/linux-fs/index.html">
 <meta property="og:site_name" content="Lin Yunwen&#39;s Blog">
+<meta property="og:description" content="Linux 檔案系統基本架構  理論上所有的 Linux 發佈版本應該都要遵守檔案系統的標準（Filesystem Hierarchy Standard, FHS） 以目錄的資訊可分為 shareable, unshareable 和 static, variable">
 <meta property="og:locale" content="zh_TW">
+<meta property="article:published_time" content="2020-10-01T12:53:50.000Z">
+<meta property="article:modified_time" content="2020-10-01T13:42:13.622Z">
 <meta property="article:author" content="Lin Yunwen">
+<meta property="article:tag" content="linux, note">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="https://linyunwen.github.io/tags/note-design-typography/">
+<link rel="canonical" href="https://linyunwen.github.io/2020/10/01/linux-fs/">
 
 
 <script id="page-configurations">
@@ -36,12 +41,12 @@
   CONFIG.page = {
     sidebar: "",
     isHome : false,
-    isPost : false,
+    isPost : true,
     lang   : 'zh-TW'
   };
 </script>
 
-  <title>標籤: note, design, typography | Lin Yunwen's Blog</title>
+  <title>Linux 檔案系統基本架構 | Lin Yunwen's Blog</title>
   
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-179090431-1"></script>
     <script>
@@ -149,57 +154,217 @@
         <div class="content-wrap">
           
 
-          <div class="content tag">
+          <div class="content post posts-expand">
             
 
+    
   
   
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://linyunwen.github.io/2020/10/01/linux-fs/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://scontent.ftpe7-2.fna.fbcdn.net/v/t31.0-8/29664833_1315234395242834_3657557940215006890_o.jpg?_nc_cat=109&_nc_sid=174925&_nc_ohc=J6_1yTnmm4cAX8xform&_nc_ht=scontent.ftpe7-2.fna&oh=029231d5d6d31168c6e133e274b45331&oe=5F91F3DD">
+      <meta itemprop="name" content="Lin Yunwen">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Lin Yunwen's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Linux 檔案系統基本架構
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">發表於</span>
+              
+
+              <time title="創建時間：2020-10-01 20:53:50 / 修改時間：21:42:13" itemprop="dateCreated datePublished" datetime="2020-10-01T20:53:50+08:00">2020-10-01</time>
+            </span>
+
+          
+            <span class="post-meta-item" title="閱讀次數">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-users"></i>
+              </span>
+              <span class="post-meta-item-text">閱讀次數：</span>
+              <span class="firestore-visitors-count"></span>
+            </span>
   
-  <div class="post-block">
-    <div class="posts-collapse">
-      <div class="collection-title">
-        <h2 class="collection-header">note, design, typography
-          <small>標籤</small>
-        </h2>
-      </div>
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2020/10/01/linux-fs/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/10/01/linux-fs/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="文章字數">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">文章字數：</span>
+              <span>797</span>
+            </span>
+            <span class="post-meta-item" title="所需閱讀時間">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+              <span>1 分鐘</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-    <div class="collection-year">
-      <span class="collection-header">2020</span>
+        <h1 id="Linux-檔案系統基本架構"><a href="#Linux-檔案系統基本架構" class="headerlink" title="Linux 檔案系統基本架構"></a>Linux 檔案系統基本架構</h1><blockquote>
+<ul>
+<li>理論上所有的 Linux 發佈版本應該都要遵守檔案系統的標準（Filesystem Hierarchy Standard, FHS）</li>
+<li>以目錄的資訊可分為 shareable, unshareable 和 static, variable</li>
+</ul>
+</blockquote>
+<a id="more"></a>
+
+<h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><ul>
+<li><code>/</code> (root)<ul>
+<li>所有目錄都會在其之下</li>
+</ul>
+</li>
+<li><code>/bin</code>, <code>/sbin</code><ul>
+<li><code>/bin</code> 主要放置<strong>一般使用者</strong> (users) 可以執行 (executable) 的指令</li>
+<li><code>/sbin</code> 放置<strong>系統管理員</strong> (super user) 可以操作的指令</li>
+</ul>
+</li>
+<li><code>/boot</code><ul>
+<li>主要放置開機相關檔案 (boot)</li>
+</ul>
+</li>
+<li><code>/dev</code> (devices)<ul>
+<li>device 的相關檔案，包話滑鼠鍵盤等</li>
+</ul>
+</li>
+<li><code>/etc</code><ul>
+<li>主要放置系統檔案</li>
+<li>系統在開機過程需要讀取的檔案</li>
+</ul>
+</li>
+<li><code>/home</code>, <code>/root</code><ul>
+<li><code>/home</code> 主要是<strong>一般使用者</strong>的家目錄</li>
+<li><code>/root</code> 為<strong>系統管理員</strong>的家目錄</li>
+</ul>
+</li>
+<li><code>/lib</code>, <code>/lib64</code><ul>
+<li>主要為系統函式庫和核心函式庫</li>
+<li>若是 64 位元則放在 <code>/lib64</code></li>
+</ul>
+</li>
+<li><code>/proc</code><ul>
+<li>將記憶體內的資料做成檔案類型</li>
+<li>虛擬檔案系統，不佔任何硬碟空間</li>
+</ul>
+</li>
+<li><code>/sys</code> <ul>
+<li>與 <code>/proc</code> 類似，但主要針對硬體相關參數</li>
+</ul>
+</li>
+<li><code>/usr</code> (unix software resource)<ul>
+<li>存放系統相關軟體、服務</li>
+<li><strong>不是 user 的縮寫</strong></li>
+</ul>
+</li>
+<li><code>/var</code> (variable)<ul>
+<li>存放一些變數或記錄檔</li>
+</ul>
+</li>
+<li><code>/tmp</code> (temporary)<ul>
+<li>存放暫存檔案</li>
+</ul>
+</li>
+<li><code>/media</code>, <code>/mnt</code><ul>
+<li>存放抽取式的裝置慣用目錄</li>
+<li><code>/mnt</code> 為管理員/使用者手動掛上（mount）的目錄</li>
+<li>例如需要 mount 一些光碟、硬碟都可以掛載在這</li>
+</ul>
+</li>
+<li><code>/local</code><ul>
+<li>升級或額外安裝的程式擺放的目錄</li>
+<li>用以區分原始系統安裝的程式。</li>
+</ul>
+</li>
+<li><code>/run</code> <ul>
+<li>系統進行服務軟體運作管理處</li>
+</ul>
+</li>
+</ul>
+<h2 id="Tips"><a href="#Tips" class="headerlink" title="Tips"></a>Tips</h2><ul>
+<li>/etc, /bin, /dev, /lib, /sbin 這五個次目錄都要與根目錄一起，不可為獨立的 partition (不可被分割)</li>
+</ul>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://blog.gtwang.org/linux/linux-io-input-output-redirection-operators/">Linux I/O 輸入與輸出重新導向，基礎概念教學</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.techbridge.cc/2017/12/23/linux-commnd-line-tutorial/">Linux Command 命令列指令與基本操作入門教學</a></li>
+<li><a target="_blank" rel="noopener" href="https://dywang.csie.cyut.edu.tw/moodle23/dywang/linuxSystem/node29.html">Linux 目錄配置</a></li>
+</ul>
+
     </div>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+    
+    
+    
 
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-09-24T23:21:47+08:00"
-              content="2020-09-24">
-          09-24
-        </time>
-      </div>
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/linux-note/" rel="tag"># linux, note</a>
+          </div>
 
-      <div class="post-title">
-          <a class="post-title-link" href="/2020/09/24/typography/" itemprop="url">
-            <span itemprop="name">Typography</span>
-          </a>
-      </div>
+        
 
-    </header>
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/09/29/grep/" rel="prev" title="grep">
+      <i class="fa fa-chevron-left"></i> grep
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/10/01/linux-cmd/" rel="next" title="Linux 常用指令">
+      Linux 常用指令 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
   </article>
-
-    </div>
-  </div>
   
   
-  
-
   
 
 
 
           </div>
           
+    
+  <div class="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
 
 <script>
   window.addEventListener('tabs:register', () => {
@@ -246,6 +411,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Linux-%E6%AA%94%E6%A1%88%E7%B3%BB%E7%B5%B1%E5%9F%BA%E6%9C%AC%E6%9E%B6%E6%A7%8B"><span class="nav-number">1.</span> <span class="nav-text">Linux 檔案系統基本架構</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Introduction"><span class="nav-number">1.1.</span> <span class="nav-text">Introduction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Tips"><span class="nav-number">1.2.</span> <span class="nav-text">Tips</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Reference"><span class="nav-number">1.3.</span> <span class="nav-text">Reference</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -461,6 +627,26 @@
   }
   // defer loading until the whole page loading is completed
   window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "https://linyunwen.github.io/2020/10/01/linux-fs/";
+    this.page.identifier = "2020/10/01/linux-fs/";
+    this.page.title = "Linux 檔案系統基本架構";
+    };
+  NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://lin-yunwens-blog.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
 </script>
 
 </body>
