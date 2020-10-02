@@ -20,20 +20,23 @@
     var CONFIG = {"hostname":"linyunwen.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="Linux 檔案系統基本架構  理論上所有的 Linux 發佈版本應該都要遵守檔案系統的標準（Filesystem Hierarchy Standard, FHS） 以目錄的資訊可分為 shareable, unshareable 和 static, variable">
+  <meta name="description" content="Unix input and outputIntroduction standard input&#x2F;output&#x2F;error  標準輸入　　(stdin) ：代號為 0 標準輸出　　(stdout)：代號為 1 標準錯誤輸出(stderr)：代號為 2    一般來說指令的輸入輸出是鍵盤和螢幕 而可以利用控制指令將資料流 (data stream) 引導到 file 中">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Linux 檔案系統基本架構">
-<meta property="og:url" content="https://linyunwen.github.io/2020/10/01/linux-fs/index.html">
+<meta property="og:title" content="Unix input and output">
+<meta property="og:url" content="https://linyunwen.github.io/2020/10/02/linux-io/index.html">
 <meta property="og:site_name" content="Lin Yunwen&#39;s Blog">
-<meta property="og:description" content="Linux 檔案系統基本架構  理論上所有的 Linux 發佈版本應該都要遵守檔案系統的標準（Filesystem Hierarchy Standard, FHS） 以目錄的資訊可分為 shareable, unshareable 和 static, variable">
+<meta property="og:description" content="Unix input and outputIntroduction standard input&#x2F;output&#x2F;error  標準輸入　　(stdin) ：代號為 0 標準輸出　　(stdout)：代號為 1 標準錯誤輸出(stderr)：代號為 2    一般來說指令的輸入輸出是鍵盤和螢幕 而可以利用控制指令將資料流 (data stream) 引導到 file 中">
 <meta property="og:locale" content="zh_TW">
-<meta property="article:published_time" content="2020-10-01T12:53:50.000Z">
-<meta property="article:modified_time" content="2020-10-01T13:42:13.622Z">
+<meta property="og:image" content="https://i.imgur.com/fKyiQgU.png">
+<meta property="og:image" content="https://i.imgur.com/VR1cjoM.png">
+<meta property="article:published_time" content="2020-10-02T08:06:47.000Z">
+<meta property="article:modified_time" content="2020-10-02T08:07:24.925Z">
 <meta property="article:author" content="Lin Yunwen">
-<meta property="article:tag" content="linux, note">
+<meta property="article:tag" content="note, pipe, |, &gt;, input, output">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.imgur.com/fKyiQgU.png">
 
-<link rel="canonical" href="https://linyunwen.github.io/2020/10/01/linux-fs/">
+<link rel="canonical" href="https://linyunwen.github.io/2020/10/02/linux-io/">
 
 
 <script id="page-configurations">
@@ -46,7 +49,7 @@
   };
 </script>
 
-  <title>Linux 檔案系統基本架構 | Lin Yunwen's Blog</title>
+  <title>Unix input and output | Lin Yunwen's Blog</title>
   
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-179090431-1"></script>
     <script>
@@ -161,7 +164,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-TW">
-    <link itemprop="mainEntityOfPage" href="https://linyunwen.github.io/2020/10/01/linux-fs/">
+    <link itemprop="mainEntityOfPage" href="https://linyunwen.github.io/2020/10/02/linux-io/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="https://scontent.ftpe7-2.fna.fbcdn.net/v/t31.0-8/29664833_1315234395242834_3657557940215006890_o.jpg?_nc_cat=109&_nc_sid=174925&_nc_ohc=J6_1yTnmm4cAX8xform&_nc_ht=scontent.ftpe7-2.fna&oh=029231d5d6d31168c6e133e274b45331&oe=5F91F3DD">
@@ -174,7 +177,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Linux 檔案系統基本架構
+          Unix input and output
         </h1>
 
         <div class="post-meta">
@@ -185,7 +188,7 @@
               <span class="post-meta-item-text">發表於</span>
               
 
-              <time title="創建時間：2020-10-01 20:53:50 / 修改時間：21:42:13" itemprop="dateCreated datePublished" datetime="2020-10-01T20:53:50+08:00">2020-10-01</time>
+              <time title="創建時間：2020-10-02 16:06:47 / 修改時間：16:07:24" itemprop="dateCreated datePublished" datetime="2020-10-02T16:06:47+08:00">2020-10-02</time>
             </span>
 
           
@@ -204,8 +207,8 @@
       </span>
       <span class="post-meta-item-text">Disqus：</span>
     
-    <a title="disqus" href="/2020/10/01/linux-fs/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/10/01/linux-fs/" itemprop="commentCount"></span>
+    <a title="disqus" href="/2020/10/02/linux-io/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/10/02/linux-io/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -215,14 +218,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">文章字數：</span>
-              <span>797</span>
+              <span>2.3k</span>
             </span>
             <span class="post-meta-item" title="所需閱讀時間">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
-              <span>1 分鐘</span>
+              <span>4 分鐘</span>
             </span>
 
         </div>
@@ -234,92 +237,58 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="Linux-檔案系統基本架構"><a href="#Linux-檔案系統基本架構" class="headerlink" title="Linux 檔案系統基本架構"></a>Linux 檔案系統基本架構</h1><blockquote>
+        <h1 id="Unix-input-and-output"><a href="#Unix-input-and-output" class="headerlink" title="Unix input and output"></a>Unix input and output</h1><h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><ul>
+<li>standard input/output/error<blockquote>
 <ul>
-<li>理論上所有的 Linux 發佈版本應該都要遵守檔案系統的標準（Filesystem Hierarchy Standard, FHS）</li>
-<li>以目錄的資訊可分為 shareable, unshareable 和 static, variable</li>
+<li>標準輸入　　(stdin) ：代號為 0</li>
+<li>標準輸出　　(stdout)：代號為 1</li>
+<li>標準錯誤輸出(stderr)：代號為 2</li>
 </ul>
 </blockquote>
+<ul>
+<li>一般來說指令的輸入輸出是鍵盤和螢幕</li>
+<li>而可以利用控制指令將資料流 (data stream) 引導到 file 中</li>
+</ul>
+</li>
+<li><img src="https://i.imgur.com/fKyiQgU.png"></li>
+</ul>
 <a id="more"></a>
 
-<h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><ul>
-<li><code>/</code> (root)<ul>
-<li>所有目錄都會在其之下</li>
+<h2 id="gt-gt-gt"><a href="#gt-gt-gt" class="headerlink" title="&gt;, &gt;&gt;"></a>&gt;, &gt;&gt;</h2><ul>
+<li><code>&gt;</code> 可以將其標準輸出引導到指定檔案，因此螢幕上就沒有顯示</li>
+<li><code>&gt;&gt;</code> 可以將其標準輸出引導到指定檔案，同時螢幕上顯示<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">$ ll ~</span><br><span class="line">total <span class="number">16</span></span><br><span class="line">drwx------@  <span class="number">4</span> linyunwen  staff   <span class="number">128B</span>  <span class="number">8</span> <span class="number">27</span> <span class="number">16</span>:<span class="number">36</span> Applications/</span><br><span class="line">drwx------@  <span class="number">5</span> linyunwen  staff   <span class="number">160B</span>  <span class="number">8</span> <span class="number">27</span> <span class="number">20</span>:<span class="number">00</span> Desktop/</span><br><span class="line">drwx------@ <span class="number">10</span> linyunwen  staff   <span class="number">320B</span>  <span class="number">9</span>  <span class="number">5</span> <span class="number">10</span>:<span class="number">29</span> Documents/</span><br><span class="line">drwx------@ <span class="number">28</span> linyunwen  staff   <span class="number">896B</span> <span class="number">10</span>  <span class="number">1</span> <span class="number">22</span>:<span class="number">21</span> Downloads/</span><br><span class="line">drwx------@ <span class="number">75</span> linyunwen  staff   <span class="number">2.3</span>K  <span class="number">9</span> <span class="number">22</span> <span class="number">11</span>:<span class="number">52</span> Library/</span><br><span class="line">drwx------+  <span class="number">8</span> linyunwen  staff   <span class="number">256B</span>  <span class="number">9</span>  <span class="number">1</span> <span class="number">23</span>:<span class="number">44</span> Movies/</span><br><span class="line">drwx------+  <span class="number">4</span> linyunwen  staff   <span class="number">128B</span>  <span class="number">8</span> <span class="number">30</span> <span class="number">22</span>:<span class="number">41</span> Music/</span><br><span class="line">drwx------+  <span class="number">5</span> linyunwen  staff   <span class="number">160B</span>  <span class="number">8</span> <span class="number">31</span> <span class="number">11</span>:<span class="number">08</span> Pictures/</span><br><span class="line">drwxr-xr-x   <span class="number">3</span> linyunwen  staff    <span class="number">96B</span>  <span class="number">8</span> <span class="number">31</span> <span class="number">11</span>:<span class="number">43</span> Postman/</span><br><span class="line">drwxr-xr-x+  <span class="number">4</span> linyunwen  staff   <span class="number">128B</span>  <span class="number">8</span> <span class="number">27</span> <span class="number">16</span>:<span class="number">30</span> Public/</span><br><span class="line">drwxr-xr-x@ <span class="number">32</span> linyunwen  staff   <span class="number">1.0</span>K  <span class="number">9</span>  <span class="number">3</span> <span class="number">13</span>:<span class="number">20</span> system/</span><br><span class="line">-rw-r--r--@  <span class="number">1</span> linyunwen  staff   <span class="number">129B</span>  <span class="number">9</span> <span class="number">29</span> <span class="number">23</span>:<span class="number">20</span> temp.txt</span><br><span class="line"></span><br><span class="line">$ ll ~ &gt; temp.txt</span><br><span class="line"></span><br><span class="line">$ ll ~ &gt;&gt; temp.txt</span><br><span class="line">total <span class="number">16</span></span><br><span class="line">drwx------@  <span class="number">4</span> linyunwen  staff   <span class="number">128B</span>  <span class="number">8</span> <span class="number">27</span> <span class="number">16</span>:<span class="number">36</span> Applications/</span><br><span class="line">drwx------@  <span class="number">5</span> linyunwen  staff   <span class="number">160B</span>  <span class="number">8</span> <span class="number">27</span> <span class="number">20</span>:<span class="number">00</span> Desktop/</span><br><span class="line">drwx------@ <span class="number">10</span> linyunwen  staff   <span class="number">320B</span>  <span class="number">9</span>  <span class="number">5</span> <span class="number">10</span>:<span class="number">29</span> Documents/</span><br><span class="line">drwx------@ <span class="number">28</span> linyunwen  staff   <span class="number">896B</span> <span class="number">10</span>  <span class="number">1</span> <span class="number">22</span>:<span class="number">21</span> Downloads/</span><br><span class="line">drwx------@ <span class="number">75</span> linyunwen  staff   <span class="number">2.3</span>K  <span class="number">9</span> <span class="number">22</span> <span class="number">11</span>:<span class="number">52</span> Library/</span><br><span class="line">drwx------+  <span class="number">8</span> linyunwen  staff   <span class="number">256B</span>  <span class="number">9</span>  <span class="number">1</span> <span class="number">23</span>:<span class="number">44</span> Movies/</span><br><span class="line">drwx------+  <span class="number">4</span> linyunwen  staff   <span class="number">128B</span>  <span class="number">8</span> <span class="number">30</span> <span class="number">22</span>:<span class="number">41</span> Music/</span><br><span class="line">drwx------+  <span class="number">5</span> linyunwen  staff   <span class="number">160B</span>  <span class="number">8</span> <span class="number">31</span> <span class="number">11</span>:<span class="number">08</span> Pictures/</span><br><span class="line">drwxr-xr-x   <span class="number">3</span> linyunwen  staff    <span class="number">96B</span>  <span class="number">8</span> <span class="number">31</span> <span class="number">11</span>:<span class="number">43</span> Postman/</span><br><span class="line">drwxr-xr-x+  <span class="number">4</span> linyunwen  staff   <span class="number">128B</span>  <span class="number">8</span> <span class="number">27</span> <span class="number">16</span>:<span class="number">30</span> Public/</span><br><span class="line">drwxr-xr-x@ <span class="number">32</span> linyunwen  staff   <span class="number">1.0</span>K  <span class="number">9</span>  <span class="number">3</span> <span class="number">13</span>:<span class="number">20</span> system/</span><br><span class="line">-rw-r--r--@  <span class="number">1</span> linyunwen  staff   <span class="number">129B</span>  <span class="number">9</span> <span class="number">29</span> <span class="number">23</span>:<span class="number">20</span> temp.txt</span><br><span class="line"></span><br><span class="line">$ ll ~ &gt; temp.txt <span class="number">2</span>&gt; error.txt</span><br></pre></td></tr></table></figure></li>
+<li>亦可以將 2&gt; 轉到 file 中<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$ $&#123;command&#125; &gt; temp.txt <span class="number">2</span>&gt; error.txt</span><br><span class="line"><span class="comment">// 會有錯誤，因為 stdout, stderr 同時對同一個檔案輸入</span></span><br><span class="line">$ $&#123;command&#125; &gt; temp.txt <span class="number">2</span>&gt; temp.txt</span><br><span class="line"><span class="comment">// 正確寫法，將 stdout, stderr 到同一個檔案</span></span><br><span class="line">$ $&#123;command&#125; &gt; temp.txt <span class="number">2</span>&gt;&amp;<span class="number">1</span></span><br><span class="line">$ $&#123;command&#125; <span class="number">2</span>&gt; temp.txt <span class="number">1</span>&gt;&amp;<span class="number">2</span></span><br><span class="line">$ $&#123;command&#125; &amp;&gt; temp.txt</span><br><span class="line">$ $&#123;command&#125; &gt;&amp; temp.txt</span><br></pre></td></tr></table></figure>
+<h2 id="lt-lt-lt"><a href="#lt-lt-lt" class="headerlink" title="&lt;, &lt;&lt;"></a>&lt;, &lt;&lt;</h2></li>
+<li><code>&lt;</code> 可以將其標準輸入引導到指定檔案，表示執行某個 file 裡面的文字<ul>
+<li>但是要先做檔案的輸入</li>
 </ul>
 </li>
-<li><code>/bin</code>, <code>/sbin</code><ul>
-<li><code>/bin</code> 主要放置<strong>一般使用者</strong> (users) 可以執行 (executable) 的指令</li>
-<li><code>/sbin</code> 放置<strong>系統管理員</strong> (super user) 可以操作的指令</li>
-</ul>
-</li>
-<li><code>/boot</code><ul>
-<li>主要放置開機相關檔案 (boot)</li>
-</ul>
-</li>
-<li><code>/dev</code> (devices)<ul>
-<li>device 的相關檔案，包話滑鼠鍵盤等</li>
-</ul>
-</li>
-<li><code>/etc</code><ul>
-<li>主要放置系統檔案</li>
-<li>系統在開機過程需要讀取的檔案</li>
-</ul>
-</li>
-<li><code>/home</code>, <code>/root</code><ul>
-<li><code>/home</code> 主要是<strong>一般使用者</strong>的家目錄</li>
-<li><code>/root</code> 為<strong>系統管理員</strong>的家目錄</li>
-</ul>
-</li>
-<li><code>/lib</code>, <code>/lib64</code><ul>
-<li>主要為系統函式庫和核心函式庫</li>
-<li>若是 64 位元則放在 <code>/lib64</code></li>
-</ul>
-</li>
-<li><code>/proc</code><ul>
-<li>將記憶體內的資料做成檔案類型</li>
-<li>虛擬檔案系統，不佔任何硬碟空間</li>
-</ul>
-</li>
-<li><code>/sys</code> <ul>
-<li>與 <code>/proc</code> 類似，但主要針對硬體相關參數</li>
-</ul>
-</li>
-<li><code>/usr</code> (unix software resource)<ul>
-<li>存放系統相關軟體、服務</li>
-<li><strong>不是 user 的縮寫</strong></li>
-</ul>
-</li>
-<li><code>/var</code> (variable)<ul>
-<li>存放一些變數或記錄檔</li>
-</ul>
-</li>
-<li><code>/tmp</code> (temporary)<ul>
-<li>存放暫存檔案</li>
-</ul>
-</li>
-<li><code>/media</code>, <code>/mnt</code><ul>
-<li>存放抽取式的裝置慣用目錄</li>
-<li><code>/mnt</code> 為管理員/使用者手動掛上（mount）的目錄</li>
-<li>例如需要 mount 一些光碟、硬碟都可以掛載在這</li>
-</ul>
-</li>
-<li><code>/local</code><ul>
-<li>升級或額外安裝的程式擺放的目錄</li>
-<li>用以區分原始系統安裝的程式。</li>
-</ul>
-</li>
-<li><code>/run</code> <ul>
-<li>系統進行服務軟體運作管理處</li>
+<li><code>&lt;&lt;</code> 可以將其標準輸入引導到指定檔案，表示執行某個 file 裡面的文字<ul>
+<li>吃到 <code>eof</code> 就結束輸入</li>
 </ul>
 </li>
 </ul>
-<h2 id="Tips"><a href="#Tips" class="headerlink" title="Tips"></a>Tips</h2><ul>
-<li>/etc, /bin, /dev, /lib, /sbin 這五個次目錄都要與根目錄一起，不可為獨立的 partition (不可被分割)</li>
+<h2 id="amp"><a href="#amp" class="headerlink" title="|, &amp;"></a>|, &amp;</h2><ul>
+<li><p><code>|</code> pipe 指令</p>
+<ul>
+<li>將指令輸出導向到下一個指令的輸入</li>
+<li>僅會處理 stdout，會忽略 stderr</li>
+<li>下個指令的 stdin 必須要能夠接受來自前一個指令的 stdout</li>
+</ul>
+</li>
+<li><p><code>&amp;</code> 背景執行指令</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ $&#123;command1&#125; | $&#123;command2&#125; | $&#123;command3&#125;</span><br><span class="line">$ $&#123;command&#125; &amp;</span><br></pre></td></tr></table></figure></li>
+<li><p><img src="https://i.imgur.com/VR1cjoM.png"></p>
+</li>
+</ul>
+<h2 id="amp-amp"><a href="#amp-amp" class="headerlink" title="||, &amp;&amp;"></a>||, &amp;&amp;</h2><ul>
+<li><code>||</code> or command, <code>&amp;&amp;</code> and command<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 若 condition1 成功, condition2 就不執行</span></span><br><span class="line">$ condition1 || condition2</span><br><span class="line"><span class="comment">// 若 condition1 失敗, condition2 就不執行</span></span><br><span class="line">$ condition1 &amp;&amp; condition2</span><br></pre></td></tr></table></figure>
+
+</li>
 </ul>
 <h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><ul>
+<li><a target="_blank" rel="noopener" href="http://linux.vbird.org/linux_basic/0320bash.php#redirect_redirect">第十章、認識與學習BASH</a></li>
 <li><a target="_blank" rel="noopener" href="https://blog.gtwang.org/linux/linux-io-input-output-redirection-operators/">Linux I/O 輸入與輸出重新導向，基礎概念教學</a></li>
-<li><a target="_blank" rel="noopener" href="https://blog.techbridge.cc/2017/12/23/linux-commnd-line-tutorial/">Linux Command 命令列指令與基本操作入門教學</a></li>
-<li><a target="_blank" rel="noopener" href="https://dywang.csie.cyut.edu.tw/moodle23/dywang/linuxSystem/node29.html">Linux 目錄配置</a></li>
 </ul>
 
     </div>
@@ -330,7 +299,7 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/linux-note/" rel="tag"># linux, note</a>
+              <a href="/tags/note-pipe-input-output/" rel="tag"># note, pipe, |, >, input, output</a>
           </div>
 
         
@@ -339,12 +308,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2020/09/29/grep/" rel="prev" title="grep">
-      <i class="fa fa-chevron-left"></i> grep
+    <a href="/2020/10/01/linux-file-access/" rel="prev" title="linux-file-access">
+      <i class="fa fa-chevron-left"></i> linux-file-access
     </a></div>
       <div class="post-nav-item">
-    <a href="/2020/10/01/linux-cmd/" rel="next" title="Linux 常用指令">
-      Linux 常用指令 <i class="fa fa-chevron-right"></i>
+    <a href="/2020/10/02/time/" rel="next" title="time">
+      time <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -411,7 +380,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Linux-%E6%AA%94%E6%A1%88%E7%B3%BB%E7%B5%B1%E5%9F%BA%E6%9C%AC%E6%9E%B6%E6%A7%8B"><span class="nav-number">1.</span> <span class="nav-text">Linux 檔案系統基本架構</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Introduction"><span class="nav-number">1.1.</span> <span class="nav-text">Introduction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Tips"><span class="nav-number">1.2.</span> <span class="nav-text">Tips</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Reference"><span class="nav-number">1.3.</span> <span class="nav-text">Reference</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Unix-input-and-output"><span class="nav-number">1.</span> <span class="nav-text">Unix input and output</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Introduction"><span class="nav-number">1.1.</span> <span class="nav-text">Introduction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#gt-gt-gt"><span class="nav-number">1.2.</span> <span class="nav-text">&gt;, &gt;&gt;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#lt-lt-lt"><span class="nav-number">1.3.</span> <span class="nav-text">&lt;, &lt;&lt;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#amp"><span class="nav-number">1.4.</span> <span class="nav-text">|, &amp;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#amp-amp"><span class="nav-number">1.5.</span> <span class="nav-text">||, &amp;&amp;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Reference"><span class="nav-number">1.6.</span> <span class="nav-text">Reference</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -630,9 +599,9 @@
 </script>
 <script>
   var disqus_config = function() {
-    this.page.url = "https://linyunwen.github.io/2020/10/01/linux-fs/";
-    this.page.identifier = "2020/10/01/linux-fs/";
-    this.page.title = "Linux 檔案系統基本架構";
+    this.page.url = "https://linyunwen.github.io/2020/10/02/linux-io/";
+    this.page.identifier = "2020/10/02/linux-io/";
+    this.page.title = "Unix input and output";
     };
   NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
     if (window.DISQUS) {
