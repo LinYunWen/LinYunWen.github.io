@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.1.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"linyunwen.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="SEO (Search Engine Optimization)Introduction  這份指南中會出現幾個重要用語，以下為您說明這些用語的定義： 索引：Google 會將所有已知網頁儲存在「索引」 中，每個網頁的索引項目都會記錄網頁的內容及位置 (網址)。 所謂的「建立索引」，是指 Google 擷取、讀取網頁，然後將網頁加入索引的過程：_Google 今天為我的網站建立了幾個網頁索引_。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SEO (Search Engine Optimization)">
+<meta property="og:url" content="https://linyunwen.github.io/2020/10/05/seo/index.html">
+<meta property="og:site_name" content="Lin Yunwen&#39;s Blog">
+<meta property="og:description" content="SEO (Search Engine Optimization)Introduction  這份指南中會出現幾個重要用語，以下為您說明這些用語的定義： 索引：Google 會將所有已知網頁儲存在「索引」 中，每個網頁的索引項目都會記錄網頁的內容及位置 (網址)。 所謂的「建立索引」，是指 Google 擷取、讀取網頁，然後將網頁加入索引的過程：_Google 今天為我的網站建立了幾個網頁索引_。">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://i.imgur.com/SbvFiNc.png">
+<meta property="og:image" content="https://i.imgur.com/RPzdrCa.png">
+<meta property="article:published_time" content="2020-10-05T14:32:57.000Z">
+<meta property="article:modified_time" content="2020-10-05T14:33:39.652Z">
+<meta property="article:author" content="Lin Yunwen">
+<meta property="article:tag" content="note, seo">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.imgur.com/SbvFiNc.png">
+
+<link rel="canonical" href="https://linyunwen.github.io/2020/10/05/seo/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-TW'
+  };
+</script>
+
+  <title>SEO (Search Engine Optimization) | Lin Yunwen's Blog</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-179090431-1"></script>
+    <script>
+      if (CONFIG.hostname === location.hostname) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-179090431-1');
+      }
+    </script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Lin Yunwen's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">keep moving forward</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://linyunwen.github.io/2020/10/05/seo/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://scontent.ftpe7-2.fna.fbcdn.net/v/t31.0-8/29664833_1315234395242834_3657557940215006890_o.jpg?_nc_cat=109&_nc_sid=174925&_nc_ohc=J6_1yTnmm4cAX8xform&_nc_ht=scontent.ftpe7-2.fna&oh=029231d5d6d31168c6e133e274b45331&oe=5F91F3DD">
+      <meta itemprop="name" content="Lin Yunwen">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Lin Yunwen's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          SEO (Search Engine Optimization)
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">發表於</span>
+              
+
+              <time title="創建時間：2020-10-05 22:32:57 / 修改時間：22:33:39" itemprop="dateCreated datePublished" datetime="2020-10-05T22:32:57+08:00">2020-10-05</time>
+            </span>
+
+          
+            <span class="post-meta-item" title="閱讀次數">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-users"></i>
+              </span>
+              <span class="post-meta-item-text">閱讀次數：</span>
+              <span class="firestore-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2020/10/05/seo/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/10/05/seo/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="文章字數">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">文章字數：</span>
+              <span>4.6k</span>
+            </span>
+            <span class="post-meta-item" title="所需閱讀時間">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+              <span>8 分鐘</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="SEO-Search-Engine-Optimization"><a href="#SEO-Search-Engine-Optimization" class="headerlink" title="SEO (Search Engine Optimization)"></a>SEO (Search Engine Optimization)</h1><h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><blockquote>
+<ul>
+<li>這份指南中會出現幾個重要用語，以下為您說明這些用語的定義：<ul>
+<li><strong>索引</strong>：Google 會將所有已知網頁儲存在「索引」 中，每個網頁的索引項目都會記錄網頁的內容及位置 (網址)。 所謂的「建立索引」，是指 Google 擷取、讀取網頁，然後將網頁加入索引的過程：_Google 今天為我的網站建立了幾個網頁索引_。</li>
+<li><strong>檢索</strong>：尋找新網頁或更新網頁的程序。Google 會透過追蹤連結、讀取 Sitemap 等多種方法發掘網址。<em>Google 檢索網路的目的是尋找新網頁，必且 (在適當情況下) 為這些網頁建立索引。</em></li>
+<li><strong>檢索器</strong>：指在網路上檢索 (擷取) 網頁並為網頁建立索引的自動化軟體。</li>
+<li><strong>Googlebot</strong>：Google 檢索器的通稱。<em>Googlebot 會持續檢索網路。</em></li>
+<li><strong>SEO</strong>：指搜尋引擎最佳化 (讓搜尋引擎更容易發現網站的程序)，或是搜尋引擎最佳化執行者的工作職稱：<em>我們聘請了一位新的 SEO 來為我們提升網路曝光度。</em></li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<ul>
+<li>SEO 並不僅僅是建構搜尋引擎友善的網頁，SEO可以讓網頁更容易被人們使用，並且帶給人們更多的資訊</li>
+</ul>
+<a id="more"></a>
+
+<h2 id="Google-三種動物演算法"><a href="#Google-三種動物演算法" class="headerlink" title="Google 三種動物演算法"></a>Google 三種動物演算法</h2><h3 id="Google熊貓演算法-網站品質"><a href="#Google熊貓演算法-網站品質" class="headerlink" title="Google熊貓演算法(網站品質)"></a>Google熊貓演算法(網站品質)</h3><blockquote>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.newscan.com.tw/all-seo/google-panda.htm" title="Google熊貓演算法詳細說明">Google熊貓演算法</a></li>
+<li>「熊貓演算法」最初是從核心算法分離出來的，但在2012年3月未確認的日期將其整合到其中</li>
+<li>「熊貓演算法」以Google 工程師 Navneet Panda命名。</li>
+</ul>
+</blockquote>
+<ul>
+<li><p>Google熊貓演算法初始發佈日期：2011年2月23日</p>
+</li>
+<li><p>更新的目的是獎勵高質量的網站，並減少Google有機搜尋引擎結果中低質量網站的存在，它最初也被稱為“農夫”。</p>
+</li>
+<li><p>據Google聲稱，「熊貓演算法」在首次推出幾個月內的英語搜尋結果高達12％，2011年至2015年，我們已經追蹤了「熊貓演算法」28次更新紀錄。</p>
+</li>
+<li><p>「熊貓演算法」的更新解決了Google SERP中的一些有問題的現象，其中包括：</p>
+<ul>
+<li>太精簡的內容相關或實質性文字與資源很少的精簡網頁，例如描述各種健康狀況的網頁集合，每頁只有幾句話。</li>
+<li>重複內容複製網際網路上出現在多個地方的內容，重複的內容問題也可能發生在您自己的網站上，如果您的多個網頁具有相同的文字而且變化很小或沒有變化，您的網站上也會出現重複的內容問題，例如煙囪清掃公司可能會創建10個頁面，每個城市都有一個業務服務網頁，所有網頁上的內容幾乎完全相同，只有城市名稱不同，這就很可能被判定為重複內容。</li>
+<li>低價值的內容由於缺乏較深入的文章，這些網頁對人類讀者沒有多大價值。</li>
+<li>文章農場大量低價值網頁，通常從其他網站彙整起來，例如文章農場可能是一個網站，它僱用大量的低工資的作家來建立大量短文章，用來涵蓋搜尋引擎的查詢，因此對讀者產生了一些缺乏權威性和價值的內容，因為它的核心目的 只是為了獲得搜尋引擎排名中每一個可能的專業用語。</li>
+<li>低價值用戶生成的內容低價值用戶生成內容，一個最好的例子是blog，由blog發布的短文，通常充滿拼寫和語法錯誤並且缺乏權威內容。</li>
+<li>廣告比例太高主要由付費廣告而不是原創內容組成的網頁。</li>
+<li>類似黃頁連結的低價值內容內容不佳的黃頁連結。</li>
+<li>使用者阻止的網站人類用戶直接在搜尋引擎結果中阻止的網站，或者使用Chrome瀏覽器UI阻止的網站，有可能代表價值較差。</li>
+<li>內容不匹配的搜尋查詢如果在搜尋結果中點擊相應答案，則“答應”以提供相關答案的頁面，去沒有這樣做，例如一個網站頁面的標題可能是“食品優惠券”，但點擊進入時，可能沒有優惠券，或者可能只有一頁廣告，讓使用者失望。</li>
+</ul>
+</li>
+<li><p>如何知道被「熊貓演算法」懲罰</p>
+<ul>
+<li>很多事情也會導致排名和流量的丟失<ul>
+<li>其中包括競爭對手在您的市場中崛起（看看誰比你更搶眼，看看新網站是否已經領先於你）</li>
+<li>手動處罰（檢查Google Search Console的報告問題）</li>
+<li>消費者興趣與期望的季節性下跌（如 7月份的滑雪小屋）</li>
+<li>甚至是另一個(與你懷疑的不同)的Google更新（例如，企鵝，而不是熊貓）。</li>
+<li><img src="https://i.imgur.com/SbvFiNc.png"></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>如何從熊貓演算法中修復網站</p>
+<ul>
+<li><p>放棄內容農場的方式</p>
+</li>
+<li><p>檢修網站內容的價值、可用性、相關性、信任度和權威性</p>
+</li>
+<li><p>修改廣告/內容或相關連結/內容比例，以便網頁不受廣告或相關連結連結的支配</p>
+</li>
+<li><p>確保特定頁面的內容與用戶查詢的關聯性匹配</p>
+</li>
+<li><p>刪除或修復重複的內容</p>
+</li>
+<li><p>仔細審查和編輯網友撰寫的內容，並確保它在公開的情況下對讀者來說是原創的、正確的和有實用性的</p>
+</li>
+<li><p>使用機器人noindex，nofollow命令來阻止重複、接近重複的網站內容或其他問題元素的索引</p>
+<blockquote>
+<ul>
+<li>總而言之，持續發布高價值原創內容的網站幾乎不用擔心「熊貓演算法」的更新，但如果您的網站涉及有問題的做法，它可能會在某些時候被「熊貓演算法」懲罰，從實際的商業角度來看，避免「熊貓演算法」懲罰的最好方式就是開發一個品牌，該品牌在其領域中被視為權威，並通過其優秀內容打造一個成為可信賴資源的網站。</li>
+</ul>
+</blockquote>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="Google企鵝演算法-網站品質"><a href="#Google企鵝演算法-網站品質" class="headerlink" title="Google企鵝演算法(網站品質)"></a>Google企鵝演算法(網站品質)</h3><blockquote>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.newscan.com.tw/all-seo/google-penguin.htm" title="Google企鵝演算法詳細說明">Google企鵝演算法</a></li>
+<li>Google的「企鵝演算法」是一項新的努力，主要是在獎勵高質量的網站</li>
+<li>減少搜尋引擎結果頁面（SERP）涉及操縱連結和關鍵字填充存在的網站。</li>
+</ul>
+</blockquote>
+<ul>
+<li><p>連結的意圖從低價值或不相關的網站開發、購買或購買的反向連結，企圖人為創造流行與相關的照片，試圖操縱谷歌並獲得高排名</p>
+<ul>
+<li>例如一家保險公司在眾多論壇刻意刻意發佈大量的垃圾評論，並將反向連結錨點文字“最佳保險公司”，誇大不實這些非自然連結的相關性</li>
+<li>或者同一家公司可能會付費「閱讀連結」“最好的保險公司”出現在有可能是「關於寵物美容」與主題毫無關連這種第三方文章中。</li>
+</ul>
+</li>
+<li><p>關鍵字填充填充大量關鍵字或重複關鍵字的網頁，試圖以特定搜尋詞組與相關的關鍵字來操縱排名，例如網頁上關鍵字的非自然重複可能會如下：</p>
+<ul>
+<li>美國科羅拉多州「丹佛」市的AAA 「鎖匠」是「丹佛的鎖匠」，「丹佛」居民需要「丹佛鎖匠」來快速幫助他們滿足「丹佛鎖匠」需求</li>
+<li>或者丹佛的鎖匠可能會在他的網頁上放上一大堆城市名稱，例如：</li>
+<li>我們服務丹佛、桑頓、博爾德、萊克伍德、阿瓦達、桑頓、亨德森、百年紀念、莫里森、金、極光、孤樹、松樹城堡、羅克斯伯勒、阿斯彭、針葉樹、埃爾多拉多斯普林斯、拉斐特、沃特金斯、阿爾托納、朗蒙特、達科諾、黃松公園、哈德森、媒溪和詹姆斯敦。</li>
+</ul>
+</li>
+<li><p>為了彌補Google系統嚴重的弱點，使他們的算法被大量低價值連結和過度優化關鍵字的頁面“欺騙”，為避免Google將您的網站貶低為垃圾連結網站，您發布的所有內容應該是自然語言，並且您的收入連結和架構必須“是安全的”</p>
+</li>
+<li><p>如何知道是否被「企鵝演算法」懲罰了？</p>
+<ul>
+<li><p>首先區分企鵝許可的連結和人為處理的非自然連結是最主要的，簡而言之，「企鵝演算法」是通用於被Google索引的所有網站，而懲罰方式為Google確定為垃圾郵件連結的特定網站，這些手動處罰可能是Google使用者報告垃圾郵件連結的結果，同時也推測Google可能對某些行業會使用人員監控(如貸款公司)，某些行業可能相對較不會（如蛋糕麵包店）。</p>
+</li>
+<li><p>如果您的網站分析數據與「企鵝演算法」更新的日期同時排名或流量一起下降，那麼您可能已受此影響，請確保您排除淡季旺季預期現象的流量波動，並仔細評估您的 SEO 或連結做法是否會被Google視為垃圾內容，而使您的網站容易受到「企鵝演算法」更新影響。</p>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>如何從「企鵝演算法」中修復網站？<blockquote>
+<ul>
+<li>與手動連結處罰不同的是，如果清理了的連結後，您必須向Google提交請求重新審核，但您無法提出取消懲罰這樣的要求，不過修正的問題通常會在Googlebot下次抓取您的網站時獲得“寬恕”，這些恢復步驟包括：</li>
+</ul>
+</blockquote>
+<ul>
+<li>刪除您自己添加的任何非自然連結，包括您自己創建的連結或已放置在第三方網站上的連結。</li>
+<li>阻止垃圾郵件的連結是無法自己控制的。</li>
+<li>修改過度優化網站內容以補救，確保自然撰寫關鍵字而不是使用機器人文章，重複或無意義地在網頁上呈現，避免與主題和正在使用的關鍵字之間是無意義的。</li>
+</ul>
+</li>
+</ul>
+<h2 id="Google蜂鳥演算法"><a href="#Google蜂鳥演算法" class="headerlink" title="Google蜂鳥演算法"></a>Google蜂鳥演算法</h2><blockquote>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.newscan.com.tw/all-seo/google-hummingbird.htm" title="Google蜂鳥演算法詳細說明">Google蜂鳥演算法</a></li>
+</ul>
+</blockquote>
+<ul>
+<li><p>與之前發布的「熊貓演算法」和「企鵝演算法」更新不同，後者最初是作為Google現有算法的附件發佈的，目前「蜂鳥演算法」已徹底轉變成為核心算法引用 </p>
+</li>
+<li><p>雖然核心算法中許多先前組件還是保持著，但「蜂鳥演算法」表明Google開始深入了解搜尋者「查詢資料的意圖為何?」，並將其與相關結果進行匹配。</p>
+</li>
+<li><p>雖然之前演算法更新時，常會發生流量和排名流失的嚴重情形，但「蜂鳥演算法」似乎沒有對一般網站造成嚴重的負面影響，此次更新，主要被解釋為大幅改善Google資料庫的準確性，是為“知識圖譜 (Knowledge Graph)”的建立而準備</p>
+</li>
+<li><p>「蜂鳥演算法」的主要目的之一是將語義搜尋從概念轉變為現實 - 最後將成為搜尋的準則，它試圖更地接近搜尋者的實際意圖</p>
+</li>
+<li><p><img src="https://i.imgur.com/RPzdrCa.png"></p>
+</li>
+<li><p>蜂鳥的特色</p>
+<ul>
+<li>「蜂鳥演算法」的更新可以被看作成Google掌握語音搜尋發展中不可避免的一步</li>
+<li>本地搜尋</li>
+</ul>
+</li>
+<li><p>如何知道是否被「蜂鳥演算法」懲罰？</p>
+<ul>
+<li>雖然本地企業所有者可能會遇到一些因為使用假的商業名稱方式而減少本地搜尋引擎曝光度的臨時問題，但大多數網站不太可能會受到此更新的負面影響。</li>
+<li>如果您的網站發生流量下降，或許您認為可能與「蜂鳥演算法」有關，請務必查看Google更新的完整列表，可能會發現您的網站，有可能是另一個更新導致，例如「熊貓演算法」或「企鵝演算法」。</li>
+</ul>
+</li>
+</ul>
+<h2 id="Others"><a href="#Others" class="headerlink" title="Others"></a>Others</h2><ul>
+<li>就是“Your Money or Your Life.”，中文來就就是，生活與財產相關的網頁，將來GOOGLE對於YMYL相關的內容將更為重視。<ul>
+<li>雖然GOOGLE有提到Money字眼，但是他說的內容涵蓋並不單單只是金錢，據GOOGLE所描述的，任何可以影響人們健康、快樂、安全或是財務的網站頁面都是屬於YMYL範圍內。</li>
+</ul>
+</li>
+<li>YMYL 網站優化<ul>
+<li>YMYL與E-A-T<ul>
+<li>Expertise – is the author of the piece an expert on the subject? (專業性-這篇文章的作者是這個主題的專家嗎？)</li>
+<li>Authority – is the author a well-recognized authority on the subject?(權威性-作者是一個公認的權威人士嗎？)</li>
+<li>Trustworthiness – is the content accurate?(信任度-文章內容的可信性度是否夠高？)</li>
+</ul>
+</li>
+<li>保持資訊更新</li>
+<li>構建高品質的網站</li>
+<li>建立頁面的用途</li>
+<li>提供詳細、全面的內容</li>
+<li>連結到其他專家網站</li>
+<li>提供如何運用知識的說明</li>
+<li>提供作者身分簡歷</li>
+<li>地址和電話隨時可以看到</li>
+</ul>
+</li>
+<li>你的網站維護、更新的頻率是多少？</li>
+<li>網頁上是否有正確、容易看到的聯絡方式？</li>
+<li>文章上任何東西都可能被認為是有欺騙意圖的嗎？</li>
+<li>誰該對網站的內容和架構負責？</li>
+<li>內容是否具有良好的信譽和權威性？</li>
+</ul>
+<h2 id="Tools"><a href="#Tools" class="headerlink" title="Tools"></a>Tools</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://moz.com/explorer/lists/keywords" title="關鍵字機會分析工具">關鍵字機會分析工具 Keyword Explorer</a></li>
+<li><a target="_blank" rel="noopener" href="https://developers.google.com/speed/pagespeed/insights/?hl=zh-TW" title="網站速度檢測">網站速度檢測 Google Pagespeed</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.webpagetest.org/" title="網站速度分析工具">網站速度分析工具 WebPagetest</a></li>
+<li><a target="_blank" rel="noopener" href="https://search.google.com/test/mobile-friendly?utm_source=mft&utm_medium=redirect&utm_campaign=mft-redirect" title="行動裝置相容性測試">行動裝置相容性測試Google</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.google.com/webmasters/tools/home?hl=zh-TW" title="網站優化工具">網站優化工具 Google Search Console</a></li>
+<li><a target="_blank" rel="noopener" href="https://analytics.google.com/analytics/web/" title="網站分析統計工具(1)">網站分析統計工具(1) Google Analytics</a></li>
+<li><a target="_blank" rel="noopener" href="https://clicky.com/" title="Clicky 網站分析統計工具(2)">網站分析統計工具(2) Clicky</a></li>
+<li><a target="_blank" rel="noopener" href="https://moz.com/researchtools/ose/" title="反向連結抓取工具(1)">反向連結抓取工具(1) Open Site Explorer</a></li>
+<li><a target="_blank" rel="noopener" href="https://moz.com/researchtools/fwe/" title="品牌知名度檢測工具">品牌知名度檢測工具(需註冊登入) Fresh Web Explorer</a></li>
+<li><a target="_blank" rel="noopener" href="https://tinypng.com/" title="圖片優化工具">圖片優化工具 TinyPNG</a></li>
+<li><a target="_blank" rel="noopener" href="https://trends.google.com.tw/trends/?geo=TW">Google Trend</a></li>
+<li><a target="_blank" rel="noopener" href="https://developers.facebook.com/tools/debug/?locale=zh_TW">分享偵錯工具- Facebook for Developers</a></li>
+<li><a target="_blank" rel="noopener" href="https://cards-dev.twitter.com/validator">Card validator</a></li>
+</ul>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://www.newscan.com.tw/all-seo/seo-guide.htm"> SEO教學 - SEO初學者指南</a></li>
+<li><a target="_blank" rel="noopener" href="https://support.google.com/webmasters/answer/7451184?hl=zh-Hant">搜尋引擎最佳化 (SEO) 入門指南</a></li>
+<li><a target="_blank" rel="noopener" href="https://docs.google.com/presentation/d/10Qumkv-GeRc1XV7z57Qib3kEH_onaNgZPwHmnQ8sfYg/edit#slide=id.p51">新·SEO</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.newscan.com.tw/all-seo/what-are-ymyl-google-seo-pages.htm">Google Medic Update做了那些改變? YMYL是什麼?</a></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/note-seo/" rel="tag"># note, seo</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/10/02/time/" rel="prev" title="time">
+      <i class="fa fa-chevron-left"></i> time
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#SEO-Search-Engine-Optimization"><span class="nav-number">1.</span> <span class="nav-text">SEO (Search Engine Optimization)</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Introduction"><span class="nav-number">1.1.</span> <span class="nav-text">Introduction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Google-%E4%B8%89%E7%A8%AE%E5%8B%95%E7%89%A9%E6%BC%94%E7%AE%97%E6%B3%95"><span class="nav-number">1.2.</span> <span class="nav-text">Google 三種動物演算法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Google%E7%86%8A%E8%B2%93%E6%BC%94%E7%AE%97%E6%B3%95-%E7%B6%B2%E7%AB%99%E5%93%81%E8%B3%AA"><span class="nav-number">1.2.1.</span> <span class="nav-text">Google熊貓演算法(網站品質)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Google%E4%BC%81%E9%B5%9D%E6%BC%94%E7%AE%97%E6%B3%95-%E7%B6%B2%E7%AB%99%E5%93%81%E8%B3%AA"><span class="nav-number">1.2.2.</span> <span class="nav-text">Google企鵝演算法(網站品質)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Google%E8%9C%82%E9%B3%A5%E6%BC%94%E7%AE%97%E6%B3%95"><span class="nav-number">1.3.</span> <span class="nav-text">Google蜂鳥演算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Others"><span class="nav-number">1.4.</span> <span class="nav-text">Others</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Tools"><span class="nav-number">1.5.</span> <span class="nav-text">Tools</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Reference"><span class="nav-number">1.6.</span> <span class="nav-text">Reference</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Lin Yunwen"
+      src="https://scontent.ftpe7-2.fna.fbcdn.net/v/t31.0-8/29664833_1315234395242834_3657557940215006890_o.jpg?_nc_cat=109&_nc_sid=174925&_nc_ohc=J6_1yTnmm4cAX8xform&_nc_ht=scontent.ftpe7-2.fna&oh=029231d5d6d31168c6e133e274b45331&oe=5F91F3DD">
+  <p class="site-author-name" itemprop="name">Lin Yunwen</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">17</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">標籤</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/LinYunWen" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;LinYunWen" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:l40303k@gmail.com" title="E-Mail → mailto:l40303k@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/yunwenlin" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;yunwenlin" rel="noopener" target="_blank"><i class="fab fa-twitter fa-fw"></i>Twitter</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.facebook.com/yunwen.lin.7" title="FB Page → https:&#x2F;&#x2F;www.facebook.com&#x2F;yunwen.lin.7" rel="noopener" target="_blank"><i class="fab fa-facebook fa-fw"></i>FB Page</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Lin Yunwen</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="總字數">34k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="所需總閱讀時間">1:03</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 強力驅動
+  </div>
+
+        
+
+
+
+
+  <script src="https://www.gstatic.com/firebasejs/6.3.3/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/6.3.3/firebase-firestore.js"></script>
+  <script>
+    firebase.initializeApp({
+      apiKey   : 'AIzaSyD-cdSfhCpDcPxxDRezcaF4P-1wMyFyKFQ',
+      projectId: 'blog-fa09e'
+    });
+
+    function getCount(doc, increaseCount) {
+      // IncreaseCount will be false when not in article page
+      return doc.get().then(d => {
+        var count = 0;
+        if (!d.exists) { // Has no data, initialize count
+          if (increaseCount) {
+            doc.set({
+              count: 1
+            });
+            count = 1;
+          }
+        } else { // Has data
+          count = d.data().count;
+          if (increaseCount) {
+            // If first view this article
+            doc.set({ // Increase count
+              count: count + 1
+            });
+            count++;
+          }
+        }
+
+        return count;
+      });
+    }
+
+    function appendCountTo(el) {
+      return count => {
+        el.innerText = count;
+      }
+    }
+  </script>
+  <script>
+    try {
+    (function() {
+      var db = firebase.firestore();
+      var articles = db.collection('articles');
+
+      if (CONFIG.page.isPost) { // Is article page
+        var title = document.querySelector('.post-title').innerText.trim();
+        var doc = articles.doc(title);
+        var increaseCount = CONFIG.hostname === location.hostname;
+        if (localStorage.getItem(title)) {
+          increaseCount = false;
+        } else {
+          // Mark as visited
+          localStorage.setItem(title, true);
+        }
+        getCount(doc, increaseCount).then(appendCountTo(document.querySelector('.firestore-visitors-count')));
+      } else if (CONFIG.page.isHome) { // Is index page
+        var promises = [...document.querySelectorAll('.post-title')].map(element => {
+          var title = element.innerText.trim();
+          var doc = articles.doc(title);
+          return getCount(doc);
+        });
+        Promise.all(promises).then(counts => {
+          var metas = document.querySelectorAll('.firestore-visitors-count');
+          counts.forEach((val, idx) => {
+            appendCountTo(metas[idx])(val);
+          });
+        });
+      }
+    })();
+    } catch (e) {
+      console.error(e);
+    }
+  </script>
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://lin-yunwens-blog.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "https://linyunwen.github.io/2020/10/05/seo/";
+    this.page.identifier = "2020/10/05/seo/";
+    this.page.title = "SEO (Search Engine Optimization)";
+    };
+  NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://lin-yunwens-blog.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
+
+</body>
+</html>
