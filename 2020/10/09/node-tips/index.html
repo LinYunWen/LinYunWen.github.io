@@ -20,22 +20,20 @@
     var CONFIG = {"hostname":"linyunwen.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="Time  雙系統 linux, windows 系統時間差異問題 因為 windows 認為BIOS時間是本地時間，linux 認為BIOS時間是UTC時間 將 windows把系統硬體時間當作本地時間(local time)，即操作系統中顯示的時間跟BIOS中顯示的時間是一樣的。123$ sudo apt-get install ntpdate&#x2F;&#x2F; 確認時間已經和網路同步$ sudo ntpd">
+  <meta name="description" content="Nodejs TipsChild Processexec, spawn  是從 child_process 中出來 要記得字串會先被 escape 一次">
 <meta property="og:type" content="article">
-<meta property="og:title" content="time">
-<meta property="og:url" content="https://linyunwen.github.io/2020/10/02/time/index.html">
+<meta property="og:title" content="Nodejs Tips">
+<meta property="og:url" content="https://linyunwen.github.io/2020/10/09/node-tips/index.html">
 <meta property="og:site_name" content="Lin Yunwen&#39;s Blog">
-<meta property="og:description" content="Time  雙系統 linux, windows 系統時間差異問題 因為 windows 認為BIOS時間是本地時間，linux 認為BIOS時間是UTC時間 將 windows把系統硬體時間當作本地時間(local time)，即操作系統中顯示的時間跟BIOS中顯示的時間是一樣的。123$ sudo apt-get install ntpdate&#x2F;&#x2F; 確認時間已經和網路同步$ sudo ntpd">
+<meta property="og:description" content="Nodejs TipsChild Processexec, spawn  是從 child_process 中出來 要記得字串會先被 escape 一次">
 <meta property="og:locale" content="zh_TW">
-<meta property="og:image" content="https://upload.wikimedia.org/wikipedia/commons/thumb/8/88/World_Time_Zones_Map.png/1280px-World_Time_Zones_Map.png">
-<meta property="article:published_time" content="2020-10-02T08:58:35.000Z">
-<meta property="article:modified_time" content="2020-10-05T14:35:53.621Z">
+<meta property="article:published_time" content="2020-10-09T13:13:49.000Z">
+<meta property="article:modified_time" content="2020-10-09T13:14:22.519Z">
 <meta property="article:author" content="Lin Yunwen">
-<meta property="article:tag" content="note, time">
+<meta property="article:tag" content="note, nodejs, tips">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://upload.wikimedia.org/wikipedia/commons/thumb/8/88/World_Time_Zones_Map.png/1280px-World_Time_Zones_Map.png">
 
-<link rel="canonical" href="https://linyunwen.github.io/2020/10/02/time/">
+<link rel="canonical" href="https://linyunwen.github.io/2020/10/09/node-tips/">
 
 
 <script id="page-configurations">
@@ -48,7 +46,7 @@
   };
 </script>
 
-  <title>time | Lin Yunwen's Blog</title>
+  <title>Nodejs Tips | Lin Yunwen's Blog</title>
   
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-179090431-1"></script>
     <script>
@@ -163,7 +161,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-TW">
-    <link itemprop="mainEntityOfPage" href="https://linyunwen.github.io/2020/10/02/time/">
+    <link itemprop="mainEntityOfPage" href="https://linyunwen.github.io/2020/10/09/node-tips/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="https://scontent.ftpe7-2.fna.fbcdn.net/v/t31.0-8/29664833_1315234395242834_3657557940215006890_o.jpg?_nc_cat=109&_nc_sid=174925&_nc_ohc=J6_1yTnmm4cAX8xform&_nc_ht=scontent.ftpe7-2.fna&oh=029231d5d6d31168c6e133e274b45331&oe=5F91F3DD">
@@ -176,7 +174,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          time
+          Nodejs Tips
         </h1>
 
         <div class="post-meta">
@@ -185,16 +183,10 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">發表於</span>
+              
 
-              <time title="創建時間：2020-10-02 16:58:35" itemprop="dateCreated datePublished" datetime="2020-10-02T16:58:35+08:00">2020-10-02</time>
+              <time title="創建時間：2020-10-09 21:13:49 / 修改時間：21:14:22" itemprop="dateCreated datePublished" datetime="2020-10-09T21:13:49+08:00">2020-10-09</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新於</span>
-                <time title="修改時間：2020-10-05 22:35:53" itemprop="dateModified" datetime="2020-10-05T22:35:53+08:00">2020-10-05</time>
-              </span>
 
           
             <span class="post-meta-item" title="閱讀次數">
@@ -212,8 +204,8 @@
       </span>
       <span class="post-meta-item-text">Disqus：</span>
     
-    <a title="disqus" href="/2020/10/02/time/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/10/02/time/" itemprop="commentCount"></span>
+    <a title="disqus" href="/2020/10/09/node-tips/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/10/09/node-tips/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -223,14 +215,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">文章字數：</span>
-              <span>647</span>
+              <span>2.5k</span>
             </span>
             <span class="post-meta-item" title="所需閱讀時間">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
-              <span>1 分鐘</span>
+              <span>5 分鐘</span>
             </span>
 
         </div>
@@ -242,50 +234,82 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="Time"><a href="#Time" class="headerlink" title="Time"></a>Time</h1><blockquote>
+        <h1 id="Nodejs-Tips"><a href="#Nodejs-Tips" class="headerlink" title="Nodejs Tips"></a>Nodejs Tips</h1><h2 id="Child-Process"><a href="#Child-Process" class="headerlink" title="Child Process"></a>Child Process</h2><h3 id="exec-spawn"><a href="#exec-spawn" class="headerlink" title="exec, spawn"></a>exec, spawn</h3><blockquote>
 <ul>
-<li>雙系統 linux, windows 系統時間差異問題<ul>
-<li>因為 windows 認為BIOS時間是本地時間，linux 認為BIOS時間是UTC時間</li>
-<li>將 windows把系統硬體時間當作本地時間(local time)，即操作系統中顯示的時間跟BIOS中顯示的時間是一樣的。<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get install ntpdate</span><br><span class="line"><span class="comment">// 確認時間已經和網路同步</span></span><br><span class="line">$ sudo ntpdate time.windows.com</span><br></pre></td></tr></table></figure>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 將時間更新到硬件上</span></span><br><span class="line">$ sudo hwclock --localtime --systohc</span><br></pre></td></tr></table></figure></li>
-<li>重新進入windows10</li>
-</ul>
-</li>
+<li>是從 child_process 中出來</li>
+<li>要記得字串會先被 escape 一次</li>
 </ul>
 </blockquote>
 <a id="more"></a>
+<ul>
+<li>exec<ul>
+<li>基本上就是將字串以指令的方式執行</li>
+<li>會將輸出暫存在 buffer 中，所以他跟 spawn 的差數中多了 <code>maxBuffer</code> ，即為設定要暫存的大小</li>
+<li>可以設定 cwd 和是否要用 shell 執行</li>
+<li>return ChildProcess Object</li>
+<li>有 sync 版本</li>
+<li>並用一個 callback 將 error, stdout, stderr 做傳出<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> &#123; exec &#125; = <span class="built_in">require</span>(<span class="string">&#x27;child_process&#x27;</span>);</span><br><span class="line">exec(<span class="string">&#x27;cat *.js missing_file | wc -l&#x27;</span>, <span class="function">(<span class="params">error, stdout, stderr</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">if</span> (error) &#123;</span><br><span class="line">    <span class="built_in">console</span>.error(<span class="string">`exec error: <span class="subst">$&#123;error&#125;</span>`</span>);</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">`stdout: <span class="subst">$&#123;stdout&#125;</span>`</span>);</span><br><span class="line">  <span class="built_in">console</span>.error(<span class="string">`stderr: <span class="subst">$&#123;stderr&#125;</span>`</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">exec(<span class="string">&#x27;&quot;/path/to/test file/test.sh&quot; arg1 arg2&#x27;</span>);</span><br><span class="line"><span class="comment">// Double quotes are used so that the space in the path is not interpreted as</span></span><br><span class="line"><span class="comment">// a delimiter of multiple arguments.</span></span><br><span class="line"></span><br><span class="line">exec(<span class="string">&#x27;echo &quot;The \\$HOME variable is $HOME&quot;&#x27;</span>);</span><br><span class="line"><span class="comment">// The $HOME variable is escaped in the first instance, but not in the second.</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li>execFile<ul>
+<li>跟 <code>exec</code> 差不多，就是用 file 做 stdin</li>
+</ul>
+</li>
+<li>spawn<ul>
+<li>基本上就是將字串以指令的方式執行，但是跟 <code>exec</code> 的差異比較像是這會給定參數</li>
+<li>可以設定 cwd 和是否要用 shell 執行</li>
+<li>return ChildProcess Object</li>
+<li>有 sync 版本</li>
+<li>利用事件的方式將 stdout, sterr 做輸出，因此沒有 <code>maxBuffer</code><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> &#123; spawn &#125; = <span class="built_in">require</span>(<span class="string">&#x27;child_process&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> ls = spawn(<span class="string">&#x27;ls&#x27;</span>, [<span class="string">&#x27;-lh&#x27;</span>, <span class="string">&#x27;/usr&#x27;</span>]);</span><br><span class="line"></span><br><span class="line">ls.stdout.on(<span class="string">&#x27;data&#x27;</span>, <span class="function">(<span class="params">data</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">`stdout: <span class="subst">$&#123;data&#125;</span>`</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">ls.stderr.on(<span class="string">&#x27;data&#x27;</span>, <span class="function">(<span class="params">data</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.error(<span class="string">`stderr: <span class="subst">$&#123;data&#125;</span>`</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">ls.on(<span class="string">&#x27;close&#x27;</span>, <span class="function">(<span class="params">code</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">`child process exited with code <span class="subst">$&#123;code&#125;</span>`</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
 
-<h2 id="格林威治平均時間-中原標準時間"><a href="#格林威治平均時間-中原標準時間" class="headerlink" title="格林威治平均時間 (中原標準時間)"></a>格林威治平均時間 (中原標準時間)</h2><ul>
-<li>Greenwich Mean Time (GMT)</li>
-</ul>
-<h2 id="世界協調時間"><a href="#世界協調時間" class="headerlink" title="世界協調時間"></a>世界協調時間</h2><ul>
-<li>Coordinated Universal Time (UTC)</li>
-<li><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/88/World_Time_Zones_Map.png/1280px-World_Time_Zones_Map.png"></li>
-<li>台北 UTS+8</li>
-</ul>
-<h2 id="Others"><a href="#Others" class="headerlink" title="Others"></a>Others</h2><ul>
-<li>CST<ul>
-<li>Central Standard Time</li>
-<li>美國中部標準時間</li>
-<li>UTC -6</li>
+</li>
 </ul>
 </li>
-<li>EST<ul>
-<li>Central Standard Time</li>
-<li>美國東部標準時間</li>
-<li>UTC -5</li>
+</ul>
+<h2 id="Path"><a href="#Path" class="headerlink" title="Path"></a>Path</h2><h3 id="path-join-path-resolve"><a href="#path-join-path-resolve" class="headerlink" title="path.join, path.resolve"></a>path.join, path.resolve</h3><ul>
+<li>path.join()<ul>
+<li>params 是多個路徑，他會將其進行串接整理並輸出符合 os 的對應相對路徑</li>
+<li>如果沒有輸入任何路徑的話，則輸出當前的相對位置</li>
+<li>可以利用 <code>..</code>, <code>.</code> 來進行溝通<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">path.join(<span class="string">&#x27;/foo&#x27;</span>, <span class="string">&#x27;bar&#x27;</span>, <span class="string">&#x27;baz/asdf&#x27;</span>, <span class="string">&#x27;quux&#x27;</span>, <span class="string">&#x27;..&#x27;</span>);</span><br><span class="line"><span class="comment">// &#x27;/foo/bar/baz/asdf&#x27;</span></span><br><span class="line">path.join()</span><br><span class="line"><span class="comment">// &#x27;.&#x27;</span></span><br></pre></td></tr></table></figure></li>
 </ul>
 </li>
-<li>DST<ul>
-<li>daylight saving time/summer time</li>
-<li>日光節約時間<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2></li>
+<li>path.resolve()<ul>
+<li>跟 join 很像，params 是多個路徑，將其進行串接整理並輸出符合 os 的對應<strong>絕對</strong>路徑</li>
+<li>方便在變更 current work directory 上<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">path.resolve(<span class="string">&#x27;/foo/bar&#x27;</span>, <span class="string">&#x27;./baz&#x27;</span>);</span><br><span class="line"><span class="comment">// &#x27;/foo/bar/baz&#x27;</span></span><br><span class="line">path.resolve(<span class="string">&#x27;/foo/bar&#x27;</span>, <span class="string">&#x27;/tmp/file/&#x27;</span>);</span><br><span class="line"><span class="comment">// &#x27;/tmp/file&#x27;</span></span><br><span class="line">path.resolve()</span><br><span class="line"><span class="comment">// &#x27;/Users/linyunwen&#x27;</span></span><br></pre></td></tr></table></figure>
+
+</li>
 </ul>
 </li>
-<li><a target="_blank" rel="noopener" href="https://www.timeanddate.com/time/zones/cst">CST – Central Standard Time / Central Time (Standard Time)</a></li>
-<li><a target="_blank" rel="noopener" href="https://www.timeanddate.com/time/zones/est">EST – Eastern Standard Time / Eastern Time (Standard Time)</a></li>
-<li><a target="_blank" rel="noopener" href="https://tdlin00009.pixnet.net/blog/post/310933040-%E5%90%8C%E6%AD%A5-%E9%9B%99%E7%B3%BB%E7%B5%B1-ubuntu-%E8%88%87-windows%E6%99%82%E9%96%93">[雙系統]同步 Ubuntu 與 Windows時間</a></li>
-<li><a target="_blank" rel="noopener" href="https://justhodl.blogspot.com/2018/02/linux-ubuntu-windows-utc-time.html">如何解決 Linux (Ubuntu) 與 Windows 雙系統產生的時間不同步 (時差) 問題？</a></li>
-<li><a target="_blank" rel="noopener" href="https://www.itread01.com/content/1541607620.html">Windows + Ubuntu雙系統時間不一致</a></li>
+</ul>
+<h3 id="dirname-process-cwd-os-homedir"><a href="#dirname-process-cwd-os-homedir" class="headerlink" title="__dirname, process.cwd(), os.homedir()"></a>__dirname, process.cwd(), os.homedir()</h3><ul>
+<li>在 node 中<ul>
+<li>__dirname <ul>
+<li>是該執行檔案的位置</li>
+<li>不能變更</li>
+</ul>
+</li>
+<li>process.cwd()<ul>
+<li>其實就是 current work directory</li>
+<li>通常會跟 __dirname 在相同位置</li>
+<li>可以利用 <code>process.chdir($&#123;path&#125;)</code> 來進行變更</li>
+</ul>
+</li>
+<li>os.homedir()<ul>
+<li>家目錄的位置<ul>
+<li>On POSIX, it uses the $HOME environment variable if defined. Otherwise it uses the effective UID to look up the user’s home directory.</li>
+<li>On Windows, it uses the USERPROFILE environment variable if defined. Otherwise it uses the path to the profile directory of the current user.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://nodejs.org/api/os.html#os_os_homedir">OS - Node.js v14.13.1 Documentation</a></li>
+<li><a target="_blank" rel="noopener" href="https://nodejs.org/api/path.html">path - Node.js v14.13.1 Documentation</a></li>
+<li><a target="_blank" rel="noopener" href="https://nodejs.org/api/child_process.html">child_process - Node.js v14.13.1 Documentation</a></li>
 </ul>
 
     </div>
@@ -296,7 +320,7 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/note-time/" rel="tag"># note, time</a>
+              <a href="/tags/note-nodejs-tips/" rel="tag"># note, nodejs, tips</a>
           </div>
 
         
@@ -305,13 +329,10 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2020/10/02/linux-io/" rel="prev" title="Unix input and output">
-      <i class="fa fa-chevron-left"></i> Unix input and output
+    <a href="/2020/10/07/new-seo/" rel="prev" title="新 SEO">
+      <i class="fa fa-chevron-left"></i> 新 SEO
     </a></div>
-      <div class="post-nav-item">
-    <a href="/2020/10/05/seo/" rel="next" title="SEO (Search Engine Optimization)">
-      SEO (Search Engine Optimization) <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -377,7 +398,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Time"><span class="nav-number">1.</span> <span class="nav-text">Time</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A0%BC%E6%9E%97%E5%A8%81%E6%B2%BB%E5%B9%B3%E5%9D%87%E6%99%82%E9%96%93-%E4%B8%AD%E5%8E%9F%E6%A8%99%E6%BA%96%E6%99%82%E9%96%93"><span class="nav-number">1.1.</span> <span class="nav-text">格林威治平均時間 (中原標準時間)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%96%E7%95%8C%E5%8D%94%E8%AA%BF%E6%99%82%E9%96%93"><span class="nav-number">1.2.</span> <span class="nav-text">世界協調時間</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Others"><span class="nav-number">1.3.</span> <span class="nav-text">Others</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Reference"><span class="nav-number">1.4.</span> <span class="nav-text">Reference</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Nodejs-Tips"><span class="nav-number">1.</span> <span class="nav-text">Nodejs Tips</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Child-Process"><span class="nav-number">1.1.</span> <span class="nav-text">Child Process</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#exec-spawn"><span class="nav-number">1.1.1.</span> <span class="nav-text">exec, spawn</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Path"><span class="nav-number">1.2.</span> <span class="nav-text">Path</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#path-join-path-resolve"><span class="nav-number">1.2.1.</span> <span class="nav-text">path.join, path.resolve</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#dirname-process-cwd-os-homedir"><span class="nav-number">1.2.2.</span> <span class="nav-text">__dirname, process.cwd(), os.homedir()</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Reference"><span class="nav-number">1.3.</span> <span class="nav-text">Reference</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -596,9 +617,9 @@
 </script>
 <script>
   var disqus_config = function() {
-    this.page.url = "https://linyunwen.github.io/2020/10/02/time/";
-    this.page.identifier = "2020/10/02/time/";
-    this.page.title = "time";
+    this.page.url = "https://linyunwen.github.io/2020/10/09/node-tips/";
+    this.page.identifier = "2020/10/09/node-tips/";
+    this.page.title = "Nodejs Tips";
     };
   NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
     if (window.DISQUS) {
