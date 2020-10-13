@@ -2,14 +2,14 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://linyunwen.github.io/2020/10/13/popular-psychology/</loc>
+    <loc>https://linyunwen.github.io/2020/10/13/animal-psychology/</loc>
     
     <lastmod>2020-10-13</lastmod>
     
   </url>
   
   <url>
-    <loc>https://linyunwen.github.io/2020/10/13/animal-psychology/</loc>
+    <loc>https://linyunwen.github.io/2020/10/13/popular-psychology/</loc>
     
     <lastmod>2020-10-13</lastmod>
     
@@ -44,13 +44,6 @@
   </url>
   
   <url>
-    <loc>https://linyunwen.github.io/2020/10/02/time/</loc>
-    
-    <lastmod>2020-10-05</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://linyunwen.github.io/2020/09/26/tmux/</loc>
     
     <lastmod>2020-10-05</lastmod>
@@ -58,14 +51,14 @@
   </url>
   
   <url>
-    <loc>https://linyunwen.github.io/2020/09/14/two-stage-left-turn/</loc>
+    <loc>https://linyunwen.github.io/2020/10/02/time/</loc>
     
     <lastmod>2020-10-05</lastmod>
     
   </url>
   
   <url>
-    <loc>https://linyunwen.github.io/2020/09/14/paper-size/</loc>
+    <loc>https://linyunwen.github.io/2020/09/14/two-stage-left-turn/</loc>
     
     <lastmod>2020-10-05</lastmod>
     
@@ -80,6 +73,13 @@
   
   <url>
     <loc>https://linyunwen.github.io/2020/10/05/seo/</loc>
+    
+    <lastmod>2020-10-05</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://linyunwen.github.io/2020/09/14/paper-size/</loc>
     
     <lastmod>2020-10-05</lastmod>
     
@@ -114,14 +114,14 @@
   </url>
   
   <url>
-    <loc>https://linyunwen.github.io/2020/10/01/linux-cmd/</loc>
+    <loc>https://linyunwen.github.io/2020/10/01/linux-file-access/</loc>
     
     <lastmod>2020-10-05</lastmod>
     
   </url>
   
   <url>
-    <loc>https://linyunwen.github.io/2020/10/01/linux-file-access/</loc>
+    <loc>https://linyunwen.github.io/2020/10/01/linux-cmd/</loc>
     
     <lastmod>2020-10-05</lastmod>
     
@@ -172,6 +172,13 @@
   </url>
   
   <url>
+    <loc>https://linyunwen.github.io/tags/note-psychology/</loc>
+    <lastmod>2020-10-13</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://linyunwen.github.io/tags/note-path-book-section/</loc>
     <lastmod>2020-10-13</lastmod>
     <changefreq>daily</changefreq>
@@ -193,7 +200,7 @@
   </url>
   
   <url>
-    <loc>https://linyunwen.github.io/tags/note-linux-cmd-command/</loc>
+    <loc>https://linyunwen.github.io/tags/linux-note/</loc>
     <lastmod>2020-10-13</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -207,7 +214,7 @@
   </url>
   
   <url>
-    <loc>https://linyunwen.github.io/tags/linux-note/</loc>
+    <loc>https://linyunwen.github.io/tags/note-linux-cmd-command/</loc>
     <lastmod>2020-10-13</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -228,6 +235,13 @@
   </url>
   
   <url>
+    <loc>https://linyunwen.github.io/tags/note-nodejs-tips/</loc>
+    <lastmod>2020-10-13</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://linyunwen.github.io/tags/note-seo/</loc>
     <lastmod>2020-10-13</lastmod>
     <changefreq>daily</changefreq>
@@ -236,27 +250,6 @@
   
   <url>
     <loc>https://linyunwen.github.io/tags/note-npm-tip-book-section/</loc>
-    <lastmod>2020-10-13</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://linyunwen.github.io/tags/note-nodejs-tips/</loc>
-    <lastmod>2020-10-13</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://linyunwen.github.io/tags/other-note/</loc>
-    <lastmod>2020-10-13</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://linyunwen.github.io/tags/note-psychology/</loc>
     <lastmod>2020-10-13</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -277,6 +270,13 @@
   </url>
   
   <url>
+    <loc>https://linyunwen.github.io/tags/note-tmux-book-section/</loc>
+    <lastmod>2020-10-13</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://linyunwen.github.io/tags/note-time/</loc>
     <lastmod>2020-10-13</lastmod>
     <changefreq>daily</changefreq>
@@ -284,7 +284,7 @@
   </url>
   
   <url>
-    <loc>https://linyunwen.github.io/tags/note-tmux-book-section/</loc>
+    <loc>https://linyunwen.github.io/tags/note-design-typography/</loc>
     <lastmod>2020-10-13</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -298,7 +298,7 @@
   </url>
   
   <url>
-    <loc>https://linyunwen.github.io/tags/note-design-typography/</loc>
+    <loc>https://linyunwen.github.io/tags/other-note/</loc>
     <lastmod>2020-10-13</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
