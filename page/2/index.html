@@ -155,6 +155,584 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://linyunwen.github.io/2020/10/02/time/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://scontent.ftpe7-2.fna.fbcdn.net/v/t31.0-8/29664833_1315234395242834_3657557940215006890_o.jpg?_nc_cat=109&_nc_sid=174925&_nc_ohc=J6_1yTnmm4cAX8xform&_nc_ht=scontent.ftpe7-2.fna&oh=029231d5d6d31168c6e133e274b45331&oe=5F91F3DD">
+      <meta itemprop="name" content="Lin Yunwen">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Lin Yunwen's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/10/02/time/" class="post-title-link" itemprop="url">time</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">發表於</span>
+
+              <time title="創建時間：2020-10-02 16:58:35" itemprop="dateCreated datePublished" datetime="2020-10-02T16:58:35+08:00">2020-10-02</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新於</span>
+                <time title="修改時間：2020-10-05 22:35:53" itemprop="dateModified" datetime="2020-10-05T22:35:53+08:00">2020-10-05</time>
+              </span>
+
+          
+            <span class="post-meta-item" title="閱讀次數">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-users"></i>
+              </span>
+              <span class="post-meta-item-text">閱讀次數：</span>
+              <span class="firestore-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2020/10/02/time/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/10/02/time/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="文章字數">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">文章字數：</span>
+              <span>647</span>
+            </span>
+            <span class="post-meta-item" title="所需閱讀時間">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+              <span>1 分鐘</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="Time"><a href="#Time" class="headerlink" title="Time"></a>Time</h1><blockquote>
+<ul>
+<li>雙系統 linux, windows 系統時間差異問題<ul>
+<li>因為 windows 認為BIOS時間是本地時間，linux 認為BIOS時間是UTC時間</li>
+<li>將 windows把系統硬體時間當作本地時間(local time)，即操作系統中顯示的時間跟BIOS中顯示的時間是一樣的。<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get install ntpdate</span><br><span class="line"><span class="comment">// 確認時間已經和網路同步</span></span><br><span class="line">$ sudo ntpdate time.windows.com</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 將時間更新到硬件上</span></span><br><span class="line">$ sudo hwclock --localtime --systohc</span><br></pre></td></tr></table></figure></li>
+<li>重新進入windows10</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/10/02/time/#more" rel="contents">
+                閱讀全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://linyunwen.github.io/2020/10/02/linux-io/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://scontent.ftpe7-2.fna.fbcdn.net/v/t31.0-8/29664833_1315234395242834_3657557940215006890_o.jpg?_nc_cat=109&_nc_sid=174925&_nc_ohc=J6_1yTnmm4cAX8xform&_nc_ht=scontent.ftpe7-2.fna&oh=029231d5d6d31168c6e133e274b45331&oe=5F91F3DD">
+      <meta itemprop="name" content="Lin Yunwen">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Lin Yunwen's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/10/02/linux-io/" class="post-title-link" itemprop="url">Unix input and output</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">發表於</span>
+
+              <time title="創建時間：2020-10-02 16:06:47" itemprop="dateCreated datePublished" datetime="2020-10-02T16:06:47+08:00">2020-10-02</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新於</span>
+                <time title="修改時間：2020-10-05 22:35:53" itemprop="dateModified" datetime="2020-10-05T22:35:53+08:00">2020-10-05</time>
+              </span>
+
+          
+            <span class="post-meta-item" title="閱讀次數">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-users"></i>
+              </span>
+              <span class="post-meta-item-text">閱讀次數：</span>
+              <span class="firestore-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2020/10/02/linux-io/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/10/02/linux-io/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="文章字數">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">文章字數：</span>
+              <span>2.3k</span>
+            </span>
+            <span class="post-meta-item" title="所需閱讀時間">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+              <span>4 分鐘</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="Unix-input-and-output"><a href="#Unix-input-and-output" class="headerlink" title="Unix input and output"></a>Unix input and output</h1><h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><ul>
+<li>standard input/output/error<blockquote>
+<ul>
+<li>標準輸入　　(stdin) ：代號為 0</li>
+<li>標準輸出　　(stdout)：代號為 1</li>
+<li>標準錯誤輸出(stderr)：代號為 2</li>
+</ul>
+</blockquote>
+<ul>
+<li>一般來說指令的輸入輸出是鍵盤和螢幕</li>
+<li>而可以利用控制指令將資料流 (data stream) 引導到 file 中</li>
+</ul>
+</li>
+<li><img src="https://i.imgur.com/fKyiQgU.png"></li>
+</ul>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/10/02/linux-io/#more" rel="contents">
+                閱讀全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://linyunwen.github.io/2020/10/01/linux-file-access/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://scontent.ftpe7-2.fna.fbcdn.net/v/t31.0-8/29664833_1315234395242834_3657557940215006890_o.jpg?_nc_cat=109&_nc_sid=174925&_nc_ohc=J6_1yTnmm4cAX8xform&_nc_ht=scontent.ftpe7-2.fna&oh=029231d5d6d31168c6e133e274b45331&oe=5F91F3DD">
+      <meta itemprop="name" content="Lin Yunwen">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Lin Yunwen's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/10/01/linux-file-access/" class="post-title-link" itemprop="url">linux-file-access</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">發表於</span>
+
+              <time title="創建時間：2020-10-01 22:09:04" itemprop="dateCreated datePublished" datetime="2020-10-01T22:09:04+08:00">2020-10-01</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新於</span>
+                <time title="修改時間：2020-10-05 22:35:53" itemprop="dateModified" datetime="2020-10-05T22:35:53+08:00">2020-10-05</time>
+              </span>
+
+          
+            <span class="post-meta-item" title="閱讀次數">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-users"></i>
+              </span>
+              <span class="post-meta-item-text">閱讀次數：</span>
+              <span class="firestore-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2020/10/01/linux-file-access/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/10/01/linux-file-access/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="文章字數">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">文章字數：</span>
+              <span>1.3k</span>
+            </span>
+            <span class="post-meta-item" title="所需閱讀時間">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+              <span>2 分鐘</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="Linux-File-Access-Permission"><a href="#Linux-File-Access-Permission" class="headerlink" title="Linux File Access Permission"></a>Linux File Access Permission</h1><h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><ul>
+<li>在 linux 中，每個檔案都會有自己的檔案權限，可以利用 <code>ls -l</code> 或是 <code>ll</code> 來查看</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ ls -l</span><br><span class="line">drwxrwxr-x+ <span class="number">46</span> root  admin   <span class="number">1.4</span>K <span class="number">10</span>  <span class="number">1</span> <span class="number">11</span>:<span class="number">33</span> Applications/</span><br><span class="line">drwxr-xr-x  <span class="number">67</span> root  wheel   <span class="number">2.1</span>K  <span class="number">8</span> <span class="number">30</span> <span class="number">09</span>:<span class="number">18</span> Library/</span><br><span class="line">drwxr-xr-x@  <span class="number">8</span> root  wheel   <span class="number">256B</span>  <span class="number">8</span> <span class="number">11</span> <span class="number">02</span>:<span class="number">18</span> System/</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<ul>
+<li>第一個值<ul>
+<li>- 為檔案，d 表示目錄，l 表示連結檔案 (link)</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p>去除掉最一開頭的 d，分為三組值</p>
+<blockquote>
+<ul>
+<li>r: readable</li>
+<li>w: writable</li>
+<li>x: executable</li>
+<li>-: 表示無權限</li>
+</ul>
+</blockquote>
+<ul>
+<li>其實它是二進制的三個值<ul>
+<li>無權限即為 000</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>而分三組為</p>
+<blockquote>
+<ul>
+<li>owner 的權限</li>
+<li>member in group 的權限</li>
+<li>others 的權限</li>
+</ul>
+</blockquote>
+<ul>
+<li>每組將其二進制轉為十進制<table>
+<thead>
+<tr>
+<th>Number</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>7</code> (111)</td>
+<td>read, write, and execute</td>
+</tr>
+<tr>
+<td><code>6</code> (110)</td>
+<td>read and write</td>
+</tr>
+<tr>
+<td><code>5</code> (101)</td>
+<td>read and execute</td>
+</tr>
+<tr>
+<td><code>4</code> (100)</td>
+<td>read only</td>
+</tr>
+<tr>
+<td><code>3</code> (011)</td>
+<td>write and execute</td>
+</tr>
+<tr>
+<td><code>2</code> (010)</td>
+<td>write only</td>
+</tr>
+<tr>
+<td><code>1</code> (001)</td>
+<td>execute only</td>
+</tr>
+<tr>
+<td><code>0</code> (000)</td>
+<td>no permission</td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<ul>
+<li>in nodejs  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fs.chmodSync(<span class="string">&#x27;my_file.txt&#x27;</span>, <span class="number">0o765</span>);</span><br></pre></td></tr></table></figure>
+<ul>
+<li>For example, the octal value <code>0o765</code> means:<ul>
+<li>The owner may read, write and execute the file.</li>
+<li>The group may read and write the file.</li>
+<li>Others may read and execute the file.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<h2 id="Command"><a href="#Command" class="headerlink" title="Command"></a>Command</h2><ul>
+<li><p>chmod</p>
+<ul>
+<li>修改權限</li>
+<li>用法<ul>
+<li><code>\[ugoa...\]\[\[+-=\]\[rwxX\]...\]\[,...\]</code><ul>
+<li>u 表示該檔案的擁有者 (user)</li>
+<li>g 表示該 group </li>
+<li>o 表示其他以外的人 (others)</li>
+<li>a 表示這三者皆是 (all)</li>
+<li>+ 表示增加權限</li>
+<li>- 表示取消權限</li>
+<li>= 表示唯一設定權限</li>
+<li><code>-R</code> 目錄下所有檔案皆做相同權限操作<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ chmod ugo+r file1.txt</span><br><span class="line">$ chmod a+w file1.txt</span><br><span class="line"><span class="comment">// 將檔案 file1.txt 與 file2.txt 設為該檔案擁有者，與其所屬同一個群體者可寫入，但其他以外的人則不可寫入</span></span><br><span class="line">$ chmod ug+w,o-w file1.txt file2.txt</span><br><span class="line">$ chmod <span class="number">777</span> file.txt</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>chown</p>
+<ul>
+<li>修改擁有者或是群組<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 將 temp.txt 的 owner 改為 user2</span></span><br><span class="line">$ chown user2 temp.txt</span><br><span class="line"><span class="comment">// 將 temp.txt 的 group 改為 group2</span></span><br><span class="line">$ chown :group2 temp.txt</span><br><span class="line"><span class="comment">// 將 temp.txt 的 owner 改為 user2 並 group 改為 group2</span></span><br><span class="line">$ chown user2:group2 temp.txt</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://blog.techbridge.cc/2017/12/23/linux-commnd-line-tutorial/">Linux Command 命令列指令與基本操作入門教學</a></li>
+<li><a target="_blank" rel="noopener" href="https://charleslin74.pixnet.net/blog/post/419874889">[Linux] chmod的用法</a></li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://linyunwen.github.io/2020/10/01/linux-cmd/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://scontent.ftpe7-2.fna.fbcdn.net/v/t31.0-8/29664833_1315234395242834_3657557940215006890_o.jpg?_nc_cat=109&_nc_sid=174925&_nc_ohc=J6_1yTnmm4cAX8xform&_nc_ht=scontent.ftpe7-2.fna&oh=029231d5d6d31168c6e133e274b45331&oe=5F91F3DD">
+      <meta itemprop="name" content="Lin Yunwen">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Lin Yunwen's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/10/01/linux-cmd/" class="post-title-link" itemprop="url">Linux 常用指令</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">發表於</span>
+
+              <time title="創建時間：2020-10-01 21:42:41" itemprop="dateCreated datePublished" datetime="2020-10-01T21:42:41+08:00">2020-10-01</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新於</span>
+                <time title="修改時間：2020-10-05 22:35:53" itemprop="dateModified" datetime="2020-10-05T22:35:53+08:00">2020-10-05</time>
+              </span>
+
+          
+            <span class="post-meta-item" title="閱讀次數">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-users"></i>
+              </span>
+              <span class="post-meta-item-text">閱讀次數：</span>
+              <span class="firestore-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2020/10/01/linux-cmd/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/10/01/linux-cmd/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="文章字數">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">文章字數：</span>
+              <span>3.8k</span>
+            </span>
+            <span class="post-meta-item" title="所需閱讀時間">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+              <span>7 分鐘</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="Linux-常用指令"><a href="#Linux-常用指令" class="headerlink" title="Linux 常用指令"></a>Linux 常用指令</h1><h2 id="File-System"><a href="#File-System" class="headerlink" title="File System"></a>File System</h2><ul>
+<li><p><code>ls</code></p>
+<ul>
+<li><p>列出資料 (list)</p>
+</li>
+<li><p>可以配合 <code>-a</code>，來顯示詳細資訊及隱藏資料 (all)</p>
+</li>
+<li><p>而在 fish shell 上，簡化 <code>ls -l</code> 為 <code>ll</code> 指令</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/10/01/linux-cmd/#more" rel="contents">
+                閱讀全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-TW">
     <link itemprop="mainEntityOfPage" href="https://linyunwen.github.io/2020/10/01/linux-fs/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -853,467 +1431,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-TW">
-    <link itemprop="mainEntityOfPage" href="https://linyunwen.github.io/2020/09/24/typography/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="https://scontent.ftpe7-2.fna.fbcdn.net/v/t31.0-8/29664833_1315234395242834_3657557940215006890_o.jpg?_nc_cat=109&_nc_sid=174925&_nc_ohc=J6_1yTnmm4cAX8xform&_nc_ht=scontent.ftpe7-2.fna&oh=029231d5d6d31168c6e133e274b45331&oe=5F91F3DD">
-      <meta itemprop="name" content="Lin Yunwen">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Lin Yunwen's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/09/24/typography/" class="post-title-link" itemprop="url">Typography</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">發表於</span>
-
-              <time title="創建時間：2020-09-24 23:21:47" itemprop="dateCreated datePublished" datetime="2020-09-24T23:21:47+08:00">2020-09-24</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新於</span>
-                <time title="修改時間：2020-10-05 22:35:53" itemprop="dateModified" datetime="2020-10-05T22:35:53+08:00">2020-10-05</time>
-              </span>
-
-          
-            <span class="post-meta-item" title="閱讀次數">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-users"></i>
-              </span>
-              <span class="post-meta-item-text">閱讀次數：</span>
-              <span class="firestore-visitors-count"></span>
-            </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/2020/09/24/typography/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/09/24/typography/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  <br>
-            <span class="post-meta-item" title="文章字數">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">文章字數：</span>
-              <span>3.9k</span>
-            </span>
-            <span class="post-meta-item" title="所需閱讀時間">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
-              <span>7 分鐘</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="Typography"><a href="#Typography" class="headerlink" title="Typography"></a>Typography</h1><ul>
-<li>在這個常常要看平板電腦的時代，很多廣告物品吸引著人們的目光</li>
-<li>這篇文章主要來自<a target="_blank" rel="noopener" href="https://medium.com/as-a-product-designer/%E4%BE%86%E4%B8%80%E5%80%8B%E6%87%82%E5%AD%97%E6%87%82%E5%AD%97%E7%9A%84%E7%AF%80%E5%A5%8F-f11c6aeb84e1">來一個懂字懂字的節奏</a>，其對致力於推廣中文字型設計的<a target="_blank" rel="noopener" href="http://blog.justfont.com/">justfont blog</a>裡的文章做脈絡化的整理</li>
-<li>文字排版（typography）會影響了畫面的情緒（mood）、調性（tone）、風格（style），在特定時刻更會<a target="_blank" rel="noopener" href="http://blog.justfont.com/2013/03/info-design-matters/">牽涉到人命</a>！</li>
-</ul>
-<blockquote>
-<ul>
-<li>容易混淆的詞彙<ul>
-<li>字體（typeface）：有共同設計理念的文字集合（例：黑體在設計上的特徵為外型方正、筆畫粗細一致）</li>
-<li>字型（font）：字體可以被實際使用的形式（例：思源黑體是Google和Adobe開發的免費字型）</li>
-<li>字型家族（font family）：多套相同風格但不同粗細的字型（例：思源黑體共有六種不同粗細樣式，同屬一個字型家族<br><img src="https://i.imgur.com/VNFeSMW.png"></li>
-</ul>
-</li>
-</ul>
-</blockquote>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/09/24/typography/#more" rel="contents">
-                閱讀全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-TW">
-    <link itemprop="mainEntityOfPage" href="https://linyunwen.github.io/2020/09/24/env-param/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="https://scontent.ftpe7-2.fna.fbcdn.net/v/t31.0-8/29664833_1315234395242834_3657557940215006890_o.jpg?_nc_cat=109&_nc_sid=174925&_nc_ohc=J6_1yTnmm4cAX8xform&_nc_ht=scontent.ftpe7-2.fna&oh=029231d5d6d31168c6e133e274b45331&oe=5F91F3DD">
-      <meta itemprop="name" content="Lin Yunwen">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Lin Yunwen's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/09/24/env-param/" class="post-title-link" itemprop="url">環境變數</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">發表於</span>
-
-              <time title="創建時間：2020-09-24 09:07:45" itemprop="dateCreated datePublished" datetime="2020-09-24T09:07:45+08:00">2020-09-24</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新於</span>
-                <time title="修改時間：2020-10-05 22:35:53" itemprop="dateModified" datetime="2020-10-05T22:35:53+08:00">2020-10-05</time>
-              </span>
-
-          
-            <span class="post-meta-item" title="閱讀次數">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-users"></i>
-              </span>
-              <span class="post-meta-item-text">閱讀次數：</span>
-              <span class="firestore-visitors-count"></span>
-            </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/2020/09/24/env-param/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/09/24/env-param/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  <br>
-            <span class="post-meta-item" title="文章字數">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">文章字數：</span>
-              <span>2.1k</span>
-            </span>
-            <span class="post-meta-item" title="所需閱讀時間">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
-              <span>4 分鐘</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="環境變數"><a href="#環境變數" class="headerlink" title="環境變數"></a>環境變數</h1><blockquote>
-<ul>
-<li>可在 terminal 中下 <code>env</code>, <code>printenv</code> 即可看到所有的環境變數  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">CLICOLOR&#x3D;1</span><br><span class="line">COLORFGBG&#x3D;7;0</span><br><span class="line">COLORTERM&#x3D;truecolor</span><br><span class="line">COMMAND_MODE&#x3D;unix2003</span><br><span class="line">HOME&#x3D;&#x2F;Users&#x2F;linyunwen</span><br><span class="line">ITERM_PROFILE&#x3D;Default</span><br><span class="line">ITERM_SESSION_ID&#x3D;w0t1p0:1172DE09-396F-42C6-985B-2948288751AE</span><br><span class="line">LANG&#x3D;zh_TW.UTF-8</span><br><span class="line">LC_TERMINAL&#x3D;iTerm2</span><br><span class="line">LC_TERMINAL_VERSION&#x3D;3.3.12</span><br><span class="line">LOGNAME&#x3D;linyunwen</span><br><span class="line">LSCOLORS&#x3D;ExFxCxDxBxegedabagacad</span><br><span class="line">LaunchInstanceID&#x3D;93D5B2B3-94C0-4872-8DB7-03E7048549FD</span><br><span class="line">PATH&#x3D;&#x2F;usr&#x2F;local&#x2F;bin:&#x2F;usr&#x2F;bin:&#x2F;bin:&#x2F;usr&#x2F;sbin:&#x2F;sbin:&#x2F;Library&#x2F;Apple&#x2F;usr&#x2F;bin</span><br><span class="line">PWD&#x3D;&#x2F;Users&#x2F;linyunwen&#x2F;.sideex</span><br><span class="line">SECURITYSESSIONID&#x3D;186a6</span><br><span class="line">SHELL&#x3D;&#x2F;bin&#x2F;bash</span><br><span class="line">SHLVL&#x3D;2</span><br><span class="line">SSH_AUTH_SOCK&#x3D;&#x2F;private&#x2F;tmp&#x2F;com.apple.launchd.CQkqScaF2A&#x2F;Listeners</span><br><span class="line">TERM&#x3D;xterm-color</span><br><span class="line">TERM_PROGRAM&#x3D;iTerm.app</span><br><span class="line">TERM_PROGRAM_VERSION&#x3D;3.3.12</span><br><span class="line">TERM_SESSION_ID&#x3D;w0t1p0:1172DE09-396F-42C6-985B-2948288751AE</span><br><span class="line">TMPDIR&#x3D;&#x2F;var&#x2F;folders&#x2F;q8&#x2F;zjmdq9y90bdbs8v65256_w5m0000gn&#x2F;T&#x2F;</span><br><span class="line">USER&#x3D;linyunwen</span><br><span class="line">XPC_FLAGS&#x3D;0x0</span><br><span class="line">XPC_SERVICE_NAME&#x3D;0</span><br><span class="line">__CF_USER_TEXT_ENCODING&#x3D;0x1F5:0x2:0x35</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</blockquote>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/09/24/env-param/#more" rel="contents">
-                閱讀全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-TW">
-    <link itemprop="mainEntityOfPage" href="https://linyunwen.github.io/2020/09/24/hexo-tutorial/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="https://scontent.ftpe7-2.fna.fbcdn.net/v/t31.0-8/29664833_1315234395242834_3657557940215006890_o.jpg?_nc_cat=109&_nc_sid=174925&_nc_ohc=J6_1yTnmm4cAX8xform&_nc_ht=scontent.ftpe7-2.fna&oh=029231d5d6d31168c6e133e274b45331&oe=5F91F3DD">
-      <meta itemprop="name" content="Lin Yunwen">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Lin Yunwen's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/09/24/hexo-tutorial/" class="post-title-link" itemprop="url">Hexo Tutorial</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">發表於</span>
-
-              <time title="創建時間：2020-09-24 09:04:27" itemprop="dateCreated datePublished" datetime="2020-09-24T09:04:27+08:00">2020-09-24</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新於</span>
-                <time title="修改時間：2020-10-05 22:35:53" itemprop="dateModified" datetime="2020-10-05T22:35:53+08:00">2020-10-05</time>
-              </span>
-
-          
-            <span class="post-meta-item" title="閱讀次數">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-users"></i>
-              </span>
-              <span class="post-meta-item-text">閱讀次數：</span>
-              <span class="firestore-visitors-count"></span>
-            </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/2020/09/24/hexo-tutorial/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/09/24/hexo-tutorial/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  <br>
-            <span class="post-meta-item" title="文章字數">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">文章字數：</span>
-              <span>3k</span>
-            </span>
-            <span class="post-meta-item" title="所需閱讀時間">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
-              <span>6 分鐘</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="Hexo-Tutorial"><a href="#Hexo-Tutorial" class="headerlink" title="Hexo Tutorial"></a>Hexo Tutorial</h1><h2 id="blog"><a href="#blog" class="headerlink" title="blog"></a>blog</h2><blockquote>
-<ul>
-<li>ref<ul>
-<li><a target="_blank" rel="noopener" href="https://medium.com/@moojing/%E5%80%8B%E4%BA%BA%E6%8A%80%E8%A1%93%E7%AB%99%E4%B8%80%E6%8A%8A%E7%BD%A9-%E9%83%A8%E8%90%BD%E6%A0%BC%E5%BB%BA%E7%BD%AE%E5%A4%A7%E5%85%A8-%E4%B8%80-%E4%BD%BF%E7%94%A8-hexo-%E6%90%AD%E9%85%8D-github-page-%E5%BB%BA%E7%BD%AE%E8%87%AA%E5%B7%B1%E7%9A%84%E9%83%A8%E8%90%BD%E6%A0%BC-4fe5d02dbbf8">個人技術站一把罩！部落格建置大全（一）- 使用 Hexo 搭配 Github Page 建置自己的部落格</a></li>
-<li><a target="_blank" rel="noopener" href="https://isdaniel.github.io/hexo-blog-theme/">建立自己Blog系列(三) Hexo next theme 介紹</a></li>
-<li><a target="_blank" rel="noopener" href="https://awesomeopensource.com/projects/hexo-theme">The Top 87 Hexo Theme Open Source Projects</a></li>
-</ul>
-</li>
-</ul>
-</blockquote>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/09/24/hexo-tutorial/#more" rel="contents">
-                閱讀全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-TW">
-    <link itemprop="mainEntityOfPage" href="https://linyunwen.github.io/2020/09/22/alignment-in-css/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="https://scontent.ftpe7-2.fna.fbcdn.net/v/t31.0-8/29664833_1315234395242834_3657557940215006890_o.jpg?_nc_cat=109&_nc_sid=174925&_nc_ohc=J6_1yTnmm4cAX8xform&_nc_ht=scontent.ftpe7-2.fna&oh=029231d5d6d31168c6e133e274b45331&oe=5F91F3DD">
-      <meta itemprop="name" content="Lin Yunwen">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Lin Yunwen's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/09/22/alignment-in-css/" class="post-title-link" itemprop="url">CSS 置中方式</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">發表於</span>
-
-              <time title="創建時間：2020-09-22 22:19:26" itemprop="dateCreated datePublished" datetime="2020-09-22T22:19:26+08:00">2020-09-22</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新於</span>
-                <time title="修改時間：2020-10-05 22:35:53" itemprop="dateModified" datetime="2020-10-05T22:35:53+08:00">2020-10-05</time>
-              </span>
-
-          
-            <span class="post-meta-item" title="閱讀次數">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-users"></i>
-              </span>
-              <span class="post-meta-item-text">閱讀次數：</span>
-              <span class="firestore-visitors-count"></span>
-            </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/2020/09/22/alignment-in-css/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/09/22/alignment-in-css/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  <br>
-            <span class="post-meta-item" title="文章字數">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">文章字數：</span>
-              <span>1.5k</span>
-            </span>
-            <span class="post-meta-item" title="所需閱讀時間">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
-              <span>3 分鐘</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="CSS-置中方式"><a href="#CSS-置中方式" class="headerlink" title="CSS 置中方式"></a>CSS 置中方式</h1><blockquote>
-<ul>
-<li>demo heml<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;div class&#x3D;&quot;container&quot;&gt;</span><br><span class="line">    &lt;div class&#x3D;&quot;content&quot;&gt;</span><br><span class="line">        content</span><br><span class="line">    &lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;div&gt;</span><br></pre></td></tr></table></figure>
-<img src="https://i.imgur.com/FjGAHa9.png"></li>
-</ul>
-</blockquote>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/09/22/alignment-in-css/#more" rel="contents">
-                閱讀全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1385,12 +1502,12 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">22</span>
+          <span class="site-state-item-count">26</span>
           <span class="site-state-item-name">文章</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">20</span>
+        <span class="site-state-item-count">24</span>
         <span class="site-state-item-name">標籤</span>
       </div>
   </nav>
@@ -1440,12 +1557,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="總字數">48k</span>
+    <span title="總字數">56k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="所需總閱讀時間">1:28</span>
+    <span title="所需總閱讀時間">1:41</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 強力驅動
   </div>
