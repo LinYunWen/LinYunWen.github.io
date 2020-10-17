@@ -1,7 +1,7 @@
 ---
 title: 大眾心理學
 date: 2020-10-13 23:10:26
-tags: note, psychology
+tags: [note, psychology]
 ---
 
 # 大眾心理學

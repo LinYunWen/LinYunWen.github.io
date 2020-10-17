@@ -1,7 +1,7 @@
 ---
 title: Nodejs Tips
 date: 2020-10-09 21:13:49
-tags: note, nodejs, tips
+tags: [note, nodejs, tips]
 ---
 
 # Nodejs Tips

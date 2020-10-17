@@ -1,7 +1,7 @@
 ---
 title: 動物心理學
 date: 2020-10-13 23:10:34
-tags: note, psychology
+tags: [note, psychology]
 ---
 
 # 動物心理學

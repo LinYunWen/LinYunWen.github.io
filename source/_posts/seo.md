@@ -1,7 +1,7 @@
 ---
 title: SEO (Search Engine Optimization)
 date: 2020-10-05 22:32:57
-tags: note, seo
+tags: [note, seo]
 ---
 
 # SEO (Search Engine Optimization)

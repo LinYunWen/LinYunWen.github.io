@@ -1,7 +1,7 @@
 ---
 title: grep
 date: 2020-09-29 23:42:15
-tags: note, grep, tip, book section
+tags: [note, grep, tip, book section]
 ---
 
 

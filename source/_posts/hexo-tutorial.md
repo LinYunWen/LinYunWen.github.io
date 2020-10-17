@@ -1,7 +1,7 @@
 ---
 title: Hexo Tutorial
 date: 2020-09-24 09:04:27
-tags: note, hexo, blog
+tags: [note, hexo, blog]
 ---
 
 # Hexo Tutorial

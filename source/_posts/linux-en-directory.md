@@ -1,7 +1,7 @@
 ---
 title: 將 Linux 基本資料夾改為英文
 date: 2020-10-14 22:18:11
-tags: note, linux, en
+tags: [note, linux, en]
 ---
 
 # 將 Linux 基本資料夾改為英文

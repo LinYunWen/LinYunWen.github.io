@@ -1,7 +1,7 @@
 ---
 title: npm
 date: 2020-09-26 21:23:26
-tags: note, npm, tip, book section
+tags: [note, npm, tip, book section]
 ---
 # npm
 ### install

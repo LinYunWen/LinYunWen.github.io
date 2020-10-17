@@ -1,7 +1,7 @@
 ---
 title: 環境變數
 date: 2020-09-24 09:07:45
-tags: note, path, book section
+tags: [note, path, book section]
 ---
 
 # 環境變數

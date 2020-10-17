@@ -1,7 +1,7 @@
 ---
 title: CSS 置中方式
 date: 2020-09-22 22:19:26
-tags: note, css, web
+tags: [note, css, web]
 ---
 
 # CSS 置中方式

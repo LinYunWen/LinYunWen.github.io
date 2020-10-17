@@ -1,7 +1,7 @@
 ---
 title: 紙張大小
 date: 2020-09-14 22:16:03
-tags: other, note
+tags: [other, note]
 ---
 
 ## 紙張常見規格

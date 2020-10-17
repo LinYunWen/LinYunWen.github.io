@@ -1,7 +1,7 @@
 ---
 title: linux-file-access
 date: 2020-10-01 22:09:04
-tags: note, linux, permission
+tags: [note, linux, permission]
 ---
 
 # Linux File Access Permission

@@ -1,7 +1,7 @@
 ---
 title: Typography
 date: 2020-09-24 23:21:47
-tags: note, design, typography
+tags: [note, design, typography]
 ---
 
 # Typography

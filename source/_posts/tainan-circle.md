@@ -1,7 +1,7 @@
 ---
 title: 台南圓環
 date: 2020-10-10 19:52:54
-tags: note, traffic
+tags: [note, traffic]
 ---
 
 # 台南圓環

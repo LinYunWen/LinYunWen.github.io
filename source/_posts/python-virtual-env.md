@@ -1,7 +1,7 @@
 ---
 title: Python Virtual Environment
 date: 2020-09-26 21:20:36
-tags: note, python, conda
+tags: [note, python, conda]
 ---
 
 # Python Virtual Environment

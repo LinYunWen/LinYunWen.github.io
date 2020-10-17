@@ -1,7 +1,7 @@
 ---
 title: Buffer to string
 date: 2020-10-15 20:49:21
-tags: note, buffer, node
+tags: [note, buffer, node]
 ---
 
 # Buffer to string

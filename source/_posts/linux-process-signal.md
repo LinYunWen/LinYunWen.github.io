@@ -1,7 +1,7 @@
 ---
 title: Linux Process Signal
 date: 2020-10-16 22:20:19
-tags: note, linux, process kill
+tags: [note, linux, process kill]
 ---
 
 # Linux Process Signal

@@ -1,7 +1,7 @@
 ---
 title: Linux 檔案系統基本架構
 date: 2020-10-01 20:53:50
-tags: linux, note
+tags: [linux, note]
 ---
 
 # Linux 檔案系統基本架構

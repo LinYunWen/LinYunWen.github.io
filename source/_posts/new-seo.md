@@ -1,7 +1,7 @@
 ---
 title: 新 SEO
 date: 2020-10-07 23:22:54
-tags: note, seo
+tags: [note, seo]
 ---
 
 # 新 SEO

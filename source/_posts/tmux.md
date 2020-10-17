@@ -1,7 +1,7 @@
 ---
 title: Tmux
 date: 2020-09-26 21:18:15
-tags: note, tmux, book section
+tags: [note, tmux, book section]
 ---
 # Tmux
 ## Introduction

@@ -1,7 +1,7 @@
 ---
 title: Linux History
 date: 2020-10-16 22:21:35
-tags: note, linux, history
+tags: [note, linux, history]
 ---
 
 # Linux History

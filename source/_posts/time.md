@@ -1,7 +1,7 @@
 ---
 title: time
 date: 2020-10-02 16:58:35
-tags: note, time
+tags: [note, time]
 ---
 
 # Time

@@ -1,7 +1,7 @@
 ---
 title: Unix input and output
 date: 2020-10-02 16:06:47
-tags: note, pipe, |, >, input, output
+tags: [note, pipe, input, output]
 ---
 # Unix input and output
 

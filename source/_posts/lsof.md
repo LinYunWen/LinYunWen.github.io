@@ -1,7 +1,7 @@
 ---
 title: lsof
 date: 2020-09-25 22:26:17
-tags: note, lsof, tip, book section
+tags: [note, lsof, tip, book section]
 ---
 
 # lsof (List Open Files)

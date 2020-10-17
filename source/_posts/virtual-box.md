@@ -1,7 +1,7 @@
 ---
 title: Virtual Box
 date: 2020-10-14 23:33:33
-tags: note, virtual box, vm
+tags: [note, virtual box, vm]
 ---
 
 # Virtual Box

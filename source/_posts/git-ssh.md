@@ -1,7 +1,7 @@
 ---
 title: Set Github SSH
 date: 2020-10-14 23:01:01
-tags: git, ssh
+tags: [git, ssh]
 ---
 
 # Set Github SSH
