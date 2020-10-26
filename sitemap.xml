@@ -2,6 +2,34 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://linyunwen.github.io/2020/10/26/design-pattern/</loc>
+    
+    <lastmod>2020-10-26</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://linyunwen.github.io/2020/10/25/quotient/</loc>
+    
+    <lastmod>2020-10-26</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://linyunwen.github.io/2020/10/20/js-string-search/</loc>
+    
+    <lastmod>2020-10-20</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://linyunwen.github.io/2020/10/18/optical-illusion/</loc>
+    
+    <lastmod>2020-10-18</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://linyunwen.github.io/2020/10/02/linux-io/</loc>
     
     <lastmod>2020-10-17</lastmod>
@@ -214,7 +242,7 @@
 
   <url>
     <loc>https://linyunwen.github.io/</loc>
-    <lastmod>2020-10-17</lastmod>
+    <lastmod>2020-10-26</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
@@ -222,273 +250,301 @@
   
   <url>
     <loc>https://linyunwen.github.io/tags/note/</loc>
-    <lastmod>2020-10-17</lastmod>
+    <lastmod>2020-10-26</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://linyunwen.github.io/tags/psychology/</loc>
-    <lastmod>2020-10-17</lastmod>
+    <lastmod>2020-10-26</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://linyunwen.github.io/tags/css/</loc>
-    <lastmod>2020-10-17</lastmod>
+    <lastmod>2020-10-26</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://linyunwen.github.io/tags/web/</loc>
-    <lastmod>2020-10-17</lastmod>
+    <lastmod>2020-10-26</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://linyunwen.github.io/tags/buffer/</loc>
-    <lastmod>2020-10-17</lastmod>
+    <lastmod>2020-10-26</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://linyunwen.github.io/tags/node/</loc>
-    <lastmod>2020-10-17</lastmod>
+    <lastmod>2020-10-26</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://linyunwen.github.io/tags/path/</loc>
-    <lastmod>2020-10-17</lastmod>
+    <lastmod>2020-10-26</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://linyunwen.github.io/tags/book-section/</loc>
-    <lastmod>2020-10-17</lastmod>
+    <lastmod>2020-10-26</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://linyunwen.github.io/tags/git/</loc>
-    <lastmod>2020-10-17</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://linyunwen.github.io/tags/ssh/</loc>
-    <lastmod>2020-10-17</lastmod>
+    <loc>https://linyunwen.github.io/tags/design-pattern/</loc>
+    <lastmod>2020-10-26</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://linyunwen.github.io/tags/grep/</loc>
-    <lastmod>2020-10-17</lastmod>
+    <lastmod>2020-10-26</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://linyunwen.github.io/tags/tip/</loc>
-    <lastmod>2020-10-17</lastmod>
+    <lastmod>2020-10-26</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://linyunwen.github.io/tags/git/</loc>
+    <lastmod>2020-10-26</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://linyunwen.github.io/tags/ssh/</loc>
+    <lastmod>2020-10-26</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://linyunwen.github.io/tags/js-string/</loc>
+    <lastmod>2020-10-26</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://linyunwen.github.io/tags/hexo/</loc>
-    <lastmod>2020-10-17</lastmod>
+    <lastmod>2020-10-26</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://linyunwen.github.io/tags/blog/</loc>
-    <lastmod>2020-10-17</lastmod>
+    <lastmod>2020-10-26</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://linyunwen.github.io/tags/linux-cmd/</loc>
-    <lastmod>2020-10-17</lastmod>
+    <lastmod>2020-10-26</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://linyunwen.github.io/tags/command/</loc>
-    <lastmod>2020-10-17</lastmod>
+    <lastmod>2020-10-26</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://linyunwen.github.io/tags/linux/</loc>
-    <lastmod>2020-10-17</lastmod>
+    <lastmod>2020-10-26</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://linyunwen.github.io/tags/en/</loc>
-    <lastmod>2020-10-17</lastmod>
+    <lastmod>2020-10-26</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://linyunwen.github.io/tags/permission/</loc>
-    <lastmod>2020-10-17</lastmod>
+    <lastmod>2020-10-26</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://linyunwen.github.io/tags/history/</loc>
-    <lastmod>2020-10-17</lastmod>
+    <lastmod>2020-10-26</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://linyunwen.github.io/tags/pipe/</loc>
-    <lastmod>2020-10-17</lastmod>
+    <lastmod>2020-10-26</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://linyunwen.github.io/tags/input/</loc>
-    <lastmod>2020-10-17</lastmod>
+    <lastmod>2020-10-26</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://linyunwen.github.io/tags/output/</loc>
-    <lastmod>2020-10-17</lastmod>
+    <lastmod>2020-10-26</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://linyunwen.github.io/tags/process-kill/</loc>
-    <lastmod>2020-10-17</lastmod>
+    <lastmod>2020-10-26</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://linyunwen.github.io/tags/lsof/</loc>
-    <lastmod>2020-10-17</lastmod>
+    <lastmod>2020-10-26</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://linyunwen.github.io/tags/seo/</loc>
-    <lastmod>2020-10-17</lastmod>
+    <lastmod>2020-10-26</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://linyunwen.github.io/tags/nodejs/</loc>
-    <lastmod>2020-10-17</lastmod>
+    <lastmod>2020-10-26</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://linyunwen.github.io/tags/tips/</loc>
-    <lastmod>2020-10-17</lastmod>
+    <lastmod>2020-10-26</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://linyunwen.github.io/tags/npm/</loc>
-    <lastmod>2020-10-17</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://linyunwen.github.io/tags/other/</loc>
-    <lastmod>2020-10-17</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://linyunwen.github.io/tags/python/</loc>
-    <lastmod>2020-10-17</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://linyunwen.github.io/tags/conda/</loc>
-    <lastmod>2020-10-17</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://linyunwen.github.io/tags/traffic/</loc>
-    <lastmod>2020-10-17</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://linyunwen.github.io/tags/time/</loc>
-    <lastmod>2020-10-17</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://linyunwen.github.io/tags/tmux/</loc>
-    <lastmod>2020-10-17</lastmod>
+    <lastmod>2020-10-26</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://linyunwen.github.io/tags/design/</loc>
-    <lastmod>2020-10-17</lastmod>
+    <lastmod>2020-10-26</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://linyunwen.github.io/tags/illusion/</loc>
+    <lastmod>2020-10-26</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://linyunwen.github.io/tags/other/</loc>
+    <lastmod>2020-10-26</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://linyunwen.github.io/tags/python/</loc>
+    <lastmod>2020-10-26</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://linyunwen.github.io/tags/conda/</loc>
+    <lastmod>2020-10-26</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://linyunwen.github.io/tags/quotient/</loc>
+    <lastmod>2020-10-26</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://linyunwen.github.io/tags/traffic/</loc>
+    <lastmod>2020-10-26</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://linyunwen.github.io/tags/time/</loc>
+    <lastmod>2020-10-26</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://linyunwen.github.io/tags/tmux/</loc>
+    <lastmod>2020-10-26</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://linyunwen.github.io/tags/typography/</loc>
-    <lastmod>2020-10-17</lastmod>
+    <lastmod>2020-10-26</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://linyunwen.github.io/tags/virtual-box/</loc>
-    <lastmod>2020-10-17</lastmod>
+    <lastmod>2020-10-26</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://linyunwen.github.io/tags/vm/</loc>
-    <lastmod>2020-10-17</lastmod>
+    <lastmod>2020-10-26</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>

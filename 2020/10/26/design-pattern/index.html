@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.1.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"linyunwen.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="Design Pattern  一般軟體圈講的設計模式是指 GoF (「四人幫設計模式」（Gang of Four) 的23個 design pattern ，而 GoF 的23個設計模式全名是 object oriented design pattern，所以設計模式是指在物件導向基礎上的一套設計原則，但這些設計原則也不是 GoF 憑空想出來的，而是結合前人的經驗整理總結出來的一套原則，是一套檢">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Design Pattern">
+<meta property="og:url" content="https://linyunwen.github.io/2020/10/26/design-pattern/index.html">
+<meta property="og:site_name" content="Lin Yunwen&#39;s Blog">
+<meta property="og:description" content="Design Pattern  一般軟體圈講的設計模式是指 GoF (「四人幫設計模式」（Gang of Four) 的23個 design pattern ，而 GoF 的23個設計模式全名是 object oriented design pattern，所以設計模式是指在物件導向基礎上的一套設計原則，但這些設計原則也不是 GoF 憑空想出來的，而是結合前人的經驗整理總結出來的一套原則，是一套檢">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://uploads-ssl.webflow.com/5d3a7aed4e11720246d46f49/5f4f452c994a915d86e7f01e______2017-11-28_17.00.25.png">
+<meta property="og:image" content="https://miro.medium.com/max/685/1*_lFFicPgct2xaFAi68SYvQ.png">
+<meta property="og:image" content="https://miro.medium.com/max/700/1*T5PVlZNGloFMmIEWlJwbKQ.png">
+<meta property="og:image" content="https://miro.medium.com/max/700/1*fkQNl1Pjmze56pkFx3X6Iw.png">
+<meta property="article:published_time" content="2020-10-26T15:13:46.000Z">
+<meta property="article:modified_time" content="2020-10-26T15:18:46.105Z">
+<meta property="article:author" content="Lin Yunwen">
+<meta property="article:tag" content="note">
+<meta property="article:tag" content="design pattern">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://uploads-ssl.webflow.com/5d3a7aed4e11720246d46f49/5f4f452c994a915d86e7f01e______2017-11-28_17.00.25.png">
+
+<link rel="canonical" href="https://linyunwen.github.io/2020/10/26/design-pattern/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-TW'
+  };
+</script>
+
+  <title>Design Pattern | Lin Yunwen's Blog</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-179090431-1"></script>
+    <script>
+      if (CONFIG.hostname === location.hostname) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-179090431-1');
+      }
+    </script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Lin Yunwen's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">keep moving forward</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>標籤</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://linyunwen.github.io/2020/10/26/design-pattern/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://scontent.ftpe7-2.fna.fbcdn.net/v/t31.0-8/29664833_1315234395242834_3657557940215006890_o.jpg?_nc_cat=109&_nc_sid=174925&_nc_ohc=J6_1yTnmm4cAX8xform&_nc_ht=scontent.ftpe7-2.fna&oh=029231d5d6d31168c6e133e274b45331&oe=5F91F3DD">
+      <meta itemprop="name" content="Lin Yunwen">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Lin Yunwen's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Design Pattern
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">發表於</span>
+              
+
+              <time title="創建時間：2020-10-26 23:13:46 / 修改時間：23:18:46" itemprop="dateCreated datePublished" datetime="2020-10-26T23:13:46+08:00">2020-10-26</time>
+            </span>
+
+          
+            <span class="post-meta-item" title="閱讀次數">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-users"></i>
+              </span>
+              <span class="post-meta-item-text">閱讀次數：</span>
+              <span class="firestore-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2020/10/26/design-pattern/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/10/26/design-pattern/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="文章字數">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">文章字數：</span>
+              <span>5.5k</span>
+            </span>
+            <span class="post-meta-item" title="所需閱讀時間">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+              <span>10 分鐘</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="Design-Pattern"><a href="#Design-Pattern" class="headerlink" title="Design Pattern"></a>Design Pattern</h1><blockquote>
+<ul>
+<li>一般軟體圈講的設計模式是指 GoF (「四人幫設計模式」（Gang of Four) 的23個 design pattern ，而 GoF 的23個設計模式全名是 object oriented design pattern，所以設計模式是指在物件導向基礎上的一套設計原則，但這些設計原則也不是 GoF 憑空想出來的，而是結合前人的經驗整理總結出來的一套原則，是一套檢驗過、行之有效的方法</li>
+<li>描述在各種不同情況下，要怎麼解決問題的一種方案</li>
+<li>核心概念就是，讓程式碼更有彈性並更有利用性</li>
+</ul>
+</blockquote>
+<a id="more"></a>
+<blockquote>
+<p>在軟體工程中，設計模式（design pattern）是對軟體設計中普遍存在（反覆出現）的各種問題，所提出的解決方案。這個術語是由埃里希·伽瑪（Erich Gamma）等人在1990年代從建築設計領域引入到電腦科學的。</p>
+<p>設計模式並不直接用來完成程式碼的編寫，而是描述在各種不同情況下，要怎麼解決問題的一種方案。物件導向設計模式通常以類別或物件來描述其中的關係和相互作用，但不涉及用來完成應用程式的特定類別或物件。設計模式能使不穩定依賴於相對穩定、具體依賴於相對抽象，避免會引起麻煩的緊耦合，以增強軟體設計面對並適應變化的能力。</p>
+<p>並非所有的軟體模式都是設計模式，設計模式特指軟體「設計」層次上的問題。還有其他非設計模式的模式，如架構模式。同時，演算法不能算是一種設計模式，因為演算法主要是用來解決計算上的問題，而非設計上的問題。</p>
+<p>– by wikipedia 設計模式 (電腦)</p>
+</blockquote>
+<ul>
+<li>簡單來說，就是利用一些技巧，來使得程式碼的可重用性變高，可擴充性與彈性較好</li>
+</ul>
+<h2 id="object-oriented-design-pattern"><a href="#object-oriented-design-pattern" class="headerlink" title="object oriented design pattern"></a>object oriented design pattern</h2><h3 id="Creational-Patterns-【創建型-生成-模式】："><a href="#Creational-Patterns-【創建型-生成-模式】：" class="headerlink" title="Creational Patterns  【創建型(生成)模式】："></a>Creational Patterns  【創建型(生成)模式】：</h3><blockquote>
+<ul>
+<li>在軟體工程中，是處理物件創建機制的設計模式。此類型模式試圖根據適合的情況來決定建立物件。單純的物件創建常會導致一些設計問題或增加設計的複雜度。創建型模式則藉由控制物件的生成方式來解決這問題。</li>
+</ul>
+</blockquote>
+<ul>
+<li>Factory (工廠模式)： <ul>
+<li>Simple Factory  (簡單工廠模式)<ul>
+<li>Simple Factory模式又稱Static Factory模式。一個Simple Factory生產成品，而對客戶端隱藏產品產生的細節，物件如何生成，生成前是否與其它物件建立依賴關係，客戶端皆不用理會，用以將物件生成方式之變化 與客戶端程式碼隔離。</li>
+</ul>
+</li>
+<li>Abstract Factory  (抽象工廠模式)：為一個產品族提供了統一的創建介面。當需要這個產品族的某一系列的時候，可以從抽象工廠中選出相應的系列創建一個具體的工廠類。<ul>
+<li>目的 : 使程式能輕易的 Port 到另外一個系統上。</li>
+<li>使用時機：為要建立一個容易 update , 可移植性高的系統時。<ul>
+<li>Factory Method  (工廠方法模式) ：定義一個介面用於創建對象，但是讓子類決定初始化哪個類。工廠方法把一個類的初始化下放到子類。</li>
+</ul>
+</li>
+<li>目的 : 當 Factory 無法預期以後會需要什麼樣的 component 時，使用 Factory Method ，將責任延遲到 concreteProcuct 身上。簡單地說，如果您希望如何建立父類別中用到的物件這件事，是由子類別來決定，可以使用 Factory Method。</li>
+<li>使用時機：在目標功能尚無法決定或可能變化時使用之。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Builder  (建造者模式)：將一個複雜對象的構建與它的表示分離，使得同樣的構建過程可以創建不同的表示。<blockquote>
+<ul>
+<li>乍看之下，Builder模式與 Abstract Factory 模式 很類似，其中最主要的差別在於，Abstract Factory模式著重在不同的工廠實作提供不同的一組產品給組件使用，產品之間並不見得有「部份」（Part of）的概念</li>
+</ul>
+</blockquote>
+<ul>
+<li>目的 : Client 不斷呼叫 Builder 建立 component 直到建立完整的 complex component 才呼叫 Builder 傳回 complex component。</li>
+<li>使用時機：在設計多目標，多樣的彈性系統時，或目標樣式尚未決定時使用之。</li>
+</ul>
+</li>
+<li>Prototype  (原型模式)： 用原型實例指定創建對象的種類，並且通過拷貝這些原型創建新的對象。<ul>
+<li>目的 : 讓 object 來擔任建立與自己相同型態的 object的任務。</li>
+<li>使用時機：在設計者無法預期以後會有何種物件，且未來維護者可能無能力或無法加入新的物件到物件管理程式之中時。</li>
+</ul>
+</li>
+<li>Singleton  (獨身模式或叫單例模式)：確保一個類只有一個實例，並提供對該實例的全局訪問。<ul>
+<li>active</li>
+<li>lazy</li>
+<li>Double ChockLock</li>
+</ul>
+</li>
+<li>Registry of Singleton<ul>
+<li>目的 : 讓一個 class 只能有一個 instance。</li>
+</ul>
+</li>
+</ul>
+<h3 id="Structural-Patterns-【結構模式】："><a href="#Structural-Patterns-【結構模式】：" class="headerlink" title="Structural Patterns  【結構模式】："></a>Structural Patterns  【結構模式】：</h3><blockquote>
+<ul>
+<li>藉由一以貫之的方式來了解元件間的關係，以簡化設計。</li>
+</ul>
+</blockquote>
+<ul>
+<li><p>Adapter  (配接器模式)：將某個類的介面轉換成客戶端期望的另一個介面表示。適配器模式可以消除由於介面不匹配所造成的類兼容性問題。</p>
+<blockquote>
+<ul>
+<li>目的 : 把別人的物件整合到自己的 interface 中。</li>
+<li>使用時機：when two incompatible classes should work together。</li>
+</ul>
+</blockquote>
+<ul>
+<li>Default Adapter</li>
+<li>Object Adapter</li>
+<li>Class Adapter</li>
+</ul>
+</li>
+<li><p>Bridge  (橋樑模式)：將一個抽象與實現解耦，以便兩者可以獨立的變化。</p>
+<ul>
+<li>目的 : 把 interface 與 implementation 分開使其互不影響。</li>
+<li>使用時機：在設計前用來隔開 user , user interface, object interface 與 implementation。</li>
+</ul>
+</li>
+<li><p>Composite  (組合模式)：把多個對象組成樹狀結構來表示局部與整體，這樣用戶可以一樣的對待單個對象和對象的組合。</p>
+<ul>
+<li>目的 : 遞回定義的物件</li>
+<li>使用時機： 對於結構複雜的物件，但介面一致的物件使用之。具有層次性或組合性的物件可以使用Composite模式</li>
+</ul>
+</li>
+<li><p>Decorator  (裝飾模式)：向某個對象動態地添加更多的功能。修飾模式是除類繼承外另一種擴展功能的方法。其不採取繼承的方式，而以組合的方式動態地為物 件添加功能</p>
+<ul>
+<li>目的 : 使附屬功能能以簡單的繼承方式一層層的套疊上去。</li>
+<li>使用時機：要附加功能又不用破壞原來的架構的情況下。</li>
+</ul>
+</li>
+<li><p>Facade  (外觀模式)：為子系統中的一組介面提供一個一致的界面， 外觀模式定義了一個高層介面，這個介面使得這一子系統更加容易使用。您可以檢視應用程式使用這些程式庫的方式，釐出一個入口（Facade）介面，讓對程式庫的依賴實現在對介面的實作上</p>
+<ul>
+<li>目的：提供一整組物件對外的介面，以統一對外界面並達到 loose couple 的功能。</li>
+<li>使用時機：為在系統太複雜的時候，作為整合之用。</li>
+</ul>
+</li>
+<li><p>Flyweight  (享元模式)：通過共享以便有效的支持大量小顆粒對象。對於小且可以資訊重複的物件，可以考慮共用</p>
+<ul>
+<li>目的：利用物件共享的方式以節省實體空間。</li>
+<li>使用時機：許多物件都會包含同一物件許多次的時候使用之。</li>
+</ul>
+</li>
+<li><p>Proxy  (代理模式)：為其他對象提供一個代理以控制對這個對象的訪問。根據您的目的不同，您的代理物件將負有不同的責任，因而產生多種不 同的代理情況</p>
+<ul>
+<li>目的：作為其它物件的存取門戶。</li>
+<li>使用時機：物件因為存取時間太長，或重複存取次數太多，或有可能根本不會存取到時使用。</li>
+</ul>
+</li>
+</ul>
+<h3 id="Behavioral-Patterns-【行為模式】："><a href="#Behavioral-Patterns-【行為模式】：" class="headerlink" title="Behavioral Patterns  【行為模式】："></a>Behavioral Patterns  【行為模式】：</h3><blockquote>
+<ul>
+<li>用來識別對象之間的常用交流模式並加以實現。如此，可在進行這些交流活動時增強彈性。</li>
+</ul>
+</blockquote>
+<ul>
+<li><p>Chain of Responsibility  (責任鏈模式)：</p>
+<ul>
+<li>為解除請求的發送者和接收者之間耦合，而使多個對象都有機會處理這個請求。將這些對象連成一條鏈，並沿著這條鏈傳遞該請求，直到有一個對象處理它。</li>
+</ul>
+</li>
+<li><p>Command  (命令模式)：</p>
+<ul>
+<li>將一個請求封裝為一個對象，從而使你可用不同的請求對客戶進行參數化；對請求排隊或記錄請求日誌，以及支持可取消的操作。</li>
+<li>其主要精神在於將指令的建立與執行分離</li>
+</ul>
+</li>
+<li><p>Iterator  (迭代器模式)：</p>
+<ul>
+<li>提供一種方法順序訪問一個聚合對象中各個元素, 而又不需暴露該對象的內部表示。</li>
+</ul>
+</li>
+<li><p>Strategy  (策略模式)：</p>
+<ul>
+<li>定義一個演算法的系列，將其各個分裝，並且使他們有交互性。策略模式使得演算法在用戶使用的時候能獨立的改變。</li>
+<li>Strategy模式著重在服務細節或演算流程的封裝，將服務與演算法封裝為一個個的Strategy物件，讓使用服務或演算法的客戶端可以依需求抽換服務或演算法，而不用關心服務或演算法的實作方式</li>
+</ul>
+</li>
+<li><p>Template Method  (模版方法模式)：</p>
+<ul>
+<li>模板方法模式準備一個抽象類，將部分邏輯以具體方法及具體構造子類的形式實現，然後聲明一些抽象方法來迫使子類實現剩餘的邏輯。不同的子類可以以不同的方式實現這些抽象方法，從而對剩餘的邏輯有不同的實現。先構建一個頂級邏輯框架，而將邏輯的細節留給具體的子類去實現。</li>
+<li>其在抽象父類別中定義好某個操作的整體流程，而在子類別中才將流程中一些未定的操作實現出來</li>
+</ul>
+</li>
+<li><p>Observer  (觀察者模式)：</p>
+<ul>
+<li>在對象間定義一個一對多的聯繫性，由此當一個對象改變了狀態，所有其他相關的對象會被通知並且自動刷新。</li>
+</ul>
+</li>
+<li><p>Mediator  (中介者模式)：</p>
+<ul>
+<li>Mediator模式用一個中介的物件來封裝物件彼此之間的交互，物件之間並不用互相知道另一方，這可以降低物件之間的耦合性，如果要改變物件之間的交互行為，也只需要對Mediator加以修改即可。</li>
+<li>包裝了一系列對象相互作用的方式，使得這些對象不必相互明顯作用，從而使它們可以鬆散偶合。當某些對象之間的作用發生改變時，不會立即影響其他的一些對象之間的作用，保證這些作用可以彼此獨立的變化。</li>
+</ul>
+</li>
+<li><p>State  (狀態模式)：</p>
+<ul>
+<li>可以考慮讓每個狀態各自成為一個物件，負責自己該狀態的服務，並提供切 換狀態的方法</li>
+<li>讓一個對象在其內部狀態改變的時候，其行為也隨之改變。狀態模式需要對每一個系統可能取得的狀態創立一個狀態類的子類。當系統的狀態變化時，系統便改變所選的子類。</li>
+</ul>
+</li>
+<li><p>Memento  (備忘錄模式)：</p>
+<ul>
+<li>備忘錄對象是一個用來存儲另外一個對象內部狀態的快照的對象。備忘錄模式的用意是在不破壞封裝的條件下，將一個對象的狀態捉住，並外部化，存儲起來，從而可以在將來合適的時候把這個對象還原到存儲起來的狀態。</li>
+</ul>
+</li>
+<li><p>Visitor  (訪問者模式)：</p>
+<ul>
+<li>封裝一些施加於某種資料結構元素之上的操作。一旦這些操作需要修改，接受這個操作的資料結構可以保持不變。訪問者模式適用於資料結構相對未定的系統，它把資料結構和作用於結構上的操作之間的耦合解脫開，使得操作集合可以相對自由的演化。</li>
+<li>是將演算流程與所操作的物件之特定結構分離，這樣分離之後，針對特定物件的操作部份將集中在Visitor中管理，並可以隨時修 改操作。</li>
+</ul>
+</li>
+<li><p>Interpreter  (解譯器模式)：</p>
+<ul>
+<li>給定一個語言, 定義它的文法的一種表示，並定義一個解釋器, 該解釋器使用該表示來解釋語言中的句子。</li>
+</ul>
+</li>
+</ul>
+<h2 id="Others"><a href="#Others" class="headerlink" title="Others"></a>Others</h2><h3 id="sidecar-pattern"><a href="#sidecar-pattern" class="headerlink" title="sidecar pattern"></a>sidecar pattern</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://tachingchen.com/tw/blog/desigining-distributed-systems-the-sidecar-pattern-concept/?fbclid=IwAR39lW2siw_x9y0jXneYp2qbemycBGANo8H8FbY287gnu1kO91YGBroVPTk">邊車模式 (The Sidecar Pattern) - 介紹</a></li>
+</ul>
+<h3 id="MVC"><a href="#MVC" class="headerlink" title="MVC"></a>MVC</h3><blockquote>
+<ul>
+<li>Model、View、Controller 的區分，是希望能把應用程式的內部運作歸納成不同的部門，讓每個部門各自負責不同的關注點。具體的行為是「把不同意義的程式碼放在不同的檔案裡」。</li>
+</ul>
+</blockquote>
+<h4 id="model"><a href="#model" class="headerlink" title="model"></a>model</h4><ul>
+<li>Model<ul>
+<li>常譯為「模型」，負責和資料庫溝通。這裡我們要先注意：應用程式和資料庫是兩個不同的東西，在應用程式裡想要做「新增/瀏覽/修改/刪除」的動作，就需要先有 Model 層幫忙去資料庫裡取出必要的資料，把資料放進應用程式裡的某個程式物件，然後才能用 JavaScript 去操作該物件。</li>
+<li>Model 管理的功能層被稱做「邏輯層」，更明確一點說，是和「商業邏輯」有關的功能</li>
+</ul>
+</li>
+<li>View<ul>
+<li>常譯為「視圖」，View 所管理的功能層叫作「表現層 (presentation layer)」，顧名思義是負責管理畫面的呈現，也就是 HTML 樣板 (template)。</li>
+<li>因為 HTML template 會有需要以動態顯示資料的情況 (也就是由 Model 取出的資料內容)，所以 View 會再進一步運用樣板引擎 (template engine) 將資料帶入 template。我們很快就會在實作中看到相關細節。</li>
+</ul>
+</li>
+<li>Controller<ul>
+<li>常譯為「控制器」，它掌握使用者互動邏輯，也是應用程式收發 request/response 的核心。</li>
+<li>來自路由的 request 會先被送到 Controller，再由 Controller 通知 Model 調度資料，並且把資料傳遞給 View 來產生樣板 (template)，並將呈現資料的 HTML 頁面回傳給客戶端。</li>
+<li>在 Controller 上會設置很多不同的「動作 (action)」，有點類似電視遙控器上的按鈕，只要觸發了不同的 action，Controller 就會啟動後續一系列的行為。</li>
+<li><img src="https://uploads-ssl.webflow.com/5d3a7aed4e11720246d46f49/5f4f452c994a915d86e7f01e______2017-11-28_17.00.25.png"><h5 id="採用-MVC-架構三大好處"><a href="#採用-MVC-架構三大好處" class="headerlink" title="採用 MVC 架構三大好處"></a>採用 MVC 架構三大好處</h5></li>
+</ul>
+</li>
+<li><strong>重複使用已寫好的程式碼</strong>：由於 MVC 三塊彼此獨立、各司其職，你可以使用同一套 model，針對使用場景不一樣，產出不同的 view 來呈現適合的資料，最大化程式碼的使用效率。</li>
+<li><strong>更容易維護程式碼</strong>：由於 MVC 三塊彼此獨立且互不干擾，可以讓你在不破壞現有架構下，進行擴充或修改，大幅提升開發效率。</li>
+<li><strong>方便團隊合作</strong>：同先前所說，由於 MVC 架構將應用程式切分為三塊，在實際工作時，也可以比照相同的方式，將工程師、設計師的負責部分切開，加快開發速度。</li>
+</ul>
+<p><img src="https://miro.medium.com/max/685/1*_lFFicPgct2xaFAi68SYvQ.png"></p>
+<h3 id="flux"><a href="#flux" class="headerlink" title="flux"></a>flux</h3><ul>
+<li><p><a target="_blank" rel="noopener" href="https://facebook.github.io/flux/docs/in-depth-overview/">In-Depth Overview</a></p>
+</li>
+<li><p><img src="https://miro.medium.com/max/700/1*T5PVlZNGloFMmIEWlJwbKQ.png"></p>
+<h2 id="redux"><a href="#redux" class="headerlink" title="redux"></a>redux</h2></li>
+<li><p><a target="_blank" rel="noopener" href="https://note.pcwu.net/2017/03/04/redux-intro/">[Redux] Redex 核心概念筆記</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://medium.com/@dakota.lillie/flux-vs-redux-a-comparison-bbd5000d5111">Flux vs. Redux: A Comparison</a><br><img src="https://miro.medium.com/max/700/1*fkQNl1Pjmze56pkFx3X6Iw.png"></p>
+</li>
+</ul>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://hackmd.io/@lumanman/H1CCdzgrr">為什麼要學 Design Patterns ？</a></li>
+<li><a target="_blank" rel="noopener" href="https://openhome.cc/Gossip/DesignPattern/">非關語言: 設計模式</a></li>
+<li><a target="_blank" rel="noopener" href="https://ithelp.ithome.com.tw/articles/10201706">[ Day 1 ] 我為什麼想學設計模式 ( Design Pattern )</a></li>
+<li><a target="_blank" rel="noopener" href="https://tw.alphacamp.co/blog/mvc-model-view-controller">MVC架構是什麼？認識 Model-View-Controller 軟體設計模式</a></li>
+<li><a target="_blank" rel="noopener" href="http://fluxxor.com/what-is-flux.html">What is Flux?</a></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/note/" rel="tag"># note</a>
+              <a href="/tags/design-pattern/" rel="tag"># design pattern</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/10/25/quotient/" rel="prev" title="各種商數 Quotient">
+      <i class="fa fa-chevron-left"></i> 各種商數 Quotient
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Design-Pattern"><span class="nav-number">1.</span> <span class="nav-text">Design Pattern</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#object-oriented-design-pattern"><span class="nav-number">1.1.</span> <span class="nav-text">object oriented design pattern</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Creational-Patterns-%E3%80%90%E5%89%B5%E5%BB%BA%E5%9E%8B-%E7%94%9F%E6%88%90-%E6%A8%A1%E5%BC%8F%E3%80%91%EF%BC%9A"><span class="nav-number">1.1.1.</span> <span class="nav-text">Creational Patterns  【創建型(生成)模式】：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Structural-Patterns-%E3%80%90%E7%B5%90%E6%A7%8B%E6%A8%A1%E5%BC%8F%E3%80%91%EF%BC%9A"><span class="nav-number">1.1.2.</span> <span class="nav-text">Structural Patterns  【結構模式】：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Behavioral-Patterns-%E3%80%90%E8%A1%8C%E7%82%BA%E6%A8%A1%E5%BC%8F%E3%80%91%EF%BC%9A"><span class="nav-number">1.1.3.</span> <span class="nav-text">Behavioral Patterns  【行為模式】：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Others"><span class="nav-number">1.2.</span> <span class="nav-text">Others</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#sidecar-pattern"><span class="nav-number">1.2.1.</span> <span class="nav-text">sidecar pattern</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MVC"><span class="nav-number">1.2.2.</span> <span class="nav-text">MVC</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#model"><span class="nav-number">1.2.2.1.</span> <span class="nav-text">model</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%8E%A1%E7%94%A8-MVC-%E6%9E%B6%E6%A7%8B%E4%B8%89%E5%A4%A7%E5%A5%BD%E8%99%95"><span class="nav-number">1.2.2.1.1.</span> <span class="nav-text">採用 MVC 架構三大好處</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#flux"><span class="nav-number">1.2.3.</span> <span class="nav-text">flux</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#redux"><span class="nav-number">1.3.</span> <span class="nav-text">redux</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Reference"><span class="nav-number">1.4.</span> <span class="nav-text">Reference</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Lin Yunwen"
+      src="https://scontent.ftpe7-2.fna.fbcdn.net/v/t31.0-8/29664833_1315234395242834_3657557940215006890_o.jpg?_nc_cat=109&_nc_sid=174925&_nc_ohc=J6_1yTnmm4cAX8xform&_nc_ht=scontent.ftpe7-2.fna&oh=029231d5d6d31168c6e133e274b45331&oe=5F91F3DD">
+  <p class="site-author-name" itemprop="name">Lin Yunwen</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">33</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">43</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/LinYunWen" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;LinYunWen" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:l40303k@gmail.com" title="E-Mail → mailto:l40303k@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/yunwenlin" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;yunwenlin" rel="noopener" target="_blank"><i class="fab fa-twitter fa-fw"></i>Twitter</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.facebook.com/yunwen.lin.7" title="FB Page → https:&#x2F;&#x2F;www.facebook.com&#x2F;yunwen.lin.7" rel="noopener" target="_blank"><i class="fab fa-facebook fa-fw"></i>FB Page</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Lin Yunwen</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="總字數">69k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="所需總閱讀時間">2:06</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 強力驅動
+  </div>
+
+        
+
+
+
+
+  <script src="https://www.gstatic.com/firebasejs/6.3.3/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/6.3.3/firebase-firestore.js"></script>
+  <script>
+    firebase.initializeApp({
+      apiKey   : 'AIzaSyD-cdSfhCpDcPxxDRezcaF4P-1wMyFyKFQ',
+      projectId: 'blog-fa09e'
+    });
+
+    function getCount(doc, increaseCount) {
+      // IncreaseCount will be false when not in article page
+      return doc.get().then(d => {
+        var count = 0;
+        if (!d.exists) { // Has no data, initialize count
+          if (increaseCount) {
+            doc.set({
+              count: 1
+            });
+            count = 1;
+          }
+        } else { // Has data
+          count = d.data().count;
+          if (increaseCount) {
+            // If first view this article
+            doc.set({ // Increase count
+              count: count + 1
+            });
+            count++;
+          }
+        }
+
+        return count;
+      });
+    }
+
+    function appendCountTo(el) {
+      return count => {
+        el.innerText = count;
+      }
+    }
+  </script>
+  <script>
+    try {
+    (function() {
+      var db = firebase.firestore();
+      var articles = db.collection('articles');
+
+      if (CONFIG.page.isPost) { // Is article page
+        var title = document.querySelector('.post-title').innerText.trim();
+        var doc = articles.doc(title);
+        var increaseCount = CONFIG.hostname === location.hostname;
+        if (localStorage.getItem(title)) {
+          increaseCount = false;
+        } else {
+          // Mark as visited
+          localStorage.setItem(title, true);
+        }
+        getCount(doc, increaseCount).then(appendCountTo(document.querySelector('.firestore-visitors-count')));
+      } else if (CONFIG.page.isHome) { // Is index page
+        var promises = [...document.querySelectorAll('.post-title')].map(element => {
+          var title = element.innerText.trim();
+          var doc = articles.doc(title);
+          return getCount(doc);
+        });
+        Promise.all(promises).then(counts => {
+          var metas = document.querySelectorAll('.firestore-visitors-count');
+          counts.forEach((val, idx) => {
+            appendCountTo(metas[idx])(val);
+          });
+        });
+      }
+    })();
+    } catch (e) {
+      console.error(e);
+    }
+  </script>
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://lin-yunwens-blog.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "https://linyunwen.github.io/2020/10/26/design-pattern/";
+    this.page.identifier = "2020/10/26/design-pattern/";
+    this.page.title = "Design Pattern";
+    };
+  NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://lin-yunwens-blog.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
+
+</body>
+</html>
