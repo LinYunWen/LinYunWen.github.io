@@ -4,15 +4,11 @@ date: 2020-10-01 21:42:41
 tags: [note, linux-cmd, command]
 ---
 
-# Linux 常用指令
-
 ## File System
 - `ls`
     - 列出資料 (list)
     - 可以配合 `-a`，來顯示詳細資訊及隱藏資料 (all)
     - 而在 fish shell 上，簡化 `ls -l` 為 `ll` 指令
-    <!--more-->
-    
     ```c
     $ ls
     Applications/              Katalon Studio/            Pictures/                  ncku-team/                 temp.txt
@@ -44,6 +40,7 @@ tags: [note, linux-cmd, command]
     drwxr-xr-x@ 32 linyunwen  staff   1.0K  9  3 13:20 system/
     -rw-r--r--@  1 linyunwen  staff   129B  9 29 23:20 temp.txt
     ```
+<!--more-->
 - `pwd`
     - 輸出出目前工作目錄 (print work directory)
     > - cwd: current work directory
@@ -58,7 +55,6 @@ tags: [note, linux-cmd, command]
     // 往上一層目錄
     $ cd ..
     ```
-    
 - mkdir
     - 建新資料夾 (make directory)
 - cp
@@ -92,11 +88,26 @@ tags: [note, linux-cmd, command]
     - 顯示檔案最後幾行內容
 - more
     - 將檔案一頁頁印在終端機上
+- less
+    - [Linux less命令](https://www.runoob.com/linux/linux-comm-less.html)
 - file
     - 檢查檔案類型
 - chmod
     - 改變檔案權限模式 (change mode)
     > - 查看另外一篇 [Linux File Access Permission](https://hackmd.io/@LinYunWen/SyT4OIQ8v)
+- sort
+    - [Linux 的 sort 排序指令教學與常用範例整理](https://blog.gtwang.org/linux/linux-sort-command-tutorial-and-examples/)
+- uniq
+    - [Linux 的 uniq 指令教學與範例：刪除重複文字行、去除相同的內容](https://blog.gtwang.org/linux/linux-uniq-command-tutorial/)
+- cut
+    - [Linux 的 cut 擷取部份字元、欄位指令教學與常用範例整理](https://blog.gtwang.org/linux/linux-cut-command-tutorial-and-examples/)
+- echo
+- fmt (format)
+    - [Linux fmt命令](http://www.w3big.com/zh-TW/linux/linux-comm-fmt.html)
+- tr (translate)
+    - [Linux面試指令---tr指令](https://www.itread01.com/content/1544992767.html)
+- nl
+    - [一天學一個UNIX指令：nl](http://www.happystreet.com.tw/index.php/system-dynamic-teaching/unix-linux/176-a-day-of-school-a-unix-command-nl)
 
 ## System management
 - sudo
@@ -116,6 +127,24 @@ tags: [note, linux-cmd, command]
     // kill immediately
     $ kill -9 ${pid}
     ```
+- who
+- ps (process status)
+    - [
+[筆記]Linux指令-ps(process status)](https://david50.pixnet.net/blog/post/45224451-%5B%E7%AD%86%E8%A8%98%5Dlinux%E6%8C%87%E4%BB%A4-ps(process-status))
+- top
+    - [Unix/Linux TOP 指令使用詳解](https://tigercosmos.xyz/post/2020/04/unix/top-usage/)
+    - [[筆記]Linux - top資訊及參數說明](https://david50.pixnet.net/blog/post/45252072-%5B%E7%AD%86%E8%A8%98%5Dlinux---top%E8%B3%87%E8%A8%8A)
+    - [Linux 用 ps 與 top 指令找出最耗費 CPU 與記憶體資源的程式](https://blog.gtwang.org/linux/ps-top-find-processes-by-cpu-memory-usage/)
+- nmon
+    - [效能監看工具nmon介紹1](https://ithelp.ithome.com.tw/articles/10161037)
+- iostat
+    - [一天學一個UNIX指令：iostat](http://www.happystreet.com.tw/index.php/system-dynamic-teaching/unix-linux/416-a-day-of-school-a-unix-command-iostat)
+    - [iostat命令性能监测与优化](https://man.linuxde.net/iostat)
+- sar
+    - [Linux SAR 指令大全](https://www.twblogs.net/a/5cd38884bd9eee67a77f1005)
+- vmstat
+    - [【Linux】效能監控指令vmstat](https://www.itread01.com/p/185034.html)
+    - [vmstat命令性能监测与优化](https://man.linuxde.net/vmstat)
 
 ## Network
 - ping
@@ -154,6 +183,7 @@ tags: [note, linux-cmd, command]
         hundredge0-0-0-0.clbr01.tok02.pccwbtn.net (63.218.250.173)  49.587 ms
         hundredge0-0-0-9.clbr01.tok02.pccwbtn.net (63.218.250.193)  50.911 ms
     ```
+    - [traceroute 指令 — 路由跟蹤工具](https://www.opencli.com/linux/traceroute-command)
 - nslookup
     - 查詢 DNS 回應是否正常
     ```c
@@ -171,7 +201,45 @@ tags: [note, linux-cmd, command]
     Name:	linyunwen.github.io
     Address: 185.199.108.153
     ```
-    
+- curl
+    - [Curl 指令基本介紹與常見用法](https://blog.techbridge.cc/2019/02/01/linux-curl-command-tutorial/)
+- wget
+    - [Linux 使用 wget 指令自動下載網頁檔案教學與範例
+](https://blog.gtwang.org/linux/linux-wget-command-download-web-pages-and-files-tutorial-examples/)
+- ssh
+    - [Linux 的 SSH 安全加密連線指令使用教學、設定檔配置範例](https://blog.gtwang.org/linux/ssh-command-tutorial-and-script-examples/)
+- nmap
+    - [Nmap 網路診斷工具基本使用技巧與教學](https://blog.gtwang.org/linux/nmap-command-examples-tutorials/)
+- tcpdump
+    - [linux tcpdump](https://crmne0707.pixnet.net/blog/post/322655604-linux-tcpdump)
+- mtr
+    - [MTR：Linux 網路診斷工具使用教學](https://blog.gtwang.org/linux/mtr-linux-network-diagnostic-tool/)
+- dig
+    - [Dig 常用參數 與 DNS 偵錯追蹤](https://blog.longwin.com.tw/2013/03/dig-dns-query-debug-2013/)
+- airmon, airodump
+    - [kali破解wifi握手包-GPU破解，速度翻番好幾倍](https://kknews.cc/zh-tw/digital/y5kegnn.html)
+    - [Aircrack-ng之Airodump-ng命令](https://blog.csdn.net/qq_28208251/article/details/47975161)
+- iptables
+    - [iptables 指令入門](https://www.opencli.com/linux/iptables-command)
+- netstat
+    - [使用 Netstat 指令檢測網路的技巧](https://blog.gtwang.org/linux/linux-netstat-command-examples/)
+
+## Kernel Debugging
+- strace
+    - [strace命令](https://man.linuxde.net/strace)
+- dtrace
+    - [DTrace](https://www.itread01.com/p/365549.html)
+    - [強勁的Linux Trace工具：bpftrace (DTrace 2.0) for Linux 2018](https://www.luoow.com/dc_tw/200778753)
+- systemptap
+    - [Systemtap學習筆記](https://www.itread01.com/content/1546138291.html)
+    - [核心除錯神器SystemTap](https://www.itread01.com/content/1547046370.html)
+- uname
+    - [uname命令内核与模块管理](https://man.linuxde.net/uname)
+    - [linux uname指令介紹](http://code-notes-blog.blogspot.com/2017/09/linux-uname.html)
+- df
+    - [Linux 檢查硬碟使用量 df 指令教學與指令稿範例](https://blog.gtwang.org/linux/linux-df-command-check-disk-space-usage-tutorial-script-example/)
+
+
 ## Others
 - man
     - 查詢 Linux 手冊（manual page）
@@ -180,6 +248,7 @@ tags: [note, linux-cmd, command]
     ```
 - find
     - 查詢檔案
+    - [Unix/Linux 的 find 指令使用教學、技巧與範例整理](https://blog.gtwang.org/linux/unix-linux-find-command-examples/)
 - grep
     - 字串搜尋工具 (globally search for RE and print it)
 - crontab
@@ -188,6 +257,10 @@ tags: [note, linux-cmd, command]
         ```c
          $ crontab -e
         ```
-
+- awk, sed
+    - [Linux中 sed 和 awk的用法詳解](https://codertw.com/%E5%89%8D%E7%AB%AF%E9%96%8B%E7%99%BC/392291/)
+    - [[資工雜筆] awk 好用用法整理](https://noootown.com/awk-useful-usage/)
+- history
+    - [Linux 指令歷史紀錄（History）的操作教學與範例](https://blog.gtwang.org/linux/mastering-linux-command-line-history/)
 ## Reference
 - [Linux Command 命令列指令與基本操作入門教學](https://blog.techbridge.cc/2017/12/23/linux-commnd-line-tutorial/)
