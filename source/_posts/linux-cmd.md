@@ -1,7 +1,7 @@
 ---
 title: Linux 常用指令
 date: 2020-10-01 21:42:41
-tags: [note, linux-cmd, command]
+tags: [note, linux, command]
 ---
 
 ## File System
