@@ -10,7 +10,7 @@ tags: [note]
 - 編譯小型程式可用簡單的命令編譯或 shell script 編譯，但當程式很大且包含大量標頭檔和函式庫時，就需要使用 makefile。makefile 會將程式分成好幾個模組，根據裡面的目標 (target)、規則 (rule) 和檔案的修改時間進行判斷哪些需要重新編譯，可以省去大量重複編譯的時間，這在大型程式中尤為有用。
 
 - 另外，在閱讀大型程式碼時除了 Readme 檔案，Makefile 也能對整體架構有不錯的詮釋，先閱讀 makefile 是掌握程式碼架構一個良好的策略。
-
+<!--more-->
 
 ## Flow
 1.  make 會在當前目錄下按順序找尋文件名為 GNUmakefile、makefile 或 Makefile 的文件。
