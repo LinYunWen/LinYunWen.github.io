@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/linyunwen_icon/icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/linyunwen_icon/icon_32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/linyunwen_icon/icon_16x16.png">
+  <link rel="mask-icon" href="/images/linyunwen_icon/icon.png" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css" integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"linyunwen.github.io","root":"/","images":"/images","scheme":"Gemini","version":"8.6.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"disqus","storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"${hits} 找到 ${time} 個結果","hits":"找到 ${hits} 個結果"}}</script><script src="/js/config.js"></script>
+<meta name="description" content="CoverityIntroductionCoverity公司是由一流的斯坦福大学的科学家于2002年成立的，产品核心技术是1998年至2002年在斯坦福大学计算机系统实验室开发的，用于解决一个计算机科学领域最困难的问题，在2003年发布了第一个能够帮助Linux、FreeBSD等开源项目检测大量关键缺陷的系统。Coverity公司推出的综合开发测试平台，基于新一代的不做代码规则检查、只专注检测代码">
+<meta property="og:type" content="article">
+<meta property="og:title" content="coverity">
+<meta property="og:url" content="https://linyunwen.github.io/2021/06/25/coverity/index.html">
+<meta property="og:site_name" content="Lin Yunwen&#39;s Blog">
+<meta property="og:description" content="CoverityIntroductionCoverity公司是由一流的斯坦福大学的科学家于2002年成立的，产品核心技术是1998年至2002年在斯坦福大学计算机系统实验室开发的，用于解决一个计算机科学领域最困难的问题，在2003年发布了第一个能够帮助Linux、FreeBSD等开源项目检测大量关键缺陷的系统。Coverity公司推出的综合开发测试平台，基于新一代的不做代码规则检查、只专注检测代码">
+<meta property="og:locale" content="zh_TW">
+<meta property="article:published_time" content="2021-06-25T07:39:33.000Z">
+<meta property="article:modified_time" content="2021-06-25T08:40:28.782Z">
+<meta property="article:author" content="Lin Yunwen">
+<meta property="article:tag" content="note">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://linyunwen.github.io/2021/06/25/coverity/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-TW","comments":true,"permalink":"https://linyunwen.github.io/2021/06/25/coverity/","path":"2021/06/25/coverity/","title":"coverity"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>coverity | Lin Yunwen's Blog</title>
+  
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Lin Yunwen's Blog</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">keep moving forward</p>
+      <img class="custom-logo-image" src="/images/linyunwen_icon/icon.png" alt="Lin Yunwen's Blog">
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>標籤</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Coverity"><span class="nav-number">1.</span> <span class="nav-text">Coverity</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Introduction"><span class="nav-number">1.1.</span> <span class="nav-text">Introduction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Features"><span class="nav-number">1.2.</span> <span class="nav-text">Features</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#most-threats-in-code"><span class="nav-number">1.2.1.</span> <span class="nav-text">most threats in code</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Coverity%E5%85%B8%E5%9E%8B%E7%BC%BA%E9%99%B7%E8%AF%B4%E6%98%8E"><span class="nav-number">1.2.2.</span> <span class="nav-text">Coverity典型缺陷说明</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Reference"><span class="nav-number">1.3.</span> <span class="nav-text">Reference</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-overview">
+            <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Lin Yunwen"
+      src="https://scontent.ftpe5-1.fna.fbcdn.net/v/t31.18172-8/29664833_1315234395242834_3657557940215006890_o.jpg?_nc_cat=109&ccb=1-3&_nc_sid=174925&_nc_ohc=Q9j76XFq48cAX-xLPvA&_nc_ht=scontent.ftpe5-1.fna&oh=659f17dea5c430b49384b8efbf152acb&oe=60ED69E7">
+  <p class="site-author-name" itemprop="name">Lin Yunwen</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">43</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">47</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/LinYunWen" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;LinYunWen" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:l40303k@gmail.com" title="E-Mail → mailto:l40303k@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="回到頂端">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://linyunwen.github.io/2021/06/25/coverity/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://scontent.ftpe5-1.fna.fbcdn.net/v/t31.18172-8/29664833_1315234395242834_3657557940215006890_o.jpg?_nc_cat=109&ccb=1-3&_nc_sid=174925&_nc_ohc=Q9j76XFq48cAX-xLPvA&_nc_ht=scontent.ftpe5-1.fna&oh=659f17dea5c430b49384b8efbf152acb&oe=60ED69E7">
+      <meta itemprop="name" content="Lin Yunwen">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Lin Yunwen's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          coverity
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">發表於</span>
+      
+
+      <time title="創建時間：2021-06-25 15:39:33 / 修改時間：16:40:28" itemprop="dateCreated datePublished" datetime="2021-06-25T15:39:33+08:00">2021-06-25</time>
+    </span>
+
+  
+      </div>
+      <div class="post-meta">
+    <span class="post-meta-item" title="文章字數">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">文章字數：</span>
+      <span>944</span>
+    </span>
+    <span class="post-meta-item" title="所需閱讀時間">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+      <span>2 分鐘</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="Coverity"><a href="#Coverity" class="headerlink" title="Coverity"></a>Coverity</h1><h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>Coverity公司是由一流的斯坦福大学的科学家于2002年成立的，产品核心技术是1998年至2002年在斯坦福大学计算机系统实验室开发的，用于解决一个计算机科学领域最困难的问题，在2003年发布了第一个能够帮助Linux、FreeBSD等开源项目检测大量关键缺陷的系统。Coverity公司推出的综合开发测试平台，基于新一代的不做代码规则检查、只专注检测代码中的Bug静态分析技术，可以更好地帮助开发人员在写代码的时候就能发现并修复安全缺陷，缩短产品上市时间和降低风险。Coverity是唯一位列IDC前10名软件质量工具供应商的静态分析工具厂商，被VDC评为静态源代码分析领域的领导者。</p>
+<span id="more"></span>
+<h2 id="Features"><a href="#Features" class="headerlink" title="Features"></a>Features</h2><ol>
+<li>列出不會被執行到的程式碼</li>
+<li>列出沒被初始化的類成員變數</li>
+<li>列出沒有被捕獲的異常</li>
+<li>列出沒有給出返回值的return語句</li>
+<li>某個函式雖然有返回值，但呼叫該函式的地方沒有用到它的返回值，這也會被列出來</li>
+<li>列出沒有被回收的new出來的物件</li>
+<li>列出沒有被關閉的控制代碼</li>
+<li>精確定位到程式碼行，並提供逐層展開函式的功能</li>
+<li>列出可能的數值型別溢位。例如，無符號int數做 ++ 操作，可能導致int溢位，都會被檢測到。</li>
+<li>什麼地方該用&amp;位運算，而不應該用|位運算，都能定位出來並作出建議</li>
+<li>ostream在一個函式中被修改了格式，但退出該函式之後沒有將ostream恢復成先前的格式，也會被檢測到</li>
+</ol>
+<h3 id="most-threats-in-code"><a href="#most-threats-in-code" class="headerlink" title="most threats in code"></a>most threats in code</h3><p>SCAN项目中的出现频率      风险程度</p>
+<p>空指针引用            27.60%   中</p>
+<p>资源泄露                23.19%   高</p>
+<p>错误的表达式         9.76%     中</p>
+<p>未初始化变量         8.41%     高</p>
+<p>释放后使用             5.91%     高</p>
+<p>缓冲区溢出             5.52%     高</p>
+<h3 id="Coverity典型缺陷说明"><a href="#Coverity典型缺陷说明" class="headerlink" title="Coverity典型缺陷说明"></a>Coverity典型缺陷说明</h3><h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://www.itread01.com/content/1546712855.html">Coverity程式碼靜態檢測工具介紹</a></li>
+<li><a target="_blank" rel="noopener" href="https://iter01.com/34538.html">Coverity談“開發中測試”與程式設計師最常犯的編碼錯誤</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/yourenshuo/article/details/84896031">Coverity介绍以及典型缺陷说明</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.twblogs.net/a/5b7d4c8c2b71770a43de933e">CWE-252: 未檢查的返回值（Unchecked Return Value）</a></li>
+<li><a target="_blank" rel="noopener" href="https://cwe.mitre.org/data/definitions/252.html">CWE-252: Unchecked Return Value</a></li>
+<li><a target="_blank" rel="noopener" href="https://wiki.sei.cmu.edu/confluence/display/c/STR32-C.+Do+not+pass+a+non-null-terminated+character+sequence+to+a+library+function+that+expects+a+string">STR32-C. Do not pass a non-null-terminated character sequence to a library function that expects a string</a></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/note/" rel="tag"># note</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/06/24/makefile/" rel="prev" title="makefile">
+                  <i class="fa fa-chevron-left"></i> makefile
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2021/06/25/gbd/" rel="next" title="gbd">
+                  gbd <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Lin Yunwen</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>總字數：</span>
+    <span title="總字數">87k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>所需總閱讀時間 &asymp;</span>
+    <span title="所需總閱讀時間">2:39</span>
+  </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/linyunwen_icon/icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/linyunwen_icon/icon_32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/linyunwen_icon/icon_16x16.png">
+  <link rel="mask-icon" href="/images/linyunwen_icon/icon.png" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css" integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"linyunwen.github.io","root":"/","images":"/images","scheme":"Gemini","version":"8.6.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"disqus","storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"${hits} 找到 ${time} 個結果","hits":"找到 ${hits} 個結果"}}</script><script src="/js/config.js"></script>
+<meta name="description" content="TmuxIntroduction 他可以快速且簡單的分割 terminal 的視窗 其實基本上他就是開啟一個 server 共同管理所有的 session，並同步輸入、輸出 所以可以在離線後保留狀態 做背景執行 以不同電腦上可以同步的狀況   如果使用 who 指令可以看出他的 session 值很特別Install123\# Ubuntu Linux 安裝 tmuxsudo apt instal">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Tmux">
+<meta property="og:url" content="https://linyunwen.github.io/2020/09/26/tmux/index.html">
+<meta property="og:site_name" content="Lin Yunwen&#39;s Blog">
+<meta property="og:description" content="TmuxIntroduction 他可以快速且簡單的分割 terminal 的視窗 其實基本上他就是開啟一個 server 共同管理所有的 session，並同步輸入、輸出 所以可以在離線後保留狀態 做背景執行 以不同電腦上可以同步的狀況   如果使用 who 指令可以看出他的 session 值很特別Install123\# Ubuntu Linux 安裝 tmuxsudo apt instal">
+<meta property="og:locale" content="zh_TW">
+<meta property="article:published_time" content="2020-09-26T13:18:15.000Z">
+<meta property="article:modified_time" content="2021-06-24T14:07:55.738Z">
+<meta property="article:author" content="Lin Yunwen">
+<meta property="article:tag" content="note">
+<meta property="article:tag" content="book section">
+<meta property="article:tag" content="tmux">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://linyunwen.github.io/2020/09/26/tmux/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-TW","comments":true,"permalink":"https://linyunwen.github.io/2020/09/26/tmux/","path":"2020/09/26/tmux/","title":"Tmux"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Tmux | Lin Yunwen's Blog</title>
+  
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Lin Yunwen's Blog</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">keep moving forward</p>
+      <img class="custom-logo-image" src="/images/linyunwen_icon/icon.png" alt="Lin Yunwen's Blog">
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>標籤</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Tmux"><span class="nav-number">1.</span> <span class="nav-text">Tmux</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Introduction"><span class="nav-number">1.1.</span> <span class="nav-text">Introduction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Install"><span class="nav-number">1.2.</span> <span class="nav-text">Install</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Config"><span class="nav-number">1.3.</span> <span class="nav-text">Config</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Command"><span class="nav-number">1.4.</span> <span class="nav-text">Command</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Session"><span class="nav-number">1.5.</span> <span class="nav-text">Session</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Window"><span class="nav-number">1.6.</span> <span class="nav-text">Window</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Pane"><span class="nav-number">1.7.</span> <span class="nav-text">Pane</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Reference"><span class="nav-number">1.8.</span> <span class="nav-text">Reference</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-overview">
+            <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Lin Yunwen"
+      src="https://scontent.ftpe5-1.fna.fbcdn.net/v/t31.18172-8/29664833_1315234395242834_3657557940215006890_o.jpg?_nc_cat=109&ccb=1-3&_nc_sid=174925&_nc_ohc=Q9j76XFq48cAX-xLPvA&_nc_ht=scontent.ftpe5-1.fna&oh=659f17dea5c430b49384b8efbf152acb&oe=60ED69E7">
+  <p class="site-author-name" itemprop="name">Lin Yunwen</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">43</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">47</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/LinYunWen" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;LinYunWen" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:l40303k@gmail.com" title="E-Mail → mailto:l40303k@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="回到頂端">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://linyunwen.github.io/2020/09/26/tmux/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://scontent.ftpe5-1.fna.fbcdn.net/v/t31.18172-8/29664833_1315234395242834_3657557940215006890_o.jpg?_nc_cat=109&ccb=1-3&_nc_sid=174925&_nc_ohc=Q9j76XFq48cAX-xLPvA&_nc_ht=scontent.ftpe5-1.fna&oh=659f17dea5c430b49384b8efbf152acb&oe=60ED69E7">
+      <meta itemprop="name" content="Lin Yunwen">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Lin Yunwen's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Tmux
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">發表於</span>
+
+      <time title="創建時間：2020-09-26 21:18:15" itemprop="dateCreated datePublished" datetime="2020-09-26T21:18:15+08:00">2020-09-26</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新於</span>
+        <time title="修改時間：2021-06-24 22:07:55" itemprop="dateModified" datetime="2021-06-24T22:07:55+08:00">2021-06-24</time>
+      </span>
+
+  
+      </div>
+      <div class="post-meta">
+    <span class="post-meta-item" title="文章字數">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">文章字數：</span>
+      <span>2.2k</span>
+    </span>
+    <span class="post-meta-item" title="所需閱讀時間">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+      <span>4 分鐘</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="Tmux"><a href="#Tmux" class="headerlink" title="Tmux"></a>Tmux</h1><h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><ul>
+<li>他可以快速且簡單的分割 terminal 的視窗</li>
+<li>其實基本上他就是開啟一個 server 共同管理所有的 session，並同步輸入、輸出<ul>
+<li>所以可以在離線後保留狀態<ul>
+<li>做背景執行</li>
+<li>以不同電腦上可以同步的狀況</li>
+</ul>
+</li>
+<li>如果使用 <code>who</code> 指令可以看出他的 session 值很特別<h2 id="Install"><a href="#Install" class="headerlink" title="Install"></a>Install</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">\# Ubuntu Linux 安裝 tmux</span><br><span class="line">sudo apt install tmux</span><br><span class="line">brew install tmux \# Mac</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+</li>
+</ul>
+<span id="more"></span>
+<h2 id="Config"><a href="#Config" class="headerlink" title="Config"></a>Config</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">vim ~&#x2F;.tmux.conf</span><br><span class="line">tmux source-file ~&#x2F;.tmux.conf</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://mropengate.blogspot.com/2017/12/tmux.html">終端機管理工具：tmux</a></p>
+</blockquote>
+<ul>
+<li><p>設定完之後的結果</p>
+<ul>
+<li><p>prefix: <code>ctrl+a</code></p>
+</li>
+<li><p>split pane</p>
+<ul>
+<li>horizontal: <code>$&#123;prefix&#125;  | </code> </li>
+<li>vertical: <code>$&#123;prefix&#125; - </code> </li>
+</ul>
+</li>
+<li><p>pane navigation</p>
+<ul>
+<li>left: <code>$&#123;prefix&#125; h </code> </li>
+<li>down: <code>$&#123;prefix&#125; j </code> </li>
+<li>up: <code>$&#123;prefix&#125; k </code> </li>
+<li>right: <code>$&#123;prefix&#125; l </code> </li>
+</ul>
+</li>
+<li><p>pane resize</p>
+<ul>
+<li><code>$&#123;prefix&#125; Left </code></li>
+<li><code>$&#123;prefix&#125; Down </code></li>
+<li><code>$&#123;prefix&#125; Up </code></li>
+<li><code>$&#123;prefix&#125; Right </code></li>
+</ul>
+</li>
+<li><p>clear history</p>
+<ul>
+<li><code>ctrl+i</code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="Command"><a href="#Command" class="headerlink" title="Command"></a>Command</h2><ul>
+<li><code>tmux</code>      啟動</li>
+<li><code>tmux ls</code>      列出所有 session</li>
+<li><code>tmux detach</code>      背景執行<ul>
+<li><code>$&#123;prefix&#125; d</code></li>
+</ul>
+</li>
+<li><code>tmux attach -t n</code>     回到第 n 個 session (target)</li>
+<li><code>tmux kill-session -t n</code>     關閉第 n 個 session</li>
+<li><code>tmux kill-session -a</code>     關閉除了自己的所有 session (all)</li>
+<li>Copy/paste the text<ul>
+<li>method 1:<ul>
+<li>copy: select the text with <code>shift</code>.</li>
+<li>paste: <code>shift</code> key + <code>middle-button</code></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>method 2:<ul>
+<li>copy:<ul>
+<li><code>Ctrl+b, [</code> Enter edit mode</li>
+<li><code>Ctrl + space</code> highlight texts</li>
+<li><code>Alt+w</code> Copies selected text into <strong>tmux clipboard</strong></li>
+</ul>
+</li>
+<li>paste:<ul>
+<li><code>Ctrl+b, ]</code><blockquote>
+<ul>
+<li>copy to system clipboard<ul>
+<li>see ref</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>ref:<ul>
+<li><a target="_blank" rel="noopener" href="https://unix.stackexchange.com/questions/58763/copy-text-from-one-tmux-pane-to-another-using-vim">Copy text from one tmux pane to another (using vim)</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.rushiagr.com/blog/2016/06/16/everything-you-need-to-know-about-tmux-copy-pasting-ubuntu/">Everything you need to know about Tmux copy paste - Ubuntu</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="Session"><a href="#Session" class="headerlink" title="Session"></a>Session</h2><ul>
+<li><code>$&#123;prefix&#125; d</code>     將目前的 session 放到背景執行 (detach)</li>
+<li><code>$&#123;prefix&#125; s</code>     以視覺化選單切換 session（select)</li>
+<li><code>$&#123;prefix&#125; L</code>     切換至上一個使用過的 session</li>
+<li><code>$&#123;prefix&#125; (</code>     切換至上一個 session</li>
+<li><code>$&#123;prefix&#125; )</code>     切換至下一個 session</li>
+<li><code>$&#123;prefix&#125; $</code>     重新命名目前的 session。</li>
+<li><code>$&#123;prefix&#125; [</code>     進入複製模式</li>
+<li><code>$&#123;prefix&#125; :</code>     進入命令模式</li>
+<li><code>$&#123;prefix&#125; ?</code>     查詢快捷鍵</li>
+</ul>
+<h2 id="Window"><a href="#Window" class="headerlink" title="Window"></a>Window</h2><ul>
+<li><code>$&#123;prefix&#125; c</code>     開啟新 window（create）</li>
+<li><code>$&#123;prefix&#125; &amp;</code>     關閉 window</li>
+<li><code>$&#123;prefix&#125; w</code>     以視覺化選單切換 window </li>
+<li><code>$&#123;prefix&#125; 0~9</code>   切換至指定 window</li>
+<li><code>$&#123;prefix&#125; n</code>     切換到下一個 window (next)</li>
+<li><code>$&#123;prefix&#125; p</code>     切換到上一個 window (previous)</li>
+<li><code>$&#123;prefix&#125; f</code>     找尋指定 pattern 並跳到該 window (find)</li>
+<li><code>$&#123;prefix&#125; ,</code>     命名 window</li>
+</ul>
+<h2 id="Pane"><a href="#Pane" class="headerlink" title="Pane"></a>Pane</h2><ul>
+<li><code>$&#123;prefix&#125; |</code>     水平分割出 pane<ul>
+<li><del><code>$&#123;prefix&#125; %</code>     水平分割出 pane</del></li>
+</ul>
+</li>
+<li><code>$&#123;prefix&#125; -</code>     垂直分割出 pane<ul>
+<li><del><code>$&#123;prefix&#125; &quot;</code>     垂直分割出 pane</del></li>
+</ul>
+</li>
+<li><code>$&#123;prefix&#125; !</code>     將目前的 pane 獨立生成一個 window</li>
+<li><code>$&#123;prefix&#125; 方向鍵</code>     pane 大小調整</li>
+<li><code>$&#123;prefix&#125; o</code>     以輪流方式輪流切換 pane (order)</li>
+<li><code>$&#123;prefix&#125; h,j,k,l</code> (vim 方向鍵)     切換游標所在的 pane<ul>
+<li><del><code>$&#123;prefix&#125; 方向鍵</code>   切換游標所在的 pane</del> </li>
+</ul>
+</li>
+<li><code>$&#123;prefix&#125; space</code>     重新佈局分割視窗，內建多種佈局。 (沒試過)</li>
+<li><code>$&#123;prefix&#125; x</code>     關閉目前 pane</li>
+<li><code>$&#123;prefix&#125; q</code>     顯示 pane 編號</li>
+<li><code>$&#123;prefix&#125; &#123;</code>     交換 pane 位置（向前）</li>
+<li><code>$&#123;prefix&#125; &#125;</code>     交換 pane 位置（向後）</li>
+</ul>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://mropengate.blogspot.com/2017/12/tmux.html">終端機管理工具：tmux</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.gtwang.org/linux/linux-tmux-terminal-multiplexer-tutorial/">Linux tmux 終端機管理工具使用教學</a></li>
+<li><a target="_blank" rel="noopener" href="https://andyyou.github.io/2017/11/27/tmux-notes/">tmux 快速入門筆記</a></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/note/" rel="tag"># note</a>
+              <a href="/tags/book-section/" rel="tag"># book section</a>
+              <a href="/tags/tmux/" rel="tag"># tmux</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2020/09/25/lsof/" rel="prev" title="lsof">
+                  <i class="fa fa-chevron-left"></i> lsof
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2020/09/26/python-virtual-env/" rel="next" title="Python Virtual Environment">
+                  Python Virtual Environment <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Lin Yunwen</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>總字數：</span>
+    <span title="總字數">87k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>所需總閱讀時間 &asymp;</span>
+    <span title="所需總閱讀時間">2:39</span>
+  </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

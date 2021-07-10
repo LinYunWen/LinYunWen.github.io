@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/linyunwen_icon/icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/linyunwen_icon/icon_32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/linyunwen_icon/icon_16x16.png">
+  <link rel="mask-icon" href="/images/linyunwen_icon/icon.png" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css" integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"linyunwen.github.io","root":"/","images":"/images","scheme":"Gemini","version":"8.6.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"disqus","storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"${hits} 找到 ${time} 個結果","hits":"找到 ${hits} 個結果"}}</script><script src="/js/config.js"></script>
+<meta name="description" content="Set Github SSHgen ssh key123456789101112131415161718192021222324$ ssh-keygen -t rsa -C &quot;email@example.com&quot;Generating public&#x2F;private rsa key pair.  Enter file in which to save the key (&amp;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Set Github SSH">
+<meta property="og:url" content="https://linyunwen.github.io/2020/10/14/git-ssh/index.html">
+<meta property="og:site_name" content="Lin Yunwen&#39;s Blog">
+<meta property="og:description" content="Set Github SSHgen ssh key123456789101112131415161718192021222324$ ssh-keygen -t rsa -C &quot;email@example.com&quot;Generating public&#x2F;private rsa key pair.  Enter file in which to save the key (&amp;">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://i.imgur.com/RaIH7nv.png">
+<meta property="og:image" content="https://i.imgur.com/Pfa1mam.png">
+<meta property="article:published_time" content="2020-10-14T15:01:01.000Z">
+<meta property="article:modified_time" content="2021-06-24T14:07:55.704Z">
+<meta property="article:author" content="Lin Yunwen">
+<meta property="article:tag" content="git">
+<meta property="article:tag" content="ssh">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.imgur.com/RaIH7nv.png">
+
+
+<link rel="canonical" href="https://linyunwen.github.io/2020/10/14/git-ssh/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-TW","comments":true,"permalink":"https://linyunwen.github.io/2020/10/14/git-ssh/","path":"2020/10/14/git-ssh/","title":"Set Github SSH"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Set Github SSH | Lin Yunwen's Blog</title>
+  
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Lin Yunwen's Blog</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">keep moving forward</p>
+      <img class="custom-logo-image" src="/images/linyunwen_icon/icon.png" alt="Lin Yunwen's Blog">
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>標籤</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Set-Github-SSH"><span class="nav-number">1.</span> <span class="nav-text">Set Github SSH</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#gen-ssh-key"><span class="nav-number">1.1.</span> <span class="nav-text">gen ssh key</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#set-ssh-on-github-or-gitlab"><span class="nav-number">1.2.</span> <span class="nav-text">set ssh on github or gitlab</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#github"><span class="nav-number">1.2.1.</span> <span class="nav-text">github</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#gitlab"><span class="nav-number">1.2.2.</span> <span class="nav-text">gitlab</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Test-on-computer"><span class="nav-number">1.3.</span> <span class="nav-text">Test on computer</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Reference"><span class="nav-number">1.4.</span> <span class="nav-text">Reference</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-overview">
+            <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Lin Yunwen"
+      src="https://scontent.ftpe5-1.fna.fbcdn.net/v/t31.18172-8/29664833_1315234395242834_3657557940215006890_o.jpg?_nc_cat=109&ccb=1-3&_nc_sid=174925&_nc_ohc=Q9j76XFq48cAX-xLPvA&_nc_ht=scontent.ftpe5-1.fna&oh=659f17dea5c430b49384b8efbf152acb&oe=60ED69E7">
+  <p class="site-author-name" itemprop="name">Lin Yunwen</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">43</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">47</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/LinYunWen" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;LinYunWen" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:l40303k@gmail.com" title="E-Mail → mailto:l40303k@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="回到頂端">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://linyunwen.github.io/2020/10/14/git-ssh/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://scontent.ftpe5-1.fna.fbcdn.net/v/t31.18172-8/29664833_1315234395242834_3657557940215006890_o.jpg?_nc_cat=109&ccb=1-3&_nc_sid=174925&_nc_ohc=Q9j76XFq48cAX-xLPvA&_nc_ht=scontent.ftpe5-1.fna&oh=659f17dea5c430b49384b8efbf152acb&oe=60ED69E7">
+      <meta itemprop="name" content="Lin Yunwen">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Lin Yunwen's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Set Github SSH
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">發表於</span>
+
+      <time title="創建時間：2020-10-14 23:01:01" itemprop="dateCreated datePublished" datetime="2020-10-14T23:01:01+08:00">2020-10-14</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新於</span>
+        <time title="修改時間：2021-06-24 22:07:55" itemprop="dateModified" datetime="2021-06-24T22:07:55+08:00">2021-06-24</time>
+      </span>
+
+  
+      </div>
+      <div class="post-meta">
+    <span class="post-meta-item" title="文章字數">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">文章字數：</span>
+      <span>1.9k</span>
+    </span>
+    <span class="post-meta-item" title="所需閱讀時間">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+      <span>4 分鐘</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="Set-Github-SSH"><a href="#Set-Github-SSH" class="headerlink" title="Set Github SSH"></a>Set Github SSH</h1><h2 id="gen-ssh-key"><a href="#gen-ssh-key" class="headerlink" title="gen ssh key"></a>gen ssh key</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">$ ssh-keygen -t rsa -C &quot;email@example.com&quot;</span><br><span class="line">Generating public&#x2F;private rsa key pair.  </span><br><span class="line">Enter file in which to save the key (&#x2F;home&#x2F;linyunwen&#x2F;.ssh&#x2F;id_rsa):  </span><br><span class="line">Enter passphrase (empty for no passphrase):  </span><br><span class="line">Enter same passphrase again:  </span><br><span class="line">Your identification has been saved in &#x2F;home&#x2F;linyunwen&#x2F;.ssh&#x2F;id_rsa  </span><br><span class="line">Your public key has been saved in &#x2F;home&#x2F;linyunwen&#x2F;.ssh&#x2F;id_rsa.pub  </span><br><span class="line">The key fingerprint is:  </span><br><span class="line">SHA256:2JmjfMInqjqXcEzoacXw7k9E0mH6SloJ4oDwnHqGu3U [email@gmail.com](mailto:email@gmail.com)  </span><br><span class="line">The key&#39;s randomart image is:  </span><br><span class="line">+---\[RSA 3072\]----+  </span><br><span class="line">|. o                |  </span><br><span class="line">|o+ .+ .            |  </span><br><span class="line">...</span><br><span class="line">|o+ooE.* o          |  </span><br><span class="line">|.ooo.. &#x3D;           |  </span><br><span class="line">|o+..o.             |  </span><br><span class="line">+----\[SHA256\]-----+  </span><br><span class="line"></span><br><span class="line">$ ssh-add ~&#x2F;.ssh&#x2F;id_rsa  </span><br><span class="line">Identity added: &#x2F;home&#x2F;linyunwen&#x2F;.ssh&#x2F;id_rsa ([email@gmail.com](mailto:email@gmail.com))  </span><br><span class="line"></span><br><span class="line">$ cat ~&#x2F;.ssh&#x2F;id_rsa.pub  </span><br><span class="line">ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCoOPC42DxzQaFjuRD4cZd5dzhRHzqnFBEVqCKKVpNfw8wLa2EncAewptfKdr56vObVtMAfntkzVlMFBLGf...PK3zYpKkXQS2ga4SgzM+HNQUQJKnv+Y7s9NegHd27KJFkkOm6fxzv3rruWNZi4fJPbXqtZZYqAVtK9ObrNoG9cAqOLSBEg2Nx5Ihyf+cHB2MC8t0QWNiP6PVfFCpft0AT5Gdn0LuierAxjCOWqCSK5HtH8&#x3D; [email@gmail.com](mailto:email@gmail.com)</span><br></pre></td></tr></table></figure>
+<span id="more"></span>
+
+<h2 id="set-ssh-on-github-or-gitlab"><a href="#set-ssh-on-github-or-gitlab" class="headerlink" title="set ssh on github or gitlab"></a>set ssh on github or gitlab</h2><h3 id="github"><a href="#github" class="headerlink" title="github"></a>github</h3><ul>
+<li>go to github setting</li>
+<li>click <code>SSH and GPG keys</code> on the left bar</li>
+<li>click new ssh key</li>
+<li>paste the output of <code>~/.ssh/id_rsa.pub</code> on it</li>
+<li><img src="https://i.imgur.com/RaIH7nv.png"></li>
+</ul>
+<h3 id="gitlab"><a href="#gitlab" class="headerlink" title="gitlab"></a>gitlab</h3><ul>
+<li>go to gitlab setting</li>
+<li>click <code>SSH keys</code> on the left bar</li>
+<li>click new ssh key</li>
+<li>paste the output of <code>~/.ssh/id_rsa.pub</code> on it</li>
+<li><img src="https://i.imgur.com/Pfa1mam.png"></li>
+</ul>
+<h2 id="Test-on-computer"><a href="#Test-on-computer" class="headerlink" title="Test on computer"></a>Test on computer</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">$ ssh -T git@github.com</span><br><span class="line">Hi LinYunWen! You&#39;ve successfully authenticated, but GitHub does not provide shell access.</span><br><span class="line"></span><br><span class="line">$ ssh -T git@gitlab.com</span><br><span class="line">The authenticity of host &#39;[gitlab.com](http:&#x2F;&#x2F;gitlab.com&#x2F;) (172.65.251.78)&#39; can&#39;t be established.  </span><br><span class="line">ECDSA key fingerprint is SHA256:HbW3g8zUjNSksFbqTiUWPWg2Bq1x8xdGUrliXFzSnUw.  </span><br><span class="line">Are you sure you want to continue connecting (yes&#x2F;no&#x2F;\[fingerprint\])?  yes</span><br><span class="line">Warning: Permanently added &#39;gitlab.com,172.65.251.78&#39; (ECDSA) to the list of known hosts.  </span><br><span class="line">Welcome to GitLab, @LinYunWen!</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><ul>
+<li><a target="_blank" rel="noopener" href="http://wiki.csie.ncku.edu.tw/github">GitHub 設定指引</a></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/git/" rel="tag"># git</a>
+              <a href="/tags/ssh/" rel="tag"># ssh</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2020/10/14/linux-en-directory/" rel="prev" title="將 Linux 基本資料夾改為英文">
+                  <i class="fa fa-chevron-left"></i> 將 Linux 基本資料夾改為英文
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2020/10/14/virtual-box/" rel="next" title="Virtual Box">
+                  Virtual Box <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Lin Yunwen</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>總字數：</span>
+    <span title="總字數">87k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>所需總閱讀時間 &asymp;</span>
+    <span title="所需總閱讀時間">2:39</span>
+  </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

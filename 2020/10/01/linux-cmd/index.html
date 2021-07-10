@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/linyunwen_icon/icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/linyunwen_icon/icon_32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/linyunwen_icon/icon_16x16.png">
+  <link rel="mask-icon" href="/images/linyunwen_icon/icon.png" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css" integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"linyunwen.github.io","root":"/","images":"/images","scheme":"Gemini","version":"8.6.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"disqus","storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"${hits} 找到 ${time} 個結果","hits":"找到 ${hits} 個結果"}}</script><script src="/js/config.js"></script>
+<meta name="description" content="File System ls 列出資料 (list) 可以配合 -a，來顯示詳細資訊及隱藏資料 (all) 而在 fish shell 上，簡化 ls -l 為 ll 指令1234567891011121314151617181920212223242526272829$ lsApplications&#x2F;              Katalon Studio&#x2F;            Picture">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux 常用指令">
+<meta property="og:url" content="https://linyunwen.github.io/2020/10/01/linux-cmd/index.html">
+<meta property="og:site_name" content="Lin Yunwen&#39;s Blog">
+<meta property="og:description" content="File System ls 列出資料 (list) 可以配合 -a，來顯示詳細資訊及隱藏資料 (all) 而在 fish shell 上，簡化 ls -l 為 ll 指令1234567891011121314151617181920212223242526272829$ lsApplications&#x2F;              Katalon Studio&#x2F;            Picture">
+<meta property="og:locale" content="zh_TW">
+<meta property="article:published_time" content="2020-10-01T13:42:41.000Z">
+<meta property="article:modified_time" content="2021-06-24T14:07:55.708Z">
+<meta property="article:author" content="Lin Yunwen">
+<meta property="article:tag" content="note">
+<meta property="article:tag" content="linux">
+<meta property="article:tag" content="command">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://linyunwen.github.io/2020/10/01/linux-cmd/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-TW","comments":true,"permalink":"https://linyunwen.github.io/2020/10/01/linux-cmd/","path":"2020/10/01/linux-cmd/","title":"Linux 常用指令"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Linux 常用指令 | Lin Yunwen's Blog</title>
+  
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Lin Yunwen's Blog</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">keep moving forward</p>
+      <img class="custom-logo-image" src="/images/linyunwen_icon/icon.png" alt="Lin Yunwen's Blog">
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>標籤</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#File-System"><span class="nav-number">1.</span> <span class="nav-text">File System</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#System-management"><span class="nav-number">2.</span> <span class="nav-text">System management</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Network"><span class="nav-number">3.</span> <span class="nav-text">Network</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Kernel-Debugging"><span class="nav-number">4.</span> <span class="nav-text">Kernel Debugging</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Others"><span class="nav-number">5.</span> <span class="nav-text">Others</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Reference"><span class="nav-number">6.</span> <span class="nav-text">Reference</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-overview">
+            <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Lin Yunwen"
+      src="https://scontent.ftpe5-1.fna.fbcdn.net/v/t31.18172-8/29664833_1315234395242834_3657557940215006890_o.jpg?_nc_cat=109&ccb=1-3&_nc_sid=174925&_nc_ohc=Q9j76XFq48cAX-xLPvA&_nc_ht=scontent.ftpe5-1.fna&oh=659f17dea5c430b49384b8efbf152acb&oe=60ED69E7">
+  <p class="site-author-name" itemprop="name">Lin Yunwen</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">43</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">47</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/LinYunWen" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;LinYunWen" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:l40303k@gmail.com" title="E-Mail → mailto:l40303k@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="回到頂端">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://linyunwen.github.io/2020/10/01/linux-cmd/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://scontent.ftpe5-1.fna.fbcdn.net/v/t31.18172-8/29664833_1315234395242834_3657557940215006890_o.jpg?_nc_cat=109&ccb=1-3&_nc_sid=174925&_nc_ohc=Q9j76XFq48cAX-xLPvA&_nc_ht=scontent.ftpe5-1.fna&oh=659f17dea5c430b49384b8efbf152acb&oe=60ED69E7">
+      <meta itemprop="name" content="Lin Yunwen">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Lin Yunwen's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Linux 常用指令
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">發表於</span>
+
+      <time title="創建時間：2020-10-01 21:42:41" itemprop="dateCreated datePublished" datetime="2020-10-01T21:42:41+08:00">2020-10-01</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新於</span>
+        <time title="修改時間：2021-06-24 22:07:55" itemprop="dateModified" datetime="2021-06-24T22:07:55+08:00">2021-06-24</time>
+      </span>
+
+  
+      </div>
+      <div class="post-meta">
+    <span class="post-meta-item" title="文章字數">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">文章字數：</span>
+      <span>4.8k</span>
+    </span>
+    <span class="post-meta-item" title="所需閱讀時間">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+      <span>9 分鐘</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h2 id="File-System"><a href="#File-System" class="headerlink" title="File System"></a>File System</h2><ul>
+<li><code>ls</code><ul>
+<li>列出資料 (list)</li>
+<li>可以配合 <code>-a</code>，來顯示詳細資訊及隱藏資料 (all)</li>
+<li>而在 fish shell 上，簡化 <code>ls -l</code> 為 <code>ll</code> 指令<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">$ ls</span><br><span class="line">Applications/              Katalon Studio/            Pictures/                  ncku-team/                 temp.txt</span><br><span class="line">Desktop/                   Library/                   Postman/                   repos/</span><br><span class="line">Documents/                 Movies/                    Public/                    sideex/</span><br><span class="line">Downloads/                 Music/                     github-recovery-codes.txt  system/</span><br><span class="line"></span><br><span class="line">$ ls -a</span><br><span class="line">./                         .conda/                    .oracle_jre_usage/         Documents/                 github-recovery-codes.txt</span><br><span class="line">.CFUserTextEncoding        .cups/                     .ssh/                      Katalon Studio/            repos/</span><br><span class="line">.DS_Store                  .gitconfig                 .viminfo                   Library/                   sideex/</span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">$ ls *.txt</span><br><span class="line">temp.txt</span><br><span class="line"></span><br><span class="line"><span class="comment">// access permissions, # of hard link, ower, user group, size, date and time, name</span></span><br><span class="line">$ ls -l</span><br><span class="line">total <span class="number">16</span></span><br><span class="line">drwx------@  <span class="number">4</span> linyunwen  staff   <span class="number">128B</span>  <span class="number">8</span> <span class="number">27</span> <span class="number">16</span>:<span class="number">36</span> Applications/</span><br><span class="line">drwx------@  <span class="number">5</span> linyunwen  staff   <span class="number">160B</span>  <span class="number">8</span> <span class="number">27</span> <span class="number">20</span>:<span class="number">00</span> Desktop/</span><br><span class="line">drwx------@ <span class="number">10</span> linyunwen  staff   <span class="number">320B</span>  <span class="number">9</span>  <span class="number">5</span> <span class="number">10</span>:<span class="number">29</span> Documents/</span><br><span class="line">drwx------@ <span class="number">26</span> linyunwen  staff   <span class="number">832B</span> <span class="number">10</span>  <span class="number">1</span> <span class="number">20</span>:<span class="number">52</span> Downloads/</span><br><span class="line">drwx------@ <span class="number">75</span> linyunwen  staff   <span class="number">2.3</span>K  <span class="number">9</span> <span class="number">22</span> <span class="number">11</span>:<span class="number">52</span> Library/</span><br><span class="line">drwx------+  <span class="number">8</span> linyunwen  staff   <span class="number">256B</span>  <span class="number">9</span>  <span class="number">1</span> <span class="number">23</span>:<span class="number">44</span> Movies/</span><br><span class="line">drwx------+  <span class="number">4</span> linyunwen  staff   <span class="number">128B</span>  <span class="number">8</span> <span class="number">30</span> <span class="number">22</span>:<span class="number">41</span> Music/</span><br><span class="line">drwx------+  <span class="number">5</span> linyunwen  staff   <span class="number">160B</span>  <span class="number">8</span> <span class="number">31</span> <span class="number">11</span>:<span class="number">08</span> Pictures/</span><br><span class="line">drwxr-xr-x+  <span class="number">4</span> linyunwen  staff   <span class="number">128B</span>  <span class="number">8</span> <span class="number">27</span> <span class="number">16</span>:<span class="number">30</span> Public/</span><br><span class="line">drwxr-xr-x@ <span class="number">32</span> linyunwen  staff   <span class="number">1.0</span>K  <span class="number">9</span>  <span class="number">3</span> <span class="number">13</span>:<span class="number">20</span> system/</span><br><span class="line">-rw-r--r--@  <span class="number">1</span> linyunwen  staff   <span class="number">129B</span>  <span class="number">9</span> <span class="number">29</span> <span class="number">23</span>:<span class="number">20</span> temp.txt</span><br></pre></td></tr></table></figure>
+<span id="more"></span></li>
+</ul>
+</li>
+<li><code>pwd</code><ul>
+<li>輸出出目前工作目錄 (print work directory)<blockquote>
+<ul>
+<li>cwd: current work directory</li>
+</ul>
+</blockquote>
+</li>
+</ul>
+</li>
+<li>cd<ul>
+<li>進入資料夾 (change directory)<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ cd $&#123;directory_name&#125;</span><br><span class="line"><span class="comment">// 進入根目錄</span></span><br><span class="line">$ cd /</span><br><span class="line"><span class="comment">// 進入家目錄</span></span><br><span class="line">$ cd ~</span><br><span class="line"><span class="comment">// 往上一層目錄</span></span><br><span class="line">$ cd ..</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li>mkdir<ul>
+<li>建新資料夾 (make directory)</li>
+</ul>
+</li>
+<li>cp<ul>
+<li>複製檔案 (copy)<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ cp $&#123;src&#125; $&#123;dist&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li>mv<ul>
+<li>移動檔案或是重新命名檔案 (move files)<blockquote>
+<ul>
+<li>若相同位置、不同檔名，則可以變成 rename</li>
+</ul>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ mv $&#123;src&#125; $&#123;dist&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li>rm<ul>
+<li>刪除檔案 (remove file)<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ rm $&#123;file_name&#125;</span><br><span class="line"><span class="comment">// 強制刪除 (force)</span></span><br><span class="line">$ rm -f</span><br><span class="line"><span class="comment">// 刪除資料夾 (recursive)</span></span><br><span class="line">$ rm -r</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li>sl<ul>
+<li>建立軟連結</li>
+</ul>
+</li>
+<li>touch<ul>
+<li>用來更新已存在文件的 timestamp 時間戳記</li>
+<li>新增空白檔案</li>
+</ul>
+</li>
+<li>cat<ul>
+<li>將文件印出在終端機上</li>
+</ul>
+</li>
+<li>tail<ul>
+<li>顯示檔案最後幾行內容</li>
+</ul>
+</li>
+<li>more<ul>
+<li>將檔案一頁頁印在終端機上</li>
+</ul>
+</li>
+<li>less<ul>
+<li><a target="_blank" rel="noopener" href="https://www.runoob.com/linux/linux-comm-less.html">Linux less命令</a></li>
+</ul>
+</li>
+<li>file<ul>
+<li>檢查檔案類型</li>
+</ul>
+</li>
+<li>chmod<ul>
+<li>改變檔案權限模式 (change mode)<blockquote>
+<ul>
+<li>查看另外一篇 <a target="_blank" rel="noopener" href="https://hackmd.io/@LinYunWen/SyT4OIQ8v">Linux File Access Permission</a></li>
+</ul>
+</blockquote>
+</li>
+</ul>
+</li>
+<li>sort<ul>
+<li><a target="_blank" rel="noopener" href="https://blog.gtwang.org/linux/linux-sort-command-tutorial-and-examples/">Linux 的 sort 排序指令教學與常用範例整理</a></li>
+</ul>
+</li>
+<li>uniq<ul>
+<li><a target="_blank" rel="noopener" href="https://blog.gtwang.org/linux/linux-uniq-command-tutorial/">Linux 的 uniq 指令教學與範例：刪除重複文字行、去除相同的內容</a></li>
+</ul>
+</li>
+<li>cut<ul>
+<li><a target="_blank" rel="noopener" href="https://blog.gtwang.org/linux/linux-cut-command-tutorial-and-examples/">Linux 的 cut 擷取部份字元、欄位指令教學與常用範例整理</a></li>
+</ul>
+</li>
+<li>echo</li>
+<li>fmt (format)<ul>
+<li><a target="_blank" rel="noopener" href="http://www.w3big.com/zh-TW/linux/linux-comm-fmt.html">Linux fmt命令</a></li>
+</ul>
+</li>
+<li>tr (translate)<ul>
+<li><a target="_blank" rel="noopener" href="https://www.itread01.com/content/1544992767.html">Linux面試指令—tr指令</a></li>
+</ul>
+</li>
+<li>nl<ul>
+<li><a target="_blank" rel="noopener" href="http://www.happystreet.com.tw/index.php/system-dynamic-teaching/unix-linux/176-a-day-of-school-a-unix-command-nl">一天學一個UNIX指令：nl</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="System-management"><a href="#System-management" class="headerlink" title="System management"></a>System management</h2><ul>
+<li>sudo<ul>
+<li>使用最高權限（superuser）執行指令</li>
+<li>會要求輸入自己密碼</li>
+</ul>
+</li>
+<li>su<ul>
+<li>登入最高管理者帳戶</li>
+<li>取得 root 權限</li>
+</ul>
+</li>
+<li>kill<ul>
+<li>根據 Process ID 指定要終止程式<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ kill $&#123;pid&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// kill processes</span></span><br><span class="line">$ kill $&#123;pid&#125;, $&#123;pid&#125;...</span><br><span class="line"></span><br><span class="line"><span class="comment">// kill immediately</span></span><br><span class="line">$ kill <span class="number">-9</span> $&#123;pid&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li>who</li>
+<li>ps (process status)<ul>
+<li><a target="_blank" rel="noopener" href="https://david50.pixnet.net/blog/post/45224451-%5B%E7%AD%86%E8%A8%98%5Dlinux%E6%8C%87%E4%BB%A4-ps(process-status)"><br>[筆記]Linux指令-ps(process status)</a></li>
+</ul>
+</li>
+<li>top<ul>
+<li><a target="_blank" rel="noopener" href="https://tigercosmos.xyz/post/2020/04/unix/top-usage/">Unix/Linux TOP 指令使用詳解</a></li>
+<li><a target="_blank" rel="noopener" href="https://david50.pixnet.net/blog/post/45252072-%5B%E7%AD%86%E8%A8%98%5Dlinux---top%E8%B3%87%E8%A8%8A">[筆記]Linux - top資訊及參數說明</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.gtwang.org/linux/ps-top-find-processes-by-cpu-memory-usage/">Linux 用 ps 與 top 指令找出最耗費 CPU 與記憶體資源的程式</a></li>
+</ul>
+</li>
+<li>nmon<ul>
+<li><a target="_blank" rel="noopener" href="https://ithelp.ithome.com.tw/articles/10161037">效能監看工具nmon介紹1</a></li>
+</ul>
+</li>
+<li>iostat<ul>
+<li><a target="_blank" rel="noopener" href="http://www.happystreet.com.tw/index.php/system-dynamic-teaching/unix-linux/416-a-day-of-school-a-unix-command-iostat">一天學一個UNIX指令：iostat</a></li>
+<li><a target="_blank" rel="noopener" href="https://man.linuxde.net/iostat">iostat命令性能监测与优化</a></li>
+</ul>
+</li>
+<li>sar<ul>
+<li><a target="_blank" rel="noopener" href="https://www.twblogs.net/a/5cd38884bd9eee67a77f1005">Linux SAR 指令大全</a></li>
+</ul>
+</li>
+<li>vmstat<ul>
+<li><a target="_blank" rel="noopener" href="https://www.itread01.com/p/185034.html">【Linux】效能監控指令vmstat</a></li>
+<li><a target="_blank" rel="noopener" href="https://man.linuxde.net/vmstat">vmstat命令性能监测与优化</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="Network"><a href="#Network" class="headerlink" title="Network"></a>Network</h2><ul>
+<li><p>ping</p>
+<ul>
+<li>網路檢測工具</li>
+<li>透過發送 <code>ICMP ECHO_REQUEST</code> 的封包，檢查自己與特定設備之間的網路是否暢通，速度是否正常</li>
+<li>輸入 hostname 或是 IP<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ ping linyunwen.github.io</span><br><span class="line">PING linyunwen.github.io (<span class="number">185.199</span><span class="number">.111</span><span class="number">.153</span>): <span class="number">56</span> data bytes</span><br><span class="line"><span class="number">64</span> bytes from <span class="number">185.199</span><span class="number">.111</span><span class="number">.153</span>: icmp_seq=<span class="number">0</span> ttl=<span class="number">51</span> time=<span class="number">51.394</span> ms</span><br><span class="line"><span class="number">64</span> bytes from <span class="number">185.199</span><span class="number">.111</span><span class="number">.153</span>: icmp_seq=<span class="number">1</span> ttl=<span class="number">51</span> time=<span class="number">51.378</span> ms</span><br><span class="line"><span class="number">64</span> bytes from <span class="number">185.199</span><span class="number">.111</span><span class="number">.153</span>: icmp_seq=<span class="number">2</span> ttl=<span class="number">51</span> time=<span class="number">52.142</span> ms</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>traceroutes</p>
+<ul>
+<li>檢查從你的電腦到網路另一端的主機是走的什麼路徑<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">$ traceroute linyunwen.github.io</span><br><span class="line">traceroute: Warning: linyunwen.github.io has multiple addresses; <span class="keyword">using</span> <span class="number">185.199</span><span class="number">.111</span><span class="number">.153</span></span><br><span class="line">traceroute to linyunwen.github.io (<span class="number">185.199</span><span class="number">.111</span><span class="number">.153</span>), <span class="number">64</span> hops max, <span class="number">52</span> byte packets</span><br><span class="line"> <span class="number">1</span>  <span class="number">192.168</span><span class="number">.1</span><span class="number">.1</span> (<span class="number">192.168</span><span class="number">.1</span><span class="number">.1</span>)  <span class="number">17.736</span> ms  <span class="number">0.989</span> ms  <span class="number">0.928</span> ms</span><br><span class="line"> <span class="number">2</span>  <span class="number">192.168</span><span class="number">.0</span><span class="number">.1</span> (<span class="number">192.168</span><span class="number">.0</span><span class="number">.1</span>)  <span class="number">2.950</span> ms  <span class="number">1.545</span> ms  <span class="number">1.234</span> ms</span><br><span class="line"> <span class="number">3</span>  h254.s98.ts.hinet.net (<span class="number">168.95</span><span class="number">.98</span><span class="number">.254</span>)  <span class="number">12.588</span> ms  <span class="number">12.550</span> ms  <span class="number">11.930</span> ms</span><br><span class="line"> <span class="number">4</span>  tne1<span class="number">-3302.</span>hinet.net (<span class="number">168.95</span><span class="number">.55</span><span class="number">.38</span>)  <span class="number">18.027</span> ms  <span class="number">13.021</span> ms  <span class="number">15.191</span> ms</span><br><span class="line"> <span class="number">5</span>  tne1<span class="number">-3021.</span>hinet.net (<span class="number">220.128</span><span class="number">.26</span><span class="number">.102</span>)  <span class="number">17.115</span> ms  <span class="number">17.483</span> ms  <span class="number">16.929</span> ms</span><br><span class="line"> <span class="number">6</span>  pcpd<span class="number">-3211.</span>hinet.net (<span class="number">220.128</span><span class="number">.14</span><span class="number">.70</span>)  <span class="number">16.963</span> ms  <span class="number">19.865</span> ms  <span class="number">16.796</span> ms</span><br><span class="line"> <span class="number">7</span>  <span class="number">220</span><span class="number">-128</span><span class="number">-26</span><span class="number">-78.</span>hinet-ip.hinet.net (<span class="number">220.128</span><span class="number">.26</span><span class="number">.78</span>)  <span class="number">17.225</span> ms</span><br><span class="line">    <span class="number">220</span><span class="number">-128</span><span class="number">-26</span><span class="number">-106.</span>hinet-ip.hinet.net (<span class="number">220.128</span><span class="number">.26</span><span class="number">.106</span>)  <span class="number">17.577</span> ms</span><br><span class="line">    <span class="number">220</span><span class="number">-128</span><span class="number">-26</span><span class="number">-78.</span>hinet-ip.hinet.net (<span class="number">220.128</span><span class="number">.26</span><span class="number">.78</span>)  <span class="number">16.448</span> ms</span><br><span class="line"> <span class="number">8</span>  r4103-s2.tp.hinet.net (<span class="number">220.128</span><span class="number">.1</span><span class="number">.41</span>)  <span class="number">18.387</span> ms  <span class="number">17.184</span> ms  <span class="number">18.287</span> ms</span><br><span class="line"> <span class="number">9</span>  r4003-s2.tp.hinet.net (<span class="number">220.128</span><span class="number">.6</span><span class="number">.225</span>)  <span class="number">21.350</span> ms</span><br><span class="line">    r4003-s2.tp.hinet.net (<span class="number">220.128</span><span class="number">.6</span><span class="number">.237</span>)  <span class="number">18.326</span> ms  <span class="number">19.232</span> ms</span><br><span class="line"><span class="number">10</span>  <span class="number">63</span><span class="number">-218</span><span class="number">-147</span><span class="number">-145.</span><span class="keyword">static</span>.pccwglobal.net (<span class="number">63.218</span><span class="number">.147</span><span class="number">.145</span>)  <span class="number">48.311</span> ms  <span class="number">48.148</span> ms  <span class="number">61.407</span> ms</span><br><span class="line"><span class="number">11</span>  hundredge0<span class="number">-0</span><span class="number">-0</span><span class="number">-9.</span>clbr01.tok02.pccwbtn.net (<span class="number">63.218</span><span class="number">.250</span><span class="number">.193</span>)  <span class="number">57.048</span> ms</span><br><span class="line">    hundredge0<span class="number">-0</span><span class="number">-0</span><span class="number">-0.</span>clbr01.tok02.pccwbtn.net (<span class="number">63.218</span><span class="number">.250</span><span class="number">.173</span>)  <span class="number">49.587</span> ms</span><br><span class="line">    hundredge0<span class="number">-0</span><span class="number">-0</span><span class="number">-9.</span>clbr01.tok02.pccwbtn.net (<span class="number">63.218</span><span class="number">.250</span><span class="number">.193</span>)  <span class="number">50.911</span> ms</span><br></pre></td></tr></table></figure></li>
+<li><a target="_blank" rel="noopener" href="https://www.opencli.com/linux/traceroute-command">traceroute 指令 — 路由跟蹤工具</a></li>
+</ul>
+</li>
+<li><p>nslookup</p>
+<ul>
+<li>查詢 DNS 回應是否正常<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">$ nslookup linyunwen.github.io</span><br><span class="line">Server:		<span class="number">192.168</span><span class="number">.1</span><span class="number">.1</span></span><br><span class="line">Address:	<span class="number">192.168</span><span class="number">.1</span><span class="number">.1</span>#<span class="number">53</span></span><br><span class="line"></span><br><span class="line">Non-authoritative answer:</span><br><span class="line">Name:	linyunwen.github.io</span><br><span class="line">Address: <span class="number">185.199</span><span class="number">.111</span><span class="number">.153</span></span><br><span class="line">Name:	linyunwen.github.io</span><br><span class="line">Address: <span class="number">185.199</span><span class="number">.110</span><span class="number">.153</span></span><br><span class="line">Name:	linyunwen.github.io</span><br><span class="line">Address: <span class="number">185.199</span><span class="number">.109</span><span class="number">.153</span></span><br><span class="line">Name:	linyunwen.github.io</span><br><span class="line">Address: <span class="number">185.199</span><span class="number">.108</span><span class="number">.153</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>curl</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://blog.techbridge.cc/2019/02/01/linux-curl-command-tutorial/">Curl 指令基本介紹與常見用法</a></li>
+</ul>
+</li>
+<li><p>wget</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://blog.gtwang.org/linux/linux-wget-command-download-web-pages-and-files-tutorial-examples/">Linux 使用 wget 指令自動下載網頁檔案教學與範例
+</a></li>
+</ul>
+</li>
+<li><p>ssh</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://blog.gtwang.org/linux/ssh-command-tutorial-and-script-examples/">Linux 的 SSH 安全加密連線指令使用教學、設定檔配置範例</a></li>
+</ul>
+</li>
+<li><p>nmap</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://blog.gtwang.org/linux/nmap-command-examples-tutorials/">Nmap 網路診斷工具基本使用技巧與教學</a></li>
+</ul>
+</li>
+<li><p>tcpdump</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://crmne0707.pixnet.net/blog/post/322655604-linux-tcpdump">linux tcpdump</a></li>
+</ul>
+</li>
+<li><p>mtr</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://blog.gtwang.org/linux/mtr-linux-network-diagnostic-tool/">MTR：Linux 網路診斷工具使用教學</a></li>
+</ul>
+</li>
+<li><p>dig</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://blog.longwin.com.tw/2013/03/dig-dns-query-debug-2013/">Dig 常用參數 與 DNS 偵錯追蹤</a></li>
+</ul>
+</li>
+<li><p>airmon, airodump</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://kknews.cc/zh-tw/digital/y5kegnn.html">kali破解wifi握手包-GPU破解，速度翻番好幾倍</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_28208251/article/details/47975161">Aircrack-ng之Airodump-ng命令</a></li>
+</ul>
+</li>
+<li><p>iptables</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.opencli.com/linux/iptables-command">iptables 指令入門</a></li>
+</ul>
+</li>
+<li><p>netstat</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://blog.gtwang.org/linux/linux-netstat-command-examples/">使用 Netstat 指令檢測網路的技巧</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="Kernel-Debugging"><a href="#Kernel-Debugging" class="headerlink" title="Kernel Debugging"></a>Kernel Debugging</h2><ul>
+<li>strace<ul>
+<li><a target="_blank" rel="noopener" href="https://man.linuxde.net/strace">strace命令</a></li>
+</ul>
+</li>
+<li>dtrace<ul>
+<li><a target="_blank" rel="noopener" href="https://www.itread01.com/p/365549.html">DTrace</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.luoow.com/dc_tw/200778753">強勁的Linux Trace工具：bpftrace (DTrace 2.0) for Linux 2018</a></li>
+</ul>
+</li>
+<li>systemptap<ul>
+<li><a target="_blank" rel="noopener" href="https://www.itread01.com/content/1546138291.html">Systemtap學習筆記</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.itread01.com/content/1547046370.html">核心除錯神器SystemTap</a></li>
+</ul>
+</li>
+<li>uname<ul>
+<li><a target="_blank" rel="noopener" href="https://man.linuxde.net/uname">uname命令内核与模块管理</a></li>
+<li><a target="_blank" rel="noopener" href="http://code-notes-blog.blogspot.com/2017/09/linux-uname.html">linux uname指令介紹</a></li>
+</ul>
+</li>
+<li>df<ul>
+<li><a target="_blank" rel="noopener" href="https://blog.gtwang.org/linux/linux-df-command-check-disk-space-usage-tutorial-script-example/">Linux 檢查硬碟使用量 df 指令教學與指令稿範例</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="Others"><a href="#Others" class="headerlink" title="Others"></a>Others</h2><ul>
+<li>man<ul>
+<li>查詢 Linux 手冊（manual page）<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ man $&#123;command <span class="keyword">or</span> function&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li>find<ul>
+<li>查詢檔案</li>
+<li><a target="_blank" rel="noopener" href="https://blog.gtwang.org/linux/unix-linux-find-command-examples/">Unix/Linux 的 find 指令使用教學、技巧與範例整理</a></li>
+</ul>
+</li>
+<li>grep<ul>
+<li>字串搜尋工具 (globally search for RE and print it)</li>
+</ul>
+</li>
+<li>crontab<ul>
+<li>例行性工作排程<ul>
+<li>編輯 crontab<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ crontab -e</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>awk, sed<ul>
+<li><a target="_blank" rel="noopener" href="https://codertw.com/%E5%89%8D%E7%AB%AF%E9%96%8B%E7%99%BC/392291/">Linux中 sed 和 awk的用法詳解</a></li>
+<li><a target="_blank" rel="noopener" href="https://noootown.com/awk-useful-usage/">[資工雜筆] awk 好用用法整理</a></li>
+</ul>
+</li>
+<li>history<ul>
+<li><a target="_blank" rel="noopener" href="https://blog.gtwang.org/linux/mastering-linux-command-line-history/">Linux 指令歷史紀錄（History）的操作教學與範例</a><h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2></li>
+</ul>
+</li>
+<li><a target="_blank" rel="noopener" href="https://blog.techbridge.cc/2017/12/23/linux-commnd-line-tutorial/">Linux Command 命令列指令與基本操作入門教學</a></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/note/" rel="tag"># note</a>
+              <a href="/tags/linux/" rel="tag"># linux</a>
+              <a href="/tags/command/" rel="tag"># command</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2020/10/01/linux-fs/" rel="prev" title="Linux 檔案系統基本架構">
+                  <i class="fa fa-chevron-left"></i> Linux 檔案系統基本架構
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2020/10/01/linux-file-access/" rel="next" title="linux-file-access">
+                  linux-file-access <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Lin Yunwen</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>總字數：</span>
+    <span title="總字數">87k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>所需總閱讀時間 &asymp;</span>
+    <span title="所需總閱讀時間">2:39</span>
+  </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>
