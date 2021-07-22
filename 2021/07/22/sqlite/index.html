@@ -20,28 +20,29 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"linyunwen.github.io","root":"/","images":"/images","scheme":"Gemini","version":"8.6.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"disqus","storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"${hits} 找到 ${time} 個結果","hits":"找到 ${hits} 個結果"}}</script><script src="/js/config.js"></script>
-<meta name="description" content="Bash ScriptCondition if  12345678910if [ expression ];# ^ ^          ^      please note these spacesthen    statement(s)fiif [ expression ] &amp;&amp; [ expression_2 ]if [ expression ] || [ expression">
+<meta name="description" content="sqlitetype NULL：標識一個NULL值 INTERGER：整數類型 REAL：浮點數 TEXT：字符串 BLOB：二進制數commandbasic   open a db  sqlite3 $&amp;#123;database.sqlite&amp;#125;   in sqlite mode  .tables will list tables .schema [tablename] will sh">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Bash Script">
-<meta property="og:url" content="https://linyunwen.github.io/2021/07/09/bash/index.html">
+<meta property="og:title" content="sqlite">
+<meta property="og:url" content="https://linyunwen.github.io/2021/07/22/sqlite/index.html">
 <meta property="og:site_name" content="Lin Yunwen&#39;s Blog">
-<meta property="og:description" content="Bash ScriptCondition if  12345678910if [ expression ];# ^ ^          ^      please note these spacesthen    statement(s)fiif [ expression ] &amp;&amp; [ expression_2 ]if [ expression ] || [ expression">
+<meta property="og:description" content="sqlitetype NULL：標識一個NULL值 INTERGER：整數類型 REAL：浮點數 TEXT：字符串 BLOB：二進制數commandbasic   open a db  sqlite3 $&amp;#123;database.sqlite&amp;#125;   in sqlite mode  .tables will list tables .schema [tablename] will sh">
 <meta property="og:locale" content="zh_TW">
-<meta property="article:published_time" content="2021-07-09T12:17:20.000Z">
-<meta property="article:modified_time" content="2021-07-10T06:46:18.417Z">
+<meta property="article:published_time" content="2021-07-22T13:30:20.000Z">
+<meta property="article:modified_time" content="2021-07-22T13:31:01.612Z">
 <meta property="article:author" content="Lin Yunwen">
 <meta property="article:tag" content="note">
+<meta property="article:tag" content="sqlite">
 <meta name="twitter:card" content="summary">
 
 
-<link rel="canonical" href="https://linyunwen.github.io/2021/07/09/bash/">
+<link rel="canonical" href="https://linyunwen.github.io/2021/07/22/sqlite/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-TW","comments":true,"permalink":"https://linyunwen.github.io/2021/07/09/bash/","path":"2021/07/09/bash/","title":"Bash Script"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-TW","comments":true,"permalink":"https://linyunwen.github.io/2021/07/22/sqlite/","path":"2021/07/22/sqlite/","title":"sqlite"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>Bash Script | Lin Yunwen's Blog</title>
+<title>sqlite | Lin Yunwen's Blog</title>
   
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-H43D6184CW"></script>
   <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"G-H43D6184CW","only_pageview":false}</script>
@@ -122,7 +123,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Bash-Script"><span class="nav-number">1.</span> <span class="nav-text">Bash Script</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Condition"><span class="nav-number">1.1.</span> <span class="nav-text">Condition</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Reference"><span class="nav-number">1.2.</span> <span class="nav-text">Reference</span></a></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#sqlite"><span class="nav-number">1.</span> <span class="nav-text">sqlite</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#type"><span class="nav-number">1.1.</span> <span class="nav-text">type</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#command"><span class="nav-number">1.2.</span> <span class="nav-text">command</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#basic"><span class="nav-number">1.2.1.</span> <span class="nav-text">basic</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#sql"><span class="nav-number">1.2.2.</span> <span class="nav-text">sql</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#others"><span class="nav-number">1.2.3.</span> <span class="nav-text">others</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#reference"><span class="nav-number">1.3.</span> <span class="nav-text">reference</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -194,7 +195,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-TW">
-    <link itemprop="mainEntityOfPage" href="https://linyunwen.github.io/2021/07/09/bash/">
+    <link itemprop="mainEntityOfPage" href="https://linyunwen.github.io/2021/07/22/sqlite/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="https://imgur.com/a/F7QBSKE.jpg">
@@ -207,7 +208,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Bash Script
+          sqlite
         </h1>
 
         <div class="post-meta-container">
@@ -217,16 +218,10 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">發表於</span>
+      
 
-      <time title="創建時間：2021-07-09 20:17:20" itemprop="dateCreated datePublished" datetime="2021-07-09T20:17:20+08:00">2021-07-09</time>
+      <time title="創建時間：2021-07-22 21:30:20 / 修改時間：21:31:01" itemprop="dateCreated datePublished" datetime="2021-07-22T21:30:20+08:00">2021-07-22</time>
     </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">更新於</span>
-        <time title="修改時間：2021-07-10 14:46:18" itemprop="dateModified" datetime="2021-07-10T14:46:18+08:00">2021-07-10</time>
-      </span>
 
   
       </div>
@@ -236,7 +231,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">文章字數：</span>
-      <span>885</span>
+      <span>1.2k</span>
     </span>
     <span class="post-meta-item" title="所需閱讀時間">
       <span class="post-meta-item-icon">
@@ -254,27 +249,108 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <h1 id="Bash-Script"><a href="#Bash-Script" class="headerlink" title="Bash Script"></a>Bash Script</h1><h2 id="Condition"><a href="#Condition" class="headerlink" title="Condition"></a>Condition</h2><ul>
-<li>if  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> [ expression ];</span><br><span class="line"><span class="comment"># ^ ^          ^      please note these spaces</span></span><br><span class="line"><span class="keyword">then</span></span><br><span class="line">    statement(s)</span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> [ expression ] &amp;&amp; [ expression_2 ]</span><br><span class="line"><span class="keyword">if</span> [ expression ] || [ expression_2 ]</span><br><span class="line"><span class="comment"># following if syntax is allowed. Please observe that the condition has double square brackets</span></span><br><span class="line"><span class="keyword">if</span> [[ expression_1 &amp;&amp; expression_2 || expression_3 ]];</span><br></pre></td></tr></table></figure>
-<blockquote>
-<ul>
-<li>-gt (greater than)</li>
-<li>-lt (less than)</li>
-<li>-eq (equal to)</li>
-<li>-ne (not equal to)<span id="more"></span>
-– [ -a FILE ] (Depreciated method to check in bash if file exists.)<br>– [ -e FILE ] (Preferred method to check in bash if file exists.)<br>– -z (to check if string has zero length)<br>– -s (to check if file size is greater than zero)<br>– -n (to check if string length is not zero)<br>– -f (to check if file exists and is a regular file)</li>
+        <h1 id="sqlite"><a href="#sqlite" class="headerlink" title="sqlite"></a>sqlite</h1><h2 id="type"><a href="#type" class="headerlink" title="type"></a>type</h2><ul>
+<li>NULL：標識一個NULL值</li>
+<li>INTERGER：整數類型</li>
+<li>REAL：浮點數</li>
+<li>TEXT：字符串</li>
+<li>BLOB：二進制數<h2 id="command"><a href="#command" class="headerlink" title="command"></a>command</h2><h3 id="basic"><a href="#basic" class="headerlink" title="basic"></a>basic</h3></li>
 </ul>
-</blockquote>
 <ul>
-<li>-x (to check if file is executable)<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Scenario - File exists</span></span><br><span class="line"><span class="keyword">if</span> [ -e /home/tutorialkart/sample.txt ];</span><br><span class="line"><span class="keyword">then</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">&quot;sample.txt - File exists.&quot;</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">&quot;sample.txt - File does not exist.&quot;</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> [ -z <span class="string">&quot;hello&quot;</span> ]</span><br><span class="line"><span class="keyword">if</span> [ -s /home/tutorialkart/sample.txt ]</span><br></pre></td></tr></table></figure>
-
-
+<li><p>open a db</p>
+<ul>
+<li><code>sqlite3 $&#123;database.sqlite&#125;</code></li>
+</ul>
+</li>
+<li><p>in sqlite mode</p>
+<ul>
+<li><code>.tables</code> will list tables</li>
+<li><code>.schema [tablename]</code> will show the CREATE statement(s) for a table or tables<ul>
+<li><code>.schema</code> 查看所有表的創建語句</li>
+</ul>
+</li>
+<li><code>.dump</code>, <code>.dump table_name</code> view the entire contents</li>
+<li><code>select * from some_table;</code><span id="more"></span>
 </li>
 </ul>
 </li>
+<li><p>comment</p>
+<ul>
+<li>兩個減號（–）則代表註解</li>
 </ul>
-<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><ul>
-<li><a target="_blank" rel="noopener" href="https://www.tutorialkart.com/bash-shell-scripting/bash-tutorial/">Bash Tutorial</a></li>
+</li>
+</ul>
+<h3 id="sql"><a href="#sql" class="headerlink" title="sql"></a>sql</h3><ul>
+<li><p>select</p>
+<ul>
+<li>如果資料太多了，我們或許會想限制筆數：<ul>
+<li><code>select * from film limit 10;</code></li>
+<li>或是年份比較早的電影先列出來（預設為 ascended）：</li>
+<li><code>select * from film order by year limit 10;</code></li>
+<li>或是年份比較晚的電影先列出來：</li>
+<li><code>select * from film order by year desc limit 10;</code></li>
+</ul>
+</li>
+<li>或是我們只想看電影名稱跟年份：<ul>
+<li><code>select title, year from film order by year desc limit 10;</code></li>
+</ul>
+</li>
+<li>資料庫一共有多少筆資料：<ul>
+<li><code>select count(*) from film;</code></li>
+<li>只想知道1985年以後的電影有幾部：</li>
+<li><code>select count(*) from film where year &gt;= 1985;</code></li>
+<li>select * from table_name where field in (‘val1’, ‘val2’, ‘val3’);</li>
+<li>select * from table_name where field between val1 and val2;<h3 id="others"><a href="#others" class="headerlink" title="others"></a>others</h3></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>設置顯示模式：</p>
+<ul>
+<li><code>sqlite&gt;.mode mode_name</code> <ul>
+<li>Example:默認為list，設置為column，其他模式可通過.help查看mode相關內容 </li>
+<li><code>sqlite&gt;.mode column</code> </li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>輸出幫助信息：</p>
+<ul>
+<li><code>sqlite&gt;.help</code></li>
+</ul>
+</li>
+<li><p>設置每一列的顯示寬度：</p>
+<ul>
+<li><code>sqlite&gt;.width width_value</code><ul>
+<li>Example:設置寬度為2</li>
+<li><code>sqlite&gt;.width 2</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>列出當前顯示格式的配置：</p>
+<ul>
+<li><code>sqlite&gt;.show</code></li>
+</ul>
+</li>
+<li><p>退出sqlite終端命令：</p>
+<ul>
+<li><code>sqlite&gt;.quit</code> or <code>sqlite&gt;.exit</code></li>
+</ul>
+</li>
+<li><p>sqlite可以在shell底下直接執行命令：</p>
+<ul>
+<li><code>sqlite3 film.db &quot;select * from film;&quot;</code><h2 id="reference"><a href="#reference" class="headerlink" title="reference"></a>reference</h2></li>
+</ul>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/4654762/how-can-one-see-the-structure-of-a-table-in-sqlite">How can one see the structure of a table in SQLite? [duplicate]</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/26015686/how-to-open-sqlite-files">How to open .SQLite files</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="http://www.aspphp.online/shujuku/sqlitesjk/gysqlite/201701/76871.html">Linux sqlite3 基本命令</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://moneyd.pixnet.net/blog/post/25646227">SQLite使用教學</a></p>
+</li>
 </ul>
 
     </div>
@@ -286,20 +362,18 @@
     <footer class="post-footer">
           <div class="post-tags">
               <a href="/tags/note/" rel="tag"># note</a>
+              <a href="/tags/sqlite/" rel="tag"># sqlite</a>
           </div>
 
         
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2021/06/25/gbd/" rel="prev" title="gbd">
-                  <i class="fa fa-chevron-left"></i> gbd
+                <a href="/2021/07/10/gitconfig/" rel="prev" title=".gitconfig">
+                  <i class="fa fa-chevron-left"></i> .gitconfig
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2021/07/10/gitconfig/" rel="next" title=".gitconfig">
-                  .gitconfig <i class="fa fa-chevron-right"></i>
-                </a>
             </div>
           </div>
     </footer>
