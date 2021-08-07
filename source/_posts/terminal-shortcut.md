@@ -1,5 +1,5 @@
 ---
-title: treminal-shortcut
+title: Terminal Shortcut
 date: 2021-08-05 20:45:08
 tags: [note, shell, terminal]
 ---
