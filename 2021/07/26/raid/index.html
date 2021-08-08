@@ -156,14 +156,14 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">51</span>
+          <span class="site-state-item-count">52</span>
           <span class="site-state-item-name">文章</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">58</span>
+        <span class="site-state-item-count">59</span>
         <span class="site-state-item-name">標籤</span></a>
       </div>
   </nav>
@@ -375,14 +375,16 @@
 <li>RAID  5是一種儲存效能、資料安全和儲存成本兼顧的儲存解決方案。它使用的是Disk Striping（硬碟分割）技術。RAID 5至少需要三塊硬碟，RAID 5不是對儲存的資料進行備份，而是把資料和相對應的奇偶校驗資訊儲存到組成RAID5的各個磁碟上，並且奇偶校驗資訊和相對應的資料分別儲存於不同的磁碟上。</li>
 <li>當RAID5的一個磁碟資料發生損壞後，可以利用剩下的資料和相應的奇偶校驗資訊去取消復原被損壞的資料。</li>
 <li>RAID 5可以理解為是RAID 0和RAID 1的折衷方案。RAID 5可以為系統提供資料安全保障，但保障程度要比鏡像低而磁碟空間利用率要比鏡像高。</li>
-<li>RAID 5具有和RAID 0相近似的資料讀取速度，只是因為多了一個奇偶校驗資訊，寫入資料的速度相對單獨寫入一塊硬碟的速度略慢，若使用「回寫快取」可以讓效能改善不少。同時由於多個資料對應一個奇偶校驗資訊，RAID 5的磁碟空間利用率要比RAID 1高，儲存成本相對較便宜。<pre><code> Size = (n-1) x min (S1, S2, ..., Sn)</code></pre>
+<li>RAID 5具有和RAID 0相近似的資料讀取速度，只是因為多了一個奇偶校驗資訊，寫入資料的速度相對單獨寫入一塊硬碟的速度略慢，若使用「回寫快取」可以讓效能改善不少。同時由於多個資料對應一個奇偶校驗資訊，RAID 5的磁碟空間利用率要比RAID 1高，儲存成本相對較便宜。<pre><code> Size = (n-1) x min (S1, S2, ..., Sn)
+</code></pre>
 </li>
 </ul>
 <h3 id="RAID-6"><a href="#RAID-6" class="headerlink" title="RAID 6"></a>RAID 6</h3><p><img src="https://i.imgur.com/c1abDLc.png"></p>
 <ul>
 <li>與RAID 5相比，RAID 6增加第二個獨立的奇偶校驗資訊塊。兩個獨立的奇偶系統使用不同的演算法，資料的可靠性非常高，任意兩塊磁碟同時失效時不會影響資料完整性。RAID 6需要分配給奇偶校驗資訊更大的磁碟空間和額外的校驗計算，相對於RAID 5有更大的IO操作量和計算量，其「寫效能」強烈取決於具體的實現方案，因此RAID6通常不會通過軟體方式來實現，而更可能通過硬體/韌體方式實現。</li>
 <li>同一陣列中最多容許兩個磁碟損壞。更換新磁碟後，資料將會重新算出並寫入新的磁碟中。依照設計理論，RAID 6必須具備四個以上的磁碟才能生效。</li>
-<li>可使用的容量為硬碟總數減去2的差，乘以最小容量，公式為：<pre><code> Size = (n-2) x min (S1, S2, S3, ..., Sn)</code></pre>
+<li>可使用的容量為硬碟總數減去2的差，乘以最小容量，公式為：<pre><code> Size = (n-2) x min (S1, S2, S3, ..., Sn)
+</code></pre>
 </li>
 <li>同理，資料保護區域容量則為最小容量乘以2。</li>
 <li>RAID 6在硬體磁碟陣列卡的功能中，也是最常見的磁碟陣列等級。</li>
@@ -393,7 +395,8 @@
 <li>使用單獨的連結埠如SATA、USB或1394同時控制多個各別獨立的硬碟，使用這種模式通常是較高階的裝置，還具備有RAID的功能，不需要依靠JBOD達到合併邏輯磁區的目的。</li>
 <li>只是將多個硬碟空間合併成一個大的邏輯硬碟，沒有錯誤備援機制。</li>
 <li>資料的存放機制是由第一顆硬碟開始依序往後存放，即作業系統看到的是一個大硬碟（由許多小硬碟組成的）。但如果硬碟損毀，則該顆硬碟上的所有資料將無法救回。若第一顆硬碟損壞，通常無法作救援（因為大部分檔案系統將磁碟分割表（partition table）存在磁碟前端，即第一顆），失去磁碟分割表即失去一切資料，若遭遇磁碟陣列資料或硬碟出錯的狀況，危險程度較RAID 0更劇。</li>
-<li>它的好處是不會像RAID，每次存取都要讀寫全部硬碟。但在部分的JBOD資料恢復實踐中，可以恢復未損毀之硬碟上的資料。同時，因為每次讀寫操作只作用於單一硬碟，JBOD的傳輸速率與I/O表現均與單顆硬碟無異。<pre><code> Size = sum of all discs</code></pre>
+<li>它的好處是不會像RAID，每次存取都要讀寫全部硬碟。但在部分的JBOD資料恢復實踐中，可以恢復未損毀之硬碟上的資料。同時，因為每次讀寫操作只作用於單一硬碟，JBOD的傳輸速率與I/O表現均與單顆硬碟無異。<pre><code> Size = sum of all discs
+</code></pre>
 </li>
 </ul>
 <h3 id="RAID-7"><a href="#RAID-7" class="headerlink" title="RAID 7"></a>RAID 7</h3><ul>
@@ -481,14 +484,14 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>總字數：</span>
-    <span title="總字數">135k</span>
+    <span title="總字數">134k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>所需總閱讀時間 &asymp;</span>
-    <span title="所需總閱讀時間">4:06</span>
+    <span title="所需總閱讀時間">4:04</span>
   </span>
 </div>
 

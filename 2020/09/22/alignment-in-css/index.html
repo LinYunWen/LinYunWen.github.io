@@ -150,14 +150,14 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">51</span>
+          <span class="site-state-item-count">52</span>
           <span class="site-state-item-name">文章</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">58</span>
+        <span class="site-state-item-count">59</span>
         <span class="site-state-item-name">標籤</span></a>
       </div>
   </nav>
@@ -267,13 +267,13 @@
     <div class="post-body" itemprop="articleBody">
         <h1 id="CSS-置中方式"><a href="#CSS-置中方式" class="headerlink" title="CSS 置中方式"></a>CSS 置中方式</h1><blockquote>
 <ul>
-<li>demo heml<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;div class&#x3D;&quot;container&quot;&gt;</span><br><span class="line">    &lt;div class&#x3D;&quot;content&quot;&gt;</span><br><span class="line">        content</span><br><span class="line">    &lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;div&gt;</span><br></pre></td></tr></table></figure>
+<li>demo heml<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;div class=&quot;container&quot;&gt;</span><br><span class="line">    &lt;div class=&quot;content&quot;&gt;</span><br><span class="line">        content</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure>
 <img src="https://i.imgur.com/FjGAHa9.png"></li>
 </ul>
 </blockquote>
 <span id="more"></span>
 
-<h2 id="水平置中"><a href="#水平置中" class="headerlink" title="水平置中"></a>水平置中</h2><h3 id="block-margin"><a href="#block-margin" class="headerlink" title="block + margin"></a>block + margin</h3><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.container</span> &#123;</span><br><span class="line">    <span class="attribute">border</span>: <span class="number">1px</span> solid black;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.content</span> &#123;</span><br><span class="line">   display: block; // default</span><br><span class="line">   <span class="selector-tag">width</span>: 200<span class="selector-tag">px</span>;</span><br><span class="line">   <span class="selector-tag">height</span>: 200<span class="selector-tag">px</span>;</span><br><span class="line">   <span class="selector-tag">background-color</span>: <span class="selector-tag">lightblue</span>;</span><br><span class="line">   </span><br><span class="line">   <span class="selector-tag">margin</span>: 0 <span class="selector-tag">auto</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="水平置中"><a href="#水平置中" class="headerlink" title="水平置中"></a>水平置中</h2><h3 id="block-margin"><a href="#block-margin" class="headerlink" title="block + margin"></a>block + margin</h3><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.container</span> &#123;</span><br><span class="line">    <span class="attribute">border</span>: <span class="number">1px</span> solid black;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.content</span> &#123;</span><br><span class="line">   <span class="attribute">display</span>: block; // default</span><br><span class="line">   <span class="attribute">width</span>: <span class="number">200px</span>;</span><br><span class="line">   <span class="attribute">height</span>: <span class="number">200px</span>;</span><br><span class="line">   <span class="attribute">background-color</span>: lightblue;</span><br><span class="line">   </span><br><span class="line">   <span class="attribute">margin</span>: <span class="number">0</span> auto;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p><img src="https://i.imgur.com/pGXrpFg.png"></p>
 <h3 id="inline-block-text-align"><a href="#inline-block-text-align" class="headerlink" title="inline-block + text-align"></a>inline-block + text-align</h3><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.container</span> &#123;</span><br><span class="line">    <span class="attribute">border</span>: <span class="number">1px</span> solid black;</span><br><span class="line">    <span class="attribute">text-align</span>: center;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.content</span> &#123;</span><br><span class="line">   <span class="attribute">display</span>: inline-block;</span><br><span class="line">   <span class="attribute">width</span>: <span class="number">200px</span>;</span><br><span class="line">   <span class="attribute">height</span>: <span class="number">200px</span>;</span><br><span class="line">   <span class="attribute">background-color</span>: lightblue;</span><br><span class="line">   <span class="attribute">margin</span>: <span class="number">0</span> auto;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p><img src="https://i.imgur.com/yjPfCPS.png"></p>
@@ -286,7 +286,7 @@
 <p><img src="https://i.imgur.com/tvCkBOW.png"></p>
 <h3 id="flex"><a href="#flex" class="headerlink" title="flex"></a>flex</h3><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.container</span> &#123;</span><br><span class="line">    <span class="attribute">border</span>: <span class="number">1px</span> solid black;</span><br><span class="line">    <span class="attribute">height</span>: <span class="number">400px</span>;</span><br><span class="line"></span><br><span class="line">    <span class="attribute">display</span>: flex;</span><br><span class="line">    <span class="attribute">justify-content</span>: center;</span><br><span class="line">    <span class="attribute">align-items</span>:center;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 <p><img src="https://i.imgur.com/u7fUR2Q.png"></p>
-<h3 id="table"><a href="#table" class="headerlink" title="table"></a>table</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;table&gt;</span><br><span class="line">    &lt;tr&gt;</span><br><span class="line">        &lt;td class&#x3D;&quot;content&quot;&gt;</span><br><span class="line">            content</span><br><span class="line">        &lt;&#x2F;td&gt;</span><br><span class="line">    &lt;&#x2F;tr&gt;</span><br><span class="line">&lt;&#x2F;table&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="table"><a href="#table" class="headerlink" title="table"></a>table</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;table&gt;</span><br><span class="line">    &lt;tr&gt;</span><br><span class="line">        &lt;td class=&quot;content&quot;&gt;</span><br><span class="line">            content</span><br><span class="line">        &lt;/td&gt;</span><br><span class="line">    &lt;/tr&gt;</span><br><span class="line">&lt;/table&gt;</span><br></pre></td></tr></table></figure>
 
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.content</span> &#123;</span><br><span class="line">    <span class="attribute">text-align</span>: center;</span><br><span class="line">    <span class="attribute">vertical-align</span>: middle;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
@@ -349,14 +349,14 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>總字數：</span>
-    <span title="總字數">135k</span>
+    <span title="總字數">134k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>所需總閱讀時間 &asymp;</span>
-    <span title="所需總閱讀時間">4:06</span>
+    <span title="所需總閱讀時間">4:04</span>
   </span>
 </div>
 

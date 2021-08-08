@@ -133,14 +133,14 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">51</span>
+          <span class="site-state-item-count">52</span>
           <span class="site-state-item-name">文章</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">58</span>
+        <span class="site-state-item-count">59</span>
         <span class="site-state-item-name">標籤</span></a>
       </div>
   </nav>
@@ -178,6 +178,105 @@
 
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://linyunwen.github.io/2020/10/01/linux-fs/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://imgur.com/a/F7QBSKE.jpg">
+      <meta itemprop="name" content="Lin Yunwen">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Lin Yunwen's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2020/10/01/linux-fs/" class="post-title-link" itemprop="url">Linux 檔案系統基本架構</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">發表於</span>
+
+      <time title="創建時間：2020-10-01 20:53:50" itemprop="dateCreated datePublished" datetime="2020-10-01T20:53:50+08:00">2020-10-01</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新於</span>
+        <time title="修改時間：2021-07-10 14:46:19" itemprop="dateModified" datetime="2021-07-10T14:46:19+08:00">2021-07-10</time>
+      </span>
+
+  
+      </div>
+      <div class="post-meta">
+    <span class="post-meta-item" title="文章字數">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">文章字數：</span>
+      <span>797</span>
+    </span>
+    <span class="post-meta-item" title="所需閱讀時間">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+      <span>1 分鐘</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="Linux-檔案系統基本架構"><a href="#Linux-檔案系統基本架構" class="headerlink" title="Linux 檔案系統基本架構"></a>Linux 檔案系統基本架構</h1><blockquote>
+<ul>
+<li>理論上所有的 Linux 發佈版本應該都要遵守檔案系統的標準（Filesystem Hierarchy Standard, FHS）</li>
+<li>以目錄的資訊可分為 shareable, unshareable 和 static, variable</li>
+</ul>
+</blockquote>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/10/01/linux-fs/#more" rel="contents">
+                閱讀全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -229,7 +328,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">文章字數：</span>
-      <span>2.1k</span>
+      <span>2k</span>
     </span>
     <span class="post-meta-item" title="所需閱讀時間">
       <span class="post-meta-item-icon">
@@ -253,7 +352,7 @@
 </ul>
 </blockquote>
 <h2 id="基本使用"><a href="#基本使用" class="headerlink" title="基本使用"></a>基本使用</h2><blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; temp.txt</span><br><span class="line">It is a great day, and IS sunny day</span><br><span class="line">he want to say hello world for each one</span><br><span class="line">there are many works to do</span><br><span class="line">let&#39;s keep moving forward</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">// temp.txt</span><br><span class="line">It is a great day, and IS sunny day</span><br><span class="line">he want to say hello world for each one</span><br><span class="line">there are many works to do</span><br><span class="line">let&#x27;s keep moving forward</span><br></pre></td></tr></table></figure>
 </blockquote>
 <ul>
 <li><p>用法</p>
@@ -570,7 +669,7 @@
 <li>以不同電腦上可以同步的狀況</li>
 </ul>
 </li>
-<li>如果使用 <code>who</code> 指令可以看出他的 session 值很特別<h2 id="Install"><a href="#Install" class="headerlink" title="Install"></a>Install</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">\# Ubuntu Linux 安裝 tmux</span><br><span class="line">sudo apt install tmux</span><br><span class="line">brew install tmux \# Mac</span><br></pre></td></tr></table></figure>
+<li>如果使用 <code>who</code> 指令可以看出他的 session 值很特別<h2 id="Install"><a href="#Install" class="headerlink" title="Install"></a>Install</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">\# Ubuntu Linux 安裝 tmux</span><br><span class="line">sudo apt install tmux</span><br><span class="line">brew install tmux \# Mac</span><br></pre></td></tr></table></figure>
 
 </li>
 </ul>
@@ -862,14 +961,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">文章字數：</span>
-      <span>2.1k</span>
+      <span>1.8k</span>
     </span>
     <span class="post-meta-item" title="所需閱讀時間">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
-      <span>4 分鐘</span>
+      <span>3 分鐘</span>
     </span>
 </div>
 
@@ -882,7 +981,7 @@
     <div class="post-body" itemprop="articleBody">
           <h1 id="環境變數"><a href="#環境變數" class="headerlink" title="環境變數"></a>環境變數</h1><blockquote>
 <ul>
-<li>可在 terminal 中下 <code>env</code>, <code>printenv</code> 即可看到所有的環境變數  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">CLICOLOR&#x3D;1</span><br><span class="line">COLORFGBG&#x3D;7;0</span><br><span class="line">COLORTERM&#x3D;truecolor</span><br><span class="line">COMMAND_MODE&#x3D;unix2003</span><br><span class="line">HOME&#x3D;&#x2F;Users&#x2F;linyunwen</span><br><span class="line">ITERM_PROFILE&#x3D;Default</span><br><span class="line">ITERM_SESSION_ID&#x3D;w0t1p0:1172DE09-396F-42C6-985B-2948288751AE</span><br><span class="line">LANG&#x3D;zh_TW.UTF-8</span><br><span class="line">LC_TERMINAL&#x3D;iTerm2</span><br><span class="line">LC_TERMINAL_VERSION&#x3D;3.3.12</span><br><span class="line">LOGNAME&#x3D;linyunwen</span><br><span class="line">LSCOLORS&#x3D;ExFxCxDxBxegedabagacad</span><br><span class="line">LaunchInstanceID&#x3D;93D5B2B3-94C0-4872-8DB7-03E7048549FD</span><br><span class="line">PATH&#x3D;&#x2F;usr&#x2F;local&#x2F;bin:&#x2F;usr&#x2F;bin:&#x2F;bin:&#x2F;usr&#x2F;sbin:&#x2F;sbin:&#x2F;Library&#x2F;Apple&#x2F;usr&#x2F;bin</span><br><span class="line">PWD&#x3D;&#x2F;Users&#x2F;linyunwen&#x2F;.sideex</span><br><span class="line">SECURITYSESSIONID&#x3D;186a6</span><br><span class="line">SHELL&#x3D;&#x2F;bin&#x2F;bash</span><br><span class="line">SHLVL&#x3D;2</span><br><span class="line">SSH_AUTH_SOCK&#x3D;&#x2F;private&#x2F;tmp&#x2F;com.apple.launchd.CQkqScaF2A&#x2F;Listeners</span><br><span class="line">TERM&#x3D;xterm-color</span><br><span class="line">TERM_PROGRAM&#x3D;iTerm.app</span><br><span class="line">TERM_PROGRAM_VERSION&#x3D;3.3.12</span><br><span class="line">TERM_SESSION_ID&#x3D;w0t1p0:1172DE09-396F-42C6-985B-2948288751AE</span><br><span class="line">TMPDIR&#x3D;&#x2F;var&#x2F;folders&#x2F;q8&#x2F;zjmdq9y90bdbs8v65256_w5m0000gn&#x2F;T&#x2F;</span><br><span class="line">USER&#x3D;linyunwen</span><br><span class="line">XPC_FLAGS&#x3D;0x0</span><br><span class="line">XPC_SERVICE_NAME&#x3D;0</span><br><span class="line">__CF_USER_TEXT_ENCODING&#x3D;0x1F5:0x2:0x35</span><br></pre></td></tr></table></figure>
+<li>可在 terminal 中下 <code>env</code>, <code>printenv</code> 即可看到所有的環境變數  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">CLICOLOR=1</span><br><span class="line">COLORFGBG=7;0</span><br><span class="line">COLORTERM=truecolor</span><br><span class="line">COMMAND_MODE=unix2003</span><br><span class="line">HOME=/Users/linyunwen</span><br><span class="line">ITERM_PROFILE=Default</span><br><span class="line">ITERM_SESSION_ID=w0t1p0:1172DE09-396F-42C6-985B-2948288751AE</span><br><span class="line">LANG=zh_TW.UTF-8</span><br><span class="line">LC_TERMINAL=iTerm2</span><br><span class="line">LC_TERMINAL_VERSION=3.3.12</span><br><span class="line">LOGNAME=linyunwen</span><br><span class="line">LSCOLORS=ExFxCxDxBxegedabagacad</span><br><span class="line">LaunchInstanceID=93D5B2B3-94C0-4872-8DB7-03E7048549FD</span><br><span class="line">PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/Apple/usr/bin</span><br><span class="line">PWD=/Users/linyunwen/.sideex</span><br><span class="line">SECURITYSESSIONID=186a6</span><br><span class="line">SHELL=/bin/bash</span><br><span class="line">SHLVL=2</span><br><span class="line">SSH_AUTH_SOCK=/private/tmp/com.apple.launchd.CQkqScaF2A/Listeners</span><br><span class="line">TERM=xterm-color</span><br><span class="line">TERM_PROGRAM=iTerm.app</span><br><span class="line">TERM_PROGRAM_VERSION=3.3.12</span><br><span class="line">TERM_SESSION_ID=w0t1p0:1172DE09-396F-42C6-985B-2948288751AE</span><br><span class="line">TMPDIR=/var/folders/q8/zjmdq9y90bdbs8v65256_w5m0000gn/T/</span><br><span class="line">USER=linyunwen</span><br><span class="line">XPC_FLAGS=0x0</span><br><span class="line">XPC_SERVICE_NAME=0</span><br><span class="line">__CF_USER_TEXT_ENCODING=0x1F5:0x2:0x35</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
 </blockquote>
@@ -968,7 +1067,7 @@
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
-      <span>6 分鐘</span>
+      <span>5 分鐘</span>
     </span>
 </div>
 
@@ -1084,113 +1183,13 @@
     <div class="post-body" itemprop="articleBody">
           <h1 id="CSS-置中方式"><a href="#CSS-置中方式" class="headerlink" title="CSS 置中方式"></a>CSS 置中方式</h1><blockquote>
 <ul>
-<li>demo heml<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;div class&#x3D;&quot;container&quot;&gt;</span><br><span class="line">    &lt;div class&#x3D;&quot;content&quot;&gt;</span><br><span class="line">        content</span><br><span class="line">    &lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;div&gt;</span><br></pre></td></tr></table></figure>
+<li>demo heml<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;div class=&quot;container&quot;&gt;</span><br><span class="line">    &lt;div class=&quot;content&quot;&gt;</span><br><span class="line">        content</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure>
 <img src="https://i.imgur.com/FjGAHa9.png"></li>
 </ul>
 </blockquote>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2020/09/22/alignment-in-css/#more" rel="contents">
-                閱讀全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://linyunwen.github.io/2020/09/14/paper-size/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="https://imgur.com/a/F7QBSKE.jpg">
-      <meta itemprop="name" content="Lin Yunwen">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Lin Yunwen's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2020/09/14/paper-size/" class="post-title-link" itemprop="url">紙張大小</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">發表於</span>
-
-      <time title="創建時間：2020-09-14 22:16:03" itemprop="dateCreated datePublished" datetime="2020-09-14T22:16:03+08:00">2020-09-14</time>
-    </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">更新於</span>
-        <time title="修改時間：2021-07-10 14:46:19" itemprop="dateModified" datetime="2021-07-10T14:46:19+08:00">2021-07-10</time>
-      </span>
-
-  
-      </div>
-      <div class="post-meta">
-    <span class="post-meta-item" title="文章字數">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">文章字數：</span>
-      <span>180</span>
-    </span>
-    <span class="post-meta-item" title="所需閱讀時間">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
-      <span>1 分鐘</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h2 id="紙張常見規格"><a href="#紙張常見規格" class="headerlink" title="紙張常見規格"></a>紙張常見規格</h2><ul>
-<li>主要分為三種，A、B、C 系列，主要是由 ISO 216 所規範 [1]</li>
-<li>此標準的特色是紙張尺寸的長寬比均為√2(約為1.4142)</li>
-<li>每個系列會有對應的數字，以數字代表以短邊除以 2 的狀況</li>
-<li>同系列但不同尺寸的紙張，其幾何比例相同，因此可以直接縮放影印而不會造成紙面圖案有邊緣裁切的問題。</li>
-<li><img src="https://pic.pimg.tw/hondayellow/1476245024-2549991408_n.jpg"></li>
-</ul>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/09/14/paper-size/#more" rel="contents">
                 閱讀全文 &raquo;
               </a>
             </div>
@@ -1238,14 +1237,14 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>總字數：</span>
-    <span title="總字數">135k</span>
+    <span title="總字數">134k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>所需總閱讀時間 &asymp;</span>
-    <span title="所需總閱讀時間">4:06</span>
+    <span title="所需總閱讀時間">4:04</span>
   </span>
 </div>
 

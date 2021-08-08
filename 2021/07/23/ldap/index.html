@@ -141,14 +141,14 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">51</span>
+          <span class="site-state-item-count">52</span>
           <span class="site-state-item-name">文章</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">58</span>
+        <span class="site-state-item-count">59</span>
         <span class="site-state-item-name">標籤</span></a>
       </div>
   </nav>
@@ -232,7 +232,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">文章字數：</span>
-      <span>2.8k</span>
+      <span>2.7k</span>
     </span>
     <span class="post-meta-item" title="所需閱讀時間">
       <span class="post-meta-item-icon">
@@ -307,7 +307,7 @@
 </li>
 </ul>
 </blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">        dc&#x3D;org</span><br><span class="line"></span><br><span class="line">     |dc&#x3D;wikipedia</span><br><span class="line">      &#x2F;          \</span><br><span class="line">ou&#x3D;people     ou&#x3D;groups</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">        dc=org</span><br><span class="line"></span><br><span class="line">     |dc=wikipedia</span><br><span class="line">      /          \</span><br><span class="line">ou=people     ou=groups</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 <img src="https://i.imgur.com/y0pN7dR.png"></li>
 </ul>
 </li>
@@ -323,7 +323,7 @@
 <li>也就是所謂的「基準DN」。<ul>
 <li>基準DN通常使用下面列出的三種格式之一。<ul>
 <li>假定我在名為FooBar的電子商務公司工作，這家公司在Internet上的名字是foobar.com。</li>
-<li>第一種  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">o&#x3D;&quot;FooBar, Inc.&quot;, c&#x3D;US</span><br><span class="line">（以X.500格式表示的基準DN）</span><br></pre></td></tr></table></figure>
+<li>第一種  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">o=&quot;FooBar, Inc.&quot;, c=US</span><br><span class="line">（以X.500格式表示的基準DN）</span><br></pre></td></tr></table></figure>
 <ul>
 <li>在這個例子中，o=FooBar, Inc. 表示組織名，在這裡就是公司名的同義詞。</li>
 <li>c=US 表示公司的總部在美國。</li>
@@ -331,12 +331,12 @@
 <li>但是事物總是在不斷變化的，現在所有的公司都已經（或計劃）上Internet上。隨著 Internet的全球化，在基準DN中使用國家程式碼很容易讓人產生混淆</li>
 </ul>
 </li>
-<li>第二種  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">o&#x3D;foobar.com</span><br><span class="line">（用公司的Internet位址表示的基準DN）</span><br></pre></td></tr></table></figure>
+<li>第二種  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">o=foobar.com</span><br><span class="line">（用公司的Internet位址表示的基準DN）</span><br></pre></td></tr></table></figure>
 <ul>
 <li>這種格式很直觀，用公司的域名作為基準DN。這也是現在最常用的格式。</li>
 </ul>
 </li>
-<li>第三種  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">dc&#x3D;foobar, dc&#x3D;com</span><br><span class="line">（用DNS域名的不同部分組成的基準DN）</span><br></pre></td></tr></table></figure>
+<li>第三種  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">dc=foobar, dc=com</span><br><span class="line">（用DNS域名的不同部分組成的基準DN）</span><br></pre></td></tr></table></figure>
 <ul>
 <li>就像上面那一種格式，這種格式也是以DNS域名為基礎的，但是上面那種格式不改變域名（也就更易讀），而這種格式把域名：foobar.com分成兩部分 dc=foobar, dc=com。</li>
 <li>在理論上，這種格式可能會更靈活一點，但是對於最終用戶來說也更難記憶一點。</li>
@@ -423,14 +423,14 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>總字數：</span>
-    <span title="總字數">135k</span>
+    <span title="總字數">134k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>所需總閱讀時間 &asymp;</span>
-    <span title="所需總閱讀時間">4:06</span>
+    <span title="所需總閱讀時間">4:04</span>
   </span>
 </div>
 

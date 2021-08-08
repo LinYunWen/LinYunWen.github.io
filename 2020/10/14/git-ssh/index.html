@@ -20,12 +20,12 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"linyunwen.github.io","root":"/","images":"/images","scheme":"Gemini","version":"8.6.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"disqus","storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"${hits} 找到 ${time} 個結果","hits":"找到 ${hits} 個結果"}}</script><script src="/js/config.js"></script>
-<meta name="description" content="Set Github SSHgen ssh key123456789101112131415161718192021222324$ ssh-keygen -t rsa -C &quot;email@example.com&quot;Generating public&#x2F;private rsa key pair.  Enter file in which to save the key (&amp;">
+<meta name="description" content="Set Github SSHgen ssh key123456789101112131415161718192021222324$ ssh-keygen -t rsa -C &quot;email@example.com&quot;Generating public&#x2F;private rsa key pair.  Enter file in which to save the key (&#x2F;home&#x2F;">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Set Github SSH">
 <meta property="og:url" content="https://linyunwen.github.io/2020/10/14/git-ssh/index.html">
 <meta property="og:site_name" content="Lin Yunwen&#39;s Blog">
-<meta property="og:description" content="Set Github SSHgen ssh key123456789101112131415161718192021222324$ ssh-keygen -t rsa -C &quot;email@example.com&quot;Generating public&#x2F;private rsa key pair.  Enter file in which to save the key (&amp;">
+<meta property="og:description" content="Set Github SSHgen ssh key123456789101112131415161718192021222324$ ssh-keygen -t rsa -C &quot;email@example.com&quot;Generating public&#x2F;private rsa key pair.  Enter file in which to save the key (&#x2F;home&#x2F;">
 <meta property="og:locale" content="zh_TW">
 <meta property="og:image" content="https://i.imgur.com/RaIH7nv.png">
 <meta property="og:image" content="https://i.imgur.com/Pfa1mam.png">
@@ -143,14 +143,14 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">51</span>
+          <span class="site-state-item-count">52</span>
           <span class="site-state-item-name">文章</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">58</span>
+        <span class="site-state-item-count">59</span>
         <span class="site-state-item-name">標籤</span></a>
       </div>
   </nav>
@@ -240,14 +240,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">文章字數：</span>
-      <span>1.9k</span>
+      <span>1.8k</span>
     </span>
     <span class="post-meta-item" title="所需閱讀時間">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
-      <span>4 分鐘</span>
+      <span>3 分鐘</span>
     </span>
 </div>
 
@@ -258,7 +258,7 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <h1 id="Set-Github-SSH"><a href="#Set-Github-SSH" class="headerlink" title="Set Github SSH"></a>Set Github SSH</h1><h2 id="gen-ssh-key"><a href="#gen-ssh-key" class="headerlink" title="gen ssh key"></a>gen ssh key</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">$ ssh-keygen -t rsa -C &quot;email@example.com&quot;</span><br><span class="line">Generating public&#x2F;private rsa key pair.  </span><br><span class="line">Enter file in which to save the key (&#x2F;home&#x2F;linyunwen&#x2F;.ssh&#x2F;id_rsa):  </span><br><span class="line">Enter passphrase (empty for no passphrase):  </span><br><span class="line">Enter same passphrase again:  </span><br><span class="line">Your identification has been saved in &#x2F;home&#x2F;linyunwen&#x2F;.ssh&#x2F;id_rsa  </span><br><span class="line">Your public key has been saved in &#x2F;home&#x2F;linyunwen&#x2F;.ssh&#x2F;id_rsa.pub  </span><br><span class="line">The key fingerprint is:  </span><br><span class="line">SHA256:2JmjfMInqjqXcEzoacXw7k9E0mH6SloJ4oDwnHqGu3U [email@gmail.com](mailto:email@gmail.com)  </span><br><span class="line">The key&#39;s randomart image is:  </span><br><span class="line">+---\[RSA 3072\]----+  </span><br><span class="line">|. o                |  </span><br><span class="line">|o+ .+ .            |  </span><br><span class="line">...</span><br><span class="line">|o+ooE.* o          |  </span><br><span class="line">|.ooo.. &#x3D;           |  </span><br><span class="line">|o+..o.             |  </span><br><span class="line">+----\[SHA256\]-----+  </span><br><span class="line"></span><br><span class="line">$ ssh-add ~&#x2F;.ssh&#x2F;id_rsa  </span><br><span class="line">Identity added: &#x2F;home&#x2F;linyunwen&#x2F;.ssh&#x2F;id_rsa ([email@gmail.com](mailto:email@gmail.com))  </span><br><span class="line"></span><br><span class="line">$ cat ~&#x2F;.ssh&#x2F;id_rsa.pub  </span><br><span class="line">ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCoOPC42DxzQaFjuRD4cZd5dzhRHzqnFBEVqCKKVpNfw8wLa2EncAewptfKdr56vObVtMAfntkzVlMFBLGf...PK3zYpKkXQS2ga4SgzM+HNQUQJKnv+Y7s9NegHd27KJFkkOm6fxzv3rruWNZi4fJPbXqtZZYqAVtK9ObrNoG9cAqOLSBEg2Nx5Ihyf+cHB2MC8t0QWNiP6PVfFCpft0AT5Gdn0LuierAxjCOWqCSK5HtH8&#x3D; [email@gmail.com](mailto:email@gmail.com)</span><br></pre></td></tr></table></figure>
+        <h1 id="Set-Github-SSH"><a href="#Set-Github-SSH" class="headerlink" title="Set Github SSH"></a>Set Github SSH</h1><h2 id="gen-ssh-key"><a href="#gen-ssh-key" class="headerlink" title="gen ssh key"></a>gen ssh key</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">$ ssh-keygen -t rsa -C &quot;email@example.com&quot;</span><br><span class="line">Generating public/private rsa key pair.  </span><br><span class="line">Enter file in which to save the key (/home/linyunwen/.ssh/id_rsa):  </span><br><span class="line">Enter passphrase (empty for no passphrase):  </span><br><span class="line">Enter same passphrase again:  </span><br><span class="line">Your identification has been saved in /home/linyunwen/.ssh/id_rsa  </span><br><span class="line">Your public key has been saved in /home/linyunwen/.ssh/id_rsa.pub  </span><br><span class="line">The key fingerprint is:  </span><br><span class="line">SHA256:2JmjfMInqjqXcEzoacXw7k9E0mH6SloJ4oDwnHqGu3U [email@gmail.com](mailto:email@gmail.com)  </span><br><span class="line">The key&#x27;s randomart image is:  </span><br><span class="line">+---\[RSA 3072\]----+  </span><br><span class="line">|. o                |  </span><br><span class="line">|o+ .+ .            |  </span><br><span class="line">...</span><br><span class="line">|o+ooE.* o          |  </span><br><span class="line">|.ooo.. =           |  </span><br><span class="line">|o+..o.             |  </span><br><span class="line">+----\[SHA256\]-----+  </span><br><span class="line"></span><br><span class="line">$ ssh-add ~/.ssh/id_rsa  </span><br><span class="line">Identity added: /home/linyunwen/.ssh/id_rsa ([email@gmail.com](mailto:email@gmail.com))  </span><br><span class="line"></span><br><span class="line">$ cat ~/.ssh/id_rsa.pub  </span><br><span class="line">ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCoOPC42DxzQaFjuRD4cZd5dzhRHzqnFBEVqCKKVpNfw8wLa2EncAewptfKdr56vObVtMAfntkzVlMFBLGf...PK3zYpKkXQS2ga4SgzM+HNQUQJKnv+Y7s9NegHd27KJFkkOm6fxzv3rruWNZi4fJPbXqtZZYqAVtK9ObrNoG9cAqOLSBEg2Nx5Ihyf+cHB2MC8t0QWNiP6PVfFCpft0AT5Gdn0LuierAxjCOWqCSK5HtH8= [email@gmail.com](mailto:email@gmail.com)</span><br></pre></td></tr></table></figure>
 <span id="more"></span>
 
 <h2 id="set-ssh-on-github-or-gitlab"><a href="#set-ssh-on-github-or-gitlab" class="headerlink" title="set ssh on github or gitlab"></a>set ssh on github or gitlab</h2><h3 id="github"><a href="#github" class="headerlink" title="github"></a>github</h3><ul>
@@ -275,7 +275,7 @@
 <li>paste the output of <code>~/.ssh/id_rsa.pub</code> on it</li>
 <li><img src="https://i.imgur.com/Pfa1mam.png"></li>
 </ul>
-<h2 id="Test-on-computer"><a href="#Test-on-computer" class="headerlink" title="Test on computer"></a>Test on computer</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">$ ssh -T git@github.com</span><br><span class="line">Hi LinYunWen! You&#39;ve successfully authenticated, but GitHub does not provide shell access.</span><br><span class="line"></span><br><span class="line">$ ssh -T git@gitlab.com</span><br><span class="line">The authenticity of host &#39;[gitlab.com](http:&#x2F;&#x2F;gitlab.com&#x2F;) (172.65.251.78)&#39; can&#39;t be established.  </span><br><span class="line">ECDSA key fingerprint is SHA256:HbW3g8zUjNSksFbqTiUWPWg2Bq1x8xdGUrliXFzSnUw.  </span><br><span class="line">Are you sure you want to continue connecting (yes&#x2F;no&#x2F;\[fingerprint\])?  yes</span><br><span class="line">Warning: Permanently added &#39;gitlab.com,172.65.251.78&#39; (ECDSA) to the list of known hosts.  </span><br><span class="line">Welcome to GitLab, @LinYunWen!</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="Test-on-computer"><a href="#Test-on-computer" class="headerlink" title="Test on computer"></a>Test on computer</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">$ ssh -T git@github.com</span><br><span class="line">Hi LinYunWen! You&#x27;ve successfully authenticated, but GitHub does not provide shell access.</span><br><span class="line"></span><br><span class="line">$ ssh -T git@gitlab.com</span><br><span class="line">The authenticity of host &#x27;[gitlab.com](http://gitlab.com/) (172.65.251.78)&#x27; can&#x27;t be established.  </span><br><span class="line">ECDSA key fingerprint is SHA256:HbW3g8zUjNSksFbqTiUWPWg2Bq1x8xdGUrliXFzSnUw.  </span><br><span class="line">Are you sure you want to continue connecting (yes/no/\[fingerprint\])?  yes</span><br><span class="line">Warning: Permanently added &#x27;gitlab.com,172.65.251.78&#x27; (ECDSA) to the list of known hosts.  </span><br><span class="line">Welcome to GitLab, @LinYunWen!</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 <h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><ul>
 <li><a target="_blank" rel="noopener" href="http://wiki.csie.ncku.edu.tw/github">GitHub 設定指引</a></li>
@@ -337,14 +337,14 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>總字數：</span>
-    <span title="總字數">135k</span>
+    <span title="總字數">134k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>所需總閱讀時間 &asymp;</span>
-    <span title="所需總閱讀時間">4:06</span>
+    <span title="所需總閱讀時間">4:04</span>
   </span>
 </div>
 

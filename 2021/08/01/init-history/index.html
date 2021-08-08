@@ -144,14 +144,14 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">51</span>
+          <span class="site-state-item-count">52</span>
           <span class="site-state-item-name">文章</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">58</span>
+        <span class="site-state-item-count">59</span>
         <span class="site-state-item-name">標籤</span></a>
       </div>
   </nav>
@@ -242,7 +242,7 @@
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
-      <span>51 分鐘</span>
+      <span>50 分鐘</span>
     </span>
 </div>
 
@@ -272,9 +272,9 @@
 <li>Sysvinit 用術語 runlevel 來定義”預訂的運行模式”。Sysvinit 檢查 ‘/etc/inittab’ 文件中是否含有 ‘initdefault’ 項。 這告訴 init 系統是否有一個默認運行模式。如果沒有默認的運行模式，那麼用戶將進入系統控制台，手動決定進入何種運行模式。</li>
 <li>sysvinit 中運行模式描述了系統各種預訂的運行模式。通常會有 8 種運行模式，即運行模式 0 到 6 和 S 或者 s。<ul>
 <li>每種 Linux 發行版對運行模式的定義都不太一樣。但 0，1，6 卻得到了大家的一致贊同：<ul>
-<li>0 關機</li>
-<li>1 單用戶模式</li>
-<li>6 重啟</li>
+<li>  0 關機</li>
+<li>  1 單用戶模式</li>
+<li>  6 重啟</li>
 </ul>
 </li>
 </ul>
@@ -294,36 +294,36 @@
 </li>
 <li>Sysvinit 巧妙地用腳本，文件命名規則和軟鏈接來實現不同的 runlevel。</li>
 <li>首先，sysvinit 需要讀取/etc/inittab 文件。分析這個文件的內容，它獲得以下一些配置信息：<ul>
-<li>系統需要進入的 runlevel</li>
-<li>捕獲組合鍵的定義</li>
-<li>定義電源 fail/restore 腳本</li>
-<li>啟動 getty 和虛擬控制台</li>
+<li>  系統需要進入的 runlevel</li>
+<li>  捕獲組合鍵的定義</li>
+<li>  定義電源 fail/restore 腳本</li>
+<li>  啟動 getty 和虛擬控制台</li>
 </ul>
 </li>
 <li>得到配置信息後，sysvinit 順序地執行以下這些步驟，從而將系統初始化為預訂的 runlevel X。<ul>
-<li>/etc/rc.d/rc.sysinit</li>
-<li>/etc/rc.d/rc 和/etc/rc.d/rcX.d/ (X 代表運行級別 0-6)</li>
-<li>/etc/rc.d/rc.local</li>
-<li>X Display Manager（如果需要的話）</li>
+<li>  /etc/rc.d/rc.sysinit</li>
+<li>  /etc/rc.d/rc 和/etc/rc.d/rcX.d/ (X 代表運行級別 0-6)</li>
+<li>  /etc/rc.d/rc.local</li>
+<li>  X Display Manager（如果需要的話）</li>
 </ul>
 </li>
 <li>首先，運行 rc.sysinit 以便執行一些重要的系統初始化任務。在 RedHat 公司的 RHEL5 中(RHEL6 已經使用 upstart 了)，rc.sysinit 主要完成以下這些工作。<ul>
-<li>激活 udev 和 selinux</li>
-<li>設置定義在/etc/sysctl.conf 中的內核參數</li>
-<li>設置系統時鐘</li>
-<li>加載 keymaps</li>
-<li>使能交換分區</li>
-<li>設置主機名(hostname)</li>
-<li>根分區檢查和 remount</li>
-<li>激活 RAID 和 LVM 設備</li>
-<li>開啟磁盤配額</li>
-<li>檢查並掛載所有文件系統</li>
-<li>清除過期的 locks 和 PID 文件</li>
+<li>  激活 udev 和 selinux</li>
+<li>  設置定義在/etc/sysctl.conf 中的內核參數</li>
+<li>  設置系統時鐘</li>
+<li>  加載 keymaps</li>
+<li>  使能交換分區</li>
+<li>  設置主機名(hostname)</li>
+<li>  根分區檢查和 remount</li>
+<li>  激活 RAID 和 LVM 設備</li>
+<li>  開啟磁盤配額</li>
+<li>  檢查並掛載所有文件系統</li>
+<li>  清除過期的 locks 和 PID 文件</li>
 </ul>
 </li>
 <li>完成了以上這些工作之後，sysvinit 開始運行/etc/rc.d/rc 腳本。根據不同的 runlevel，rc 腳本將打開對應該 runlevel 的 rcX.d 目錄(X 就是 runlevel)，找到並運行存放在該目錄下的所有啟動腳本。每個 runlevel X 都有一個這樣的目錄，目錄名為/etc/rc.d/rcX.d。</li>
 <li>在這些目錄下存放著很多不同的腳本。文件名以 S 開頭的腳本就是啟動時應該運行的腳本，S 後面跟的數字定義了這些腳本的執行順序。在/etc/rc.d/rcX.d 目錄下的腳本其實都是一些軟鏈接文件，真實的腳本文件存放在/etc/init.d 目錄下。如下所示：<ul>
-<li>清單 1.rc5.d 目錄下的腳本<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">[root@www ~]# ll &#x2F;etc&#x2F;rc5.d&#x2F;</span><br><span class="line">lrwxrwxrwx 1 root root 16 Sep  4  2008 K02dhcdbd -&gt; ..&#x2F;init.d&#x2F;dhcdbd</span><br><span class="line">....(中間省略)....</span><br><span class="line">lrwxrwxrwx 1 root root 14 Sep  4  2008 K91capi -&gt; ..&#x2F;init.d&#x2F;capi</span><br><span class="line">lrwxrwxrwx 1 root root 23 Sep  4  2008 S00microcode_ctl -&gt; ..&#x2F;init.d&#x2F;microcode_ctl</span><br><span class="line">lrwxrwxrwx 1 root root 22 Sep  4  2008 S02lvm2-monitor -&gt; ..&#x2F;init.d&#x2F;lvm2-monitor</span><br><span class="line">....(中間省略)....</span><br><span class="line">lrwxrwxrwx 1 root root 17 Sep  4  2008 S10network -&gt; ..&#x2F;init.d&#x2F;network</span><br><span class="line">....(中間省略)....</span><br><span class="line">lrwxrwxrwx 1 root root 11 Sep  4  2008 S99local -&gt; ..&#x2F;rc.local</span><br><span class="line">lrwxrwxrwx 1 root root 16 Sep  4  2008 S99smartd -&gt; ..&#x2F;init.d&#x2F;smartd</span><br><span class="line">....(底下省略)....</span><br></pre></td></tr></table></figure></li>
+<li>清單 1.rc5.d 目錄下的腳本<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">[root@www ~]# ll /etc/rc5.d/</span><br><span class="line">lrwxrwxrwx 1 root root 16 Sep  4  2008 K02dhcdbd -&gt; ../init.d/dhcdbd</span><br><span class="line">....(中間省略)....</span><br><span class="line">lrwxrwxrwx 1 root root 14 Sep  4  2008 K91capi -&gt; ../init.d/capi</span><br><span class="line">lrwxrwxrwx 1 root root 23 Sep  4  2008 S00microcode_ctl -&gt; ../init.d/microcode_ctl</span><br><span class="line">lrwxrwxrwx 1 root root 22 Sep  4  2008 S02lvm2-monitor -&gt; ../init.d/lvm2-monitor</span><br><span class="line">....(中間省略)....</span><br><span class="line">lrwxrwxrwx 1 root root 17 Sep  4  2008 S10network -&gt; ../init.d/network</span><br><span class="line">....(中間省略)....</span><br><span class="line">lrwxrwxrwx 1 root root 11 Sep  4  2008 S99local -&gt; ../rc.local</span><br><span class="line">lrwxrwxrwx 1 root root 16 Sep  4  2008 S99smartd -&gt; ../init.d/smartd</span><br><span class="line">....(底下省略)....</span><br></pre></td></tr></table></figure></li>
 </ul>
 </li>
 <li>當所有的初始化腳本執行完畢。Sysvinit 運行/etc/rc.d/rc.local 腳本。</li>
@@ -356,9 +356,9 @@
 </li>
 <li>Upstart 的特點<ul>
 <li>UpStart 解決了之前提到的 sysvinit 的缺點。採用事件驅動模型，UpStart 可以：<ul>
-<li>更快地啟動系統</li>
-<li>當新硬件被發現時動態啟動服務</li>
-<li>硬件被拔除時動態停止服務</li>
+<li>  更快地啟動系統</li>
+<li>  當新硬件被發現時動態啟動服務</li>
+<li>  硬件被拔除時動態停止服務</li>
 </ul>
 </li>
 </ul>
@@ -373,9 +373,9 @@
 </li>
 <li><p>Job 就是一個工作的單元，一個任務或者一個服務。可以理解為 sysvinit 中的一個服務腳本。有三種類型的工作：</p>
 <ul>
-<li>task job；</li>
-<li>service job；</li>
-<li>abstract job；</li>
+<li>  task job；</li>
+<li>  service job；</li>
+<li>  abstract job；</li>
 </ul>
 </li>
 <li><p>task job 代表在一定時間內會執行完畢的任務，比如刪除一個文件；</p>
@@ -450,10 +450,10 @@
 <blockquote>
 <ul>
 <li>其中有四個狀態會引起 init 進程發送相應的事件，表明該工作的相應變化：<ul>
-<li>Starting</li>
-<li>Started</li>
-<li>Stopping</li>
-<li>Stopped</li>
+<li>  Starting</li>
+<li>  Started</li>
+<li>  Stopping</li>
+<li>  Stopped</li>
 </ul>
 </li>
 <li>而其它的狀態變化不會發出事件。那麼我們接下來就來看看事件的詳細含義吧。</li>
@@ -486,15 +486,15 @@
 <blockquote>
 <ul>
 <li>事件是個非常抽象的概念，下面我羅列出一些常見的事件，希望可以幫助您進一步瞭解事件的含義：<ul>
-<li>系統上電啟動，init 進程會發送”start”事件</li>
-<li>根文件系統可寫時，相應 job 會發送文件系統就緒的事件</li>
-<li>一個塊設備被發現並初始化完成，發送相應的事件</li>
-<li>某個文件系統被掛載，發送相應的事件</li>
-<li>類似 atd 和 cron，可以在某個時間點，或者週期的時間點發送事件</li>
-<li>另外一個 job 開始或結束時，發送相應的事件</li>
-<li>一個磁盤文件被修改時，可以發出相應的事件</li>
-<li>一個網絡設備被發現時，可以發出相應的事件</li>
-<li>缺省路由被添加或刪除時，可以發出相應的事件</li>
+<li>  系統上電啟動，init 進程會發送”start”事件</li>
+<li>  根文件系統可寫時，相應 job 會發送文件系統就緒的事件</li>
+<li>  一個塊設備被發現並初始化完成，發送相應的事件</li>
+<li>  某個文件系統被掛載，發送相應的事件</li>
+<li>  類似 atd 和 cron，可以在某個時間點，或者週期的時間點發送事件</li>
+<li>  另外一個 job 開始或結束時，發送相應的事件</li>
+<li>  一個磁盤文件被修改時，可以發出相應的事件</li>
+<li>  一個網絡設備被發現時，可以發出相應的事件</li>
+<li>  缺省路由被添加或刪除時，可以發出相應的事件</li>
 </ul>
 </li>
 <li>不同的 Linux 發行版對 upstart 有不同的定製和實現，實現和支持的事件也有所不同，可以用<code>man 7 upstart-events</code>來查看事件列表。</li>
@@ -513,7 +513,7 @@
 </ul>
 </li>
 <li>任何一個工作都是由一個工作配置文件（Job Configuration File）定義的。這個文件是一個文本文件，包含一個或者多個小節（stanza）。每個小節是一個完整的定義模塊，定義了工作的一個方面，比如 author 小節定義了工作的作者。工作配置文件存放在/etc/init 下面，是以.conf 作為文件後綴的文件。</li>
-<li>一個最簡單的工作配置文件  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">#This is a simple demo of Job Configure file</span><br><span class="line">#This line is comment, start with #</span><br><span class="line"></span><br><span class="line">#Stanza 1, The author</span><br><span class="line">author 「Liu Ming」</span><br><span class="line"></span><br><span class="line">#Stanza 2, Description</span><br><span class="line">description 「This job only has author and description, so no use, just a demo」</span><br></pre></td></tr></table></figure>
+<li>一個最簡單的工作配置文件  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">#This is a simple demo of Job Configure file</span><br><span class="line">#This line is comment, start with #</span><br><span class="line"></span><br><span class="line">#Stanza 1, The author</span><br><span class="line">author 「Liu Ming」</span><br><span class="line"></span><br><span class="line">#Stanza 2, Description</span><br><span class="line">description 「This job only has author and description, so no use, just a demo」</span><br></pre></td></tr></table></figure>
 
 </li>
 </ul>
@@ -540,7 +540,7 @@
 </li>
 <li><p>“exec” Stanza 和 “script” Stanza</p>
 <ul>
-<li>一個 UpStart 工作一定需要做些什麼，可能是運行一條 shell 命令，或者運行一段腳本。用”exec”關鍵字配置工作需要運行的命令；用”script”關鍵字定義需要運行的腳本。  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"># mountall.conf</span><br><span class="line">description 「Mount filesystems on boot」</span><br><span class="line">start on startup</span><br><span class="line">stop on starting rcS</span><br><span class="line">...</span><br><span class="line">script</span><br><span class="line">  . &#x2F;etc&#x2F;default&#x2F;rcS</span><br><span class="line">  [ -f &#x2F;forcefsck ] &amp;&amp; force_fsck&#x3D;」--force-fsck」</span><br><span class="line">  [ 「$FSCKFIX」&#x3D;」yes」 ] &amp;&amp; fsck_fix&#x3D;」--fsck-fix」</span><br><span class="line"></span><br><span class="line">  ...</span><br><span class="line"></span><br><span class="line">  exec mountall –daemon $force_fsck $fsck_fix</span><br><span class="line">end script</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<li>一個 UpStart 工作一定需要做些什麼，可能是運行一條 shell 命令，或者運行一段腳本。用”exec”關鍵字配置工作需要運行的命令；用”script”關鍵字定義需要運行的腳本。  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"># mountall.conf</span><br><span class="line">description 「Mount filesystems on boot」</span><br><span class="line">start on startup</span><br><span class="line">stop on starting rcS</span><br><span class="line">...</span><br><span class="line">script</span><br><span class="line">  . /etc/default/rcS</span><br><span class="line">  [ -f /forcefsck ] &amp;&amp; force_fsck=」--force-fsck」</span><br><span class="line">  [ 「$FSCKFIX」=」yes」 ] &amp;&amp; fsck_fix=」--fsck-fix」</span><br><span class="line"></span><br><span class="line">  ...</span><br><span class="line"></span><br><span class="line">  exec mountall –daemon $force_fsck $fsck_fix</span><br><span class="line">end script</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
 <ul>
 <li>這是 mountall 的例子，該工作在系統啟動時運行，負責掛載所有的文件系統。該工作需要執行複雜的腳本，由”script”關鍵字定義；在腳本中，使用了 exec 來執行 mountall 命令。</li>
 </ul>
@@ -550,7 +550,7 @@
 <li><p>“start on” Stanza 和 “stop on” Stanza</p>
 <ul>
 <li>“start on”定義了觸發工作的所有事件。</li>
-<li>“start on”的語法很簡單，如下所示：  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">start on EVENT [[KEY&#x3D;]VALUE]… [and|or…]</span><br></pre></td></tr></table></figure>
+<li>“start on”的語法很簡單，如下所示：  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">start on EVENT [[KEY=]VALUE]… [and|or…]</span><br></pre></td></tr></table></figure>
 <ul>
 <li>EVENT 表示事件的名字，可以在 start on 中指定多個事件，表示該工作的開始需要依賴多個事件發生。</li>
 <li>多個事件之間可以用 and 或者 or 組合，”表示全部都必須發生”或者”其中之一發生即可”等不同的依賴條件。</li>
@@ -560,7 +560,7 @@
 </ul>
 </li>
 <li><p>“stop on”和”start on”非常類似，只不過是定義工作在什麼情況下需要停止。</p>
-  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">#dbus.conf</span><br><span class="line">description     「D-Bus system message bus」</span><br><span class="line"></span><br><span class="line">start on local-filesystems</span><br><span class="line">stop on deconfiguring-networking</span><br><span class="line">…</span><br></pre></td></tr></table></figure>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">#dbus.conf</span><br><span class="line">description     「D-Bus system message bus」</span><br><span class="line"></span><br><span class="line">start on local-filesystems</span><br><span class="line">stop on deconfiguring-networking</span><br><span class="line">…</span><br></pre></td></tr></table></figure>
 <ul>
 <li>D-Bus 是一個系統消息服務，上面的配置文件表明當系統發出 local-filesystems 事件時啟動 D-Bus；當系統發出 deconfiguring-networking 事件時，停止 D-Bus 服務。</li>
 </ul>
@@ -578,7 +578,7 @@
 </ul>
 </li>
 <li><p>傳統 desktop session 啟動過程</p>
-  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">init</span><br><span class="line"> |- lightdm</span><br><span class="line"> |   |- Xorg</span><br><span class="line"> |   |- lightdm ---session-child</span><br><span class="line"> |        |- gnome-session --session&#x3D;ubuntu</span><br><span class="line"> |             |- compiz</span><br><span class="line"> |             |- gwibber</span><br><span class="line"> |             |- nautilus</span><br><span class="line"> |             |- nm-applet</span><br><span class="line"> |             :</span><br><span class="line"> |             :</span><br><span class="line"> |</span><br><span class="line"> |- dbus-daemon --session</span><br><span class="line"> |</span><br><span class="line"> :</span><br><span class="line"> :</span><br></pre></td></tr></table></figure>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">init</span><br><span class="line"> |- lightdm</span><br><span class="line"> |   |- Xorg</span><br><span class="line"> |   |- lightdm ---session-child</span><br><span class="line"> |        |- gnome-session --session=ubuntu</span><br><span class="line"> |             |- compiz</span><br><span class="line"> |             |- gwibber</span><br><span class="line"> |             |- nautilus</span><br><span class="line"> |             |- nm-applet</span><br><span class="line"> |             :</span><br><span class="line"> |             :</span><br><span class="line"> |</span><br><span class="line"> |- dbus-daemon --session</span><br><span class="line"> |</span><br><span class="line"> :</span><br><span class="line"> :</span><br></pre></td></tr></table></figure>
 <ul>
 <li><p>這個過程有一些缺點（和 sysVInit 類似）。</p>
 </li>
@@ -591,14 +591,13 @@
 <li><p>對於移動，嵌入式等設備等這還意味著省電。</p>
 </li>
 <li><p>除了 Update-notifier 服務之外，還有其它一些類似的服務。比如 Network Manager，一天之內用戶很少切換網絡設備，所以大部分時間 Network Manager 服務僅僅是在浪費系統資源；再比如 backup manager 等其它常駐內存，後台不間斷運行卻很少真正被使用的服務。</p>
-<ul>
-<li>用 UpStart 的基於事件的按需啟動的模式就可以很好地解決這些問題，比如用戶插入網線的時候才啟動 Network Manager，因為用戶插入網線表明需要使用網絡，這可以被稱為按需啟動。</li>
-</ul>
+</li>
+<li><p>用 UpStart 的基於事件的按需啟動的模式就可以很好地解決這些問題，比如用戶插入網線的時候才啟動 Network Manager，因為用戶插入網線表明需要使用網絡，這可以被稱為按需啟動。</p>
 </li>
 </ul>
 </li>
 <li><p>採用 Upstart 的 Desktop session init 過程</p>
-  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">init</span><br><span class="line"> |- lightdm</span><br><span class="line"> |   |- Xorg</span><br><span class="line"> |   |- lightdm ---session-child</span><br><span class="line"> |        |- session-init # &lt;-- upstart running as normal user</span><br><span class="line"> |             |- dbus-daemon --session</span><br><span class="line"> |             |- gnome-session --session&#x3D;ubuntu</span><br><span class="line"> |             |- compiz</span><br><span class="line"> |             |- gwibber</span><br><span class="line"> |             |- nautilus</span><br><span class="line"> |             |- nm-applet</span><br><span class="line"> |             :</span><br><span class="line"> |             :</span><br><span class="line"> :</span><br><span class="line"> :</span><br></pre></td></tr></table></figure>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">init</span><br><span class="line"> |- lightdm</span><br><span class="line"> |   |- Xorg</span><br><span class="line"> |   |- lightdm ---session-child</span><br><span class="line"> |        |- session-init # &lt;-- upstart running as normal user</span><br><span class="line"> |             |- dbus-daemon --session</span><br><span class="line"> |             |- gnome-session --session=ubuntu</span><br><span class="line"> |             |- compiz</span><br><span class="line"> |             |- gwibber</span><br><span class="line"> |             |- nautilus</span><br><span class="line"> |             |- nm-applet</span><br><span class="line"> |             :</span><br><span class="line"> |             :</span><br><span class="line"> :</span><br><span class="line"> :</span><br></pre></td></tr></table></figure>
 <h3 id="UpStart-使用"><a href="#UpStart-使用" class="headerlink" title="UpStart 使用"></a>UpStart 使用</h3></li>
 <li><p>有兩種人員需要瞭解 Upstart 的使用。</p>
 <ul>
@@ -702,7 +701,7 @@
 </ul>
 <blockquote>
 <ul>
-<li>一些命令是為了兼容其它系統(主要是 sysvinit)，比如顯示 runlevel 用/sbin/runlevel 命令：  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$runlevel</span><br><span class="line">N 2</span><br></pre></td></tr></table></figure>
+<li>一些命令是為了兼容其它系統(主要是 sysvinit)，比如顯示 runlevel 用/sbin/runlevel 命令：  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$runlevel</span><br><span class="line">N 2</span><br></pre></td></tr></table></figure>
 <ul>
 <li>這個輸出說明當前系統的運行級別為 2。而且系統沒有之前的運行級別，也就是說在系統上電啟動進入預定運行級別之後沒有再修改過運行級別。</li>
 <li>在 Upstart 系統中，需要修改/etc/init/rc-sysinti.conf 中的 DEFAULT_RUNLEVEL 這個參數，以便修改默認啟動運行級別。這一點和 sysvinit 的習慣有所不同，大家需要格外留意。</li>
@@ -740,8 +739,8 @@
 <ul>
 <li>Systemd 提供了比 UpStart 更激進的並行啟動能力，採用了 socket / D-Bus activation 等技術啟動服務。一個顯而易見的結果就是：更快的啟動速度。</li>
 <li>為了減少系統啟動時間，systemd 的目標是：<ul>
-<li>儘可能啟動更少的進程</li>
-<li>儘可能將更多進程並行啟動</li>
+<li>  儘可能啟動更少的進程</li>
+<li>  儘可能將更多進程並行啟動</li>
 </ul>
 </li>
 <li>同樣地，UpStart 也試圖實現這兩個目標。UpStart 採用事件驅動機制，服務可以暫不啟動，當需要的時候才通過事件觸發其啟動，這符闔第一個設計目標；此外，不相干的服務可以並行啟動，這也實現了第二個目標。</li>
@@ -793,20 +792,20 @@
 <li><p>日誌服務</p>
 <ul>
 <li>systemd 自帶日誌服務 journald，該日誌服務的設計初衷是克服現有的 syslog 服務的缺點。比如：<ul>
-<li>syslog 不安全，消息的內容無法驗證。每一個本地進程都可以聲稱自己是 Apache PID 4711，而 syslog 也就相信並保存到磁盤上。</li>
-<li>數據沒有嚴格的格式，非常隨意。自動化的日誌分析器需要分析人類語言字符串來識別消息。一方面此類分析困難低效；此外日誌格式的變化會導致分析代碼需要更新甚至重寫。</li>
+<li>  syslog 不安全，消息的內容無法驗證。每一個本地進程都可以聲稱自己是 Apache PID 4711，而 syslog 也就相信並保存到磁盤上。</li>
+<li>  數據沒有嚴格的格式，非常隨意。自動化的日誌分析器需要分析人類語言字符串來識別消息。一方面此類分析困難低效；此外日誌格式的變化會導致分析代碼需要更新甚至重寫。</li>
 </ul>
 </li>
 <li>Systemd Journal 用二進制格式保存所有日誌信息，用戶使用 journalctl 命令來查看日誌信息。無需自己編寫複雜脆弱的字符串分析處理程序。</li>
 <li>Systemd Journal 的優點如下：<ul>
-<li>簡單性：代碼少，依賴少，抽象開銷最小。</li>
-<li>零維護：日誌是除錯和監控系統的核心功能，因此它自己不能再產生問題。舉例說，自動管理磁盤空間，避免由於日誌的不斷產生而將磁盤空間耗盡。</li>
-<li>移植性：日誌文件應該在所有類型的 Linux 系統上可用，無論它使用的何種 CPU 或者字節序。</li>
-<li>性能：添加和瀏覽日誌 非常快。</li>
-<li>最小資源佔用：日誌 數據文件需要較小。</li>
-<li>統一化：各種不同的日誌存儲技術應該統一起來，將所有的可記錄事件保存在同一個數據存儲中。所以日誌內容的全局上下文都會被保存並且可供日後查詢。例如一條 固件記錄後通常會跟隨一條內核記錄，最終還會有一條用戶態記錄。重要的是當保存到硬盤上時這三者之間的關係不會丟失。Syslog 將不同的信息保存到不同的文件中，分析的時候很難確定哪些條目是相關的。</li>
-<li>擴展性：日誌的適用範圍很廣，從嵌入式設備到超級計算機集群都可以滿足需求。</li>
-<li>安全性：日誌 文件是可以驗證的，讓無法檢測的修改不再可能。<h3 id="Systemd-的基本概念"><a href="#Systemd-的基本概念" class="headerlink" title="Systemd 的基本概念"></a>Systemd 的基本概念</h3><h4 id="單元的概念"><a href="#單元的概念" class="headerlink" title="單元的概念"></a>單元的概念</h4></li>
+<li>  簡單性：代碼少，依賴少，抽象開銷最小。</li>
+<li>  零維護：日誌是除錯和監控系統的核心功能，因此它自己不能再產生問題。舉例說，自動管理磁盤空間，避免由於日誌的不斷產生而將磁盤空間耗盡。</li>
+<li>  移植性：日誌文件應該在所有類型的 Linux 系統上可用，無論它使用的何種 CPU 或者字節序。</li>
+<li>  性能：添加和瀏覽日誌 非常快。</li>
+<li>  最小資源佔用：日誌 數據文件需要較小。</li>
+<li>  統一化：各種不同的日誌存儲技術應該統一起來，將所有的可記錄事件保存在同一個數據存儲中。所以日誌內容的全局上下文都會被保存並且可供日後查詢。例如一條 固件記錄後通常會跟隨一條內核記錄，最終還會有一條用戶態記錄。重要的是當保存到硬盤上時這三者之間的關係不會丟失。Syslog 將不同的信息保存到不同的文件中，分析的時候很難確定哪些條目是相關的。</li>
+<li>  擴展性：日誌的適用範圍很廣，從嵌入式設備到超級計算機集群都可以滿足需求。</li>
+<li>  安全性：日誌 文件是可以驗證的，讓無法檢測的修改不再可能。<h3 id="Systemd-的基本概念"><a href="#Systemd-的基本概念" class="headerlink" title="Systemd 的基本概念"></a>Systemd 的基本概念</h3><h4 id="單元的概念"><a href="#單元的概念" class="headerlink" title="單元的概念"></a>單元的概念</h4></li>
 </ul>
 </li>
 </ul>
@@ -817,15 +816,15 @@
 </li>
 <li><p>可以認為一個服務是一個配置單元；一個掛載點是一個配置單元；一個交換分區的配置是一個配置單元；等等。systemd 將配置單元歸納為以下一些不同的類型。然而，systemd 正在快速發展，新功能不斷增加。所以配置單元類型可能在不久的將來繼續增加。</p>
 <ul>
-<li>service ：代表一個後台服務進程，比如 mysqld。這是最常用的一類。</li>
-<li>socket ：此類配置單元封裝系統和互聯網中的一個 套接字 。當下，systemd 支持流式、數據報和連續包的 AF_INET、AF_INET6、AF_UNIX socket 。每一個套接字配置單元都有一個相應的服務配置單元 。相應的服務在第一個”連接”進入套接字時就會啟動(例如：nscd.socket 在有新連接後便啟動 nscd.service)。</li>
-<li>device ：此類配置單元封裝一個存在於 Linux 設備樹中的設備。每一個使用 udev 規則標記的設備都將會在 systemd 中作為一個設備配置單元出現。</li>
-<li>mount ：此類配置單元封裝文件系統結構層次中的一個掛載點。Systemd 將對這個掛載點進行監控和管理。比如可以在啟動時自動將其掛載；可以在某些條件下自動卸載。Systemd 會將/etc/fstab 中的條目都轉換為掛載點，並在開機時處理。</li>
-<li>automount ：此類配置單元封裝系統結構層次中的一個自掛載點。每一個自掛載配置單元對應一個掛載配置單元 ，當該自動掛載點被訪問時，systemd 執行掛載點中定義的掛載行為。</li>
-<li>swap: 和掛載配置單元類似，交換配置單元用來管理交換分區。用戶可以用交換配置單元來定義系統中的交換分區，可以讓這些交換分區在啟動時被激活。</li>
-<li>target ：此類配置單元為其他配置單元進行邏輯分組。它們本身實際上並不做什麼，只是引用其他配置單元而已。這樣便可以對配置單元做一個統一的控制。這樣就可以實現大家都已經非常熟悉的運行級別概念。比如想讓系統進入圖形化模式，需要運行許多服務和配置命令，這些操作都由一個個的配置單元表示，將所有這些配置單元 組合為一個目標(target)，就表示需要將這些配置單元全部執行一遍以便進入目標所代表的系統運行狀態。 (例如：multi-user.target 相當於在傳統使用 SysV 的系統中運行級別 5)</li>
-<li>timer：定時器配置單元用來定時觸發用戶定義的操作，這類配置單元取代了 atd、crond 等傳統的定時服務。</li>
-<li>snapshot ：與 target 配置單元相似，快照是一組配置單元。它保存了系統當前的運行狀態。</li>
+<li>  service ：代表一個後台服務進程，比如 mysqld。這是最常用的一類。</li>
+<li>  socket ：此類配置單元封裝系統和互聯網中的一個 套接字 。當下，systemd 支持流式、數據報和連續包的 AF_INET、AF_INET6、AF_UNIX socket 。每一個套接字配置單元都有一個相應的服務配置單元 。相應的服務在第一個”連接”進入套接字時就會啟動(例如：nscd.socket 在有新連接後便啟動 nscd.service)。</li>
+<li>  device ：此類配置單元封裝一個存在於 Linux 設備樹中的設備。每一個使用 udev 規則標記的設備都將會在 systemd 中作為一個設備配置單元出現。</li>
+<li>  mount ：此類配置單元封裝文件系統結構層次中的一個掛載點。Systemd 將對這個掛載點進行監控和管理。比如可以在啟動時自動將其掛載；可以在某些條件下自動卸載。Systemd 會將/etc/fstab 中的條目都轉換為掛載點，並在開機時處理。</li>
+<li>  automount ：此類配置單元封裝系統結構層次中的一個自掛載點。每一個自掛載配置單元對應一個掛載配置單元 ，當該自動掛載點被訪問時，systemd 執行掛載點中定義的掛載行為。</li>
+<li>  swap: 和掛載配置單元類似，交換配置單元用來管理交換分區。用戶可以用交換配置單元來定義系統中的交換分區，可以讓這些交換分區在啟動時被激活。</li>
+<li>  target ：此類配置單元為其他配置單元進行邏輯分組。它們本身實際上並不做什麼，只是引用其他配置單元而已。這樣便可以對配置單元做一個統一的控制。這樣就可以實現大家都已經非常熟悉的運行級別概念。比如想讓系統進入圖形化模式，需要運行許多服務和配置命令，這些操作都由一個個的配置單元表示，將所有這些配置單元 組合為一個目標(target)，就表示需要將這些配置單元全部執行一遍以便進入目標所代表的系統運行狀態。 (例如：multi-user.target 相當於在傳統使用 SysV 的系統中運行級別 5)</li>
+<li>  timer：定時器配置單元用來定時觸發用戶定義的操作，這類配置單元取代了 atd、crond 等傳統的定時服務。</li>
+<li>  snapshot ：與 target 配置單元相似，快照是一組配置單元。它保存了系統當前的運行狀態。</li>
 </ul>
 </li>
 <li><p>每個配置單元都有一個對應的配置文件，系統管理員的任務就是編寫和維護這些不同的配置文件，比如一個 MySQL 服務對應一個 mysql.service 文件。這種配置文件的語法非常簡單，用戶不需要再編寫和維護複雜的系統 5 腳本了。</p>
@@ -919,14 +918,14 @@
 <li>當然對於”/“根目錄的依賴實際上一定還是要串行執行，因為 systemd 自己也存放在/之下，必須等待系統根目錄掛載檢查好。</li>
 <li>不過對於類似 /home 等掛載點，這種並發可以提高系統的啟動速度，尤其是當 /home 是遠程的 NFS 節點，或者是加密盤等，需要耗費較長的時間才可以準備就緒的情況下，因為並發啟動，這段時間內，系統並不是完全無事可做，而是可以利用這段空餘時間做更多 的啟動進程的事情，總的來說就縮短了系統啟動時間。<h3 id="Systemd-的使用"><a href="#Systemd-的使用" class="headerlink" title="Systemd 的使用"></a>Systemd 的使用</h3><h4 id="系統軟件開發人員"><a href="#系統軟件開發人員" class="headerlink" title="系統軟件開發人員"></a>系統軟件開發人員</h4></li>
 <li>開發人員需要瞭解 systemd 的更多細節。比如您打算開發一個新的系統服務，就必須瞭解如何讓這個服務能夠被 systemd 管理。這需要您注意以下這些要點：<ul>
-<li>後台服務進程代碼不需要執行兩次派生來實現後台精靈進程，只需要實現服務本身的主循環即可。</li>
-<li>不要調用 setsid()，交給 systemd 處理</li>
-<li>不再需要維護 pid 文件。</li>
-<li>Systemd 提供了日誌功能，服務進程只需要輸出到 stderr 即可，無需使用 syslog。</li>
-<li>處理信號 SIGTERM，這個信號的唯一正確作用就是停止當前服務，不要做其他的事情。</li>
-<li>SIGHUP 信號的作用是重啟服務。</li>
-<li>需要套接字的服務，不要自己創建套接字，讓 systemd 傳入套接字。</li>
-<li>使用 sd_notify() 函數通知 systemd 服務自己的狀態改變。一般地，當服務初始化結束，進入服務就緒狀態時，可以調用它。<h4 id="Unit-文件的編寫"><a href="#Unit-文件的編寫" class="headerlink" title="Unit 文件的編寫"></a>Unit 文件的編寫</h4></li>
+<li>  後台服務進程代碼不需要執行兩次派生來實現後台精靈進程，只需要實現服務本身的主循環即可。</li>
+<li>  不要調用 setsid()，交給 systemd 處理</li>
+<li>  不再需要維護 pid 文件。</li>
+<li>  Systemd 提供了日誌功能，服務進程只需要輸出到 stderr 即可，無需使用 syslog。</li>
+<li>  處理信號 SIGTERM，這個信號的唯一正確作用就是停止當前服務，不要做其他的事情。</li>
+<li>  SIGHUP 信號的作用是重啟服務。</li>
+<li>  需要套接字的服務，不要自己創建套接字，讓 systemd 傳入套接字。</li>
+<li>  使用 sd_notify() 函數通知 systemd 服務自己的狀態改變。一般地，當服務初始化結束，進入服務就緒狀態時，可以調用它。<h4 id="Unit-文件的編寫"><a href="#Unit-文件的編寫" class="headerlink" title="Unit 文件的編寫"></a>Unit 文件的編寫</h4></li>
 </ul>
 </li>
 <li>對於開發者來說，工作量最大的部分應該是編寫配置單元文件，定義所需要的單元。<ul>
@@ -934,12 +933,12 @@
 </ul>
 </li>
 <li>此外我們之前已經瞭解到，systemd 的功能繁多，不僅用來管理服務，還可以管理掛載點，定義定時任務等。這些工作都是由編輯相應的配置單元文件完成的。<ul>
-<li>下面是 SSH 服務的配置單元文件，服務配置單元文件以.service 為文件名後綴。  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">#cat &#x2F;etc&#x2F;system&#x2F;system&#x2F;sshd.service</span><br><span class="line">[Unit]</span><br><span class="line">Description&#x3D;OpenSSH server daemon</span><br><span class="line">[Service]</span><br><span class="line">EnvironmentFile&#x3D;&#x2F;etc&#x2F;sysconfig&#x2F;sshd</span><br><span class="line">ExecStartPre&#x3D;&#x2F;usr&#x2F;sbin&#x2F;sshd-keygen</span><br><span class="line">ExecStart&#x3D;&#x2F;usrsbin&#x2F;sshd –D $OPTIONS</span><br><span class="line">ExecReload&#x3D;&#x2F;bin&#x2F;kill –HUP $MAINPID</span><br><span class="line">KillMode&#x3D;process</span><br><span class="line">Restart&#x3D;on-failure</span><br><span class="line">RestartSec&#x3D;42s</span><br><span class="line">[Install]</span><br><span class="line">WantedBy&#x3D;multi-user.target</span><br></pre></td></tr></table></figure>
+<li>下面是 SSH 服務的配置單元文件，服務配置單元文件以.service 為文件名後綴。  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">#cat /etc/system/system/sshd.service</span><br><span class="line">[Unit]</span><br><span class="line">Description=OpenSSH server daemon</span><br><span class="line">[Service]</span><br><span class="line">EnvironmentFile=/etc/sysconfig/sshd</span><br><span class="line">ExecStartPre=/usr/sbin/sshd-keygen</span><br><span class="line">ExecStart=/usrsbin/sshd –D $OPTIONS</span><br><span class="line">ExecReload=/bin/kill –HUP $MAINPID</span><br><span class="line">KillMode=process</span><br><span class="line">Restart=on-failure</span><br><span class="line">RestartSec=42s</span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure>
 <ul>
-<li>文件分為三個小節。第一個是[Unit]部分，這裡僅僅有一個 描述信息。第二部分是 Service 定義，其中，ExecStartPre 定義啟動服務之前應該運行的命令；ExecStart 定義啟動服務的具體命令行語法。第三部分是[Install]，WangtedBy 表明這個服務是在多用戶模式下所需要的。<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">#cat multi-user.target</span><br><span class="line">[Unit]</span><br><span class="line">Description&#x3D;Multi-User System</span><br><span class="line">Documentation&#x3D;man.systemd.special(7)</span><br><span class="line">Requires&#x3D;basic.target</span><br><span class="line">Conflicts&#x3D;rescue.service rescure.target</span><br><span class="line">After&#x3D;basic.target rescue.service rescue.target</span><br><span class="line">AllowIsolate&#x3D;yes</span><br><span class="line">[Install]</span><br><span class="line">Alias&#x3D;default.target</span><br></pre></td></tr></table></figure></li>
+<li>文件分為三個小節。第一個是[Unit]部分，這裡僅僅有一個 描述信息。第二部分是 Service 定義，其中，ExecStartPre 定義啟動服務之前應該運行的命令；ExecStart 定義啟動服務的具體命令行語法。第三部分是[Install]，WangtedBy 表明這個服務是在多用戶模式下所需要的。<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">#cat multi-user.target</span><br><span class="line">[Unit]</span><br><span class="line">Description=Multi-User System</span><br><span class="line">Documentation=man.systemd.special(7)</span><br><span class="line">Requires=basic.target</span><br><span class="line">Conflicts=rescue.service rescure.target</span><br><span class="line">After=basic.target rescue.service rescue.target</span><br><span class="line">AllowIsolate=yes</span><br><span class="line">[Install]</span><br><span class="line">Alias=default.target</span><br></pre></td></tr></table></figure></li>
 <li>第一部分中的 Requires 定義表明 multi-user.target 啟動的時候 basic.target 也必須被啟動；另外 basic.target 停止的時候，multi-user.target 也必須停止。如果您接著查看 basic.target 文件，會發現它又指定了 sysinit.target 等其他的單元必須隨之啟動。同樣 sysinit.target 也會包含其他的單元。採用這樣的層層鏈接的結構，最終所有需要支持多用戶模式的組件服務都會被初始化啟動好。</li>
 <li>在[Install]小節中有 Alias 定義，即定義本單元的別名，這樣在運行 systemctl 的時候就可以使用這個別名來引用本單元。這裡的別名是 default.target，比 multi-user.target 要簡單一些。</li>
-<li>此外在/etc/systemd/system 目錄下還可以看到諸如*.wants 的目錄，放在該目錄下的配置單元文件等同於在[Unit]小節中的 wants 關鍵字，即本單元啟動時，還需要啟動這些單元。比如您可以簡單地把您自己寫的 foo.service 文件放入 multi-user.target.wants 目錄下，這樣每次都會被默認啟動了。<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">#cat sys-kernel-debug.mount</span><br><span class="line">[Unit]</span><br><span class="line">Description&#x3D;Debug File Syste</span><br><span class="line">DefaultDependencies&#x3D;no</span><br><span class="line">ConditionPathExists&#x3D;&#x2F;sys&#x2F;kernel&#x2F;debug</span><br><span class="line">Before&#x3D;sysinit.target</span><br><span class="line">[Mount]</span><br><span class="line">What&#x3D;debugfs</span><br><span class="line">Where&#x3D;&#x2F;sys&#x2F;kernel&#x2F;debug</span><br><span class="line">Type&#x3D;debugfs</span><br></pre></td></tr></table></figure></li>
+<li>此外在/etc/systemd/system 目錄下還可以看到諸如*.wants 的目錄，放在該目錄下的配置單元文件等同於在[Unit]小節中的 wants 關鍵字，即本單元啟動時，還需要啟動這些單元。比如您可以簡單地把您自己寫的 foo.service 文件放入 multi-user.target.wants 目錄下，這樣每次都會被默認啟動了。<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">#cat sys-kernel-debug.mount</span><br><span class="line">[Unit]</span><br><span class="line">Description=Debug File Syste</span><br><span class="line">DefaultDependencies=no</span><br><span class="line">ConditionPathExists=/sys/kernel/debug</span><br><span class="line">Before=sysinit.target</span><br><span class="line">[Mount]</span><br><span class="line">What=debugfs</span><br><span class="line">Where=/sys/kernel/debug</span><br><span class="line">Type=debugfs</span><br></pre></td></tr></table></figure></li>
 <li>這個配置單元文件定義了一個掛載點。掛載配置單元文件有一個[Mount]配置小節，裡面配置了 What，Where 和 Type 三個數據項。這都是掛載命令所必須的，例子中的配置等同於下面這個掛載命令：<code>mount –t debugfs /sys/kernel/debug debugfs</code><h3 id="系統管理員"><a href="#系統管理員" class="headerlink" title="系統管理員"></a>系統管理員</h3></li>
 </ul>
 </li>
@@ -1061,11 +1060,11 @@
 <ul>
 <li><p>logind 不是 pid-1 的 init 進程。它的作用和 UpStart 的 session init 類似，但功能要豐富很多，它能夠管理幾乎所有用戶會話(session)相關的事情。logind 不僅是 ConsoleKit 的替代，它可以：</p>
 <ul>
-<li>維 護，跟蹤會話和用戶登錄情況。如上所述，為了決定關機命令是否可行，系統需要瞭解當前用戶登錄情況，如果用戶從 SSH 登錄，不允許其執行關機命令；如果普通用戶從本地登錄，且該用戶是系統中的唯一會話，則允許其執行關機命令；這些判斷都需要 logind 維護所有的用戶會話和登錄情況。</li>
-<li>Logind 也負責統計用戶會話是否長時間沒有操作，可以執行休眠/關機等相應操作。</li>
-<li>為用戶會話的所有進程創建 CGroup。這不僅方便統計所有用戶會話的相關進程，也可以實現會話級別的系統資源控制。</li>
-<li>負責電源管理的組合鍵處理，比如用戶按下電源鍵，將系統切換至睡眠狀態。</li>
-<li>多席位(multi-seat) 管理。如今的電腦，即便一台筆記本電腦，也完全可以提供多人同時使用的計算能力。多席位就是一台電腦主機管理多個外設，比如兩個屏幕和兩個鼠標/鍵盤。席 位一使用屏幕 1 和鍵盤 1；席位二使用屏幕 2 和鍵盤 2，但他們都共享一台主機。用戶會話可以自由在多個席位之間切換。或者當插入新的鍵盤，屏幕等物理外設時，自動啟動 gdm 用戶登錄界面等。所有這些都是多席位管理的內容。ConsoleKit 始終沒有實現這個功能，systemd 的 logind 能夠支持多席位。</li>
+<li>  維 護，跟蹤會話和用戶登錄情況。如上所述，為了決定關機命令是否可行，系統需要瞭解當前用戶登錄情況，如果用戶從 SSH 登錄，不允許其執行關機命令；如果普通用戶從本地登錄，且該用戶是系統中的唯一會話，則允許其執行關機命令；這些判斷都需要 logind 維護所有的用戶會話和登錄情況。</li>
+<li>  Logind 也負責統計用戶會話是否長時間沒有操作，可以執行休眠/關機等相應操作。</li>
+<li>  為用戶會話的所有進程創建 CGroup。這不僅方便統計所有用戶會話的相關進程，也可以實現會話級別的系統資源控制。</li>
+<li>  負責電源管理的組合鍵處理，比如用戶按下電源鍵，將系統切換至睡眠狀態。</li>
+<li>  多席位(multi-seat) 管理。如今的電腦，即便一台筆記本電腦，也完全可以提供多人同時使用的計算能力。多席位就是一台電腦主機管理多個外設，比如兩個屏幕和兩個鼠標/鍵盤。席 位一使用屏幕 1 和鍵盤 1；席位二使用屏幕 2 和鍵盤 2，但他們都共享一台主機。用戶會話可以自由在多個席位之間切換。或者當插入新的鍵盤，屏幕等物理外設時，自動啟動 gdm 用戶登錄界面等。所有這些都是多席位管理的內容。ConsoleKit 始終沒有實現這個功能，systemd 的 logind 能夠支持多席位。</li>
 </ul>
 </li>
 <li><p>以上描述的這些管理功能僅僅是 systemd 的部分功能，除此之外，systemd 還負責系統其他的管理配置，比如配置網絡，Locale 管理，管理系統內核模塊加載等，完整地描述它們已經超出了本人的能力。</p>
@@ -1075,8 +1074,8 @@
 </ul>
 <h3 id="systemd-小結"><a href="#systemd-小結" class="headerlink" title="systemd 小結"></a>systemd 小結</h3><ul>
 <li>作為系統初始化系統，systemd 的最大特點有兩個：<ul>
-<li>令人驚奇的激進的並發啟動能力，極大地提高了系統啟動速度；</li>
-<li>用 CGroup 統計跟蹤子進程，乾淨可靠。</li>
+<li>  令人驚奇的激進的並發啟動能力，極大地提高了系統啟動速度；</li>
+<li>  用 CGroup 統計跟蹤子進程，乾淨可靠。</li>
 </ul>
 </li>
 </ul>
@@ -1146,14 +1145,14 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>總字數：</span>
-    <span title="總字數">135k</span>
+    <span title="總字數">134k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>所需總閱讀時間 &asymp;</span>
-    <span title="所需總閱讀時間">4:06</span>
+    <span title="所需總閱讀時間">4:04</span>
   </span>
 </div>
 

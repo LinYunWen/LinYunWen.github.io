@@ -141,14 +141,14 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">51</span>
+          <span class="site-state-item-count">52</span>
           <span class="site-state-item-name">文章</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">58</span>
+        <span class="site-state-item-count">59</span>
         <span class="site-state-item-name">標籤</span></a>
       </div>
   </nav>
@@ -271,8 +271,8 @@
 </ul>
 </blockquote>
 </li>
-<li>在 makefile 文件中的找到<strong>第一個目標文件（target）</strong>，並把這個文件作為最終的目標文件。</li>
-<li>如果沒找到或目標文件所依賴的文件，或修改時間要比目標文件新，則 make 將執行後面所定義的命令來生成這個文件，如此遞迴下去找到文件彼此的依賴關係，直到最終編譯出第一個目標文件。</li>
+<li> 在 makefile 文件中的找到<strong>第一個目標文件（target）</strong>，並把這個文件作為最終的目標文件。</li>
+<li> 如果沒找到或目標文件所依賴的文件，或修改時間要比目標文件新，則 make 將執行後面所定義的命令來生成這個文件，如此遞迴下去找到文件彼此的依賴關係，直到最終編譯出第一個目標文件。</li>
 </ol>
 <h2 id="Rules"><a href="#Rules" class="headerlink" title="Rules"></a>Rules</h2><ul>
 <li><p><strong>顯式規則：</strong> 顯式規則表示如何生成一個或多個目標文件。</p>
@@ -284,7 +284,7 @@
 </ul>
 </li>
 <li>像 clean 這種沒有被第一個目標文件直接或間接關聯，那麼它後面所定義的命令將不會被自動執行，不過我們可以顯式要求 make 執行。即 make clean。</li>
-<li>Make 預設的假工作目標有 all, install, clean, distclean, TAGS, info 和 check。<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">target ... : prerequisites ...</span><br><span class="line">   command</span><br></pre></td></tr></table></figure>
+<li>Make 預設的假工作目標有 all, install, clean, distclean, TAGS, info 和 check。<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">target ... : prerequisites ...</span><br><span class="line">   command</span><br></pre></td></tr></table></figure>
 <blockquote>
 <ul>
 <li>prerequisites中如果有一個以上的文件比target文件要新的話，command所定義的命令就會被執行。這就是Makefile的規則。也就是Makefile中最核心的內容</li>
@@ -295,8 +295,8 @@
 </li>
 <li><p><strong>隱式規則：</strong> 比較簡略地書寫 Makefile 規則，例如規則中有 .o 文件，make 會自動的把 .c 文件也加入依賴關係中。</p>
 <ul>
-<li>每個Makefile中都應該寫一個清空目標文件（.o和執行文件）的規則，這不僅便於重編譯，也很利於保持文件的清潔。這是一個“修養”（呵呵，還記得我的《編程修養》嗎）。一般的風格都是：  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">clean:</span><br><span class="line">    rm edit $(objects)</span><br></pre></td></tr></table></figure></li>
-<li>更為穩健的做法是：  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">.PHONY : clean</span><br><span class="line">clean :</span><br><span class="line">        -rm edit $(objects)</span><br></pre></td></tr></table></figure></li>
+<li>每個Makefile中都應該寫一個清空目標文件（.o和執行文件）的規則，這不僅便於重編譯，也很利於保持文件的清潔。這是一個“修養”（呵呵，還記得我的《編程修養》嗎）。一般的風格都是：  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">clean:</span><br><span class="line">    rm edit $(objects)</span><br></pre></td></tr></table></figure></li>
+<li>更為穩健的做法是：  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">.PHONY : clean</span><br><span class="line">clean :</span><br><span class="line">        -rm edit $(objects)</span><br></pre></td></tr></table></figure></li>
 <li>前面說過，.PHONY意思表示clean是一個“偽目標”。<strong>而在rm命令前面加了一個小減號的意思就是，也許某些文件出現問題，但不要管，繼續做后面的事</strong>。當然，clean的規則不要放在文件的開頭，不然，這就會變成make的默認目標，相信誰也不願意這樣。不成文的規矩是——“clean從來都是放在文件的最后”。</li>
 </ul>
 </li>
@@ -331,15 +331,15 @@
 </li>
 <li><p>條件判斷</p>
 <ul>
-<li>ifeq：（檢查 value1, value2 是否相等）  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ifeq (value1, value2)</span><br><span class="line">    ...</span><br><span class="line">else</span><br><span class="line">    ...</span><br><span class="line">endif</span><br></pre></td></tr></table></figure></li>
+<li>ifeq：（檢查 value1, value2 是否相等）  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ifeq (value1, value2)</span><br><span class="line">    ...</span><br><span class="line">else</span><br><span class="line">    ...</span><br><span class="line">endif</span><br></pre></td></tr></table></figure></li>
 </ul>
 <ul>
-<li>ifneq：（提供和 ifeq 相反的功能）  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ifneq (value1, value2)</span><br><span class="line">    ...</span><br><span class="line">else</span><br><span class="line">    ...</span><br><span class="line">endif</span><br></pre></td></tr></table></figure></li>
-<li>ifdef：（檢查 variable 變數是否為空的）  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ifdef variable</span><br><span class="line">    ...</span><br><span class="line">else</span><br><span class="line">    ...</span><br><span class="line">endif</span><br></pre></td></tr></table></figure>
+<li>ifneq：（提供和 ifeq 相反的功能）  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ifneq (value1, value2)</span><br><span class="line">    ...</span><br><span class="line">else</span><br><span class="line">    ...</span><br><span class="line">endif</span><br></pre></td></tr></table></figure></li>
+<li>ifdef：（檢查 variable 變數是否為空的）  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ifdef variable</span><br><span class="line">    ...</span><br><span class="line">else</span><br><span class="line">    ...</span><br><span class="line">endif</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
 <ul>
-<li>ifndef：（提供和 ifdef 相反的功能）  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ifdef variable</span><br><span class="line">    ...</span><br><span class="line">else</span><br><span class="line">    ....</span><br><span class="line">endif</span><br></pre></td></tr></table></figure>
+<li>ifndef：（提供和 ifdef 相反的功能）  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ifdef variable</span><br><span class="line">    ...</span><br><span class="line">else</span><br><span class="line">    ....</span><br><span class="line">endif</span><br></pre></td></tr></table></figure>
 
 
 </li>
@@ -410,14 +410,14 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>總字數：</span>
-    <span title="總字數">135k</span>
+    <span title="總字數">134k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>所需總閱讀時間 &asymp;</span>
-    <span title="所需總閱讀時間">4:06</span>
+    <span title="所需總閱讀時間">4:04</span>
   </span>
 </div>
 

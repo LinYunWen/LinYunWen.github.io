@@ -139,14 +139,14 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">51</span>
+          <span class="site-state-item-count">52</span>
           <span class="site-state-item-name">文章</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">58</span>
+        <span class="site-state-item-count">59</span>
         <span class="site-state-item-name">標籤</span></a>
       </div>
   </nav>
@@ -251,7 +251,7 @@
         <h1 id="gitconfig"><a href="#gitconfig" class="headerlink" title=".gitconfig"></a>.gitconfig</h1><blockquote>
 <p><code>~/.gitconfig</code><br><code>git config --list</code></p>
 </blockquote>
-<h2 id="user-email"><a href="#user-email" class="headerlink" title="user, email"></a>user, email</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.name &quot;Lin Yun Wen&quot;</span><br><span class="line">git config --global user.email l40303k@gmail.com</span><br></pre></td></tr></table></figure>
+<h2 id="user-email"><a href="#user-email" class="headerlink" title="user, email"></a>user, email</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.name &quot;Lin Yun Wen&quot;</span><br><span class="line">git config --global user.email l40303k@gmail.com</span><br></pre></td></tr></table></figure>
 <h2 id="ssh-key"><a href="#ssh-key" class="headerlink" title="ssh key"></a>ssh key</h2><span id="more"></span>
 
 <h2 id="difftool"><a href="#difftool" class="headerlink" title="difftool"></a>difftool</h2><ul>
@@ -262,17 +262,17 @@
 </ul>
 </li>
 <li><p>set diff tool with vim</p>
-  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git config --global diff.tool vimdiff</span><br><span class="line">git config --global difftool.prompt false</span><br><span class="line">git config --global alias.d difftool</span><br></pre></td></tr></table></figure>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git config --global diff.tool vimdiff</span><br><span class="line">git config --global difftool.prompt false</span><br><span class="line">git config --global alias.d difftool</span><br></pre></td></tr></table></figure>
 <blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Git accepts kdiff3, tkdiff, meld, xxdiff, emerge, vimdiff, gvimdiff, ecmerge, and opendiff as valid diff tools. You can also set up a custom tool. </span><br><span class="line"></span><br><span class="line">git config --global diff.tool vimdiff&gt;</span><br><span class="line">git config --global diff.tool kdiff3&gt;</span><br><span class="line">git config --global diff.tool meld&gt;</span><br><span class="line">git config --global diff.tool xxdiff&gt;</span><br><span class="line">git config --global diff.tool emerge&gt;</span><br><span class="line">git config --global diff.tool gvimdiff&gt;</span><br><span class="line">git config --global diff.tool ecmerge</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Git accepts kdiff3, tkdiff, meld, xxdiff, emerge, vimdiff, gvimdiff, ecmerge, and opendiff as valid diff tools. You can also set up a custom tool. </span><br><span class="line"></span><br><span class="line">git config --global diff.tool vimdiff&gt;</span><br><span class="line">git config --global diff.tool kdiff3&gt;</span><br><span class="line">git config --global diff.tool meld&gt;</span><br><span class="line">git config --global diff.tool xxdiff&gt;</span><br><span class="line">git config --global diff.tool emerge&gt;</span><br><span class="line">git config --global diff.tool gvimdiff&gt;</span><br><span class="line">git config --global diff.tool ecmerge</span><br></pre></td></tr></table></figure>
 </blockquote>
 </li>
 </ul>
-<h3 id="vimdiff"><a href="#vimdiff" class="headerlink" title="vimdiff"></a>vimdiff</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">dp - diffput: puts changes under the cursor into the other file making them identical (thus removing the diff).</span><br><span class="line">do - diffget: (o &#x3D;&gt; obtain). The change under the cursor is replaced by the content of the other file making them identical.</span><br><span class="line"></span><br><span class="line">]c - Jump to the next change.</span><br><span class="line">[c - Jump to the previous change.</span><br><span class="line">Ctrl W + Ctrl W - Switch to the other split window.</span><br><span class="line">:diffupdate – diff update</span><br><span class="line">:syntax off – syntax off</span><br><span class="line">zo – open folded text</span><br><span class="line">zc – close folded text</span><br></pre></td></tr></table></figure>
+<h3 id="vimdiff"><a href="#vimdiff" class="headerlink" title="vimdiff"></a>vimdiff</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">dp - diffput: puts changes under the cursor into the other file making them identical (thus removing the diff).</span><br><span class="line">do - diffget: (o =&gt; obtain). The change under the cursor is replaced by the content of the other file making them identical.</span><br><span class="line"></span><br><span class="line">]c - Jump to the next change.</span><br><span class="line">[c - Jump to the previous change.</span><br><span class="line">Ctrl W + Ctrl W - Switch to the other split window.</span><br><span class="line">:diffupdate – diff update</span><br><span class="line">:syntax off – syntax off</span><br><span class="line">zo – open folded text</span><br><span class="line">zc – close folded text</span><br></pre></td></tr></table></figure>
 
 <h2 id="alias"><a href="#alias" class="headerlink" title="alias"></a>alias</h2><p><code>git config alias.lg &#39;log --all --decorate --oneline --graph&#39;</code></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">[alias]</span><br><span class="line"> st &#x3D; status</span><br><span class="line"> co &#x3D; checkout</span><br><span class="line"> br &#x3D; branch</span><br><span class="line"> cm &#x3D; commit</span><br><span class="line"> au &#x3D; add --update</span><br><span class="line"> cmi &#x3D; commit -m &quot;init&quot;</span><br><span class="line"> cmu &#x3D; commit -m &quot;update&quot;</span><br><span class="line"> cmf &#x3D; commit -m &quot;fixup&quot;</span><br><span class="line"> cmt &#x3D; commit -m &quot;temp&quot;</span><br><span class="line"> cmam &#x3D; commit --amend</span><br><span class="line"> ls &#x3D; ls-files</span><br><span class="line"> glog &#x3D; log --oneline --graph --decorate</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lg &#x3D; log --color --graph --pretty&#x3D;format:&#39;%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)&lt;%an&gt;%Creset&#39; --abbrev-commit</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">[alias]</span><br><span class="line"> st = status</span><br><span class="line"> co = checkout</span><br><span class="line"> br = branch</span><br><span class="line"> cm = commit</span><br><span class="line"> au = add --update</span><br><span class="line"> cmi = commit -m &quot;init&quot;</span><br><span class="line"> cmu = commit -m &quot;update&quot;</span><br><span class="line"> cmf = commit -m &quot;fixup&quot;</span><br><span class="line"> cmt = commit -m &quot;temp&quot;</span><br><span class="line"> cmam = commit --amend</span><br><span class="line"> ls = ls-files</span><br><span class="line"> glog = log --oneline --graph --decorate</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lg = log --color --graph --pretty=format:&#x27;%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)&lt;%an&gt;%Creset&#x27; --abbrev-commit</span><br></pre></td></tr></table></figure>
 <ul>
 <li>remove<ul>
 <li><code>git config --global --unset alias.co</code></li>
@@ -342,14 +342,14 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>總字數：</span>
-    <span title="總字數">135k</span>
+    <span title="總字數">134k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>所需總閱讀時間 &asymp;</span>
-    <span title="所需總閱讀時間">4:06</span>
+    <span title="所需總閱讀時間">4:04</span>
   </span>
 </div>
 
