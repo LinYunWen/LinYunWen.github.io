@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://linyunwen.github.io/2021/08/08/google-photo-transfer/</loc>
+    
+    <lastmod>2021-08-08</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://linyunwen.github.io/2021/08/08/hate-line/</loc>
     
     <lastmod>2021-08-08</lastmod>
@@ -396,6 +403,13 @@
   </url>
   
   <url>
+    <loc>https://linyunwen.github.io/tags/psychology/</loc>
+    <lastmod>2021-08-08</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://linyunwen.github.io/tags/physics/</loc>
     <lastmod>2021-08-08</lastmod>
     <changefreq>daily</changefreq>
@@ -411,13 +425,6 @@
   
   <url>
     <loc>https://linyunwen.github.io/tags/web/</loc>
-    <lastmod>2021-08-08</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://linyunwen.github.io/tags/psychology/</loc>
     <lastmod>2021-08-08</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -487,6 +494,13 @@
   </url>
   
   <url>
+    <loc>https://linyunwen.github.io/tags/ssh/</loc>
+    <lastmod>2021-08-08</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://linyunwen.github.io/tags/gitbook/</loc>
     <lastmod>2021-08-08</lastmod>
     <changefreq>daily</changefreq>
@@ -501,7 +515,7 @@
   </url>
   
   <url>
-    <loc>https://linyunwen.github.io/tags/ssh/</loc>
+    <loc>https://linyunwen.github.io/tags/google-photo/</loc>
     <lastmod>2021-08-08</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -543,20 +557,6 @@
   </url>
   
   <url>
-    <loc>https://linyunwen.github.io/tags/js-string/</loc>
-    <lastmod>2021-08-08</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://linyunwen.github.io/tags/command/</loc>
-    <lastmod>2021-08-08</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://linyunwen.github.io/tags/boost/</loc>
     <lastmod>2021-08-08</lastmod>
     <changefreq>daily</changefreq>
@@ -579,6 +579,20 @@
   
   <url>
     <loc>https://linyunwen.github.io/tags/systemd/</loc>
+    <lastmod>2021-08-08</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://linyunwen.github.io/tags/js-string/</loc>
+    <lastmod>2021-08-08</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://linyunwen.github.io/tags/command/</loc>
     <lastmod>2021-08-08</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -648,13 +662,6 @@
   </url>
   
   <url>
-    <loc>https://linyunwen.github.io/tags/npm/</loc>
-    <lastmod>2021-08-08</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://linyunwen.github.io/tags/nodejs/</loc>
     <lastmod>2021-08-08</lastmod>
     <changefreq>daily</changefreq>
@@ -663,6 +670,13 @@
   
   <url>
     <loc>https://linyunwen.github.io/tags/tips/</loc>
+    <lastmod>2021-08-08</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://linyunwen.github.io/tags/npm/</loc>
     <lastmod>2021-08-08</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
