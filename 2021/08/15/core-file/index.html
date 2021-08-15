@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/linyunwen_icon/icon_32x32.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/linyunwen_icon/icon_32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/linyunwen_icon/icon_16x16.png">
+  <link rel="mask-icon" href="/images/linyunwen_icon/icon_32x32.png" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css" integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"linyunwen.github.io","root":"/","images":"/images","scheme":"Gemini","version":"8.6.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"disqus","storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"${hits} 找到 ${time} 個結果","hits":"找到 ${hits} 個結果"}}</script><script src="/js/config.js"></script>
+<meta name="description" content="Core File In most GNU&#x2F;Linux systems (all of those I personally have used, at least), core dump files generated after an uncaught signal in a process (as a SIGSEGV or SIGQUIT), are generated in the bas">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Core File">
+<meta property="og:url" content="https://linyunwen.github.io/2021/08/15/core-file/index.html">
+<meta property="og:site_name" content="Lin Yunwen&#39;s Blog">
+<meta property="og:description" content="Core File In most GNU&#x2F;Linux systems (all of those I personally have used, at least), core dump files generated after an uncaught signal in a process (as a SIGSEGV or SIGQUIT), are generated in the bas">
+<meta property="og:locale" content="zh_TW">
+<meta property="article:published_time" content="2021-08-15T08:54:29.000Z">
+<meta property="article:modified_time" content="2021-08-15T08:54:56.534Z">
+<meta property="article:author" content="Lin Yunwen">
+<meta property="article:tag" content="note">
+<meta property="article:tag" content="core file">
+<meta property="article:tag" content="core dump">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://linyunwen.github.io/2021/08/15/core-file/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-TW","comments":true,"permalink":"https://linyunwen.github.io/2021/08/15/core-file/","path":"2021/08/15/core-file/","title":"Core File"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Core File | Lin Yunwen's Blog</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-H43D6184CW"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"G-H43D6184CW","only_pageview":false}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Lin Yunwen's Blog</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">keep moving forward</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>標籤</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Core-File"><span class="nav-number">1.</span> <span class="nav-text">Core File</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Here-is-a-small-list-of-possible-variables"><span class="nav-number">1.1.</span> <span class="nav-text">Here is a small list of possible variables</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#tools"><span class="nav-number">1.2.</span> <span class="nav-text">tools</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%94%A8gdb%E7%9C%8Bcore%E6%AA%94"><span class="nav-number">1.3.</span> <span class="nav-text">用gdb看core檔</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#trace-stack"><span class="nav-number">1.4.</span> <span class="nav-text">trace stack</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#reference"><span class="nav-number">1.5.</span> <span class="nav-text">reference</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-overview">
+            <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Lin Yunwen"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Lin Yunwen</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">57</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">65</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/LinYunWen" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;LinYunWen" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:l40303k@gmail.com" title="E-Mail → mailto:l40303k@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="回到頂端">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://linyunwen.github.io/2021/08/15/core-file/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Lin Yunwen">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Lin Yunwen's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Core File
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">發表於</span>
+      
+
+      <time title="創建時間：2021-08-15 16:54:29 / 修改時間：16:54:56" itemprop="dateCreated datePublished" datetime="2021-08-15T16:54:29+08:00">2021-08-15</time>
+    </span>
+
+  
+      </div>
+      <div class="post-meta">
+    <span class="post-meta-item" title="文章字數">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">文章字數：</span>
+      <span>2k</span>
+    </span>
+    <span class="post-meta-item" title="所需閱讀時間">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+      <span>4 分鐘</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="Core-File"><a href="#Core-File" class="headerlink" title="Core File"></a>Core File</h1><ul>
+<li>In most GNU/Linux systems (all of those I personally have used, at least), core dump files generated after an uncaught signal in a process (as a SIGSEGV or SIGQUIT), are generated in the base directory where the program was executed, and named as “core” or “core.PID”.<span id="more"></span></li>
+<li>會產生core檔案，可用gdb來看此檔</li>
+<li>For example:    <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$&gt; cd /home/user  </span><br><span class="line"></span><br><span class="line">$&gt; ulimit -c unlimited  </span><br><span class="line">$&gt; kill -s SIGSEGV $$</span><br></pre></td></tr></table></figure>
+<ul>
+<li>ulimit -c:用來看core dump寫入的容量限制</li>
+<li>Ubuntu 預設為 ulimit -c 0，表示不產生 core dump</li>
+<li>This will trigger a segmentation fault in your current shell (you probably guessed it after seeing that the shell session where you executed it was closed), and generate a core file in: <code>/home/user/core</code></li>
+</ul>
+</li>
+<li>the kernel configuration includes a file named “core_pattern”<ul>
+<li><code>/proc/sys/kernel/core_pattern</code></li>
+</ul>
+</li>
+</ul>
+<h2 id="Here-is-a-small-list-of-possible-variables"><a href="#Here-is-a-small-list-of-possible-variables" class="headerlink" title="Here is a small list of possible variables"></a>Here is a small list of possible variables</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">%p:       pid</span><br><span class="line">%&lt;NUL&gt;:   &#x27;%&#x27; is dropped  </span><br><span class="line">%%:       output one &#x27;%&#x27;  </span><br><span class="line">%u:       uid  </span><br><span class="line">%g:       gid  </span><br><span class="line">%s:       signal number  </span><br><span class="line">%t:       UNIX time of dump  </span><br><span class="line">%h:       hostname  </span><br><span class="line">%e:       executable filename  </span><br><span class="line">%&lt;OTHER&gt;: both are dropped</span><br></pre></td></tr></table></figure>
+<ul>
+<li>core pattern 可以是 “|PROGRAM”, 這樣會將 core dump 導到 PROGRAM 的標準輸入, 可以自己寫 PROGRAM 做控制</li>
+<li>需要特別注意的是, | 和 PROGRAM 之間不可以有空白。</li>
+</ul>
+<h2 id="tools"><a href="#tools" class="headerlink" title="tools"></a>tools</h2><ul>
+<li>gdb</li>
+<li>dbx</li>
+<li>pstack<ul>
+<li><code>$ pstack $&#123;core_file&#125; &gt; pstack.out</code></li>
+</ul>
+</li>
+<li>pmstack</li>
+</ul>
+<h2 id="用gdb看core檔"><a href="#用gdb看core檔" class="headerlink" title="用gdb看core檔"></a>用gdb看core檔</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">gdb &lt;executable&gt; &lt;core-file&gt;</span><br><span class="line"># or</span><br><span class="line">gdb &lt;executable&gt; -c &lt;core-file&gt; or</span><br><span class="line"># or</span><br><span class="line">gdb &lt;executable&gt;</span><br><span class="line">...</span><br><span class="line">(gdb) core &lt;core-file&gt;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>首先先找到當時 core dump 出來的 core 檔案 ( 跟執行的binary 同資料夾 )<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">11781124 11月 27日 17:23 core</span><br></pre></td></tr></table></figure></li>
+<li>接下來用 gdb 來看這個 core file<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gdb executefile core</span><br></pre></td></tr></table></figure></li>
+<li>舉例來說 我有一個叫 Close 的程式執行的時後會發生 core dump，就這樣做<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gdb Close core</span><br></pre></td></tr></table></figure>
+<blockquote>
+<ul>
+<li>要同時放入 <code>程式的執行檔</code> 和 <code>core file</code></li>
+</ul>
+</blockquote>
+</li>
+</ul>
+<h2 id="trace-stack"><a href="#trace-stack" class="headerlink" title="trace stack"></a>trace stack</h2><ul>
+<li>process the core file</li>
+<li>check timestamp of the failure</li>
+<li>check the active threads at the time of the failure</li>
+<li>how to review the steps leading up to the failure</li>
+</ul>
+<h2 id="reference"><a href="#reference" class="headerlink" title="reference"></a>reference</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://www.linuxhowtos.org/Tips%20and%20Tricks/coredump.htm">Linux Howtos: Tips and Tricks -&gt; setting the core dump name schema</a></li>
+<li><a target="_blank" rel="noopener" href="https://medium.com/@fcamel/%E5%9C%A8-linux-%E4%B8%8A%E5%85%81%E8%A8%B1%E7%94%A2%E7%94%9F-core-dump-7d6d26b05b75">在 Linux 上允許產生 core dump. man 5 core 上有詳細說明，踩了許多雷才發現文件有寫… | by fcamel | Medium</a></li>
+<li><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/2065912/core-dumped-but-core-file-is-not-in-the-current-directory">c - Core dumped, but core file is not in the current directory? - Stack Overflow</a></li>
+<li><a target="_blank" rel="noopener" href="https://ysliang105.pixnet.net/blog/post/74231757">Linux - coredump @ 逗點大的雨滴 :: 痞客邦 ::</a></li>
+<li><a target="_blank" rel="noopener" href="https://sigquit.wordpress.com/2009/03/13/the-core-pattern/">The Core Pattern (core_pattern), or how to specify filename and path for core dumps | SIGQUIT</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=23ZKGT4nk9I&t=51s&ab_channel=InformaticaSupport">How to review core files for troubleshooting - YouTube</a></li>
+<li><a target="_blank" rel="noopener" href="https://medium.com/cubemail88/c-c-gdb-core-dump-debugging-737b83829743">[c/c++]gdb core dump debugging. 利用 gdb 追蹤 core dump 藉此找出程式炸掉的原因 | by Lion | cubemail88 | Medium</a></li>
+<li><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/8305866/how-do-i-analyze-a-programs-core-dump-file-with-gdb-when-it-has-command-line-pa">linux - How do I analyze a program’s core dump file with GDB when it has command-line parameters? - Stack Overflow</a></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/note/" rel="tag"># note</a>
+              <a href="/tags/core-file/" rel="tag"># core file</a>
+              <a href="/tags/core-dump/" rel="tag"># core dump</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/08/15/pam/" rel="prev" title="pam">
+                  <i class="fa fa-chevron-left"></i> pam
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Lin Yunwen</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>總字數：</span>
+    <span title="總字數">149k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>所需總閱讀時間 &asymp;</span>
+    <span title="所需總閱讀時間">4:31</span>
+  </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>
