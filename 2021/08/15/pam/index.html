@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/linyunwen_icon/icon_32x32.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/linyunwen_icon/icon_32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/linyunwen_icon/icon_16x16.png">
+  <link rel="mask-icon" href="/images/linyunwen_icon/icon_32x32.png" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css" integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"linyunwen.github.io","root":"/","images":"/images","scheme":"Gemini","version":"8.6.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"disqus","storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"${hits} 找到 ${time} 個結果","hits":"找到 ${hits} 個結果"}}</script><script src="/js/config.js"></script>
+<meta name="description" content="PAM (Pluggable Authentication Modules) 它通過提供一些動態鏈接庫和一套統一的API，將系統提供的服務 和該服務的認證方式分開，使得系統管理員可以靈活地根據需要給不同的服務配置不同的認證方式而無需更改服務程序，同時也便於向系 統中添加新的認證手段。 在以前 Unix-like 系統每個程式都有屬於自己一套的驗證方式.現在將這些驗證集中起來管理就叫做 PAM(Pl">
+<meta property="og:type" content="article">
+<meta property="og:title" content="pam">
+<meta property="og:url" content="https://linyunwen.github.io/2021/08/15/pam/index.html">
+<meta property="og:site_name" content="Lin Yunwen&#39;s Blog">
+<meta property="og:description" content="PAM (Pluggable Authentication Modules) 它通過提供一些動態鏈接庫和一套統一的API，將系統提供的服務 和該服務的認證方式分開，使得系統管理員可以靈活地根據需要給不同的服務配置不同的認證方式而無需更改服務程序，同時也便於向系 統中添加新的認證手段。 在以前 Unix-like 系統每個程式都有屬於自己一套的驗證方式.現在將這些驗證集中起來管理就叫做 PAM(Pl">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://i.imgur.com/a5dOpWo.png">
+<meta property="article:published_time" content="2021-08-15T05:44:05.000Z">
+<meta property="article:modified_time" content="2021-08-15T05:44:35.694Z">
+<meta property="article:author" content="Lin Yunwen">
+<meta property="article:tag" content="note">
+<meta property="article:tag" content="linux">
+<meta property="article:tag" content="pam">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.imgur.com/a5dOpWo.png">
+
+
+<link rel="canonical" href="https://linyunwen.github.io/2021/08/15/pam/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-TW","comments":true,"permalink":"https://linyunwen.github.io/2021/08/15/pam/","path":"2021/08/15/pam/","title":"pam"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>pam | Lin Yunwen's Blog</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-H43D6184CW"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"G-H43D6184CW","only_pageview":false}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Lin Yunwen's Blog</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">keep moving forward</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>標籤</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#PAM-Pluggable-Authentication-Modules"><span class="nav-number">1.</span> <span class="nav-text">PAM (Pluggable Authentication Modules)</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#introduction"><span class="nav-number">1.1.</span> <span class="nav-text">introduction</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#PAM%E7%9A%84%E6%96%87%E4%BB%B6%EF%BC%9A"><span class="nav-number">1.1.1.</span> <span class="nav-text">PAM的文件：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PAM%E7%9A%84%E9%85%8D%E7%BD%AE%EF%BC%9A"><span class="nav-number">1.1.2.</span> <span class="nav-text">PAM的配置：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6-etc-pam-conf"><span class="nav-number">1.1.2.1.</span> <span class="nav-text">使用配置文件&#x2F;etc&#x2F;pam.conf</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E9%85%8D%E7%BD%AE%E7%9B%AE%E9%8C%84-etc-pam-d-%EF%BC%88%E5%8F%AA%E9%81%A9%E7%94%A8%E6%96%BCRedHat-Linux%EF%BC%89"><span class="nav-number">1.1.2.2.</span> <span class="nav-text">使用配置目錄&#x2F;etc&#x2F;pam.d&#x2F;（只適用於RedHat Linux）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%86%E7%A2%BC%E6%98%A0%E5%B0%84%EF%BC%88password-mapping%EF%BC%89"><span class="nav-number">1.1.3.</span> <span class="nav-text">密碼映射（password-mapping）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#config"><span class="nav-number">1.2.</span> <span class="nav-text">config</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#example"><span class="nav-number">1.2.1.</span> <span class="nav-text">example</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PAM-API"><span class="nav-number">1.3.</span> <span class="nav-text">PAM API</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A1%86%E6%9E%B6API%EF%BC%9A"><span class="nav-number">1.3.1.</span> <span class="nav-text">框架API：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AA%8D%E8%AD%89%E7%AE%A1%E7%90%86API%EF%BC%9A"><span class="nav-number">1.3.2.</span> <span class="nav-text">認證管理API：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%B3%E6%88%B6%E7%AE%A1%E7%90%86API%EF%BC%9A"><span class="nav-number">1.3.3.</span> <span class="nav-text">帳戶管理API：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%86%E7%A2%BC%E7%AE%A1%E7%90%86API%EF%BC%9A"><span class="nav-number">1.3.4.</span> <span class="nav-text">密碼管理API：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%83%E8%A9%B1%E7%AE%A1%E7%90%86API%EF%BC%9A"><span class="nav-number">1.3.5.</span> <span class="nav-text">會話管理API：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B6%E5%AE%83%EF%BC%9A"><span class="nav-number">1.3.6.</span> <span class="nav-text">其它：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PAM-SPI"><span class="nav-number">1.4.</span> <span class="nav-text">PAM SPI</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#API-%E5%B0%8D%E6%87%89%E7%9A%84-SPI"><span class="nav-number">1.4.1.</span> <span class="nav-text">API 對應的 SPI</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E7%9A%84PAM%E6%9C%8D%E5%8B%99%E6%A8%A1%E5%A1%8A"><span class="nav-number">1.5.</span> <span class="nav-text">常用的PAM服務模塊</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#reference"><span class="nav-number">1.6.</span> <span class="nav-text">reference</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-overview">
+            <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Lin Yunwen"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Lin Yunwen</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">56</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">63</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/LinYunWen" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;LinYunWen" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:l40303k@gmail.com" title="E-Mail → mailto:l40303k@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="回到頂端">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://linyunwen.github.io/2021/08/15/pam/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Lin Yunwen">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Lin Yunwen's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          pam
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">發表於</span>
+      
+
+      <time title="創建時間：2021-08-15 13:44:05 / 修改時間：13:44:35" itemprop="dateCreated datePublished" datetime="2021-08-15T13:44:05+08:00">2021-08-15</time>
+    </span>
+
+  
+      </div>
+      <div class="post-meta">
+    <span class="post-meta-item" title="文章字數">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">文章字數：</span>
+      <span>8.2k</span>
+    </span>
+    <span class="post-meta-item" title="所需閱讀時間">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+      <span>15 分鐘</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="PAM-Pluggable-Authentication-Modules"><a href="#PAM-Pluggable-Authentication-Modules" class="headerlink" title="PAM (Pluggable Authentication Modules)"></a>PAM (Pluggable Authentication Modules)</h1><ul>
+<li>它通過提供一些動態鏈接庫和一套統一的API，將系統提供的服務 和該服務的認證方式分開，使得系統管理員可以靈活地根據需要給不同的服務配置不同的認證方式而無需更改服務程序，同時也便於向系 統中添加新的認證手段。</li>
+<li>在以前 Unix-like 系統每個程式都有屬於自己一套的驗證方式.現在將這些驗證集中起來管理就叫做 PAM(Pluggable Authentication Modules)，而 PAM 是一種認證(authentication)和授權(authorization)的架構.任正式證實你的身份過程,而授權是依據使用者身份來決定是否有權限存取系統的過程<span id="more"></span>
+<h2 id="introduction"><a href="#introduction" class="headerlink" title="introduction"></a>introduction</h2><img src="https://i.imgur.com/a5dOpWo.png"><blockquote>
+<ul>
+<li>PAM服務模塊（service module）的開發者則利用PAM SPI（Service Module API）來編寫認證模塊（主 要是引出一些函數pam_sm_xxxx( )供libpam調用），將不同的認證機制（比如傳統的UNIX認證方法、Kerberos等）加入到系統中；PAM核 心庫（libpam）則讀取配置文件，以此為根據將服務程序和相應的認證方法聯繫起來。</li>
+</ul>
+</blockquote>
+</li>
+</ul>
+<h3 id="PAM的文件："><a href="#PAM的文件：" class="headerlink" title="PAM的文件："></a>PAM的文件：</h3><ul>
+<li>/usr/lib/libpam.so.* PAM核心庫</li>
+<li>/etc/pam.conf或者/etc/pam.d/ PAM配置文件</li>
+<li>/usr/lib/security/pam_*.so 可動態加載的PAM service module</li>
+<li>對於RedHat，其目錄不是/usr/lib，而是/lib。</li>
+</ul>
+<h3 id="PAM的配置："><a href="#PAM的配置：" class="headerlink" title="PAM的配置："></a>PAM的配置：</h3><ul>
+<li>PAM的配置是通過單個配置文件/etc/pam.conf。</li>
+<li>RedHat還支持另外一種配置方式，即通過配置目錄/etc/pam.d/，且這種的優先級要高於單個配置文件的方式。<h4 id="使用配置文件-etc-pam-conf"><a href="#使用配置文件-etc-pam-conf" class="headerlink" title="使用配置文件/etc/pam.conf"></a>使用配置文件/etc/pam.conf</h4><blockquote>
+<ul>
+<li>該文件是由如下的行所組成的：<code>service-name module-type control-flag module-path arguments</code></li>
+</ul>
+</blockquote>
+</li>
+<li>service-name<ul>
+<li>服務的名字，比如telnet、login、ftp等，服務名字「OTHER」代表所有沒有在該文件中明確配置的其它服務。</li>
+</ul>
+</li>
+<li>module-type<ul>
+<li>模塊類型有四種：auth、account、session、password，即對應PAM所支持的四種管理方式。同一個服務可以調用多個 PAM模塊進行認證，這些模塊構成一個stack。</li>
+</ul>
+</li>
+<li>control-flag<ul>
+<li>用來告訴PAM庫該如何處理與該服務相關的PAM模塊的成功或失敗情況。</li>
+<li>它有四種可能的 值：required，requisite，sufficient，optional。</li>
+</ul>
+</li>
+<li>module-path<ul>
+<li>用來指明本模塊對應的程序文件的路徑名，一般採用絕對路徑，如果沒有給出絕對路徑，默認該文件在目錄/usr/lib/security下 面。</li>
+</ul>
+</li>
+<li>arguments<ul>
+<li>是用來傳遞給該模塊的參數。一般來說每個模塊的參數都不相同，可以由該模塊的開發者自己定義，但是也有以下幾個共同 的參數：<ul>
+<li>debug 該模塊應當用syslog( )將調試信息寫入到系統日誌文件中。</li>
+<li>no_warn 表明該模塊不應把警告信息發送給應用程序。</li>
+<li>use_first_pass 表明該模塊不能提示用戶輸入密碼，而應使用前一個模塊從用戶那裡得到的密碼。</li>
+<li>try_first_pass 表明該模塊首先應當使用前一個模塊從用戶那裡得到的密碼，如果該密碼驗證不通過，再提示用戶輸入新的密碼。</li>
+<li>use_mapped_pass 該模塊不能提示用戶輸入密碼，而是使用映射過的密碼。</li>
+<li>expose_account 允許該模塊顯示用戶的帳號名等信息，一般只能在安全的環境下使用，因為洩漏用戶名會對安全造成一定程度的威 脅。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="使用配置目錄-etc-pam-d-（只適用於RedHat-Linux）"><a href="#使用配置目錄-etc-pam-d-（只適用於RedHat-Linux）" class="headerlink" title="使用配置目錄/etc/pam.d/（只適用於RedHat Linux）"></a>使用配置目錄/etc/pam.d/（只適用於RedHat Linux）</h4><blockquote>
+<ul>
+<li>對於同一個設定寫在前面的優先</li>
+</ul>
+</blockquote>
+<ul>
+<li>該目錄下的每個文件的名字對應服務名，例如ftp服務對應文件/etc/pam.d/ftp。<ul>
+<li>如果名為xxxx的服務所對應的配置文件/etc/pam.d/xxxx不存 在，則該服務將使用默認的配置文件/etc/pam.d/other。</li>
+<li>每個文件由如下格式的文本行所構成：<code>module-type control-flag module-path arguments</code> 每個字段的含義和/etc/pam.conf中的相同。</li>
+</ul>
+</li>
+</ul>
+<h3 id="密碼映射（password-mapping）"><a href="#密碼映射（password-mapping）" class="headerlink" title="密碼映射（password-mapping）"></a>密碼映射（password-mapping）</h3><ul>
+<li><p>密碼映射允許用戶在不同的認證機制下使用不同的密碼，其中有一個主密碼（primary password），其它密碼為次密碼（secondary passwords，可能有多個）。主密碼用來對次密碼進行加密。在主密碼認證通過後，認證模塊利用主密碼將加密過的次密碼（也稱為 mapped password）解密，並對次密碼進行認證。</p>
+<blockquote>
+<ul>
+<li>如果使用了一次性密碼的機制，就不使用密碼映射。</li>
+</ul>
+</blockquote>
+</li>
+<li><p>所有服務模塊必須支持如下4個映射選項（在第四部分已經簡單解釋過）：</p>
+<ol>
+<li>use_first_pass<ul>
+<li>這個選項指示本模塊不能提示用戶輸入密碼，而是使用已有的密碼，即從第一個向用戶提示輸入密碼的模塊那裡取得密碼，並對該密碼進 行認證。</li>
+</ul>
+</li>
+<li>try_first_pass<ul>
+<li>這個選項指示本模塊首先嘗試使用已有的密碼，即從第一個向用戶提示輸入密碼的模塊那裡取得密碼，並對該密碼進行認證。如果密碼認 證失敗，則再提示用戶輸入密碼。</li>
+</ul>
+</li>
+<li>use_mapped_pass<ul>
+<li>這個選項指示本模塊不能向用戶提示輸入密碼，而應使用映射過的密碼，即利用主密碼將加密過的次密碼解密出來並進行認證。</li>
+</ul>
+</li>
+<li>try_mapped_pass<ul>
+<li>這個選項指示本模塊首先嘗試使用映射過的密碼，即利用主密碼將加密過的次密碼解密出來並進行認證。如果密碼認證失敗，則再提示用 戶輸入密碼。</li>
+</ul>
+</li>
+</ol>
+</li>
+<li><p><strong>PAM 優點如下:</strong></p>
+<ul>
+<li>  <strong>為多種程式提共單一的驗證機制(Authentication scheme)</strong></li>
+<li>  <strong>提供給管理者以及程式設計者單一彈性的管理方式</strong></li>
+<li>  <strong>讓程式設計者不需再對身份密碼再做額外的處理</strong></li>
+</ul>
+</li>
+<li><p><strong>PAM 其主要有三項功能</strong></p>
+<ul>
+<li>  <strong>可動態載入函數庫( libraries )</strong></li>
+<li>  <strong>安全機制集中管理</strong></li>
+<li>  <strong>配置檔在載入時才生效</strong></li>
+</ul>
+</li>
+<li><p><strong>PAM 相關的設定檔</strong>  </p>
+<ul>
+<li><strong>所有的函數庫( libraries )存在 /lib/sercurity 目錄下 .說明檔 /usr/share/doc/pam-xxx/html/index.html</strong><blockquote>
+<ul>
+<li>note:其中的 xxx 是目前你使用的 PAM 版本.</li>
+</ul>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><p>**log 存在 /var/log/security or /var/log/message  </p>
+</li>
+</ul>
+<blockquote>
+<ul>
+<li>而設定檔存放在 /etc/pam.d 目錄下,函數庫 libraries 也有相對應的參考檔存放在 /etc/security 目錄下**.</li>
+</ul>
+</blockquote>
+<h2 id="config"><a href="#config" class="headerlink" title="config"></a>config</h2><blockquote>
+<ul>
+<li>vi /etc/pam.d/login</li>
+</ul>
+</blockquote>
+<ul>
+<li>每一行的格式為 <code>module-type    Control flags    module-path   arguments</code><ul>
+<li>modules-type:<ul>
+<li><strong>auth:表示驗證類模組</strong>  <ul>
+<li>主要是依據使用者密碼或特殊方式來做驗證機制,如群組成員身分(group memberships)和獲得 kerberos 的證明書.</li>
+</ul>
+</li>
+<li><strong>account:表示帳戶類模組</strong>  <ul>
+<li>限制或禁止使用者的存取機制(可依據使用者的登入使用時間,來源等…),亦可對使用者的密碼檢查是否過期.</li>
+</ul>
+</li>
+<li><strong>password:表示密碼類模組</strong>  <ul>
+<li>可以讓使用者去更改,設定,驗證密碼</li>
+</ul>
+</li>
+<li><strong>session:表示類模組</strong>  <ul>
+<li>執行環境的設定,如 /dev/fd0 的 owner 是依據誰掛載時決定.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Control flags<blockquote>
+<ul>
+<li>[required、Requisite、sufficient 或 optional]<pre><code>-   **required**  
+    - 所有的 required libraries 回傳值要為 pass ,最後的結果才會為 pass ,但 required libraries 的結果並不會影響到下一個  libraries 是否執行. 因為 PAM 並不立刻將錯誤消息返回給應用程式,而是在所有模組都作完畢後才將錯誤消息返回它的程式。
+-   **Requisite**  
+    - 它與 required 相仿,只有帶此標記的模組返回成功後,用戶才能通過鑒別,不同之處在於其一旦失敗就不再執行堆中後面的其他模組,並且鑒別過程到此結束.
+-   **sufficient**  
+    - 如果一個 sufficient library 回傳值為 pass .那麽PAM便立即向應用程式返回成功而不必嘗試接下來的其他模組.如果一個 sufficient library 回傳值為 faile 那接下來的 subsequent libraries 就需再做了,但這個 fail 不會影響到整體的 pass / faile (也就是說當標記爲 sufficient 的模組 Faile 時,sufficient模組當做 optional 對待.
+-   **optional**  
+    - 在PAM體系中,帶有該標記的模組失敗後將繼續處理下一模組.(也就是 option libraries 的 pass /fail 皆不會影響到最後的結果.)
+</code></pre>
+</li>
+</ul>
+</blockquote>
+</li>
+<li>module-path<ul>
+<li>也就是 module 所在的路徑位址.</li>
+</ul>
+</li>
+<li><strong>arguments</strong>  <ul>
+<li>在這裡可以將參數傳送給前面指定的 module.可以看到我們都是使用相同的一個模組 pam_unix.so ,至於 pam_unix.so 會做哪些事情,請參考說明檔 /usr/share/doc/pam-xxx/html/index.html 的說明(其中的 xxx 是目前你使用的 PAM 版本).<h3 id="example"><a href="#example" class="headerlink" title="example"></a>example</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@benjr ~]# cat  /etc/pam.d/login</span><br><span class="line">auth        sufficient    /lib/security/$ISA/pam_unix.so likeauth nullok</span><br><span class="line">password    sufficient    /lib/security/$ISA/pam_unix.so nullok use_authtok md5 shadow</span><br><span class="line">account     required      /lib/security/$ISA/pam_unix.so</span><br><span class="line">session     required      /lib/security/$ISA/pam_unix.so</span><br></pre></td></tr></table></figure>
+<blockquote>
+<ul>
+<li>pam_unix.so 是一個比較複雜的模組,它可以同時應用在 PAM 的 4 個驗證方式:</li>
+</ul>
+</blockquote>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>auth        sufficient    /lib/security/$ISA/pam_unix.so likeauth nullok</strong>  <ul>
+<li>pam_unix.so 的 auth 主要會依據 /etc/nsswitch.conf 來決定身分驗證的方式,有可能為 files(本機 /etc/passwd 檔案) ldap(透過 LDAP server) winbind(透過 Windows AD server) 等不同方式來認證(suthentication).</li>
+<li><strong>參數 likeauth nullok</strong><ul>
+<li><strong>likeauth</strong><br>  The likeauth argument makes the module return the same value when called as a credential setting module and an authentication module. This will help libpam take a sane path through the auth component of your configuration file.(這邊我還是看不太懂他的意思)</li>
+<li><strong>nullok</strong><br>  系統預設不能將登入時密碼設定為空白,當使用參數 nullok 時就允許登入時密碼為空白.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>password    sufficient    /lib/security/$ISA/pam_unix.so nullok use_authtok md5 shadow</strong>  <ul>
+<li>pam_unix.so 的 password 主要的工作是讓可以更新使用者的密碼.如果沒有了這一行使用者將無法更改密碼.</li>
+<li><strong>參數nullok use_authtok md5 shadow</strong><ul>
+<li><strong>nullok</strong><br>  系統預設不能將密碼修改為空白,當使用參數 nullok 時就密碼修改成空白.</li>
+<li><strong>use_authtok</strong><br>  use the authentication token previously obtained by another that did the conversation with the application. If this token can not be obtained then the module will try to converse again. This option can be used for stacking different modules that need to deal with the authentication tokens.(這邊我還是看不太懂他的意思)</li>
+<li><strong>md5</strong><br>  密碼將採用 md5 的方式加密.關於 md5 請參考 <a target="_blank" rel="noopener" href="http://benjr.tw/310">PKI(Public Key Infrastructure)</a>中的 md5 說明</li>
+<li><strong>shadow</strong><br>  密碼將跟使用者資料分開存放至 /etc/shadow 除了可以在這邊設定 md5 , shadow 外,還可以使用 Rehat 提供的工具 authconfig 可設定這兩個選項(1.Use Shadow Passwords, 2.Use MD5 Passwords)來決定是否使用 ms5 以及 shadow.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>account     required      /lib/security/$ISA/pam_unix.so</strong>  <ul>
+<li>系統會依據 /etc/shadow 的參數 : expire; last_change; max_change; min_change; warn_change,來確定使用者的帳號以及密碼是否有效並且尚未到期.</li>
+</ul>
+</li>
+<li><strong>session     required      /lib/security/$ISA/pam_unix.so</strong><ul>
+<li>會讓系統在建立完連線(session) 後會用 syslog 來記錄登入的使用者期間所做的事件.你每次登入時就可以看到 /var/log/message 中會多出類似下面這一項紀錄  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Aug 29 00:50:51 dexter sshd(pam_unix)\[6321\]: session opened for user root by (uid=0)  </span><br><span class="line">所以如果你移除這一項系統就不會與使用者來建立連線了,你此時就無法登入系統,並且會得到如下的訊息在 /var/log/message.  </span><br><span class="line">Aug 29 00:50:46 dexter sshd(pam_unix)\[6321\]: authentication failure; logname= uid=0 euid=0 tty=NODEVssh ruser= rhost=192.168.0.5  user=root</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="PAM-API"><a href="#PAM-API" class="headerlink" title="PAM API"></a>PAM API</h2><h3 id="框架API："><a href="#框架API：" class="headerlink" title="框架API："></a>框架API：</h3><ul>
+<li>任何一個支持PAM的服務程序在進行認證時必須以pam_start( )開始進行初始化，最後以pam_end( )結束以便進行清理工作。</li>
+</ul>
+<h3 id="認證管理API："><a href="#認證管理API：" class="headerlink" title="認證管理API："></a>認證管理API：</h3><ul>
+<li>pam_authenticate( )對用戶名/密碼進行認證。</li>
+<li>pam_setcred( )用來修改用戶的秘密信息。</li>
+</ul>
+<h3 id="帳戶管理API："><a href="#帳戶管理API：" class="headerlink" title="帳戶管理API："></a>帳戶管理API：</h3><ul>
+<li>pam_acct_mgmt( )檢查帳戶本身是否有權限登錄系統、帳戶是否過期、帳戶是否有登錄時間限制等。</li>
+</ul>
+<h3 id="密碼管理API："><a href="#密碼管理API：" class="headerlink" title="密碼管理API："></a>密碼管理API：</h3><ul>
+<li>pam_chauthtok( )修改用戶的密碼。</li>
+</ul>
+<h3 id="會話管理API："><a href="#會話管理API：" class="headerlink" title="會話管理API："></a>會話管理API：</h3><ul>
+<li>一個會話以pam_open_session( )開始，最後以pam_close_session( )結束。</li>
+</ul>
+<h3 id="其它："><a href="#其它：" class="headerlink" title="其它："></a>其它：</h3><ul>
+<li>pam_get_item( )、pam_set_item( )用來讀寫PAM事務(transaction)的狀態信息。</li>
+<li>pam_get_data( )、pam_set_data( )用來取得和設置PAM模塊及會話的相關信息。</li>
+<li>pam_putenv( )、pam_getenv( )、pam_getenvlist( )用來讀寫環境變量。</li>
+<li>pam_strerror( )返回相關的錯誤信息。</li>
+</ul>
+<h2 id="PAM-SPI"><a href="#PAM-SPI" class="headerlink" title="PAM SPI"></a>PAM SPI</h2><ul>
+<li>當服務程序（ftpd、telnetd等）調用PAM API函數pam_xxx( )時，由PAM 框架（libpam）根據該服務在/etc/pam.conf文件中的配置調用指定的PAM模塊中對應的SPI函數pam_sm_xxx()。</li>
+<li>API函數的名字為pam_xxx( )，對應的SPI函數的名字為pam_sm_xxx( )，即每個服務模塊需要引出相應的函數以供libpam調用。為方便對照，再列一下。</li>
+</ul>
+<h3 id="API-對應的-SPI"><a href="#API-對應的-SPI" class="headerlink" title="API 對應的 SPI"></a>API 對應的 SPI</h3><ul>
+<li>帳號管理 pam_acct_mgmt( )、 pam_sm_acct_mgmt( )</li>
+<li>認證管理 pam_authenticate( )、 pam_sm_authenticate( )</li>
+<li>密碼管理 pam_chauthtok( )、 pam_ sm_chauthtok( )</li>
+<li>會話管理 pam_open_session( )、 pam_sm_open_session( )</li>
+<li>會話管理 pam_close_session( )、 pam_sm_close_session( )</li>
+<li>認證管理 pam_setcred( )、 pam_sm_setcred( )</li>
+</ul>
+<h2 id="常用的PAM服務模塊"><a href="#常用的PAM服務模塊" class="headerlink" title="常用的PAM服務模塊"></a>常用的PAM服務模塊</h2><table>
+<thead>
+<tr>
+<th><strong>PAM 模組</strong></th>
+<th><strong>用途說明</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>pam_access</td>
+<td>利用 /etc/security/access.conf檔案並依據帳號、IP位址、網域名稱、網路卡號或終端機等方式來限制使用者或群組登入</td>
+</tr>
+<tr>
+<td>pam_cracklib</td>
+<td>可用來規範及檢查密碼的字元組成與長度，做為密碼檢查器以避免使用者選擇簡單、容易猜測的密碼</td>
+</tr>
+<tr>
+<td>pam_deny</td>
+<td>pam_deny模組用來拒絕所有存取，主要是用來定義系統存取的預設原則(Default Policy)</td>
+</tr>
+<tr>
+<td>pam_env</td>
+<td>用以建立使用者登入的預設環境，例如可定義使用者系統環境變數PATH需包含那個目錄，pam_env模組使用 /etc/security/pam_env.conf 建立變數。</td>
+</tr>
+<tr>
+<td>pam_limits</td>
+<td>模組透過組態檔  /etc/security/limits.conf to來限制使用者所使用的資源，包括限制允許的最大檔案大小、最大允許開啟的檔案、CPU時間、處理程序數量、最大允許登入次數。</td>
+</tr>
+<tr>
+<td>pam_mail</td>
+<td>檢查使用者的郵件目錄是否有新郵件，通常用於使用者登入系統</td>
+</tr>
+<tr>
+<td>pam_mkhomedir</td>
+<td>當使用者第一次登入系統時，若沒有家目錄存在可利用pam_mkhomedir模組來自動建立家目錄，本模組也可以確保/etc/skel目錄下的檔案被拷貝到家目錄，這個模組在使用者經由NIS或LDAP的網路環境下驗證時特別有用，可集中使用者家目錄於NFS目錄下。</td>
+</tr>
+<tr>
+<td>pam_nologin</td>
+<td>當/etc/nologin檔案存在時，除了root之外，沒有任何人可以登入，適用於管理員維護系統時使用。</td>
+</tr>
+<tr>
+<td>pam_permit</td>
+<td>這是最不安全的PAM模組，不論誰登入，它永遠允許存取，通常只使用在測試用途上。</td>
+</tr>
+<tr>
+<td>pam_pwcheck</td>
+<td>當使用者變更密碼時，此模組會執行額外的檢查工作，包括密碼最短長度，不能使最近用過的數次密碼，也經常與pam_cracklib搭配使用。</td>
+</tr>
+<tr>
+<td>pam_rootok</td>
+<td>pam_rootok模組授予使用者無需輸入密碼就可以存取。例如su程式利用此模組來讓root可以su到任何使用者帳戶，而無需輸入使用者密碼。</td>
+</tr>
+<tr>
+<td>pam_securetty</td>
+<td>pam_securetty模組利用 /etc/securetty檔案來控制root可以登入的TTY，這主要是應用於較早的UNIX時期，root經常利用不加密的telnet登入而造成安全性問題所設計的模組，如此可避免oot帳戶經由特定主控台或網路登入。</td>
+</tr>
+<tr>
+<td>pam_tally</td>
+<td>用以維護企圖存取系統的次數，所以可以讓管理員拒絶過多次企圖存取失敗者。</td>
+</tr>
+<tr>
+<td>pam_time</td>
+<td>pam_time模組利用/etc/security/time.conf檔案來限制使用者登入系統的時間，您也可以限制使用者登入時可以存取的服務或特定的TTY。</td>
+</tr>
+<tr>
+<td>pam_unix</td>
+<td>這是一個相當重要的PAM模組，用來轉送經由/etc/passwd和 /etc/shadow檔案的驗證請求。使用nullok和try_first_pass參數可允許使用空白密碼以及當密碼請求再度出現時可以嘗試使用先前用過的密碼來加以驗證。</td>
+</tr>
+<tr>
+<td>pam_warn</td>
+<td>用以記錄有用的錯誤訊息，可記錄有關於驗證和密碼修改的訊息，通常與pam_deny模組搭配以記錄使用者企圖連到系統的資訊。</td>
+</tr>
+<tr>
+<td>pam_wheel</td>
+<td>此模組利用 /etc/pam.d/su 檔案設定只允許 wheel 群組的成員，可以執行 su 指令來切換成其他使用者的身份。</td>
+</tr>
+</tbody></table>
+<h2 id="reference"><a href="#reference" class="headerlink" title="reference"></a>reference</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://www.lijyyh.com/2012/06/pam.html">簡介PAM驗證模組(Introduction to Pluggable … - 傲笑紅塵路</a></li>
+<li><a target="_blank" rel="noopener" href="http://benjr.tw/291">Linux – PAM 初解 – Benjr.tw</a></li>
+<li><a target="_blank" rel="noopener" href="https://lagunawang.pixnet.net/blog/post/5206841-pam%E5%85%A5%E9%96%80%E4%BB%8B%E7%B4%B9">PAM入門介紹 @ Amin’s Note :: 痞客邦 ::</a></li>
+<li><a target="_blank" rel="noopener" href="http://benjr.tw/291">Linux – PAM 初解 – Benjr.tw</a></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/note/" rel="tag"># note</a>
+              <a href="/tags/linux/" rel="tag"># linux</a>
+              <a href="/tags/pam/" rel="tag"># pam</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/08/12/motd/" rel="prev" title="motd">
+                  <i class="fa fa-chevron-left"></i> motd
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Lin Yunwen</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>總字數：</span>
+    <span title="總字數">147k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>所需總閱讀時間 &asymp;</span>
+    <span title="所需總閱讀時間">4:27</span>
+  </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>
