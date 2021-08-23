@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/linyunwen_icon/icon_32x32.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/linyunwen_icon/icon_32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/linyunwen_icon/icon_16x16.png">
+  <link rel="mask-icon" href="/images/linyunwen_icon/icon_32x32.png" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css" integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"linyunwen.github.io","root":"/","images":"/images","scheme":"Gemini","version":"8.6.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"disqus","storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"${hits} 找到 ${time} 個結果","hits":"找到 ${hits} 個結果"}}</script><script src="/js/config.js"></script>
+<meta name="description" content="網際網路上用來找尋設備的方法 茲將網際網路上常用來找尋設備的方法整理如下：     WS-Discovery (ONVIF組織定義的方法)   SSDP  (DLNA組織定義的方法)   Multicast Domain Name Service(mDNS)   ADwin Config   Bonjour">
+<meta property="og:type" content="article">
+<meta property="og:title" content="網際網路上用來找尋設備的方法">
+<meta property="og:url" content="https://linyunwen.github.io/2021/08/23/web-device-connection/index.html">
+<meta property="og:site_name" content="Lin Yunwen&#39;s Blog">
+<meta property="og:description" content="網際網路上用來找尋設備的方法 茲將網際網路上常用來找尋設備的方法整理如下：     WS-Discovery (ONVIF組織定義的方法)   SSDP  (DLNA組織定義的方法)   Multicast Domain Name Service(mDNS)   ADwin Config   Bonjour">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://i.imgur.com/pyXdBAh.png">
+<meta property="og:image" content="https://i.imgur.com/kuidihz.png">
+<meta property="article:published_time" content="2021-08-23T12:50:59.000Z">
+<meta property="article:modified_time" content="2021-08-23T12:53:27.400Z">
+<meta property="article:author" content="Lin Yunwen">
+<meta property="article:tag" content="note">
+<meta property="article:tag" content="web">
+<meta property="article:tag" content="device">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.imgur.com/pyXdBAh.png">
+
+
+<link rel="canonical" href="https://linyunwen.github.io/2021/08/23/web-device-connection/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-TW","comments":true,"permalink":"https://linyunwen.github.io/2021/08/23/web-device-connection/","path":"2021/08/23/web-device-connection/","title":"網際網路上用來找尋設備的方法"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>網際網路上用來找尋設備的方法 | Lin Yunwen's Blog</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-H43D6184CW"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"G-H43D6184CW","only_pageview":false}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Lin Yunwen's Blog</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">keep moving forward</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>標籤</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%B6%B2%E9%9A%9B%E7%B6%B2%E8%B7%AF%E4%B8%8A%E7%94%A8%E4%BE%86%E6%89%BE%E5%B0%8B%E8%A8%AD%E5%82%99%E7%9A%84%E6%96%B9%E6%B3%95"><span class="nav-number">1.</span> <span class="nav-text">網際網路上用來找尋設備的方法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#WS-Discovery-Web-Services-Dynamic-Discovery"><span class="nav-number">1.1.</span> <span class="nav-text">WS-Discovery (Web Services Dynamic Discovery)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SSDP"><span class="nav-number">1.2.</span> <span class="nav-text">SSDP</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MDNS-Multicast-Domain-Name-Service"><span class="nav-number">1.3.</span> <span class="nav-text">MDNS (Multicast Domain Name Service)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ADwin-Config"><span class="nav-number">1.4.</span> <span class="nav-text">ADwin Config</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Bonjour"><span class="nav-number">1.5.</span> <span class="nav-text">Bonjour</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Summary"><span class="nav-number">1.6.</span> <span class="nav-text">Summary</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Reference"><span class="nav-number">1.7.</span> <span class="nav-text">Reference</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-overview">
+            <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Lin Yunwen"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Lin Yunwen</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">60</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">68</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/LinYunWen" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;LinYunWen" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:l40303k@gmail.com" title="E-Mail → mailto:l40303k@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="回到頂端">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://linyunwen.github.io/2021/08/23/web-device-connection/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Lin Yunwen">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Lin Yunwen's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          網際網路上用來找尋設備的方法
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">發表於</span>
+      
+
+      <time title="創建時間：2021-08-23 20:50:59 / 修改時間：20:53:27" itemprop="dateCreated datePublished" datetime="2021-08-23T20:50:59+08:00">2021-08-23</time>
+    </span>
+
+  
+      </div>
+      <div class="post-meta">
+    <span class="post-meta-item" title="文章字數">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">文章字數：</span>
+      <span>1.9k</span>
+    </span>
+    <span class="post-meta-item" title="所需閱讀時間">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+      <span>3 分鐘</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="網際網路上用來找尋設備的方法"><a href="#網際網路上用來找尋設備的方法" class="headerlink" title="網際網路上用來找尋設備的方法"></a>網際網路上用來找尋設備的方法</h1><ul>
+<li>茲將網際網路上常用來找尋設備的方法整理如下：  <ul>
+<li>  WS-Discovery (ONVIF組織定義的方法)</li>
+<li>  SSDP  (DLNA組織定義的方法)</li>
+<li>  Multicast Domain Name Service(mDNS)</li>
+<li>  ADwin Config</li>
+<li>  Bonjour<span id="more"></span>
+<h2 id="WS-Discovery-Web-Services-Dynamic-Discovery"><a href="#WS-Discovery-Web-Services-Dynamic-Discovery" class="headerlink" title="WS-Discovery (Web Services Dynamic Discovery)"></a>WS-Discovery (Web Services Dynamic Discovery)</h2></li>
+</ul>
+</li>
+<li>此方法屬於web services的一部分，又稱為SOAP-over-UDP。2009/07/01 由 OASIS組織宣布成為業界標準。主要是透過 multicast 傳送 SOAP/XML，流程如下：<br><img src="https://i.imgur.com/pyXdBAh.png"></li>
+<li>當 IPCam 開機後，會在網路上群播 Hello 資訊，若此時網路上存在NVR，便可以收到此資訊。 </li>
+<li>若 NVR 啟動後沒有收到 Hello 資訊，則可以主動送出 Probe，其中會包含service contract type, keywords, and scope，若區域網路內的 IPCam 發現彼此服務match，便會回覆訊息(PM：ProbeMatch)。接著NVR可以送出 Resolve 取得 IPCam 的 transport address。</li>
+</ul>
+<blockquote>
+<ul>
+<li>  DISCOVERY_PORT: port 3702 [IANA] </li>
+<li>  IPv4 multicast address: 239.255.255.250</li>
+<li>  IPv6 multicast address: FF02::C (link-local scope)</li>
+</ul>
+</blockquote>
+<h2 id="SSDP"><a href="#SSDP" class="headerlink" title="SSDP"></a>SSDP</h2><ul>
+<li>屬於UPNP服務的一部分。作法是透過multicast送出http封包 (M-Search)，支援SSDP的設備會回復設備資訊。實例如下：<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">M-SEARCH * HTTP/1.1</span><br><span class="line">MX: 3</span><br><span class="line">ST: upnp:rootdevice</span><br><span class="line">HOST: 239.255.255.250:1900</span><br><span class="line">MAN: &quot;ssdp:discover&quot;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h2 id="MDNS-Multicast-Domain-Name-Service"><a href="#MDNS-Multicast-Domain-Name-Service" class="headerlink" title="MDNS (Multicast Domain Name Service)"></a>MDNS (Multicast Domain Name Service)</h2><ul>
+<li>屬於 Zero configuration 的一部分，當區域網路內不存在 DNS 伺服器時，可以透過此種方式找尋想要的服務。</li>
+<li>其技術原理是透過 IP multicast over User Datagram Protocol (UDP)，進行 Host Discovery 或是 Service Discovery。下圖為一個 Host Discovery 的例子。<br><img src="https://i.imgur.com/kuidihz.png"></li>
+</ul>
+<h2 id="ADwin-Config"><a href="#ADwin-Config" class="headerlink" title="ADwin Config"></a>ADwin Config</h2><ul>
+<li>用來偵測或設定ADwin公司的設備。</li>
+</ul>
+<h2 id="Bonjour"><a href="#Bonjour" class="headerlink" title="Bonjour"></a>Bonjour</h2><ul>
+<li>Apple公司用來找尋設備的協議，只能夠在一個子網內運行。主要支援三種運作。<ul>
+<li>Publication (advertising a service)<ul>
+<li>設備配置給自己一個 link-local IP address，例如:169.254.150.84，接著在網路上廣播尋找此位置(透過ARP)，若沒有收到回應，表示此IP尚未有人使用，設備便可以將此IP當成自己的IP位置。 </li>
+<li>接著透過同樣的方式，設定設備的Domain name，例如：eds-musicbox.local.  ，同時設定Domain name時，可以設定 service record，註明將會提供的無誤，例如：Ed’s Party Mix._music._tcp.local.</li>
+</ul>
+</li>
+<li>Discovery (browsing for available services)<ul>
+<li>要找尋某個特別設備時，可使用 MDNS 定義的 standard query，詢問網路上是否在區域網路上存在一個使用TCP的音樂設備，例如：詢問  ._music._tcp.local.，如此便可以找到步驟 publication 中的設備。</li>
+</ul>
+</li>
+<li>Resolution (translating service names to addresses and port numbers for use)<ul>
+<li>將查詢到的  name “ Ed’s Party Mix._music._tcp.local.” 轉換為 IP address + port number</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h2><ul>
+<li>找尋設備的方法，其基本原則是透過 IP Multicast/broadcast，每種協定對應的 address/port 整理如下：<ul>
+<li>  239.255.255.250：3702  –&gt; WS-Discovery</li>
+<li>  239.255.255.250：1900 –&gt; SSDP</li>
+<li>  224.0.0.251：5353 –&gt; MDNS</li>
+<li>  255.255.255.255：10669  –&gt;ADWin Config</li>
+</ul>
+</li>
+<li>其作法大同小異，但特別需要注意的是穿透NAT的方法，就上述幾個方法而言，只有 UPNP 與 WS-Discovery 可以</li>
+</ul>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><ul>
+<li><a target="_blank" rel="noopener" href="http://albert-oma.blogspot.com/2012/07/blog-post.html">Albert 的筆記本: 網際網路上用來找尋設備的方法</a></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/note/" rel="tag"># note</a>
+              <a href="/tags/web/" rel="tag"># web</a>
+              <a href="/tags/device/" rel="tag"># device</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/08/23/ssdp/" rel="prev" title="SSDP">
+                  <i class="fa fa-chevron-left"></i> SSDP
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Lin Yunwen</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>總字數：</span>
+    <span title="總字數">152k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>所需總閱讀時間 &asymp;</span>
+    <span title="所需總閱讀時間">4:36</span>
+  </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>
