@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/linyunwen_icon/icon_32x32.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/linyunwen_icon/icon_32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/linyunwen_icon/icon_16x16.png">
+  <link rel="mask-icon" href="/images/linyunwen_icon/icon_32x32.png" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css" integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"linyunwen.github.io","root":"/","images":"/images","scheme":"Gemini","version":"8.6.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"disqus","storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"${hits} 找到 ${time} 個結果","hits":"找到 ${hits} 個結果"}}</script><script src="/js/config.js"></script>
+<meta name="description" content="Vim Shortcutmain   Shortcut Keys Function    Escape key Gets out of the current mode into the “command mode”. All keys are bound of commands.   i “Insert mode” for inserting text. Keys behave as expec">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Vim Shortcut">
+<meta property="og:url" content="https://linyunwen.github.io/2021/08/28/vim-shortcut/index.html">
+<meta property="og:site_name" content="Lin Yunwen&#39;s Blog">
+<meta property="og:description" content="Vim Shortcutmain   Shortcut Keys Function    Escape key Gets out of the current mode into the “command mode”. All keys are bound of commands.   i “Insert mode” for inserting text. Keys behave as expec">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://i.imgur.com/33STWMJ.png">
+<meta property="og:image" content="https://i.imgur.com/UuehmIR.png">
+<meta property="og:image" content="https://i.stack.imgur.com/T1WBi.gif">
+<meta property="article:published_time" content="2021-08-28T02:28:41.000Z">
+<meta property="article:modified_time" content="2021-08-28T02:43:24.731Z">
+<meta property="article:author" content="Lin Yunwen">
+<meta property="article:tag" content="note">
+<meta property="article:tag" content="vim">
+<meta property="article:tag" content="shortcut">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.imgur.com/33STWMJ.png">
+
+
+<link rel="canonical" href="https://linyunwen.github.io/2021/08/28/vim-shortcut/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-TW","comments":true,"permalink":"https://linyunwen.github.io/2021/08/28/vim-shortcut/","path":"2021/08/28/vim-shortcut/","title":"Vim Shortcut"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Vim Shortcut | Lin Yunwen's Blog</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-H43D6184CW"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"G-H43D6184CW","only_pageview":false}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Lin Yunwen's Blog</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">keep moving forward</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>標籤</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Vim-Shortcut"><span class="nav-number">1.</span> <span class="nav-text">Vim Shortcut</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#main"><span class="nav-number">1.1.</span> <span class="nav-text">main</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Navigation-keys"><span class="nav-number">1.2.</span> <span class="nav-text">Navigation keys</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Navigate-around-the-document"><span class="nav-number">1.3.</span> <span class="nav-text">Navigate around the document</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Insert-text"><span class="nav-number">1.4.</span> <span class="nav-text">Insert text</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Special-inserts"><span class="nav-number">1.5.</span> <span class="nav-text">Special inserts</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Delete-text"><span class="nav-number">1.6.</span> <span class="nav-text">Delete text</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Simple-replace-text"><span class="nav-number">1.7.</span> <span class="nav-text">Simple replace text</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Copy-Paste-text"><span class="nav-number">1.8.</span> <span class="nav-text">Copy&#x2F;Paste text</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Undo-Redo-operation"><span class="nav-number">1.9.</span> <span class="nav-text">Undo&#x2F;Redo operation</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Search-and-Replace-keys"><span class="nav-number">1.10.</span> <span class="nav-text">Search and Replace keys</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Bookmarks"><span class="nav-number">1.11.</span> <span class="nav-text">Bookmarks</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Select-text"><span class="nav-number">1.12.</span> <span class="nav-text">Select text</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Modify-selected-text"><span class="nav-number">1.13.</span> <span class="nav-text">Modify selected text</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Save-and-quit"><span class="nav-number">1.14.</span> <span class="nav-text">Save and quit</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#window"><span class="nav-number">1.15.</span> <span class="nav-text">window</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#reference"><span class="nav-number">1.16.</span> <span class="nav-text">reference</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-overview">
+            <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Lin Yunwen"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Lin Yunwen</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">63</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">73</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/LinYunWen" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;LinYunWen" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:l40303k@gmail.com" title="E-Mail → mailto:l40303k@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="回到頂端">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://linyunwen.github.io/2021/08/28/vim-shortcut/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Lin Yunwen">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Lin Yunwen's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Vim Shortcut
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">發表於</span>
+      
+
+      <time title="創建時間：2021-08-28 10:28:41 / 修改時間：10:43:24" itemprop="dateCreated datePublished" datetime="2021-08-28T10:28:41+08:00">2021-08-28</time>
+    </span>
+
+  
+      </div>
+      <div class="post-meta">
+    <span class="post-meta-item" title="文章字數">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">文章字數：</span>
+      <span>4.6k</span>
+    </span>
+    <span class="post-meta-item" title="所需閱讀時間">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+      <span>8 分鐘</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="Vim-Shortcut"><a href="#Vim-Shortcut" class="headerlink" title="Vim Shortcut"></a>Vim Shortcut</h1><h2 id="main"><a href="#main" class="headerlink" title="main"></a>main</h2><table>
+<thead>
+<tr>
+<th>Shortcut Keys</th>
+<th>Function</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Escape key</td>
+<td>Gets out of the current mode into the “command mode”. All keys are bound of commands.</td>
+</tr>
+<tr>
+<td>i</td>
+<td>“Insert mode” for inserting text. Keys behave as expected.</td>
+</tr>
+<tr>
+<td>:</td>
+<td>“Last-line mode” where Vim expects you to enter a command such as to save the document.</td>
+</tr>
+<tr>
+<td>:ter[minal]</td>
+<td>Open a terminal window</td>
+</tr>
+</tbody></table>
+<span id="more"></span>
+<h2 id="Navigation-keys"><a href="#Navigation-keys" class="headerlink" title="Navigation keys"></a>Navigation keys</h2><table>
+<thead>
+<tr>
+<th>Shortcut Keys</th>
+<th>Function</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>h</td>
+<td>moves the cursor one character to the left.</td>
+</tr>
+<tr>
+<td>j or Ctrl + J</td>
+<td>moves the cursor down one line.</td>
+</tr>
+<tr>
+<td>k or Ctrl + P</td>
+<td>moves the cursor up one line.</td>
+</tr>
+<tr>
+<td>l</td>
+<td>moves the cursor one character to the right.</td>
+</tr>
+<tr>
+<td>0</td>
+<td>moves the cursor to the beginning of the line.</td>
+</tr>
+<tr>
+<td>$</td>
+<td>moves the cursor to the end of the line.</td>
+</tr>
+<tr>
+<td>^</td>
+<td>moves the cursor to the first non-empty character of the line</td>
+</tr>
+<tr>
+<td>w</td>
+<td>move forward one word (next alphanumeric word)</td>
+</tr>
+<tr>
+<td>W</td>
+<td>move forward one word (delimited by a white space)</td>
+</tr>
+<tr>
+<td>5w</td>
+<td>move forward five words</td>
+</tr>
+<tr>
+<td>b</td>
+<td>move backward one word (previous alphanumeric word)</td>
+</tr>
+<tr>
+<td>B</td>
+<td>move backward one word (delimited by a white space)</td>
+</tr>
+<tr>
+<td>5b</td>
+<td>move backward five words</td>
+</tr>
+<tr>
+<td>G</td>
+<td>move to the end of the file</td>
+</tr>
+<tr>
+<td>gg</td>
+<td>move to the beginning of the file.</td>
+</tr>
+</tbody></table>
+<h2 id="Navigate-around-the-document"><a href="#Navigate-around-the-document" class="headerlink" title="Navigate around the document"></a>Navigate around the document</h2><table>
+<thead>
+<tr>
+<th>Shortcut Keys</th>
+<th>Function</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>(</td>
+<td>jumps to the previous sentence</td>
+</tr>
+<tr>
+<td>)</td>
+<td>jumps to the next sentence</td>
+</tr>
+<tr>
+<td>{</td>
+<td>jumps to the previous paragraph</td>
+</tr>
+<tr>
+<td>}</td>
+<td>jumps to the next paragraph</td>
+</tr>
+<tr>
+<td>[[</td>
+<td>jumps to the previous section</td>
+</tr>
+<tr>
+<td>]]</td>
+<td>jumps to the next section</td>
+</tr>
+<tr>
+<td>[]</td>
+<td>jump to the end of the previous section</td>
+</tr>
+<tr>
+<td>][</td>
+<td>jump to the end of the next section</td>
+</tr>
+</tbody></table>
+<h2 id="Insert-text"><a href="#Insert-text" class="headerlink" title="Insert text"></a>Insert text</h2><table>
+<thead>
+<tr>
+<th>Shortcut Keys</th>
+<th>Function</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>a</td>
+<td>Insert text after the cursor</td>
+</tr>
+<tr>
+<td>A</td>
+<td>Insert text at the end of the line</td>
+</tr>
+<tr>
+<td>i</td>
+<td>Insert text before the cursor</td>
+</tr>
+<tr>
+<td>o</td>
+<td>Begin a new line below the cursor</td>
+</tr>
+<tr>
+<td>O</td>
+<td>Begin a new line above the cursor</td>
+</tr>
+</tbody></table>
+<h2 id="Special-inserts"><a href="#Special-inserts" class="headerlink" title="Special inserts"></a>Special inserts</h2><table>
+<thead>
+<tr>
+<th>Shortcut Keys</th>
+<th>Function</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>:r [filename]</td>
+<td>Insert the file [filename] below the cursor</td>
+</tr>
+<tr>
+<td>:r ![command]</td>
+<td>Execute [command] and insert its output below the cursor</td>
+</tr>
+</tbody></table>
+<h2 id="Delete-text"><a href="#Delete-text" class="headerlink" title="Delete text"></a>Delete text</h2><table>
+<thead>
+<tr>
+<th>Shortcut Keys</th>
+<th>Function</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>x</td>
+<td>delete character at cursor</td>
+</tr>
+<tr>
+<td>dw</td>
+<td>delete a word.</td>
+</tr>
+<tr>
+<td>d0</td>
+<td>delete to the beginning of a line.</td>
+</tr>
+<tr>
+<td>d$</td>
+<td>delete to the end of a line.</td>
+</tr>
+<tr>
+<td>d)</td>
+<td>delete to the end of sentence.</td>
+</tr>
+<tr>
+<td>dgg</td>
+<td>delete to the beginning of the file.</td>
+</tr>
+<tr>
+<td>dG</td>
+<td>delete to the end of the file.</td>
+</tr>
+<tr>
+<td>dd</td>
+<td>delete line</td>
+</tr>
+<tr>
+<td>3dd</td>
+<td>delete three lines</td>
+</tr>
+</tbody></table>
+<h2 id="Simple-replace-text"><a href="#Simple-replace-text" class="headerlink" title="Simple replace text"></a>Simple replace text</h2><table>
+<thead>
+<tr>
+<th>Shortcut Keys</th>
+<th>Function</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>r{text}</td>
+<td>Replace the character under the cursor with {text}</td>
+</tr>
+<tr>
+<td>R</td>
+<td>Replace characters instead of inserting them</td>
+</tr>
+</tbody></table>
+<h2 id="Copy-Paste-text"><a href="#Copy-Paste-text" class="headerlink" title="Copy/Paste text"></a>Copy/Paste text</h2><table>
+<thead>
+<tr>
+<th>Shortcut Keys</th>
+<th>Function</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>yy</td>
+<td>copy current line into storage buffer</td>
+</tr>
+<tr>
+<td>[“x]yy</td>
+<td>Copy the current lines into register x</td>
+</tr>
+<tr>
+<td>p</td>
+<td>paste storage buffer after current line</td>
+</tr>
+<tr>
+<td>P</td>
+<td>paste storage buffer before current line</td>
+</tr>
+<tr>
+<td>[“x]p</td>
+<td>paste from register x after current line</td>
+</tr>
+<tr>
+<td>[“x]P</td>
+<td>paste from register x before current line</td>
+</tr>
+</tbody></table>
+<h2 id="Undo-Redo-operation"><a href="#Undo-Redo-operation" class="headerlink" title="Undo/Redo operation"></a>Undo/Redo operation</h2><table>
+<thead>
+<tr>
+<th>Shortcut Keys</th>
+<th>Function</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>u</td>
+<td>undo the last operation.</td>
+</tr>
+<tr>
+<td>Ctrl+r</td>
+<td>redo the last undo.</td>
+</tr>
+</tbody></table>
+<h2 id="Search-and-Replace-keys"><a href="#Search-and-Replace-keys" class="headerlink" title="Search and Replace keys"></a>Search and Replace keys</h2><table>
+<thead>
+<tr>
+<th>Shortcut Keys</th>
+<th>Function</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>/search_text</td>
+<td>search document for search_text going forward</td>
+</tr>
+<tr>
+<td>?search_text</td>
+<td>search document for search_text going backward</td>
+</tr>
+<tr>
+<td>n</td>
+<td>move to the next instance of the result from the search</td>
+</tr>
+<tr>
+<td>N</td>
+<td>move to the previous instance of the result</td>
+</tr>
+<tr>
+<td>:%s/original/replacement</td>
+<td>Search for the first occurrence of the string “original” and replace it with “replacement”</td>
+</tr>
+<tr>
+<td>:%s/original/replacement/g</td>
+<td>Search and replace all occurrences of the string “original” with “replacement”</td>
+</tr>
+<tr>
+<td>:%s/original/replacement/gc</td>
+<td>Search for all occurrences of the string “original” but ask for confirmation before replacing them with “replacement”</td>
+</tr>
+<tr>
+<td>f or F</td>
+<td>Search for the next occurrence of a character or go to the previous occurrence</td>
+</tr>
+</tbody></table>
+<h2 id="Bookmarks"><a href="#Bookmarks" class="headerlink" title="Bookmarks"></a>Bookmarks</h2><table>
+<thead>
+<tr>
+<th>Shortcut Keys</th>
+<th>Function</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>m {a-z A-Z}</td>
+<td>Set bookmark {a-z A-Z} at the current cursor position</td>
+</tr>
+<tr>
+<td>:marks</td>
+<td>List all bookmarks</td>
+</tr>
+<tr>
+<td>`{a-z A-Z}</td>
+<td>Jumps to the bookmark {a-z A-Z}</td>
+</tr>
+</tbody></table>
+<h2 id="Select-text"><a href="#Select-text" class="headerlink" title="Select text"></a>Select text</h2><table>
+<thead>
+<tr>
+<th>Shortcut Keys</th>
+<th>Function</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>v</td>
+<td>Enter visual mode per character</td>
+</tr>
+<tr>
+<td>V</td>
+<td>Enter visual mode per line</td>
+</tr>
+<tr>
+<td>Esc</td>
+<td>Exit visual mode</td>
+</tr>
+</tbody></table>
+<h2 id="Modify-selected-text"><a href="#Modify-selected-text" class="headerlink" title="Modify selected text"></a>Modify selected text</h2><table>
+<thead>
+<tr>
+<th>Shortcut Keys</th>
+<th>Function</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>~</td>
+<td>Switch case</td>
+</tr>
+<tr>
+<td>d</td>
+<td>delete a word.</td>
+</tr>
+<tr>
+<td>c</td>
+<td>change</td>
+</tr>
+<tr>
+<td>y</td>
+<td>yank</td>
+</tr>
+<tr>
+<td>&gt;</td>
+<td>shift right</td>
+</tr>
+<tr>
+<td>&lt;</td>
+<td>shift left</td>
+</tr>
+<tr>
+<td>!</td>
+<td>filter through an external command</td>
+</tr>
+</tbody></table>
+<h2 id="Save-and-quit"><a href="#Save-and-quit" class="headerlink" title="Save and quit"></a>Save and quit</h2><table>
+<thead>
+<tr>
+<th>Shortcut Keys</th>
+<th>Function</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>:q</td>
+<td>Quits Vim but fails when file has been changed</td>
+</tr>
+<tr>
+<td>:w</td>
+<td>Save the file</td>
+</tr>
+<tr>
+<td>:w new_name</td>
+<td>Save the file with the new_name filename</td>
+</tr>
+<tr>
+<td>:wq</td>
+<td>Save the file and quit Vim.</td>
+</tr>
+<tr>
+<td>:q!</td>
+<td>Quit Vim without saving the changes to the file.</td>
+</tr>
+<tr>
+<td>ZZ</td>
+<td>Write file, if modified, and quit Vim</td>
+</tr>
+<tr>
+<td>ZQ</td>
+<td>Same as :q! Quits Vim without writing changes</td>
+</tr>
+<tr>
+<td>:sav[eas] file</td>
+<td>Save file as</td>
+</tr>
+<tr>
+<td>:clo[se]</td>
+<td>Close the current pane</td>
+</tr>
+</tbody></table>
+<h2 id="window"><a href="#window" class="headerlink" title="window"></a>window</h2><ul>
+<li><p>open Vim: open file in right split</p>
+<ul>
+<li>to open another window in vim. Then you can use<ul>
+<li><code>:vsp filename.txt</code></li>
+</ul>
+</li>
+<li>to swap the two window<ul>
+<li><code>ctrl+w r</code></li>
+</ul>
+</li>
+<li>reference<ul>
+<li><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/22614280/vim-open-file-in-right-split">Vim: open file in right split</a></li>
+<li><a target="_blank" rel="noopener" href="https://linuxhint.com/how-to-use-vim-split-screen/">How To Use VIM Split Screen</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Splitting VIM screen Horizontally and Vertically</p>
+<ul>
+<li>press &lt;Ctrl&gt;+&lt;w&gt; then press &lt;v&gt;.<ul>
+<li><img src="https://i.imgur.com/33STWMJ.png"></li>
+</ul>
+</li>
+<li>press &lt;Ctrl&gt;+&lt;w&gt; then press &lt;s&gt;<ul>
+<li><img src="https://i.imgur.com/UuehmIR.png"></li>
+</ul>
+</li>
+<li>go to another window by pressing &lt;Ctrl&gt;+&lt;w&gt; and then any of &lt;h&gt; &lt;j&gt; &lt;k&gt; or &lt;l&gt; depending on your choice</li>
+<li>You can increase the width of your window by pressing &lt;Ctrl&gt;+&lt;w&gt; and then ‘&gt;’ and decrease the width by pressing &lt;Ctrl&gt;+&lt;w&gt; and then ‘&lt;’.</li>
+<li>To increase the height of your window, press &lt;Ctrl&gt;+&lt;w&gt; and then press ‘+’ and to decrease the width press &lt;Ctrl&gt;+&lt;w&gt; and then press ‘-’.</li>
+<li>reference</li>
+<li><a target="_blank" rel="noopener" href="https://linuxhint.com/how-to-use-vim-split-screen/">How To Use VIM Split Screen</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p>edit multiple lines</p>
+<ol>
+<li><p> Move the cursor to the <code>n</code> in <code>name</code>.</p>
+</li>
+<li><p> Enter visual block mode (Ctrlv).</p>
+</li>
+<li><p> Press j three times (or 3j).</p>
+</li>
+<li><p> Press <code>I</code> (capital i).</p>
+</li>
+<li><p> Type in <code>vendor_</code>. Note: It will only update the screen in the <strong><em>first</em></strong> line - until Esc is pressed (6.), at which point all lines will be updated.</p>
+</li>
+<li><p>Press Esc.</p>
+<p><img src="https://i.stack.imgur.com/T1WBi.gif"></p>
+</li>
+</ol>
+<ul>
+<li>reference<ul>
+<li><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/9549729/vim-insert-the-same-characters-across-multiple-lines">Vim: insert the same characters across multiple lines - Stack Overflow</a><table>
+<thead>
+<tr>
+<th>Shortcut Keys</th>
+<th>Function</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>:vsp filename.txt</td>
+<td></td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="reference"><a href="#reference" class="headerlink" title="reference"></a>reference</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://www.maketecheasier.com/cheatsheet/vim-keyboard-shortcuts/">VIM Keyboard Shortcuts Cheatsheet - Make Tech Easier</a></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/note/" rel="tag"># note</a>
+              <a href="/tags/vim/" rel="tag"># vim</a>
+              <a href="/tags/shortcut/" rel="tag"># shortcut</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/08/26/nmap/" rel="prev" title="Nmap">
+                  <i class="fa fa-chevron-left"></i> Nmap
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Lin Yunwen</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>總字數：</span>
+    <span title="總字數">161k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>所需總閱讀時間 &asymp;</span>
+    <span title="所需總閱讀時間">4:53</span>
+  </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>
