@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/linyunwen_icon/icon_32x32.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/linyunwen_icon/icon_32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/linyunwen_icon/icon_16x16.png">
+  <link rel="mask-icon" href="/images/linyunwen_icon/icon_32x32.png" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css" integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"linyunwen.github.io","root":"/","images":"/images","scheme":"Gemini","version":"8.6.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"disqus","storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"${hits} 找到 ${time} 個結果","hits":"找到 ${hits} 個結果"}}</script><script src="/js/config.js"></script>
+<meta name="description" content="Linux Signals 信號機制是進程之間相互傳遞消息的一種方法，信號全稱為軟中斷信號，也有人稱作軟中斷。  從它的命名可以看出，它的實質和使用很象中斷。所以，信號可以說是進程控制的一部分。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux Signal">
+<meta property="og:url" content="https://linyunwen.github.io/2021/08/29/linux-signal/index.html">
+<meta property="og:site_name" content="Lin Yunwen&#39;s Blog">
+<meta property="og:description" content="Linux Signals 信號機制是進程之間相互傳遞消息的一種方法，信號全稱為軟中斷信號，也有人稱作軟中斷。  從它的命名可以看出，它的實質和使用很象中斷。所以，信號可以說是進程控制的一部分。">
+<meta property="og:locale" content="zh_TW">
+<meta property="article:published_time" content="2021-08-29T02:16:12.000Z">
+<meta property="article:modified_time" content="2021-08-29T02:20:30.790Z">
+<meta property="article:author" content="Lin Yunwen">
+<meta property="article:tag" content="note">
+<meta property="article:tag" content="linux">
+<meta property="article:tag" content="signal">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://linyunwen.github.io/2021/08/29/linux-signal/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-TW","comments":true,"permalink":"https://linyunwen.github.io/2021/08/29/linux-signal/","path":"2021/08/29/linux-signal/","title":"Linux Signal"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Linux Signal | Lin Yunwen's Blog</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-H43D6184CW"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"G-H43D6184CW","only_pageview":false}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Lin Yunwen's Blog</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">keep moving forward</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>標籤</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Linux-Signals"><span class="nav-number">1.</span> <span class="nav-text">Linux Signals</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#introduction"><span class="nav-number">1.1.</span> <span class="nav-text">introduction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#type"><span class="nav-number">1.2.</span> <span class="nav-text">type</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#common"><span class="nav-number">1.2.1.</span> <span class="nav-text">common</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#kill"><span class="nav-number">1.3.</span> <span class="nav-text">kill</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Reference"><span class="nav-number">1.4.</span> <span class="nav-text">Reference</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-overview">
+            <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Lin Yunwen"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Lin Yunwen</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">65</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">75</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/LinYunWen" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;LinYunWen" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:l40303k@gmail.com" title="E-Mail → mailto:l40303k@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="回到頂端">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://linyunwen.github.io/2021/08/29/linux-signal/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Lin Yunwen">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Lin Yunwen's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Linux Signal
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">發表於</span>
+      
+
+      <time title="創建時間：2021-08-29 10:16:12 / 修改時間：10:20:30" itemprop="dateCreated datePublished" datetime="2021-08-29T10:16:12+08:00">2021-08-29</time>
+    </span>
+
+  
+      </div>
+      <div class="post-meta">
+    <span class="post-meta-item" title="文章字數">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">文章字數：</span>
+      <span>2.3k</span>
+    </span>
+    <span class="post-meta-item" title="所需閱讀時間">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+      <span>4 分鐘</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="Linux-Signals"><a href="#Linux-Signals" class="headerlink" title="Linux Signals"></a>Linux Signals</h1><ul>
+<li><p>信號機制是進程之間相互傳遞消息的一種方法，信號全稱為軟中斷信號，也有人稱作軟中斷。</p>
+</li>
+<li><p>從它的命名可以看出，它的實質和使用很象中斷。所以，信號可以說是進程控制的一部分。</p>
+<span id="more"></span>
+<h2 id="introduction"><a href="#introduction" class="headerlink" title="introduction"></a>introduction</h2></li>
+<li><p>用來通知進程發生了非同步事件。</p>
+</li>
+<li><p>進程之間可以互相通過系統調用kill發送軟中斷信號。</p>
+</li>
+<li><p>內核也可以因為內部事件而給進程發送信號，通知進程發生了某個事件。</p>
+<blockquote>
+<ul>
+<li>注意，信號只是用來通知某進程發生了什麼事件，並不給該進程傳遞任何資料。 </li>
+</ul>
+</blockquote>
+</li>
+<li><p>收到信號的進程對各種信號有不同的處理方法。</p>
+<ul>
+<li>第一種是類似中斷的處理常式，對於需要處理的信號，進程可以指定處理函數，由該函數來處理。</li>
+<li>第二種方法是，忽略某個信號，對該信號不做任何處理，就象未發生過一樣。</li>
+<li>第三種方法是，對該信號的處理保留系統的預設值，這種缺省操作，對大部分的信號的缺省操作是使得進程終止。<ul>
+<li>進程通過系統調用signal來指定進程對某個信號的處理行為。 </li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>在進程表的表項中有一個軟中斷信號域，該域中每一位元對應一個信號，當有信號發送給進程時，對應位置位元。</p>
+<ul>
+<li>由此可以看出，進程對不同的信號可以同時保留，但對於同一個信號，進程並不知道在處理之前來過多少個。</li>
+</ul>
+</li>
+</ul>
+<h2 id="type"><a href="#type" class="headerlink" title="type"></a>type</h2><ul>
+<li>發出信號的原因很多，這裡按發出信號的原因簡單分類，以瞭解各種信號： <ul>
+<li>與進程終止相關的信號。<ul>
+<li>當進程退出，或者子進程終止時，發出這類信號。  </li>
+</ul>
+</li>
+<li>與進程例外事件相關的信號。<ul>
+<li>如進程越界，或企圖寫一個唯讀的記憶體區域（如程式正文區），或執行一個特權指令及其他各種硬體錯誤。  </li>
+</ul>
+</li>
+<li>與在系統調用期間遇到不可恢復條件相關的信號。<ul>
+<li>如執行系統調用exec時，原有資源已經釋放，而目前系統資源又已經耗盡。  </li>
+</ul>
+</li>
+<li>與執行系統調用時遇到非預測錯誤條件相關的信號。<ul>
+<li>如執行一個並不存在的系統調用。  </li>
+</ul>
+</li>
+<li>在使用者態下的進程發出的信號。<ul>
+<li>如進程調用系統調用kill向其他進程發送信號。  </li>
+</ul>
+</li>
+<li>與終端交互相關的信號。<ul>
+<li>如使用者關閉一個終端，或按下break鍵等情況。  </li>
+</ul>
+</li>
+<li>跟蹤進程執行的信號。</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<ul>
+<li>注意 信號SIGKILL和SIGSTOP既不能被捕捉，也不能被忽略。信號SIGIOT與SIGABRT是一個信號。可以看出，同一個信號在不同的系統中值可能不一樣，所以建議最好使用為信號定義的名字，而不要直接使用信號的值。</li>
+</ul>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>值</th>
+<th>名 字</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>01</td>
+<td>SIGHUP</td>
+<td>掛起（hangup）</td>
+</tr>
+<tr>
+<td>02</td>
+<td>SIGINT</td>
+<td>中斷，當使用者從鍵盤按ctrl+c鍵</td>
+</tr>
+<tr>
+<td>03</td>
+<td>SIGQUIT</td>
+<td>退出，當使用者從鍵盤按quit鍵時</td>
+</tr>
+<tr>
+<td>04</td>
+<td>SIGILL</td>
+<td>非法指令</td>
+</tr>
+<tr>
+<td>05</td>
+<td>SIGTRAP</td>
+<td>跟蹤陷阱（trace trap），啟動進程，跟蹤代碼的執行</td>
+</tr>
+<tr>
+<td>06</td>
+<td>SIGIOT</td>
+<td>IOT指令</td>
+</tr>
+<tr>
+<td>07</td>
+<td>SIGEMT</td>
+<td>EMT指令</td>
+</tr>
+<tr>
+<td>08</td>
+<td>SIGFPE</td>
+<td>浮點運算溢出</td>
+</tr>
+<tr>
+<td>09</td>
+<td>SIGKILL</td>
+<td>殺死、終止進程</td>
+</tr>
+<tr>
+<td>10</td>
+<td>SIGBUS</td>
+<td>匯流排錯誤</td>
+</tr>
+<tr>
+<td>11</td>
+<td>SIGSEGV</td>
+<td>段違例（segmentation invalidation），進程試圖去訪問其虛位址空間以外的位置</td>
+</tr>
+<tr>
+<td>12</td>
+<td>SIGSYS</td>
+<td>系統調用中參數錯，如系統調用號非法</td>
+</tr>
+<tr>
+<td>13</td>
+<td>SIGPIPE</td>
+<td>向某個非讀管道中寫入資料</td>
+</tr>
+<tr>
+<td>14</td>
+<td>SIGALRM</td>
+<td>鬧鐘。當某進程希望在某時間後接收信號時發此信號</td>
+</tr>
+<tr>
+<td>15</td>
+<td>SIGTERM</td>
+<td>軟體終止（Termination）</td>
+</tr>
+<tr>
+<td>16</td>
+<td>SIGUSR1</td>
+<td>使用者自訂信號1</td>
+</tr>
+<tr>
+<td>17</td>
+<td>SIGUSR2</td>
+<td>使用者自訂信號2</td>
+</tr>
+<tr>
+<td>18</td>
+<td>SIGCLD</td>
+<td>某個子進程死</td>
+</tr>
+<tr>
+<td>19</td>
+<td>SIGPWR</td>
+<td>電源故障</td>
+</tr>
+<tr>
+<td>20</td>
+<td>SIGTSTP</td>
+<td>按 &lt;Ctrl&gt;-Z 發送一個暫停訊號</td>
+</tr>
+</tbody></table>
+<h3 id="common"><a href="#common" class="headerlink" title="common"></a>common</h3><ul>
+<li>SIGINT(中斷)<ul>
+<li>INT 是 Interrupt 的意思，這個 Signal 通常會用來終止 Process，而且 <strong>允許 Process 在死掉之前完成他的遺願XD</strong>，就像 Word 在你按叉叉時會問你要不要儲存變更，而不是馬上結束</li>
+</ul>
+</li>
+<li>SIGKILL(立即中止)<ul>
+<li>KILL 就是直接殺掉的意思，可以把他當成是 SIGINT 的加強版，他會 <strong>直接、立刻、馬上</strong> 把 Process 殺掉且 <strong>不給他任何辯解的機會</strong>，就像是 Windows 的立即中止，想當然編輯到一半的資料也會直接不見，所以一般不建議使用這個 Signal</li>
+</ul>
+</li>
+<li>SIGTSTP(暫停)<ul>
+<li>TSTP 是 Terminal Stop 的意思，如上面的範例所說，他的功能就是 <strong>暫停</strong> 一個 Process</li>
+</ul>
+</li>
+<li>SIGCONT(繼續)<ul>
+<li>CONT 是 Continue 的意思，這應該很明顯了就是讓 Process 繼續跑XD</li>
+</ul>
+</li>
+<li>SIGTERM<ol>
+<li> 程序立刻停止</li>
+<li> 当程序释放相应资源后再停止</li>
+<li> 程序可能仍然继续运行</li>
+</ol>
+<ul>
+<li>大部分程序接收到SIGTERM信号后，会先释放自己的资源，然后在停止。但是也有程序可以在接受到信号量后，做一些其他的事情，并且这些事情是可以配置的。如果程序正在等待IO，可能就不会立马做出相应。</li>
+<li>也就是说，SIGTERM多半是会被阻塞的、忽略。</li>
+</ul>
+</li>
+</ul>
+<h2 id="kill"><a href="#kill" class="headerlink" title="kill"></a>kill</h2><blockquote>
+<ul>
+<li><code>kill $&#123;option&#125; $&#123;pid&#125;</code></li>
+<li>If no signal is specified, the TERM signal is sent</li>
+</ul>
+</blockquote>
+<ul>
+<li>發送 SIGINT(中斷訊號) 給 3448 號 Process，這樣他就會被終止，效果跟在 Term1 按 &lt;Ctrl&gt;-C 一模一樣<ul>
+<li><code>kill -INT 3448</code></li>
+</ul>
+</li>
+<li>發送 SIGKILL(中斷訊號) 給 3448 號 Process，這樣他就會被終止  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">kill -9 1234</span><br><span class="line">kill -KILL 1234</span><br><span class="line">kill -SIGKILL 1234</span><br></pre></td></tr></table></figure>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2></li>
+<li><a target="_blank" rel="noopener" href="https://man7.org/linux/man-pages/man7/signal.7.html">signal(7) - Linux manual page</a></li>
+<li><a target="_blank" rel="noopener" href="https://ithelp.ithome.com.tw/articles/10226301">Day23-Signal 訊號（一） - iT 邦幫忙::一起幫忙解決難題，拯救 IT 人的一天</a></li>
+<li><a target="_blank" rel="noopener" href="http://myblog-maurice.blogspot.com/2011/12/linux-signal.html">老陳獨白: Linux 信號signal處理機制</a></li>
+<li><a target="_blank" rel="noopener" href="https://askubuntu.com/questions/184071/what-is-the-purpose-of-the-9-option-in-the-kill-command">bash - What is the purpose of the -9 option in the kill command? - Ask Ubuntu</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/liuhouhou/p/5400540.html">Linux kill -9 和 kill -15 的区别 - 妖老山黑 - 博客园</a></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/note/" rel="tag"># note</a>
+              <a href="/tags/linux/" rel="tag"># linux</a>
+              <a href="/tags/signal/" rel="tag"># signal</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/08/29/terminal-shortcut-1/" rel="prev" title="Terminal Shortcut">
+                  <i class="fa fa-chevron-left"></i> Terminal Shortcut
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Lin Yunwen</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>總字數：</span>
+    <span title="總字數">165k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>所需總閱讀時間 &asymp;</span>
+    <span title="所需總閱讀時間">4:59</span>
+  </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>
