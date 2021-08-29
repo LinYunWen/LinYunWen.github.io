@@ -20,30 +20,31 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"linyunwen.github.io","root":"/","images":"/images","scheme":"Gemini","version":"8.6.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"disqus","storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"${hits} 找到 ${time} 個結果","hits":"找到 ${hits} 個結果"}}</script><script src="/js/config.js"></script>
-<meta name="description" content="Buffer to stringIntroduction 在 node 中網路傳輸、讀存取檔案經常是使用 buffer，但是在查看時都要經過轉換，文件上也沒有寫很清楚，所以才特別紀錄 基本上 buffer 是處理 binary 相對方便 他是類似 array 的狀態，每一個值代表一個 byte，所以在十進位中其值為 0~25512var buff &#x3D; Buffer.from([1, 2, 3]);">
+<meta name="description" content="Terminal shortcutCLI shortcutmove   Keyboard sequence Action    Ctrl+b Move the cursor back one character.   Esc+b or Alt+b Move the cursor back one word.   Ctrl+f Move the cursor forward one characte">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Buffer to string">
-<meta property="og:url" content="https://linyunwen.github.io/2020/10/15/buffer-tostring/index.html">
+<meta property="og:title" content="Terminal Shortcut">
+<meta property="og:url" content="https://linyunwen.github.io/2021/08/29/terminal-shortcut-1/index.html">
 <meta property="og:site_name" content="Lin Yunwen&#39;s Blog">
-<meta property="og:description" content="Buffer to stringIntroduction 在 node 中網路傳輸、讀存取檔案經常是使用 buffer，但是在查看時都要經過轉換，文件上也沒有寫很清楚，所以才特別紀錄 基本上 buffer 是處理 binary 相對方便 他是類似 array 的狀態，每一個值代表一個 byte，所以在十進位中其值為 0~25512var buff &#x3D; Buffer.from([1, 2, 3]);">
+<meta property="og:description" content="Terminal shortcutCLI shortcutmove   Keyboard sequence Action    Ctrl+b Move the cursor back one character.   Esc+b or Alt+b Move the cursor back one word.   Ctrl+f Move the cursor forward one characte">
 <meta property="og:locale" content="zh_TW">
-<meta property="article:published_time" content="2020-10-15T12:49:21.000Z">
-<meta property="article:modified_time" content="2021-07-10T06:46:18.503Z">
+<meta property="article:published_time" content="2021-08-29T02:02:43.000Z">
+<meta property="article:modified_time" content="2021-08-29T02:11:39.135Z">
 <meta property="article:author" content="Lin Yunwen">
 <meta property="article:tag" content="note">
-<meta property="article:tag" content="buffer">
-<meta property="article:tag" content="node">
+<meta property="article:tag" content="terminal">
+<meta property="article:tag" content="shortcut">
+<meta property="article:tag" content="cli">
 <meta name="twitter:card" content="summary">
 
 
-<link rel="canonical" href="https://linyunwen.github.io/2020/10/15/buffer-tostring/">
+<link rel="canonical" href="https://linyunwen.github.io/2021/08/29/terminal-shortcut-1/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-TW","comments":true,"permalink":"https://linyunwen.github.io/2020/10/15/buffer-tostring/","path":"2020/10/15/buffer-tostring/","title":"Buffer to string"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-TW","comments":true,"permalink":"https://linyunwen.github.io/2021/08/29/terminal-shortcut-1/","path":"2021/08/29/terminal-shortcut-1/","title":"Terminal Shortcut"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>Buffer to string | Lin Yunwen's Blog</title>
+<title>Terminal Shortcut | Lin Yunwen's Blog</title>
   
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-H43D6184CW"></script>
   <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"G-H43D6184CW","only_pageview":false}</script>
@@ -124,7 +125,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Buffer-to-string"><span class="nav-number">1.</span> <span class="nav-text">Buffer to string</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Introduction"><span class="nav-number">1.1.</span> <span class="nav-text">Introduction</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#toString-NaN"><span class="nav-number">1.1.1.</span> <span class="nav-text">toString</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Reference"><span class="nav-number">1.2.</span> <span class="nav-text">Reference</span></a></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Terminal-shortcut"><span class="nav-number">1.</span> <span class="nav-text">Terminal shortcut</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#CLI-shortcut"><span class="nav-number">1.1.</span> <span class="nav-text">CLI shortcut</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#move"><span class="nav-number">1.1.1.</span> <span class="nav-text">move</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#delete"><span class="nav-number">1.1.2.</span> <span class="nav-text">delete</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#insert"><span class="nav-number">1.1.3.</span> <span class="nav-text">insert</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#history"><span class="nav-number">1.1.4.</span> <span class="nav-text">history</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#reference"><span class="nav-number">1.1.5.</span> <span class="nav-text">reference</span></a></li></ol></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -196,7 +197,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-TW">
-    <link itemprop="mainEntityOfPage" href="https://linyunwen.github.io/2020/10/15/buffer-tostring/">
+    <link itemprop="mainEntityOfPage" href="https://linyunwen.github.io/2021/08/29/terminal-shortcut-1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpg">
@@ -209,7 +210,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Buffer to string
+          Terminal Shortcut
         </h1>
 
         <div class="post-meta-container">
@@ -219,16 +220,10 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">發表於</span>
+      
 
-      <time title="創建時間：2020-10-15 20:49:21" itemprop="dateCreated datePublished" datetime="2020-10-15T20:49:21+08:00">2020-10-15</time>
+      <time title="創建時間：2021-08-29 10:02:43 / 修改時間：10:11:39" itemprop="dateCreated datePublished" datetime="2021-08-29T10:02:43+08:00">2021-08-29</time>
     </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">更新於</span>
-        <time title="修改時間：2021-07-10 14:46:18" itemprop="dateModified" datetime="2021-07-10T14:46:18+08:00">2021-07-10</time>
-      </span>
 
   
       </div>
@@ -245,7 +240,7 @@
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
-      <span>3 分鐘</span>
+      <span>2 分鐘</span>
     </span>
 </div>
 
@@ -256,65 +251,121 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <h1 id="Buffer-to-string"><a href="#Buffer-to-string" class="headerlink" title="Buffer to string"></a>Buffer to string</h1><h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><ul>
-<li>在 node 中網路傳輸、讀存取檔案經常是使用 buffer，但是在查看時都要經過轉換，文件上也沒有寫很清楚，所以才特別紀錄</li>
-<li>基本上 buffer 是處理 binary 相對方便</li>
-<li>他是類似 array 的狀態，每一個值代表一個 byte，所以在十進位中其值為 0~255<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> buff = Buffer.from([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]);</span><br><span class="line"><span class="keyword">var</span> buff = Buffer.from(<span class="string">&#x27;hello world&#x27;</span>, <span class="string">&#x27;utf8&#x27;</span>);</span><br></pre></td></tr></table></figure>
-<blockquote>
-<ul>
-<li><code>new Buffer(array)</code> is deprecated</li>
-<li>use <code>Buffer.from(array)</code> instead</li>
-</ul>
-</blockquote>
-<span id="more"></span>
-<h3 id="toString-NaN"><a href="#toString-NaN" class="headerlink" title="toString"></a>toString</h3></li>
-<li>基本上跟 c 語言很像， character 和數字是相關的，可以互相轉換</li>
-<li>可以利用 <code>.toString([encoding[, start[, end]]])</code> <ul>
-<li>預設 encoding 是 <code>utf8</code><table>
+        <h1 id="Terminal-shortcut"><a href="#Terminal-shortcut" class="headerlink" title="Terminal shortcut"></a>Terminal shortcut</h1><h2 id="CLI-shortcut"><a href="#CLI-shortcut" class="headerlink" title="CLI shortcut"></a>CLI shortcut</h2><h3 id="move"><a href="#move" class="headerlink" title="move"></a>move</h3><table>
 <thead>
 <tr>
-<th>Encoding</th>
-<th>Description</th>
+<th>Keyboard sequence</th>
+<th>Action</th>
 </tr>
 </thead>
 <tbody><tr>
-<td>‘ascii’</td>
-<td>for 7 bit ASCII data only. This encoding method is way fast, but is limited to the ascii character set. To convert a null character into 0x00, you should use ‘utf8’.</td>
+<td>Ctrl+b</td>
+<td>Move the cursor back one character.</td>
 </tr>
 <tr>
-<td>‘utf8’</td>
-<td>Multibyte encoded Unicode characters. It has become the dominant character encoding for the world wide web.</td>
+<td>Esc+b or Alt+b</td>
+<td>Move the cursor back one word.</td>
 </tr>
 <tr>
-<td>‘utf16le’</td>
-<td>2 or 4 bytes, little-endian encoded Unicode characters, surrogate pairs (U+10000 to U+10FFFF) are supported.</td>
+<td>Ctrl+f</td>
+<td>Move the cursor forward one character.</td>
 </tr>
 <tr>
-<td>‘ucs2’</td>
-<td>Alias of ‘utf16le’.</td>
+<td>Esc+f or Alt+f</td>
+<td>Move the cursor forward one word.</td>
 </tr>
 <tr>
-<td>‘base64’</td>
-<td>Base64 string encoding.</td>
+<td>Ctrl+a</td>
+<td>Move the cursor to the beginning of the command line.</td>
 </tr>
 <tr>
-<td>‘binary’</td>
-<td>Method of encoding raw binary data into strings by using only the first 8 bits of each character. This encoding method is deprecated.</td>
-</tr>
-<tr>
-<td>‘hex’</td>
-<td>This method is used to encode each byte as two hexadecimal characters.</td>
+<td>Ctrl+e</td>
+<td>Move the cursor to the end of the command line.</td>
 </tr>
 </tbody></table>
-</li>
-<li>start 是起始位置</li>
-<li>end 是終止位置<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> buf1 = Buffer.allocUnsafe(<span class="number">26</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; <span class="number">26</span>; i++) &#123;</span><br><span class="line">  <span class="comment">// 97 is the decimal ASCII value for &#x27;a&#x27;.</span></span><br><span class="line">  buf1[i] = i + <span class="number">97</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(buf1.toString(<span class="string">&#x27;utf8&#x27;</span>));</span><br><span class="line"><span class="comment">// Prints: abcdefghijklmnopqrstuvwxyz</span></span><br><span class="line"><span class="built_in">console</span>.log(buf1.toString(<span class="string">&#x27;utf8&#x27;</span>, <span class="number">0</span>, <span class="number">5</span>));</span><br><span class="line"><span class="comment">// Prints: abcde</span></span><br></pre></td></tr></table></figure>
-<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2></li>
-</ul>
-</li>
-<li><a target="_blank" rel="noopener" href="https://www.w3resource.com/node.js/nodejs-buffer.php">Using Buffers in Node.js</a></li>
-<li><a target="_blank" rel="noopener" href="https://nodejs.org/api/buffer.html">Buffer - Node.js v14.13.1 Documentation</a></li>
-<li><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/14551608/list-of-encodings-that-node-js-supports">List of encodings that Node.js supports</a></li>
+<span id="more"></span>
+<h3 id="delete"><a href="#delete" class="headerlink" title="delete"></a>delete</h3><table>
+<thead>
+<tr>
+<th>Keyboard sequence</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Ctrl+h, Delete, or Backspace</td>
+<td>Delete the character before the cursor.</td>
+</tr>
+<tr>
+<td>Ctrl+d</td>
+<td>Delete the character at the cursor.</td>
+</tr>
+<tr>
+<td>Ctrl+k</td>
+<td>Delete the all characters from the cursor to the end of the command line, and save it in the cut buffer.</td>
+</tr>
+<tr>
+<td>Ctrl+u or Ctrl+x</td>
+<td>Delete the all characters from the command line, and save it in the cut buffer.</td>
+</tr>
+<tr>
+<td>Ctrl+w, Esc+Backspace, or Alt+Backspace</td>
+<td>Delete the word before the cursor.</td>
+</tr>
+<tr>
+<td>Esc+d or Alt+d</td>
+<td>Delete the word after the cursor.</td>
+</tr>
+</tbody></table>
+<h3 id="insert"><a href="#insert" class="headerlink" title="insert"></a>insert</h3><table>
+<thead>
+<tr>
+<th>Keyboard sequence</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Ctrl+y</td>
+<td>Insert the most recently deleted text at the cursor.</td>
+</tr>
+</tbody></table>
+<h3 id="history"><a href="#history" class="headerlink" title="history"></a>history</h3><table>
+<thead>
+<tr>
+<th>Keyboard sequence</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Ctrl+l</td>
+<td>Redraw the current line.</td>
+</tr>
+<tr>
+<td>Ctrl+p, Esc-P, Up arrow</td>
+<td>Scroll backward through the list of recently executed commands.</td>
+</tr>
+<tr>
+<td>Ctrl+n, Esc-N, Down arrow</td>
+<td>Scroll forward through the list of recently executed commands.</td>
+</tr>
+<tr>
+<td>Ctrl+r</td>
+<td>Search the CLI history incrementally in reverse order for lines matching the search string.</td>
+</tr>
+<tr>
+<td>Esc+/ or Alt+/</td>
+<td>Search the CLI history for words for which the current word is a prefix.</td>
+</tr>
+<tr>
+<td>Esc+. or Alt+</td>
+<td>Scroll backward through the list of recently entered words in a command line.</td>
+</tr>
+<tr>
+<td>Esc+number sequence  or Alt+number sequence</td>
+<td>Specify the number of times to execute a keyboard sequence.</td>
+</tr>
+</tbody></table>
+<h3 id="reference"><a href="#reference" class="headerlink" title="reference"></a>reference</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://www.juniper.net/documentation/en_US/junos/topics/reference/general/junos-cli-keyboard-shortcuts.html">CLI Keyboard Shortcuts - TechLibrary - Juniper Networks</a></li>
 </ul>
 
     </div>
@@ -326,22 +377,20 @@
     <footer class="post-footer">
           <div class="post-tags">
               <a href="/tags/note/" rel="tag"># note</a>
-              <a href="/tags/buffer/" rel="tag"># buffer</a>
-              <a href="/tags/node/" rel="tag"># node</a>
+              <a href="/tags/terminal/" rel="tag"># terminal</a>
+              <a href="/tags/shortcut/" rel="tag"># shortcut</a>
+              <a href="/tags/cli/" rel="tag"># cli</a>
           </div>
 
         
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2020/10/14/virtual-box/" rel="prev" title="Virtual Box">
-                  <i class="fa fa-chevron-left"></i> Virtual Box
+                <a href="/2021/08/28/vim-shortcut/" rel="prev" title="Vim Shortcut">
+                  <i class="fa fa-chevron-left"></i> Vim Shortcut
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2020/10/16/linux-process-signal/" rel="next" title="Linux Process Signal">
-                  Linux Process Signal <i class="fa fa-chevron-right"></i>
-                </a>
             </div>
           </div>
     </footer>
