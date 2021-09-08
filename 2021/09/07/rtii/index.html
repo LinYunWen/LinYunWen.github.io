@@ -20,15 +20,15 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"linyunwen.github.io","root":"/","images":"/images","scheme":"Gemini","version":"8.6.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"disqus","storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"${hits} 找到 ${time} 個結果","hits":"找到 ${hits} 個結果"}}</script><script src="/js/config.js"></script>
-<meta name="description" content="RTTI Run-Time Type Information，也有人寫作 Run-Time Type Identification 代表著執行時期取得物件的型態資訊 在 C++ 中，可以使用定義於 type_info 的 typeid 來實作。">
+<meta name="description" content="RTTI Run-Time Type Information，也有人寫作 Run-Time Type Identification 代表著執行時期取得物件的型態資訊 在 C++ 中，可以使用定義於 type_info 的 typeid 來實作。 最單純的RTTI包括﹕ ●類別識別(class identification)──包括類別名稱或ID。   ●繼承關係(inheritance relat">
 <meta property="og:type" content="article">
 <meta property="og:title" content="RTII">
 <meta property="og:url" content="https://linyunwen.github.io/2021/09/07/rtii/index.html">
 <meta property="og:site_name" content="Lin Yunwen&#39;s Blog">
-<meta property="og:description" content="RTTI Run-Time Type Information，也有人寫作 Run-Time Type Identification 代表著執行時期取得物件的型態資訊 在 C++ 中，可以使用定義於 type_info 的 typeid 來實作。">
+<meta property="og:description" content="RTTI Run-Time Type Information，也有人寫作 Run-Time Type Identification 代表著執行時期取得物件的型態資訊 在 C++ 中，可以使用定義於 type_info 的 typeid 來實作。 最單純的RTTI包括﹕ ●類別識別(class identification)──包括類別名稱或ID。   ●繼承關係(inheritance relat">
 <meta property="og:locale" content="zh_TW">
 <meta property="article:published_time" content="2021-09-07T13:54:41.000Z">
-<meta property="article:modified_time" content="2021-09-07T13:55:37.781Z">
+<meta property="article:modified_time" content="2021-09-08T13:16:51.302Z">
 <meta property="article:author" content="Lin Yunwen">
 <meta property="article:tag" content="note, rtti, c&#x2F;c++, book section">
 <meta name="twitter:card" content="summary">
@@ -122,7 +122,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#RTTI"><span class="nav-number">1.</span> <span class="nav-text">RTTI</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#introduction"><span class="nav-number">1.1.</span> <span class="nav-text">introduction</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#dynamic-cast"><span class="nav-number">1.1.1.</span> <span class="nav-text">dynamic_cast</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#typeid"><span class="nav-number">1.1.2.</span> <span class="nav-text">typeid</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#reference"><span class="nav-number">1.2.</span> <span class="nav-text">reference</span></a></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#RTTI"><span class="nav-number">1.</span> <span class="nav-text">RTTI</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#introduction"><span class="nav-number">1.1.</span> <span class="nav-text">introduction</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#dynamic-cast"><span class="nav-number">1.1.1.</span> <span class="nav-text">dynamic_cast</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#typeid"><span class="nav-number">1.1.2.</span> <span class="nav-text">typeid</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#disadvantage"><span class="nav-number">1.2.</span> <span class="nav-text">disadvantage</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#RTTI%E7%9A%84%E5%B8%B8%E8%A6%8B%E7%9A%84%E4%BD%BF%E7%94%A8%E5%A0%B4%E5%90%88"><span class="nav-number">1.3.</span> <span class="nav-text">RTTI的常見的使用場合</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BE%8B%E5%A4%96%E8%99%95%E7%90%86"><span class="nav-number">1.3.1.</span> <span class="nav-text">例外處理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8B%95%E6%85%8B%E8%BD%89%E5%9E%8B%E6%85%8B"><span class="nav-number">1.3.2.</span> <span class="nav-text">動態轉型態</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A8%A1%E5%A1%8A%E6%95%B4%E5%90%88"><span class="nav-number">1.3.3.</span> <span class="nav-text">模塊整合</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B0%8D%E8%B1%A1I-O"><span class="nav-number">1.3.4.</span> <span class="nav-text">對象I&#x2F;O</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#RTTI%E5%BE%9E%E9%82%A3%E8%A3%8F%E4%BE%86%EF%B9%96"><span class="nav-number">1.4.</span> <span class="nav-text">RTTI從那裏來﹖</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#reference"><span class="nav-number">1.5.</span> <span class="nav-text">reference</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -217,10 +217,16 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">發表於</span>
-      
 
-      <time title="創建時間：2021-09-07 21:54:41 / 修改時間：21:55:37" itemprop="dateCreated datePublished" datetime="2021-09-07T21:54:41+08:00">2021-09-07</time>
+      <time title="創建時間：2021-09-07 21:54:41" itemprop="dateCreated datePublished" datetime="2021-09-07T21:54:41+08:00">2021-09-07</time>
     </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新於</span>
+        <time title="修改時間：2021-09-08 21:16:51" itemprop="dateModified" datetime="2021-09-08T21:16:51+08:00">2021-09-08</time>
+      </span>
 
   
       </div>
@@ -230,14 +236,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">文章字數：</span>
-      <span>762</span>
+      <span>2.8k</span>
     </span>
     <span class="post-meta-item" title="所需閱讀時間">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
-      <span>1 分鐘</span>
+      <span>5 分鐘</span>
     </span>
 </div>
 
@@ -251,15 +257,23 @@
         <h1 id="RTTI"><a href="#RTTI" class="headerlink" title="RTTI"></a>RTTI</h1><ul>
 <li>Run-Time Type Information，也有人寫作 Run-Time Type Identification</li>
 <li>代表著執行時期取得物件的型態資訊</li>
-<li>在 C++ 中，可以使用定義於 <code>type_info</code> 的 <code>typeid</code> 來實作。<span id="more"></span>
-<h2 id="introduction"><a href="#introduction" class="headerlink" title="introduction"></a>introduction</h2></li>
+<li>在 C++ 中，可以使用定義於 <code>type_info</code> 的 <code>typeid</code> 來實作。</li>
+<li>最單純的RTTI包括﹕</li>
+<li>●類別識別(class identification)──包括類別名稱或ID。</li>
+</ul>
+<ul>
+<li>●繼承關係(inheritance relationship)──支持執行時期的「往下變換型態」(downward casting)﹐亦即動態轉型態(dynamic casting) 。</li>
+<li>在對象數據庫存取上﹐還需要下述RTTI﹕</li>
+<li>●對象結構(object layout) ──包括屬性的型態、名稱及其位置（position或offset）。</li>
+<li>●成員函數表(table of functions)──包括函數的型態、名稱、及其參數型態等。</li>
+<li>其目的是協助對象的I/O 和永存(persistence) ﹐也提供偵錯訊息等。<h2 id="introduction"><a href="#introduction" class="headerlink" title="introduction"></a>introduction</h2></li>
+</ul>
+<ul>
 <li>typeid用於在執行時辨識型態訊息</li>
 <li>dynamic_cast具有執行時型態辨識和型態轉換匹配2個功能</li>
 <li>實現方法為每個型態對應一個const type_info型態物件，儲存了這個確切型態訊息。</li>
-<li>在C++標準標頭檔&lt;typeinfo&gt;中，type_info類多載了operator=()、operator!=()、name()等成員函式。</li>
-</ul>
-<h3 id="dynamic-cast"><a href="#dynamic-cast" class="headerlink" title="dynamic_cast"></a>dynamic_cast</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">dynamic_cast</span>&lt;dest&gt;(src);</span><br></pre></td></tr></table></figure>
-<ul>
+<li>在C++標準標頭檔&lt;typeinfo&gt;中，type_info類多載了operator=()、operator!=()、name()等成員函式。<span id="more"></span>
+<h3 id="dynamic-cast"><a href="#dynamic-cast" class="headerlink" title="dynamic_cast"></a>dynamic_cast</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">dynamic_cast</span>&lt;dest&gt;(src);</span><br></pre></td></tr></table></figure></li>
 <li>dest和src都必須為指標或者參照</li>
 <li>執行時src和dest所參照的物件，是相同型態，或者存在is-a關係（public繼承），則轉換成功，失敗返回NULL<ul>
 <li>dynamic_cast的「執行時型態的轉換匹配」，是通過維護一棵由type_info型態物件作為節點的型態繼承關係的樹，遍歷這棵繼承樹來確定一個待轉換的物件的型態和目標型態之間是否存在is-a關係。</li>
@@ -277,10 +291,53 @@
 </ul>
 </li>
 </ul>
+<h2 id="disadvantage"><a href="#disadvantage" class="headerlink" title="disadvantage"></a>disadvantage</h2><ul>
+<li>程序員可能會利用RTTI來支持其「複選」(multiple-selection)方法﹐而不使用虛擬函數(virtual function)方法。</li>
+<li>雖然這兩種方法皆能達到多型化(polymorphism) ﹐但使用複選方法﹐常導致違反著名的「開放╱封閉原則」(open/closed principle) 〔注2 〕。反之﹐使用虛擬函數方法則可合乎這個原則，<ul>
+<li>e.g.<br>        - Circle和Square皆是由Figure所衍生出來的子類別﹐它們各有自己的draw()函數。當C++ 提供了RTTI﹐就可寫個函數如下﹕  <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">drawing</span><span class="params">( Figure *p )</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>( <span class="built_in"><span class="keyword">typeid</span></span>(*p).<span class="built_in">name</span>() == <span class="string">&quot;Circle&quot;</span> )</span><br><span class="line">        ((Circle*)p)-&gt;<span class="built_in">draw</span>();</span><br><span class="line">    <span class="keyword">if</span>( <span class="built_in"><span class="keyword">typeid</span></span>(*p).<span class="built_in">name</span>() == <span class="string">&quot;Rectangle&quot;</span> )</span><br><span class="line">        ((Rectangle*)p)-&gt;<span class="built_in">draw</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>雖然drawing() 函數也具有多型性﹐但它與Figure類別體系的結構具有緊密的相關性。當Figure類別體系再衍生出子類別時﹐drawing() 函數的內容必須多加個if指令。因而違反了「開放╱封閉原則」</li>
+<li>程序員將draw()宣告爲虛擬函數﹐並寫drawing() 如下<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">drawing</span><span class="params">(Figure *p)</span> </span>&#123;</span><br><span class="line">    p-&gt;<span class="built_in">draw</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>如此﹐Figure類別體系能隨時衍生類別﹐而不必修正drawing() 函數。</li>
+<li>亦即﹐Figure體系有個穩定的接口(interface) ﹐drawing() 使用這接口﹐使得drawing() 函數也穩定﹐不會隨Figure類別體系的擴充而變動，這是封閉的一面</li>
+<li>而這穩定的接口並未限制Figure體系的成長﹐這是開放的一面。因而合乎「開放╱封閉」原則﹐軟件的結構會更具彈性﹐更易於隨環境而不斷成長。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="RTTI的常見的使用場合"><a href="#RTTI的常見的使用場合" class="headerlink" title="RTTI的常見的使用場合"></a>RTTI的常見的使用場合</h2><ul>
+<li>一般而言﹐RTTI的常見使用場合有四﹕例外處理(exceptions handling)、動態轉型態(dynamic casting) 、模塊整合、以及對象I/O 。<h3 id="例外處理"><a href="#例外處理" class="headerlink" title="例外處理"></a>例外處理</h3></li>
+<li>大家所熟悉的C++ 新功能﹕例外處理﹐其需要RTTI﹐如類別名稱等。</li>
+</ul>
+<h3 id="動態轉型態"><a href="#動態轉型態" class="headerlink" title="動態轉型態"></a>動態轉型態</h3><ul>
+<li>在類別體系(class hierarchy) 中﹐往下的型態轉換需要類別繼承的RTTI。</li>
+</ul>
+<h3 id="模塊整合"><a href="#模塊整合" class="headerlink" title="模塊整合"></a>模塊整合</h3><ul>
+<li>當某個程序模塊裏的對象欲跟另一程序模塊的對象溝通時﹐應如何得知對方的身分呢﹖知道其身分資料﹐才能呼叫其函數。</li>
+<li>一般的C++ 程序﹐常見的解決方法是──在原始程序中把對方對象之類別定義（即存在標頭檔裏）包含進來﹐在編譯時進行連結工作。</li>
+<li>然而﹐像目前流行的主從(Client-Server) 架構中﹐客戶端(client)的模塊對象﹐常需與主機端(server)的現成模塊對象溝通﹐它們必須在執行時溝通﹐但又常無法一再重新編譯。於是靠標頭文件來提供的類別定義資料﹐無助於執行時的溝通工作﹐只得依賴RTTI了。</li>
+</ul>
+<h3 id="對象I-O"><a href="#對象I-O" class="headerlink" title="對象I/O"></a>對象I/O</h3><ul>
+<li>C++ 程序常將其對象存入數據庫﹐未來可再讀取之。對象常內含其它小對象﹐因之在存入數據庫時﹐除了必須知道對象所屬的類別名稱﹐也必須知道各內含小對象之所屬類別﹐才能完整地將對象存進去。儲存時﹐也將這些RTTI資料連同對象內容一起存入數據庫中。未來﹐讀取對象時﹐可依據這些RTTI資料來分配內存空間給對象。</li>
+</ul>
+<h2 id="RTTI從那裏來﹖"><a href="#RTTI從那裏來﹖" class="headerlink" title="RTTI從那裏來﹖"></a>RTTI從那裏來﹖</h2><ul>
+<li>上述談到RTTI的用途﹐以及其副作用。這衆多爭論﹐使得RTTI的標準遲遲未呈現出來。也導致各C++ 開發環境提供者﹐依其環境所需而以各種方式來支持RTTI﹐且其支持RTTI的範圍也所不同。  目前常見的支持方式包括﹕<ul>
+<li>由類別庫提供RTTI──例如﹐Microsoft 公司的Visual C++環境。</li>
+<li>由C++ 編譯器(compiler)提供──例如﹐Borland C++ 4.5 版本。</li>
+</ul>
+<ul>
+<li>由原始程序產生器(code generator)提供──例如Bellvobr系統。</li>
+<li>由OO數據庫的特殊前置處理器(preprocessor)提供──例如Poet系統。</li>
+<li>由程序員自己加上去。</li>
+</ul>
+</li>
+</ul>
 <h2 id="reference"><a href="#reference" class="headerlink" title="reference"></a>reference</h2><ul>
 <li><a target="_blank" rel="noopener" href="https://openhome.cc/Gossip/CppGossip/RTTI.html">RTTI</a></li>
 <li><a target="_blank" rel="noopener" href="https://www.itread01.com/content/1547704114.html">c++中RTTI的觀念和使用 - IT閱讀</a></li>
 <li><a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E5%9F%B7%E8%A1%8C%E6%9C%9F%E5%9E%8B%E6%85%8B%E8%A8%8A%E6%81%AF">執行期型態訊息 - 維基百科，自由的百科全書</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.twblogs.net/a/5b820b532b71772165af5cce">C++ 的 RTTI 觀念和用途 - 台部落</a></li>
 </ul>
 
     </div>
@@ -335,14 +392,14 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>總字數：</span>
-    <span title="總字數">187k</span>
+    <span title="總字數">189k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>所需總閱讀時間 &asymp;</span>
-    <span title="所需總閱讀時間">5:39</span>
+    <span title="所需總閱讀時間">5:43</span>
   </span>
 </div>
 
