@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/linyunwen_icon/icon_32x32.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/linyunwen_icon/icon_32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/linyunwen_icon/icon_16x16.png">
+  <link rel="mask-icon" href="/images/linyunwen_icon/icon_32x32.png" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css" integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"linyunwen.github.io","root":"/","images":"/images","scheme":"Gemini","version":"8.6.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"disqus","storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"${hits} 找到 ${time} 個結果","hits":"找到 ${hits} 個結果"}}</script><script src="/js/config.js"></script>
+<meta name="description" content="C&#x2F;C++ 可變參數 va在這裏是variable-argument(可變參數)的意思  #include stdarg.h va_list 用来定义一个变量列表的指针类型.     introduction 除了有一個參數format固定以外，後面跟的參數的個數和類型是可變的   1int printf( const char* format，...);">
+<meta property="og:type" content="article">
+<meta property="og:title" content="可變參數">
+<meta property="og:url" content="https://linyunwen.github.io/2021/09/09/va/index.html">
+<meta property="og:site_name" content="Lin Yunwen&#39;s Blog">
+<meta property="og:description" content="C&#x2F;C++ 可變參數 va在這裏是variable-argument(可變參數)的意思  #include stdarg.h va_list 用来定义一个变量列表的指针类型.     introduction 除了有一個參數format固定以外，後面跟的參數的個數和類型是可變的   1int printf( const char* format，...);">
+<meta property="og:locale" content="zh_TW">
+<meta property="article:published_time" content="2021-09-09T13:04:26.000Z">
+<meta property="article:modified_time" content="2021-09-09T13:12:32.330Z">
+<meta property="article:author" content="Lin Yunwen">
+<meta property="article:tag" content="note">
+<meta property="article:tag" content="c&#x2F;c++">
+<meta property="article:tag" content="va_arg">
+<meta property="article:tag" content="va_start">
+<meta property="article:tag" content="va_end">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://linyunwen.github.io/2021/09/09/va/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-TW","comments":true,"permalink":"https://linyunwen.github.io/2021/09/09/va/","path":"2021/09/09/va/","title":"可變參數"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>可變參數 | Lin Yunwen's Blog</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-H43D6184CW"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"G-H43D6184CW","only_pageview":false}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Lin Yunwen's Blog</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">keep moving forward</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>標籤</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#C-C-%E5%8F%AF%E8%AE%8A%E5%8F%83%E6%95%B8"><span class="nav-number">1.</span> <span class="nav-text">C&#x2F;C++ 可變參數</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#introduction"><span class="nav-number">1.1.</span> <span class="nav-text">introduction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%A6%E4%BD%9C"><span class="nav-number">1.2.</span> <span class="nav-text">實作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#reference"><span class="nav-number">1.3.</span> <span class="nav-text">reference</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-overview">
+            <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Lin Yunwen"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Lin Yunwen</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">72</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">87</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/LinYunWen" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;LinYunWen" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:l40303k@gmail.com" title="E-Mail → mailto:l40303k@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="回到頂端">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://linyunwen.github.io/2021/09/09/va/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Lin Yunwen">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Lin Yunwen's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          可變參數
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">發表於</span>
+      
+
+      <time title="創建時間：2021-09-09 21:04:26 / 修改時間：21:12:32" itemprop="dateCreated datePublished" datetime="2021-09-09T21:04:26+08:00">2021-09-09</time>
+    </span>
+
+  
+      </div>
+      <div class="post-meta">
+    <span class="post-meta-item" title="文章字數">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">文章字數：</span>
+      <span>1.2k</span>
+    </span>
+    <span class="post-meta-item" title="所需閱讀時間">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+      <span>2 分鐘</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="C-C-可變參數"><a href="#C-C-可變參數" class="headerlink" title="C/C++ 可變參數"></a>C/C++ 可變參數</h1><ul>
+<li>va在這裏是<code>variable-argument(可變參數)</code>的意思<blockquote>
+<ul>
+<li><code>#include stdarg.h</code></li>
+<li>va_list 用来定义一个变量列表的指针类型.</li>
+</ul>
+</blockquote>
+</li>
+</ul>
+<h2 id="introduction"><a href="#introduction" class="headerlink" title="introduction"></a>introduction</h2><ul>
+<li><p>除了有一個參數format固定以外，後面跟的參數的個數和類型是可變的</p>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">int printf( const char* format，...);</span><br></pre></td></tr></table></figure>
+<span id="more"></span></li>
+<li><p>有下面幾個 function</p>
+<ul>
+<li><code>void va_start( va_list arg_ptr, prev_param );</code><ul>
+<li>的意思是将 listPointer 这个指针绑定到有 n 个变量的传入参数列表上.</li>
+</ul>
+</li>
+<li><code>void va_copy (va_list dest, va_list src)</code> <ul>
+<li>複製變量參數列表，初始化dest作為…的副本src(處於當前狀態)。</li>
+<li>調用的函數va_copy，還應調用va_end在dest在它返回之前。</li>
+</ul>
+</li>
+<li><code>type va_arg( va_list arg_ptr, type );</code>  <ul>
+<li>檢索下一個參數</li>
+<li>類型的對象va_list攜帶有關當前檢索狀態的信息可變參數列表。該對象應已通過對的初始調用進行了初始化。va_start或者va_copy並沒有與釋放va_end。</li>
+<li>要注意va_arg既不能確定檢索到的參數是否是傳遞給函數的最後一個參數(即使它是該列表末尾的元素)。該函數的設計方式應使得可以通過命名參數或已讀取的其他自變量的值以某種方式推斷參數的數量。</li>
+</ul>
+</li>
+<li><code>void va_end( va_list arg_ptr );</code><ul>
+<li>当函数调用结束的时候, 要记得使用 va_end 来清除 listPointer 指向的空间, 否则会发生内存泄漏问题.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>simple example</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">simple_va_fun</span><span class="params">(<span class="keyword">int</span> i, ...)</span> </span></span><br><span class="line"><span class="function"></span>&#123; </span><br><span class="line">	va_list arg_ptr; </span><br><span class="line">	<span class="keyword">int</span> j=<span class="number">0</span>; </span><br><span class="line">	</span><br><span class="line">	va_start(arg_ptr, i); </span><br><span class="line">	j=va_arg(arg_ptr, <span class="keyword">int</span>); </span><br><span class="line">	va_end(arg_ptr); </span><br><span class="line">	</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;%d %d\n&quot;</span>, i, j); </span><br><span class="line">	<span class="keyword">return</span>; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h2 id="實作"><a href="#實作" class="headerlink" title="實作"></a>實作</h2><ol>
+<li>首先在函數裏定義一個va_list型的變量，這裏是arg_ptr，這個變量是指向參數的指針。</li>
+<li>然後用va_start宏初始化變量arg_ptr，這個宏的第二個參數是第一個可變參數的前一個參數，是一個固定的參數。</li>
+<li>然後用va_arg返回可變的參數，並賦值給整數j。 va_arg的第二個參數是你要返回的參數的類型，這裏是int型。</li>
+<li>最後用va_end宏結束可變參數的獲取。然後你就可以在函數裏使用第二個參數了。如果函數有多個可變參數的，依次調用va_arg獲取各個參數。</li>
+</ol>
+<h2 id="reference"><a href="#reference" class="headerlink" title="reference"></a>reference</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://www.twblogs.net/a/5c291504bd9eee01611455f1">C語言中可變參數的用法——va_list、va_start、va_arg、va_end - 台部落</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/pengdonglin137/p/3345911.html">理解可变参数va_list、va_start、va_arg、va_end原理及使用方法 - 摩斯电码 - 博客园</a></li>
+<li><a target="_blank" rel="noopener" href="https://vimsky.com/zh-tw/examples/usage/c_stdarg_va_arg.html">C語言 va_arg用法及代碼示例 - 純淨天空</a></li>
+<li><a target="_blank" rel="noopener" href="https://vimsky.com/zh-tw/examples/usage/c_stdarg_va_copy.html">C語言 va_copy用法及代碼示例 - 純淨天空</a></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/note/" rel="tag"># note</a>
+              <a href="/tags/c-c/" rel="tag"># c/c++</a>
+              <a href="/tags/va-arg/" rel="tag"># va_arg</a>
+              <a href="/tags/va-start/" rel="tag"># va_start</a>
+              <a href="/tags/va-end/" rel="tag"># va_end</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/09/07/rtii/" rel="prev" title="RTII">
+                  <i class="fa fa-chevron-left"></i> RTII
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Lin Yunwen</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>總字數：</span>
+    <span title="總字數">190k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>所需總閱讀時間 &asymp;</span>
+    <span title="所需總閱讀時間">5:45</span>
+  </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>
