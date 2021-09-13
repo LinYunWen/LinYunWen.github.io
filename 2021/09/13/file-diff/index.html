@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/linyunwen_icon/icon_32x32.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/linyunwen_icon/icon_32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/linyunwen_icon/icon_16x16.png">
+  <link rel="mask-icon" href="/images/linyunwen_icon/icon_32x32.png" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css" integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"linyunwen.github.io","root":"/","images":"/images","scheme":"Gemini","version":"8.6.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"disqus","storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"${hits} 找到 ${time} 個結果","hits":"找到 ${hits} 個結果"}}</script><script src="/js/config.js"></script>
+<meta name="description" content="How to tell same-content files on Linuxmd5sum md5sum date1.txt date2.txt date3.txt md5sum date1.txt date2.txt date3.txt &gt; date.md5sum -c 的檢查用參數可以自動進行檔案的 MD5 校驗碼比對： md5sum -c date.md5sum">
+<meta property="og:type" content="article">
+<meta property="og:title" content="How to tell same-content files on Linux">
+<meta property="og:url" content="https://linyunwen.github.io/2021/09/13/file-diff/index.html">
+<meta property="og:site_name" content="Lin Yunwen&#39;s Blog">
+<meta property="og:description" content="How to tell same-content files on Linuxmd5sum md5sum date1.txt date2.txt date3.txt md5sum date1.txt date2.txt date3.txt &gt; date.md5sum -c 的檢查用參數可以自動進行檔案的 MD5 校驗碼比對： md5sum -c date.md5sum">
+<meta property="og:locale" content="zh_TW">
+<meta property="article:published_time" content="2021-09-13T14:38:39.000Z">
+<meta property="article:modified_time" content="2021-09-13T14:42:04.941Z">
+<meta property="article:author" content="Lin Yunwen">
+<meta property="article:tag" content="note">
+<meta property="article:tag" content="linux">
+<meta property="article:tag" content="file">
+<meta property="article:tag" content="diff">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://linyunwen.github.io/2021/09/13/file-diff/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-TW","comments":true,"permalink":"https://linyunwen.github.io/2021/09/13/file-diff/","path":"2021/09/13/file-diff/","title":"How to tell same-content files on Linux"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>How to tell same-content files on Linux | Lin Yunwen's Blog</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-H43D6184CW"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"G-H43D6184CW","only_pageview":false}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Lin Yunwen's Blog</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">keep moving forward</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>標籤</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#How-to-tell-same-content-files-on-Linux"><span class="nav-number">1.</span> <span class="nav-text">How to tell same-content files on Linux</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#md5sum"><span class="nav-number">1.1.</span> <span class="nav-text">md5sum</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#sha1sum"><span class="nav-number">1.2.</span> <span class="nav-text">sha1sum</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E5%8F%83%E6%95%B8"><span class="nav-number">1.2.1.</span> <span class="nav-text">常用參數</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#reference"><span class="nav-number">1.2.2.</span> <span class="nav-text">reference</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#cksum-check-sum"><span class="nav-number">1.3.</span> <span class="nav-text">cksum (check sum)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#reference-1"><span class="nav-number">1.3.1.</span> <span class="nav-text">reference</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#diff"><span class="nav-number">1.4.</span> <span class="nav-text">diff</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E5%8F%83%E6%95%B8-1"><span class="nav-number">1.4.1.</span> <span class="nav-text">常用參數</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#example"><span class="nav-number">1.4.2.</span> <span class="nav-text">example</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#reference-2"><span class="nav-number">1.4.3.</span> <span class="nav-text">reference</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#cmp"><span class="nav-number">1.5.</span> <span class="nav-text">cmp</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#reference-3"><span class="nav-number">1.6.</span> <span class="nav-text">reference</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-overview">
+            <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Lin Yunwen"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Lin Yunwen</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">74</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">90</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/LinYunWen" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;LinYunWen" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:l40303k@gmail.com" title="E-Mail → mailto:l40303k@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="回到頂端">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://linyunwen.github.io/2021/09/13/file-diff/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Lin Yunwen">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Lin Yunwen's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          How to tell same-content files on Linux
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">發表於</span>
+      
+
+      <time title="創建時間：2021-09-13 22:38:39 / 修改時間：22:42:04" itemprop="dateCreated datePublished" datetime="2021-09-13T22:38:39+08:00">2021-09-13</time>
+    </span>
+
+  
+      </div>
+      <div class="post-meta">
+    <span class="post-meta-item" title="文章字數">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">文章字數：</span>
+      <span>2.3k</span>
+    </span>
+    <span class="post-meta-item" title="所需閱讀時間">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+      <span>4 分鐘</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="How-to-tell-same-content-files-on-Linux"><a href="#How-to-tell-same-content-files-on-Linux" class="headerlink" title="How to tell same-content files on Linux"></a>How to tell same-content files on Linux</h1><h2 id="md5sum"><a href="#md5sum" class="headerlink" title="md5sum"></a>md5sum</h2><ul>
+<li><code>md5sum date1.txt date2.txt date3.txt</code></li>
+<li><code>md5sum date1.txt date2.txt date3.txt &gt; date.md5sum</code><ul>
+<li><code>-c</code> 的檢查用參數可以自動進行檔案的 MD5 校驗碼比對：</li>
+<li><code>md5sum -c date.md5sum</code><span id="more"></span>
+<h2 id="sha1sum"><a href="#sha1sum" class="headerlink" title="sha1sum"></a>sha1sum</h2><blockquote>
+<ul>
+<li>SHA1 hashes</li>
+</ul>
+</blockquote>
+</li>
+</ul>
+</li>
+<li>compute and check SHA1 message digest<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sha1sum date1.txt date2.txt date3.txt</span><br><span class="line">fb9249f09b589241e3556ff6b6fab5f80015ed5c  date1.txt</span><br><span class="line">40e691d0d06673c9d5bc31aececafac85a9011be  date2.txt</span><br><span class="line">a428582cace49024d5964bac8ab71d00b191b9fa  date3.txt</span><br></pre></td></tr></table></figure>
+<h3 id="常用參數"><a href="#常用參數" class="headerlink" title="常用參數"></a>常用參數</h3></li>
+<li>也可以使用 <code>-c</code> 參數：</li>
+<li>–quiet<ul>
+<li>don’t print OK for each successfully verified file</li>
+</ul>
+</li>
+<li>-b, –binary<ul>
+<li>read in binary mode</li>
+</ul>
+</li>
+<li>-t, –text<ul>
+<li>read in text mode (default)<h3 id="reference"><a href="#reference" class="headerlink" title="reference"></a>reference</h3></li>
+</ul>
+</li>
+<li><a target="_blank" rel="noopener" href="https://blog.gtwang.org/linux/generate-verify-check-files-md5-sha1-checksum-linux/">Linux 產生 MD5 與 SHA1 校驗碼 Checksum 使用教學，檢查檔案是否損毀 - G. T. Wang</a></li>
+<li><a target="_blank" rel="noopener" href="https://man7.org/linux/man-pages/man1/sha1sum.1.html">sha1sum(1) - Linux manual page</a></li>
+</ul>
+<h2 id="cksum-check-sum"><a href="#cksum-check-sum" class="headerlink" title="cksum (check sum)"></a>cksum (check sum)</h2><ul>
+<li>Linux cksum命令用于检查文件的CRC是否正确。确保文件从一个系统传输到另一个系统的过程中不被损坏。</li>
+<li>CRC是一种排错检查方式，该校验法的标准由CCITT所指定，至少可检测到99.998%的已知错误。</li>
+<li><code>cksum [--help][--version][文件...]</code><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ cksum *.html</span><br><span class="line">2819078353 228029 backup.html</span><br><span class="line">4073570409 227985 home.html</span><br><span class="line">4073570409 227985 index.html</span><br></pre></td></tr></table></figure>
+<h3 id="reference-1"><a href="#reference-1" class="headerlink" title="reference"></a>reference</h3></li>
+<li><a target="_blank" rel="noopener" href="https://www.runoob.com/linux/linux-comm-cksum.html">Linux cksum命令 | 菜鸟教程</a></li>
+</ul>
+<h2 id="diff"><a href="#diff" class="headerlink" title="diff"></a>diff</h2><ul>
+<li>diff命令能比較單個文件或者目錄內容。</li>
+<li>如果指定比較的是文件，則只有當輸入為文本文件時才有效。</li>
+<li>如果指定比較的是目錄的的時候，diff 命令會比較兩個目錄下名字相同的文本文件。</li>
+<li>以逐行的方式，比較文本文件的異同處。</li>
+<li>列出不同的二進制文件、公共子目錄和只在一個目錄出現的文件。<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">diff [-abBcdefHilnNpPqrstTuvwy][-&lt;行数&gt;][-C &lt;行数&gt;][-D &lt;巨集名称&gt;][-I &lt;字符或字符串&gt;][-S &lt;文件&gt;][-W &lt;宽度&gt;][-x &lt;文件或目录&gt;][-X &lt;文件&gt;][--help][--left-column][--suppress-common-line][文件或目录1][文件或目录2]</span><br></pre></td></tr></table></figure>
+<h3 id="常用參數-1"><a href="#常用參數-1" class="headerlink" title="常用參數"></a>常用參數</h3></li>
+<li>  -b或–ignore-space-change 　不检查空格字符的不同。</li>
+<li>  -B或–ignore-blank-lines 　不检查空白行。</li>
+<li>  -c 　显示全部内文，并标出不同之处。</li>
+<li>  -H或–speed-large-files 　比较大文件时，可加快速度。</li>
+<li>  -i或–ignore-case 　不检查大小写的不同。</li>
+<li>  -p 　若比较的文件为C语言的程序码文件时，显示差异所在的函数名称。</li>
+<li>  -q或–brief 　仅显示有无差异，不显示详细的信息。</li>
+<li>  -r或–recursive 　比较子目录中的文件。</li>
+<li>  -w或–ignore-all-space 　忽略全部的空格字符。</li>
+<li>  -x&lt;文件名或目录&gt;或–exclude&lt;文件名或目录&gt; 　不比较选项中所指定的文件或目录。</li>
+<li>  -y或–side-by-side 　以并列的方式显示文件的异同之处。</li>
+</ul>
+<h3 id="example"><a href="#example" class="headerlink" title="example"></a>example</h3><blockquote>
+<p>The &lt; and &gt; signs indicate whether the extra lines are in the first (&lt;) or second (&gt;) file provided as arguments</p>
+</blockquote>
+<ul>
+<li>比较两个文件<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">$ diff log2014.log log2013.log</span><br><span class="line">3c3</span><br><span class="line">&lt; 2014-03</span><br><span class="line">---</span><br><span class="line">&gt; 2013-03</span><br><span class="line">8c8</span><br><span class="line">&lt; 2013-07</span><br><span class="line">---</span><br><span class="line">&gt; 2013-08</span><br><span class="line">11,12d10</span><br><span class="line">&lt; 2013-11</span><br><span class="line">&lt; 2013-12</span><br></pre></td></tr></table></figure></li>
+<li>并排格式输出<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost test3]# diff log2014.log log2013.log  -y -W 50</span><br><span class="line">2013-01                 2013-01</span><br><span class="line">2013-02                 2013-02</span><br><span class="line">2014-03               | 2013-03</span><br><span class="line">2013-04                 2013-04</span><br><span class="line">2013-05                 2013-05</span><br><span class="line">2013-06                 2013-06</span><br><span class="line">2013-07                 2013-07</span><br><span class="line">2013-07               | 2013-08</span><br><span class="line">2013-09                 2013-09</span><br><span class="line">2013-10                 2013-10</span><br><span class="line">2013-11               &lt;</span><br><span class="line">2013-12               &lt;</span><br></pre></td></tr></table></figure>
+<h3 id="reference-2"><a href="#reference-2" class="headerlink" title="reference"></a>reference</h3></li>
+<li><a target="_blank" rel="noopener" href="http://www.happystreet.com.tw/index.php/system-dynamic-teaching/unix-linux/405-a-day-of-school-a-unix-command-diff">快樂街學堂 - 一天學一個UNIX指令：diff</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.runoob.com/linux/linux-comm-diff.html">Linux diff 命令 | 菜鸟教程</a><h2 id="cmp"><a href="#cmp" class="headerlink" title="cmp"></a>cmp</h2></li>
+<li>比較兩個檔案的內容並報告不同的第一個字元。</li>
+<li><code>cmp --silent $old $new</code></li>
+</ul>
+<h2 id="reference-3"><a href="#reference-3" class="headerlink" title="reference"></a>reference</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://www.baeldung.com/linux/fastest-check-files-same-content">Fastest Method to Check If Two Files Have the Same Contents | Baeldung on Linux</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.networkworld.com/article/3390204/how-to-identify-same-content-files-on-linux.html">How to identify same-content files on Linux | Network World</a></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/note/" rel="tag"># note</a>
+              <a href="/tags/linux/" rel="tag"># linux</a>
+              <a href="/tags/file/" rel="tag"># file</a>
+              <a href="/tags/diff/" rel="tag"># diff</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/09/12/mac-check-ssd/" rel="prev" title="Mac Check SSD">
+                  <i class="fa fa-chevron-left"></i> Mac Check SSD
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Lin Yunwen</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>總字數：</span>
+    <span title="總字數">195k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>所需總閱讀時間 &asymp;</span>
+    <span title="所需總閱讀時間">5:54</span>
+  </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>
