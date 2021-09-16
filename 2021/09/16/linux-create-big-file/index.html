@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/linyunwen_icon/icon_32x32.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/linyunwen_icon/icon_32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/linyunwen_icon/icon_16x16.png">
+  <link rel="mask-icon" href="/images/linyunwen_icon/icon_32x32.png" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css" integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"linyunwen.github.io","root":"/","images":"/images","scheme":"Gemini","version":"8.6.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"disqus","storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"${hits} 找到 ${time} 個結果","hits":"找到 ${hits} 個結果"}}</script><script src="/js/config.js"></script>
+<meta name="description" content="Create a big file in Linuxfallocate Preallocate space to a file.123fallocate [-c|-p|-z] [-o offset] -l length [-n] filenamefallocate -d [-o offset] [-l length] filenamefallocate -x [-o offset] -l leng">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Create a big file in Linux">
+<meta property="og:url" content="https://linyunwen.github.io/2021/09/16/linux-create-big-file/index.html">
+<meta property="og:site_name" content="Lin Yunwen&#39;s Blog">
+<meta property="og:description" content="Create a big file in Linuxfallocate Preallocate space to a file.123fallocate [-c|-p|-z] [-o offset] -l length [-n] filenamefallocate -d [-o offset] [-l length] filenamefallocate -x [-o offset] -l leng">
+<meta property="og:locale" content="zh_TW">
+<meta property="article:published_time" content="2021-09-16T13:49:45.000Z">
+<meta property="article:modified_time" content="2021-09-16T13:50:27.223Z">
+<meta property="article:author" content="Lin Yunwen">
+<meta property="article:tag" content="note">
+<meta property="article:tag" content="linux">
+<meta property="article:tag" content="book section">
+<meta property="article:tag" content="big file">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://linyunwen.github.io/2021/09/16/linux-create-big-file/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-TW","comments":true,"permalink":"https://linyunwen.github.io/2021/09/16/linux-create-big-file/","path":"2021/09/16/linux-create-big-file/","title":"Create a big file in Linux"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Create a big file in Linux | Lin Yunwen's Blog</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-H43D6184CW"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"G-H43D6184CW","only_pageview":false}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Lin Yunwen's Blog</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">keep moving forward</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>標籤</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Create-a-big-file-in-Linux"><span class="nav-number">1.</span> <span class="nav-text">Create a big file in Linux</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#fallocate"><span class="nav-number">1.1.</span> <span class="nav-text">fallocate</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%83%E6%95%B8"><span class="nav-number">1.1.1.</span> <span class="nav-text">參數</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#reference"><span class="nav-number">1.1.2.</span> <span class="nav-text">reference</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#dd"><span class="nav-number">1.2.</span> <span class="nav-text">dd</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%83%E6%95%B8-1"><span class="nav-number">1.2.1.</span> <span class="nav-text">參數</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#reference-1"><span class="nav-number">1.2.2.</span> <span class="nav-text">reference</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#truncate"><span class="nav-number">1.3.</span> <span class="nav-text">truncate</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%83%E6%95%B8-2"><span class="nav-number">1.3.1.</span> <span class="nav-text">參數</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#reference-2"><span class="nav-number">1.3.2.</span> <span class="nav-text">reference</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#dd-vs-fallocate"><span class="nav-number">1.4.</span> <span class="nav-text">dd vs fallocate</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#reference-3"><span class="nav-number">1.5.</span> <span class="nav-text">reference</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-overview">
+            <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Lin Yunwen"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Lin Yunwen</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">75</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">91</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/LinYunWen" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;LinYunWen" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:l40303k@gmail.com" title="E-Mail → mailto:l40303k@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="回到頂端">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://linyunwen.github.io/2021/09/16/linux-create-big-file/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Lin Yunwen">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Lin Yunwen's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Create a big file in Linux
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">發表於</span>
+      
+
+      <time title="創建時間：2021-09-16 21:49:45 / 修改時間：21:50:27" itemprop="dateCreated datePublished" datetime="2021-09-16T21:49:45+08:00">2021-09-16</time>
+    </span>
+
+  
+      </div>
+      <div class="post-meta">
+    <span class="post-meta-item" title="文章字數">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">文章字數：</span>
+      <span>2.6k</span>
+    </span>
+    <span class="post-meta-item" title="所需閱讀時間">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+      <span>5 分鐘</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="Create-a-big-file-in-Linux"><a href="#Create-a-big-file-in-Linux" class="headerlink" title="Create a big file in Linux"></a>Create a big file in Linux</h1><h2 id="fallocate"><a href="#fallocate" class="headerlink" title="fallocate"></a>fallocate</h2><ul>
+<li>Preallocate space to a file.<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">fallocate [-c|-p|-z] [-o offset] -l length [-n] filename</span><br><span class="line">fallocate -d [-o offset] [-l length] filename</span><br><span class="line">fallocate -x [-o offset] -l length filename</span><br></pre></td></tr></table></figure>
+<span id="more"></span></li>
+<li>e.g.<ul>
+<li><code>fallocate -l 1G test.img</code></li>
+<li><code>fallocate -l 100M file.out</code><h3 id="參數"><a href="#參數" class="headerlink" title="參數"></a>參數</h3></li>
+</ul>
+</li>
+<li>The -l option specifies the length of the allocation, in bytes.<ul>
+<li>Suffixes of k, m, g, t, p, e may be specified to denote KiB, MiB, GiB, etc.</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>-n, –keep-size     don’t modify the length of the file</li>
+<li>-p, –punch-hole    punch holes in the file</li>
+<li>-o, –offset &lt;num&gt;  offset of the allocation, in bytes</li>
+<li>-l, –length &lt;num&gt;  length of the allocation, in bytes</li>
+</ul>
+<h3 id="reference"><a href="#reference" class="headerlink" title="reference"></a>reference</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://man7.org/linux/man-pages/man1/fallocate.1.html">fallocate(1) - Linux manual page</a></li>
+<li><a target="_blank" rel="noopener" href="https://ephrain.net/linux-%E4%BD%BF%E7%94%A8-fallocate-%E6%8C%87%E4%BB%A4%E5%BF%AB%E9%80%9F%E5%BB%BA%E7%AB%8B%E6%8C%87%E5%AE%9A%E5%A4%A7%E5%B0%8F%E7%9A%84%E6%AA%94%E6%A1%88/">[Linux] 使用 fallocate 指令快速建立指定大小的檔案 | EPH 的程式日記</a></li>
+</ul>
+<h2 id="dd"><a href="#dd" class="headerlink" title="dd"></a>dd</h2><blockquote>
+<ul>
+<li><strong>Note</strong>: <ul>
+<li>dd only exists for older version of Linux and/or when fallocate command is not available.</li>
+<li>If possible use fallocate command only for creating binary images.</li>
+<li>dd command based method is considered as <strong>old and not recommended</strong>,</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<ul>
+<li>Convert and copy a file i.e. clone/create/overwrite images  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">dd if=/path/to/input of=/path/to/output [options]</span><br><span class="line">dd if=/dev/zero of=/path/to/output.img [options]</span><br><span class="line">dd if=/dev/zero of=YOUR-IMAGE-FILE-NAME-HERE bs=1 count=0 seek=Size-HERE</span><br></pre></td></tr></table></figure>
+<ul>
+<li>file of size count*bs bytes</li>
+</ul>
+</li>
+<li>e.g.<ul>
+<li><code>dd if=/dev/zero of=test.img bs=1024 count=0 seek=1024</code><ul>
+<li>create 1MB file (1024kb), enter:</li>
+<li>You will get an empty files (also known as “sparse file”) of arbitrary size</li>
+</ul>
+</li>
+<li><code>dd if=/dev/zero of=1g.img bs=1 count=0 seek=1G</code><h3 id="參數-1"><a href="#參數-1" class="headerlink" title="參數"></a>參數</h3></li>
+</ul>
+</li>
+<li>  <code>if=FILE</code>：指定輸入檔案名稱（input file）為 <code>FILE</code>。</li>
+<li>  <code>of=FILE</code>：指定輸出檔案名稱（output file）為 <code>FILE</code>。</li>
+<li>  <code>ibs=BYTES</code>：指定輸入區塊大小（input block size），一次讀取 <code>BYTES</code> 位元組的資料，預設為 512 位元組。</li>
+<li>  <code>obs=BYTES</code>：指定輸出區塊大小（output block size），一次寫入 <code>BYTES</code> 位元組的資料，預設為 512 位元組。</li>
+<li>  <code>bs=BYTES</code>：指定 block size，一次讀取與寫入 <code>BYTES</code> 位元組的資料，此選項會覆蓋 <code>ibs</code> 與 <code>obs</code> 的設定。</li>
+<li>  <code>cbs=BYTES</code>：一次轉換 <code>BYTES</code> 位元組的資料。</li>
+<li>  <code>count=N</code>：只處理 <code>N</code> 個輸入區塊，每個區塊的大小為 <code>ibs</code>。</li>
+<li>  <code>seek=N</code>：在輸出時跳過輸出檔案的前 <code>N</code> 個區塊，每個區塊的大小為 <code>obs</code>。</li>
+<li>  <code>skip=N</code>：在輸入時跳過輸入檔案的前 <code>N</code> 個區塊，每個區塊的大小為 <code>ibs</code>。</li>
+<li>  <code>conv=CONVS</code>：指定資料的轉換選項，如果一次要指定多種轉換，則以逗點分隔。</li>
+</ul>
+<h3 id="reference-1"><a href="#reference-1" class="headerlink" title="reference"></a>reference</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://blog.gtwang.org/linux/dd-command-examples/">dd 指令教學與實用範例，備份與回復資料的小工具 - G. T. Wang</a></li>
+</ul>
+<h2 id="truncate"><a href="#truncate" class="headerlink" title="truncate"></a>truncate</h2><ul>
+<li>shrink or extend the size of a file to the specified size<ul>
+<li>如果指定檔案不存在則建立。</li>
+<li>如果指定檔案超出指定大小則超出的資料將丟失。</li>
+<li>如果指定檔案小於指定大小則用 0 補足。</li>
+</ul>
+</li>
+<li>is likely the fastest</li>
+<li>it creates a “sparse file”.<ul>
+<li>Essentially, a sparse file is a section of disk that has a lot of the same data, and the underlying filesystem “cheats” by not really storing all of the data, but just “pretending” that it’s all there.</li>
+</ul>
+</li>
+<li>e.g.<ul>
+<li><code>truncate -s 10G gentoo_root.img</code><h3 id="參數-2"><a href="#參數-2" class="headerlink" title="參數"></a>參數</h3></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>-c, –no-create<ul>
+<li>do not create any files</li>
+</ul>
+</li>
+<li>-o, –io-blocks<ul>
+<li>treat SIZE as number of IO blocks instead of bytes</li>
+</ul>
+</li>
+<li>-r, –reference=RFILE<ul>
+<li>base size on RFILE</li>
+</ul>
+</li>
+<li>-s, –size=SIZE<ul>
+<li>set or adjust the file size by SIZE bytes<h3 id="reference-2"><a href="#reference-2" class="headerlink" title="reference"></a>reference</h3></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://iter01.com/106223.html">【Linux之truncate 命令用法】 | IT人</a></li>
+<li><a target="_blank" rel="noopener" href="https://man7.org/linux/man-pages/man1/truncate.1.html">truncate(1) - Linux manual page</a></li>
+</ul>
+<h2 id="dd-vs-fallocate"><a href="#dd-vs-fallocate" class="headerlink" title="dd vs fallocate"></a>dd vs fallocate</h2><ul>
+<li>dd is slow for this purpose</li>
+<li><code>fallocate</code>, which uses the desired space without having to actually writing to it</li>
+<li>dd is essentially a copy and that forces you to write every block of data (thus, initializing the file contents)</li>
+</ul>
+<h2 id="reference-3"><a href="#reference-3" class="headerlink" title="reference"></a>reference</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://www.cyberciti.biz/faq/howto-create-lage-files-with-dd-command/">Linux / UNIX: Create Large 1GB Binary Image File With dd Command - nixCraft</a></li>
+<li><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/257844/quickly-create-a-large-file-on-a-linux-system">Quickly create a large file on a Linux system - Stack Overflow</a></li>
+<li><a target="_blank" rel="noopener" href="https://skorks.com/2010/03/how-to-quickly-generate-a-large-file-on-the-command-line-with-linux/">How To Quickly Generate A Large File On The Command Line (With Linux) - Skorks</a></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/note/" rel="tag"># note</a>
+              <a href="/tags/linux/" rel="tag"># linux</a>
+              <a href="/tags/book-section/" rel="tag"># book section</a>
+              <a href="/tags/big-file/" rel="tag"># big file</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/09/13/file-diff/" rel="prev" title="How to tell same-content files on Linux">
+                  <i class="fa fa-chevron-left"></i> How to tell same-content files on Linux
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Lin Yunwen</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>總字數：</span>
+    <span title="總字數">197k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>所需總閱讀時間 &asymp;</span>
+    <span title="所需總閱讀時間">5:59</span>
+  </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>
