@@ -9,6 +9,13 @@
   </url>
   
   <url>
+    <loc>https://linyunwen.github.io/2021/09/19/c-c-printf/</loc>
+    
+    <lastmod>2021-09-19</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://linyunwen.github.io/2021/09/18/timedatectl/</loc>
     
     <lastmod>2021-09-18</lastmod>
@@ -1202,6 +1209,13 @@
   
   <url>
     <loc>https://linyunwen.github.io/tags/curl/</loc>
+    <lastmod>2021-09-19</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://linyunwen.github.io/tags/printf/</loc>
     <lastmod>2021-09-19</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>

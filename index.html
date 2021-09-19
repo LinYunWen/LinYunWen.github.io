@@ -133,14 +133,14 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">77</span>
+          <span class="site-state-item-count">78</span>
           <span class="site-state-item-name">文章</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">93</span>
+        <span class="site-state-item-count">94</span>
         <span class="site-state-item-name">標籤</span></a>
       </div>
   </nav>
@@ -187,6 +187,102 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://linyunwen.github.io/2021/09/19/c-c-printf/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Lin Yunwen">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Lin Yunwen's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2021/09/19/c-c-printf/" class="post-title-link" itemprop="url">c-c++-printf</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">發表於</span>
+      
+
+      <time title="創建時間：2021-09-19 21:13:42 / 修改時間：21:14:58" itemprop="dateCreated datePublished" datetime="2021-09-19T21:13:42+08:00">2021-09-19</time>
+    </span>
+
+  
+      </div>
+      <div class="post-meta">
+    <span class="post-meta-item" title="文章字數">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">文章字數：</span>
+      <span>2.6k</span>
+    </span>
+    <span class="post-meta-item" title="所需閱讀時間">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+      <span>5 分鐘</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="C-C-printf-系列"><a href="#C-C-printf-系列" class="headerlink" title="C/C++ printf 系列"></a>C/C++ printf 系列</h1><h2 id="sprintf"><a href="#sprintf" class="headerlink" title="sprintf"></a>sprintf</h2><blockquote>
+<ul>
+<li><code>#include &lt;stdio.h&gt;</code>, <code>#include &lt;cstdio&gt;</code></li>
+</ul>
+</blockquote>
+<ul>
+<li><code>int sprintf ( char * str, const char * format, ... );</code></li>
+<li>Write formatted data to string</li>
+<li>A terminating null character is automatically appended after the content.
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2021/09/19/c-c-printf/#more" rel="contents">
+                閱讀全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="https://linyunwen.github.io/2021/09/19/c-curl/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -212,7 +308,7 @@
       <span class="post-meta-item-text">發表於</span>
       
 
-      <time title="創建時間：2021-09-19 20:22:35 / 修改時間：20:24:42" itemprop="dateCreated datePublished" datetime="2021-09-19T20:22:35+08:00">2021-09-19</time>
+      <time title="創建時間：2021-09-19 20:22:35 / 修改時間：21:15:33" itemprop="dateCreated datePublished" datetime="2021-09-19T20:22:35+08:00">2021-09-19</time>
     </span>
 
   
@@ -244,84 +340,14 @@
           <h1 id="Curl-in-C-C"><a href="#Curl-in-C-C" class="headerlink" title="Curl in C/C++"></a>Curl in C/C++</h1><h2 id="編譯與安裝"><a href="#編譯與安裝" class="headerlink" title="編譯與安裝"></a>編譯與安裝</h2><ul>
 <li>編譯需要的原始檔可以在<a target="_blank" rel="noopener" href="https://curl.haxx.se/download.html">官網</a>下載。<ul>
 <li>依照<a target="_blank" rel="noopener" href="https://curl.haxx.se/docs/install.html">官網</a>指示<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">./configure</span><br><span class="line">make</span><br><span class="line">sudo make install</span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
-</li>
-</ul>
-<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><blockquote>
-<ul>
-<li>#include &lt;curl/curl.h&gt;</li>
-</ul>
-</blockquote>
-<ul>
-<li>使用流程大致是這樣：  <ul>
-<li><code>初始化&gt;設定&gt;執行&gt;關閉  </code></li>
-</ul>
-</li>
-<li>以 easy handle 來說，每個階段對應到的函式是  <ul>
-<li>(调用 curl_global_init() 初始化 libcurl)</li>
-</ul>
-<ul>
-<li>初始化：<code>curl_easy_init()</code>  </li>
-<li>設定：<code>curl_easy_setopt()</code>  </li>
-<li>執行：<code>curl_easy_perform()</code>  </li>
-<li>關閉：<code>curl_easy_cleanup()</code> (handler可以重複利用，全部使用完再清掉 handler 即可)</li>
-</ul>
-</li>
-<li>在設定中，有 3 個選項比較重要：  <ul>
-<li>CURLOPT_URL：要取得的 url 位址  </li>
-<li>CURLOPT_WRITEFUNCTION：將接收資料的程式(的函式指標)  </li>
-<li>CURLOPT_WRITEDATA：資料將存入的空間指標(也可以說是將傳入 write function 的最後一個參數的指標)<ul>
-<li>當程式執行完 <code>curl_easy_perform()</code> 後，我們就可以從 CURLOPT_WRITEDATA 所設定的指標中取得我們要從網路上取得的資料了。</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h3 id="e-g"><a href="#e-g" class="headerlink" title="e.g."></a>e.g.</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">curl = curl_easy_init();</span><br><span class="line"><span class="keyword">if</span> (curl) &#123;</span><br><span class="line">    fp = fopen(outfilename,<span class="string">&quot;wb&quot;</span>);</span><br><span class="line">    curl_easy_setopt(curl, CURLOPT_URL, url); <span class="comment">//設定網址</span></span><br><span class="line">    curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, write_data);</span><br><span class="line">    curl_easy_setopt(curl, CURLOPT_WRITEDATA, fp);</span><br><span class="line">    <span class="comment">//如果有錯誤的話會將錯誤寫在這邊的error buffer</span></span><br><span class="line">    curl_easy_setopt(curl, CURLOPT_ERRORBUFFER, error);</span><br><span class="line">    res = curl_easy_perform(curl);</span><br><span class="line">    curl_easy_cleanup(curl);</span><br><span class="line">    fclose(fp);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="CURLcode-curl-global-init-long-flags"><a href="#CURLcode-curl-global-init-long-flags" class="headerlink" title="CURLcode curl_global_init(long flags)"></a>CURLcode curl_global_init(long flags)</h3><ul>
-<li>这个函数只能用一次。(其实在调用curl_global_cleanup() 函数后仍然可再用)，如果这个函数在curl_easy_init函数调用时还没调用，它讲由libcurl库自动完成。</li>
-<li>參數<ul>
-<li> CURL_GLOBAL_ALL                  //初始化所有的可能的调用。</li>
-<li> CURL_GLOBAL_SSL                 //初始化支持 安全套接字层。</li>
-<li> CURL_GLOBAL_WIN32             //初始化win32套接字库。</li>
-<li> CURL_GLOBAL_NOTHING       //没有额外的初始化。</li>
-</ul>
-</li>
-</ul>
-<h3 id="CURL-curl-easy-init"><a href="#CURL-curl-easy-init" class="headerlink" title="CURL *curl_easy_init( )"></a>CURL *curl_easy_init( )</h3><ul>
-<li>用来初始化一个CURL的指针(有些像返回FILE类型的指针一样). 相应的在调用结束时要用curl_easy_cleanup 函数清理。一般curl_easy_init意味着一个会话的开始. 它的返回值一般都用在easy系列的函数中.</li>
-</ul>
-<h3 id="curl-easy-perform"><a href="#curl-easy-perform" class="headerlink" title="curl_easy_perform"></a>curl_easy_perform</h3><p><code>CURLcode curl_easy_perform(CURL *easy_handle);</code></p>
-<ul>
-<li>return<ul>
-<li><a target="_blank" rel="noopener" href="https://curl.se/libcurl/c/libcurl-errors.html#CURLEOK">CURLE_OK</a> (0) means everything was ok, non-zero means an error occurred as &lt;curl/curl.h&gt; defines - see <a target="_blank" rel="noopener" href="https://curl.se/libcurl/c/libcurl-errors.html">libcurl-errors</a>.</li>
-<li>If the <a target="_blank" rel="noopener" href="https://curl.se/libcurl/c/CURLOPT_ERRORBUFFER.html">CURLOPT_ERRORBUFFER</a> was set with <a target="_blank" rel="noopener" href="https://curl.se/libcurl/c/curl_easy_setopt.html">curl_easy_setopt</a> there will be a readable error message in the error buffer when non-zero is returned.</li>
-<li>CURLE_OK ： 任务完成一切都好；</li>
-</ul>
-<ul>
-<li>CURLE_UNSUPPORTED_PROTOCOL：不支持的协议，由URL的头部指定；</li>
-<li>CURLE_COULDNT_CONNECT：不能连接到remote 主机或者代理；</li>
-<li>CURLE_REMOTE_ACCESS_DENIED：访问被拒绝；</li>
-<li>CURLE_HTTP_RETURNED_ERROR：Http返回错误；</li>
-<li>CURLE_READ_ERROR：读本地文件错误；2</li>
-</ul>
-</li>
-<li>curl_easy_perform以阻塞方式执行整个请求。有关非阻塞行为，请参阅curl_multi_perform。<h4 id="reference"><a href="#reference" class="headerlink" title="reference"></a>reference</h4></li>
-<li><a target="_blank" rel="noopener" href="https://curl.se/libcurl/c/curl_easy_perform.html">libcurl - curl_easy_perform()</a></li>
-</ul>
-<h3 id="void-curl-easy-cleanup-CURL-handle"><a href="#void-curl-easy-cleanup-CURL-handle" class="headerlink" title="void curl_easy_cleanup(CURL *handle)"></a>void curl_easy_cleanup(CURL *handle)</h3><ul>
-<li>用来结束一个会话.与curl_easy_init配合着用. </li>
-<li>参数： CURL类型的指针.</li>
-</ul>
-<h2 id="reference-1"><a href="#reference-1" class="headerlink" title="reference"></a>reference</h2><ul>
-<li><a target="_blank" rel="noopener" href="https://vrabe.tw/blog/using-libcurl-in-c-or-cpp-in-linux/">在Linux用C/C++編寫使用libcurl的程式 | 鰭狀漏斗</a></li>
-<li><a target="_blank" rel="noopener" href="https://linux.die.net/man/3/curl_easy_perform">curl_easy_perform(3): Perform file transfer - Linux man page</a></li>
-<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/MOU_IT/article/details/96457666">Curl（C++）使用教程_蓬莱道人的博客-CSDN博客</a></li>
-</ul>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2021/09/19/c-curl/#more" rel="contents">
+                閱讀全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -1150,96 +1176,6 @@
 
 
 
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://linyunwen.github.io/2021/09/04/regex-search-chrome/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="Lin Yunwen">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Lin Yunwen's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2021/09/04/regex-search-chrome/" class="post-title-link" itemprop="url">Regex search on webpage in Chrome</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">發表於</span>
-      
-
-      <time title="創建時間：2021-09-04 09:25:30 / 修改時間：09:31:04" itemprop="dateCreated datePublished" datetime="2021-09-04T09:25:30+08:00">2021-09-04</time>
-    </span>
-
-  
-      </div>
-      <div class="post-meta">
-    <span class="post-meta-item" title="文章字數">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">文章字數：</span>
-      <span>617</span>
-    </span>
-    <span class="post-meta-item" title="所需閱讀時間">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
-      <span>1 分鐘</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="Regex-search-on-webpage-in-Chrome"><a href="#Regex-search-on-webpage-in-Chrome" class="headerlink" title="Regex search on webpage in Chrome"></a>Regex search on webpage in Chrome</h1><h2 id="Using-Javascript-to-match-regular-expressions"><a href="#Using-Javascript-to-match-regular-expressions" class="headerlink" title="Using Javascript to match regular expressions"></a>Using Javascript to match regular expressions</h2><ul>
-<li>in console log</li>
-<li><code>var p=/.*(regu).+?\ /gi; console.log( document.body.innerText.match(p) );</code>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2021/09/04/regex-search-chrome/#more" rel="contents">
-                閱讀全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
   <nav class="pagination">
     <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一頁"></i></a>
   </nav>
@@ -1265,14 +1201,14 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>總字數：</span>
-    <span title="總字數">202k</span>
+    <span title="總字數">204k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>所需總閱讀時間 &asymp;</span>
-    <span title="所需總閱讀時間">6:07</span>
+    <span title="所需總閱讀時間">6:12</span>
   </span>
 </div>
 
