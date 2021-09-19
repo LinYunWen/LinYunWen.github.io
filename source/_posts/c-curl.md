@@ -14,7 +14,7 @@ tags: [note, c/c++, book section, curl]
     make
     sudo make install
     ```
-
+<!--more-->
 ## 使用
 > - #include <curl/curl.h>
 - 使用流程大致是這樣：  
