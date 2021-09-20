@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/linyunwen_icon/icon_32x32.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/linyunwen_icon/icon_32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/linyunwen_icon/icon_16x16.png">
+  <link rel="mask-icon" href="/images/linyunwen_icon/icon_32x32.png" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css" integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"linyunwen.github.io","root":"/","images":"/images","scheme":"Gemini","version":"8.6.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"disqus","storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"${hits} 找到 ${time} 個結果","hits":"找到 ${hits} 個結果"}}</script><script src="/js/config.js"></script>
+<meta name="description" content="SNMP (Simple Network Management Protocol) 簡單網路管理協定(Simple Network Management Protocol; SNMP) 是由IETF (Internet Engineering Task Force)所定義，用以管理網路設備之通訊協定 SNMP 是用於管理和監視網路元素的廣泛接受的通訊協定之一 使用SNMP管理的網路主要由3個元件所">
+<meta property="og:type" content="article">
+<meta property="og:title" content="snmp">
+<meta property="og:url" content="https://linyunwen.github.io/2021/09/20/snmp/index.html">
+<meta property="og:site_name" content="Lin Yunwen&#39;s Blog">
+<meta property="og:description" content="SNMP (Simple Network Management Protocol) 簡單網路管理協定(Simple Network Management Protocol; SNMP) 是由IETF (Internet Engineering Task Force)所定義，用以管理網路設備之通訊協定 SNMP 是用於管理和監視網路元素的廣泛接受的通訊協定之一 使用SNMP管理的網路主要由3個元件所">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://i.imgur.com/dX1MMsK.png">
+<meta property="og:image" content="https://www.manageengine.com/tw/network-monitoring/images/snmp-get-response.gif">
+<meta property="og:image" content="https://www.manageengine.com/tw/network-monitoring/images/snmp-trap.gif">
+<meta property="og:image" content="https://www.manageengine.com/tw/network-monitoring/images/snmp-inform-acknowledgment.gif">
+<meta property="article:published_time" content="2021-09-20T06:14:05.000Z">
+<meta property="article:modified_time" content="2021-09-20T06:14:47.900Z">
+<meta property="article:author" content="Lin Yunwen">
+<meta property="article:tag" content="note">
+<meta property="article:tag" content="snmp">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.imgur.com/dX1MMsK.png">
+
+
+<link rel="canonical" href="https://linyunwen.github.io/2021/09/20/snmp/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-TW","comments":true,"permalink":"https://linyunwen.github.io/2021/09/20/snmp/","path":"2021/09/20/snmp/","title":"snmp"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>snmp | Lin Yunwen's Blog</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-H43D6184CW"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"G-H43D6184CW","only_pageview":false}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Lin Yunwen's Blog</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">keep moving forward</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>標籤</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#SNMP-Simple-Network-Management-Protocol"><span class="nav-number">1.</span> <span class="nav-text">SNMP (Simple Network Management Protocol)</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#SNMP-Agent"><span class="nav-number">1.1.</span> <span class="nav-text">SNMP Agent</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SNMP-%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4"><span class="nav-number">1.2.</span> <span class="nav-text">SNMP 的基本命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SNMP%E5%8D%94%E5%AE%9A%E7%9A%84%E8%B3%87%E5%AE%89%E6%87%89%E7%94%A8"><span class="nav-number">1.3.</span> <span class="nav-text">SNMP協定的資安應用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#reference"><span class="nav-number">1.4.</span> <span class="nav-text">reference</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-overview">
+            <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Lin Yunwen"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Lin Yunwen</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">81</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">97</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/LinYunWen" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;LinYunWen" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:l40303k@gmail.com" title="E-Mail → mailto:l40303k@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="回到頂端">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://linyunwen.github.io/2021/09/20/snmp/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Lin Yunwen">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Lin Yunwen's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          snmp
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">發表於</span>
+      
+
+      <time title="創建時間：2021-09-20 14:14:05 / 修改時間：14:14:47" itemprop="dateCreated datePublished" datetime="2021-09-20T14:14:05+08:00">2021-09-20</time>
+    </span>
+
+  
+      </div>
+      <div class="post-meta">
+    <span class="post-meta-item" title="文章字數">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">文章字數：</span>
+      <span>1.7k</span>
+    </span>
+    <span class="post-meta-item" title="所需閱讀時間">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+      <span>3 分鐘</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="SNMP-Simple-Network-Management-Protocol"><a href="#SNMP-Simple-Network-Management-Protocol" class="headerlink" title="SNMP (Simple Network Management Protocol)"></a>SNMP (Simple Network Management Protocol)</h1><ul>
+<li>簡單網路管理協定(Simple Network Management Protocol; SNMP)</li>
+<li>是由IETF (Internet Engineering Task Force)所定義，用以管理網路設備之通訊協定</li>
+<li>SNMP 是用於管理和監視網路元素的廣泛接受的通訊協定之一</li>
+<li>使用SNMP管理的網路主要由3個元件所組成：<ol>
+<li>網路管理系統(Network Management System)為安裝於管理端(Manager)的軟體，用以向代理者查詢被管理裝置的相關資訊。</li>
+<li>被管理裝置(Managed Device)是指網路中被監控的設備節點。</li>
+<li>代理者(Agent)為安裝於被管理裝置的軟體，負責監控及回傳被監控設備的相關資訊。<span id="more"></span>
+<h2 id="SNMP-Agent"><a href="#SNMP-Agent" class="headerlink" title="SNMP Agent"></a>SNMP Agent</h2></li>
+</ol>
+</li>
+<li>管理資訊庫 (MIB) 是用於管理網路元素的資訊的集合。MIB 包含由名稱物件識別碼（物件 ID 或 OID）標識的受控物件。</li>
+<li>是以變數方式呈現被管理裝置的相關資訊，每個變數皆有其唯一的物件識別碼(Object Identifier; OID)，而OID是以階層方式被描述於管理資訊庫(Management Information Base; MIB)<ul>
+<li>例如OID為1.3.6.1.4.1.9代表Cisco公司。</li>
+<li><img src="https://i.imgur.com/dX1MMsK.png"></li>
+</ul>
+</li>
+<li>SNMP是運作於OSI模型之應用層，管理端經由UDP傳送request至代理者(port 161)</li>
+<li>代理者透過來源埠傳送response至管理端。此外，當被監控設備發生異常事件時，例如cold start或link down，代理者可經由UDP主動傳送notification至管理端(port 162)<ul>
+<li>預設情況下，SNMP 使用連接埠 161、TRAP / INFORM 使用連接埠 162 進行通訊。</li>
+</ul>
+</li>
+<li>管理端一方面可經由Get、GetNext或GetBulk指令向代理者擷取被監控設備的相關資訊，另一方面亦可透過代理者經由Trap或Inform指令主動傳送資料。此外，管理端使用Set指令以達到系統管理之目的。</li>
+</ul>
+<h2 id="SNMP-的基本命令"><a href="#SNMP-的基本命令" class="headerlink" title="SNMP 的基本命令"></a>SNMP 的基本命令</h2><ul>
+<li>資訊交換的簡單性使得 SNMP 成為廣泛接受的通訊協定。主要原因是簡潔的命令集，以下為命令集清單：<ul>
+<li>  GET：GET 操作是管理器向受控裝置傳送的請求。執行該操作可從受控裝置擷取一個或多個值。</li>
+<li>  GET NEXT：此操作與 GET 相似。重要的區別是 GET NEXT 操作擷取 MIB 樹中下一個 OID 的值。</li>
+<li>  GET BULK：GETBULK 操作用於從大型 MIB 表格中擷取大量資料。</li>
+<li>  SET：管理員使用此操作修改或分配受控裝置的值。</li>
+<li>  TRAPS：與從 SNMP 管理器啟動的上述命令不同，TRAPS 由代理程式啟動。這是代理程式在發生事件時向 SNMP 管理器發出的訊號。</li>
+<li>  INFORM：該命令與代理程式啟動的 TRAP 類似，但 INFORM 包含 SNMP 管理器在接收訊息時的確認。</li>
+<li>  RESPONSE：此命令用於傳回由 SNMP 管理器執行的動作的值或訊號。</li>
+</ul>
+</li>
+<li>graph<ul>
+<li>GET/GET NEXT/GET BULK/SET<ul>
+<li><img src="https://www.manageengine.com/tw/network-monitoring/images/snmp-get-response.gif"></li>
+</ul>
+</li>
+<li>TRAP<ul>
+<li><img src="https://www.manageengine.com/tw/network-monitoring/images/snmp-trap.gif"></li>
+</ul>
+</li>
+<li>INFORM<ul>
+<li><img src="https://www.manageengine.com/tw/network-monitoring/images/snmp-inform-acknowledgment.gif"></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="SNMP協定的資安應用"><a href="#SNMP協定的資安應用" class="headerlink" title="SNMP協定的資安應用"></a>SNMP協定的資安應用</h2><blockquote>
+<ul>
+<li>惡意無線基地台(Rogue Acces Point)是指在網路管理員未知情且未予以授權之情況下，逕自將Acces Point (AP)私接於組織內部有線網路以提供或使用無線網路服務，因此惡意無線基地台對於企業組織來說，形成一個安全威脅的嚴重問題。<ul>
+<li>舉例而言，若有惡意無線基地台連結至公司內部網路，且該惡意無線基地台並無相關使用者認證設定，如同形成一個繞過安全管控機制而進入公司內部網路的節點，讓公司內部或外部鄰近該惡意無線基地台的人員得以於訊號範圍內任意存取公司內部網路資源。</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<ul>
+<li>無線網路控制器(Controller)可以經由簡單網路管理協定(SNMP)來輪詢(polling)無線基地台並經由回傳的物件識別碼(OID)來偵測惡意無線基地台的存在。一但發現惡意無線基地台存在，網路管理員可經由無線網路控制器一方面可以阻止正常用戶和惡意無線基地台建立連線，另一方面亦不會影響正常用戶和合法無線基地台之通訊行為，隔離過程可以持續至網路管理員將惡意無線基地台實際從網路中移除。</li>
+</ul>
+<h2 id="reference"><a href="#reference" class="headerlink" title="reference"></a>reference</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://www.cc.ntu.edu.tw/chinese/epaper/0047/20181220_4707.html">淺談簡單網路管理協定(SNMP)</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.manageengine.com/tw/network-monitoring/what-is-snmp.html">什麼是SNMP？| SNMP教程 - 基礎知識 - 監控 - 代理 - 管理</a></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/note/" rel="tag"># note</a>
+              <a href="/tags/snmp/" rel="tag"># snmp</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/09/20/aws/" rel="prev" title="aws">
+                  <i class="fa fa-chevron-left"></i> aws
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Lin Yunwen</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>總字數：</span>
+    <span title="總字數">207k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>所需總閱讀時間 &asymp;</span>
+    <span title="所需總閱讀時間">6:16</span>
+  </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>
