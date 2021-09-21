@@ -2,6 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://linyunwen.github.io/2021/09/21/five-times-coupon/</loc>
+    
+    <lastmod>2021-09-21</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://linyunwen.github.io/2021/09/21/windows-terminal/</loc>
+    
+    <lastmod>2021-09-21</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://linyunwen.github.io/2021/09/21/windows-update/</loc>
     
     <lastmod>2021-09-21</lastmod>
@@ -1307,6 +1321,13 @@
   
   <url>
     <loc>https://linyunwen.github.io/tags/update/</loc>
+    <lastmod>2021-09-21</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://linyunwen.github.io/tags/%E4%BA%94%E5%80%8D%E5%88%B8/</loc>
     <lastmod>2021-09-21</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
