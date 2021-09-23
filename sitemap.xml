@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://linyunwen.github.io/2021/09/23/c-c-file-sync/</loc>
+    
+    <lastmod>2021-09-23</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://linyunwen.github.io/2021/09/22/windows-wsl/</loc>
     
     <lastmod>2021-09-23</lastmod>
@@ -1342,6 +1349,13 @@
   
   <url>
     <loc>https://linyunwen.github.io/tags/wsl/</loc>
+    <lastmod>2021-09-23</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://linyunwen.github.io/tags/file-sync/</loc>
     <lastmod>2021-09-23</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
