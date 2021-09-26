@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/linyunwen_icon/icon_32x32.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/linyunwen_icon/icon_32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/linyunwen_icon/icon_16x16.png">
+  <link rel="mask-icon" href="/images/linyunwen_icon/icon_32x32.png" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css" integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"linyunwen.github.io","root":"/","images":"/images","scheme":"Gemini","version":"8.6.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"disqus","storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"${hits} 找到 ${time} 個結果","hits":"找到 ${hits} 個結果"}}</script><script src="/js/config.js"></script>
+<meta name="description" content="C&#x2F;C++ limits  在 c 中是 &lt;limits.h&gt; 在 c++ 中是 &lt;climits&gt;:::info1、32位编译系统中:long 占4字节 int 占4字节 long int 占4字节2、64位编译系统中:long 占8字节 int 占4字节 long int 占8字节3、32位和64位编译系统中long long int 在32位和64位编译系统中，都占8">
+<meta property="og:type" content="article">
+<meta property="og:title" content="c-c++-limit">
+<meta property="og:url" content="https://linyunwen.github.io/2021/09/26/c-c-limit/index.html">
+<meta property="og:site_name" content="Lin Yunwen&#39;s Blog">
+<meta property="og:description" content="C&#x2F;C++ limits  在 c 中是 &lt;limits.h&gt; 在 c++ 中是 &lt;climits&gt;:::info1、32位编译系统中:long 占4字节 int 占4字节 long int 占4字节2、64位编译系统中:long 占8字节 int 占4字节 long int 占8字节3、32位和64位编译系统中long long int 在32位和64位编译系统中，都占8">
+<meta property="og:locale" content="zh_TW">
+<meta property="article:published_time" content="2021-09-26T11:57:44.000Z">
+<meta property="article:modified_time" content="2021-09-26T12:00:34.096Z">
+<meta property="article:author" content="Lin Yunwen">
+<meta property="article:tag" content="note">
+<meta property="article:tag" content="c&#x2F;c++">
+<meta property="article:tag" content="book section">
+<meta property="article:tag" content="limits">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://linyunwen.github.io/2021/09/26/c-c-limit/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-TW","comments":true,"permalink":"https://linyunwen.github.io/2021/09/26/c-c-limit/","path":"2021/09/26/c-c-limit/","title":"c-c++-limit"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>c-c++-limit | Lin Yunwen's Blog</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-H43D6184CW"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"G-H43D6184CW","only_pageview":false}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Lin Yunwen's Blog</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">keep moving forward</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>標籤</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#C-C-limits"><span class="nav-number">1.</span> <span class="nav-text">C&#x2F;C++ limits</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#LONG-MAX"><span class="nav-number">1.1.</span> <span class="nav-text">LONG_MAX</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#reference"><span class="nav-number">1.2.</span> <span class="nav-text">reference</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-overview">
+            <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Lin Yunwen"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Lin Yunwen</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">89</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">105</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/LinYunWen" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;LinYunWen" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:l40303k@gmail.com" title="E-Mail → mailto:l40303k@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="回到頂端">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://linyunwen.github.io/2021/09/26/c-c-limit/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Lin Yunwen">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Lin Yunwen's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          c-c++-limit
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">發表於</span>
+      
+
+      <time title="創建時間：2021-09-26 19:57:44 / 修改時間：20:00:34" itemprop="dateCreated datePublished" datetime="2021-09-26T19:57:44+08:00">2021-09-26</time>
+    </span>
+
+  
+      </div>
+      <div class="post-meta">
+    <span class="post-meta-item" title="文章字數">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">文章字數：</span>
+      <span>1.9k</span>
+    </span>
+    <span class="post-meta-item" title="所需閱讀時間">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+      <span>3 分鐘</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="C-C-limits"><a href="#C-C-limits" class="headerlink" title="C/C++ limits"></a>C/C++ limits</h1><blockquote>
+<ul>
+<li>在 c 中是 &lt;limits.h&gt;</li>
+<li>在 c++ 中是 &lt;climits&gt;<br>:::info<br>1、32位编译系统中:<br>long 占4字节 int 占4字节 long int 占4字节<br>2、64位编译系统中:<br>long 占8字节 int 占4字节 long int 占8字节<br>3、32位和64位编译系统中<br>long long int 在32位和64位编译系统中，都占8字节<br>:::</li>
+</ul>
+</blockquote>
+<span id="more"></span>
+<h2 id="LONG-MAX"><a href="#LONG-MAX" class="headerlink" title="LONG_MAX"></a>LONG_MAX</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">/* Minimum and maximum values a `signed long int&#x27; can hold.</span><br><span class="line">   (Same as `int&#x27;).  */</span><br><span class="line">#ifndef __LONG_MAX__</span><br><span class="line">#define __LONG_MAX__ 2147483647L</span><br><span class="line">#endif</span><br><span class="line">#undef LONG_MIN</span><br><span class="line">#define LONG_MIN (-LONG_MAX-1)</span><br><span class="line">#undef LONG_MAX</span><br><span class="line">#define LONG_MAX __LONG_MAX__</span><br></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th>name</th>
+<th>expresses</th>
+<th>possible value*</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>CHAR_BIT</td>
+<td>Number of bits in a char object (byte)</td>
+<td>8 or greater*</td>
+</tr>
+<tr>
+<td>SCHAR_MIN</td>
+<td>Minimum value for an object of type signed char</td>
+<td>-127 (-27+1) or less*</td>
+</tr>
+<tr>
+<td>SCHAR_MAX</td>
+<td>Maximum value for an object of type signed char</td>
+<td>127 (27-1) or greater*</td>
+</tr>
+<tr>
+<td>UCHAR_MAX</td>
+<td>Maximum value for an object of type unsigned char</td>
+<td>255 (28-1) or greater*</td>
+</tr>
+<tr>
+<td>CHAR_MIN</td>
+<td>Minimum value for an object of type char</td>
+<td>either SCHAR_MIN or 0</td>
+</tr>
+<tr>
+<td>CHAR_MAX</td>
+<td>Maximum value for an object of type char</td>
+<td>either SCHAR_MAX or UCHAR_MAX</td>
+</tr>
+<tr>
+<td>MB_LEN_MAX</td>
+<td>Maximum number of bytes in a multibyte character, for any locale</td>
+<td>1 or greater*</td>
+</tr>
+<tr>
+<td>SHRT_MIN</td>
+<td>Minimum value for an object of type short int</td>
+<td>-32767 (-215+1) or less*</td>
+</tr>
+<tr>
+<td>SHRT_MAX</td>
+<td>Maximum value for an object of type short int</td>
+<td>32767 (215-1) or greater*</td>
+</tr>
+<tr>
+<td>USHRT_MAX</td>
+<td>Maximum value for an object of type unsigned short int</td>
+<td>65535 (216-1) or greater*</td>
+</tr>
+<tr>
+<td>INT_MIN</td>
+<td>Minimum value for an object of type int</td>
+<td>-32767 (-215+1) or less*</td>
+</tr>
+<tr>
+<td>INT_MAX</td>
+<td>Maximum value for an object of type int</td>
+<td>32767 (215-1) or greater*</td>
+</tr>
+<tr>
+<td>UINT_MAX</td>
+<td>Maximum value for an object of type unsigned int</td>
+<td>65535 (216-1) or greater*</td>
+</tr>
+<tr>
+<td>LONG_MIN</td>
+<td>Minimum value for an object of type long int</td>
+<td>-2147483647 (-231+1) or less*</td>
+</tr>
+<tr>
+<td>LONG_MAX</td>
+<td>Maximum value for an object of type long int</td>
+<td>2147483647 (231-1) or greater*</td>
+</tr>
+<tr>
+<td>ULONG_MAX</td>
+<td>Maximum value for an object of type unsigned long int</td>
+<td>4294967295 (232-1) or greater*</td>
+</tr>
+<tr>
+<td>LLONG_MIN</td>
+<td>Minimum value for an object of type long long int</td>
+<td>-9223372036854775807 (-263+1) or less*</td>
+</tr>
+<tr>
+<td>LLONG_MAX</td>
+<td>Maximum value for an object of type long long int</td>
+<td>9223372036854775807 (263-1) or greater*</td>
+</tr>
+<tr>
+<td>ULLONG_MAX</td>
+<td>Maximum value for an object of type unsigned long long int</td>
+<td>18446744073709551615 (264-1) or greater*</td>
+</tr>
+</tbody></table>
+<h2 id="reference"><a href="#reference" class="headerlink" title="reference"></a>reference</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/whatday/article/details/104084503">linux c 宏 LONG_MAX LLONG_MAX_whatday的专栏-CSDN博客</a></li>
+<li><a target="_blank" rel="noopener" href="http://zablog.me/2015/11/05/C++_size/">C++各类size极值基础定义 · Zablog</a></li>
+<li><a target="_blank" rel="noopener" href="https://opensource.apple.com/source/xnu/xnu-201/EXTERNAL_HEADERS/machine/limits.h.auto.html">limits.h</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.cplusplus.com/reference/climits/">&lt;climits&gt; (limits.h) - C++ Reference</a></li>
+<li><a target="_blank" rel="noopener" href="http://tw.gitbook.net/c_standard_library/limits_h.html">&lt;limits.h&gt; - C語言標準庫 - C語言標準庫</a></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/note/" rel="tag"># note</a>
+              <a href="/tags/c-c/" rel="tag"># c/c++</a>
+              <a href="/tags/book-section/" rel="tag"># book section</a>
+              <a href="/tags/limits/" rel="tag"># limits</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/09/23/c-c-file-sync/" rel="prev" title="c-c++-file-sync">
+                  <i class="fa fa-chevron-left"></i> c-c++-file-sync
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Lin Yunwen</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>總字數：</span>
+    <span title="總字數">217k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>所需總閱讀時間 &asymp;</span>
+    <span title="所需總閱讀時間">6:35</span>
+  </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>
