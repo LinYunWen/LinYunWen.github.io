@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/linyunwen_icon/icon_32x32.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/linyunwen_icon/icon_32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/linyunwen_icon/icon_16x16.png">
+  <link rel="mask-icon" href="/images/linyunwen_icon/icon_32x32.png" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css" integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"linyunwen.github.io","root":"/","images":"/images","scheme":"Gemini","version":"8.6.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"disqus","storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"${hits} 找到 ${time} 個結果","hits":"找到 ${hits} 個結果"}}</script><script src="/js/config.js"></script>
+<meta name="description" content="File Open 系列open  #include &lt;fcntl.h&gt;    open, openat, creat - open and possibly create a file12int open(const char *pathname, int flags);int open(const char *pathname, int flags, mode_t mode);">
+<meta property="og:type" content="article">
+<meta property="og:title" content="File Open 系列">
+<meta property="og:url" content="https://linyunwen.github.io/2021/10/02/c-c-open/index.html">
+<meta property="og:site_name" content="Lin Yunwen&#39;s Blog">
+<meta property="og:description" content="File Open 系列open  #include &lt;fcntl.h&gt;    open, openat, creat - open and possibly create a file12int open(const char *pathname, int flags);int open(const char *pathname, int flags, mode_t mode);">
+<meta property="og:locale" content="zh_TW">
+<meta property="article:published_time" content="2021-10-02T13:21:08.000Z">
+<meta property="article:modified_time" content="2021-10-02T13:26:58.702Z">
+<meta property="article:author" content="Lin Yunwen">
+<meta property="article:tag" content="note">
+<meta property="article:tag" content="c&#x2F;c++">
+<meta property="article:tag" content="book section">
+<meta property="article:tag" content="file">
+<meta property="article:tag" content="open">
+<meta property="article:tag" content="fopen">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://linyunwen.github.io/2021/10/02/c-c-open/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-TW","comments":true,"permalink":"https://linyunwen.github.io/2021/10/02/c-c-open/","path":"2021/10/02/c-c-open/","title":"File Open 系列"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>File Open 系列 | Lin Yunwen's Blog</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-H43D6184CW"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"G-H43D6184CW","only_pageview":false}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Lin Yunwen's Blog</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">keep moving forward</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>標籤</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#File-Open-%E7%B3%BB%E5%88%97"><span class="nav-number">1.</span> <span class="nav-text">File Open 系列</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#open"><span class="nav-number">1.1.</span> <span class="nav-text">open</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%83%E6%95%B8"><span class="nav-number">1.1.1.</span> <span class="nav-text">參數</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#return"><span class="nav-number">1.1.2.</span> <span class="nav-text">return</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#e-g"><span class="nav-number">1.1.3.</span> <span class="nav-text">e.g.</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#reference"><span class="nav-number">1.1.4.</span> <span class="nav-text">reference</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#fopen-fdopen-freopn"><span class="nav-number">1.2.</span> <span class="nav-text">fopen, fdopen, freopn</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%83%E6%95%B8-1"><span class="nav-number">1.2.1.</span> <span class="nav-text">參數</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#return-1"><span class="nav-number">1.2.2.</span> <span class="nav-text">return</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#e-g-1"><span class="nav-number">1.2.3.</span> <span class="nav-text">e.g.</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#note"><span class="nav-number">1.2.4.</span> <span class="nav-text">note</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#reference-1"><span class="nav-number">1.2.5.</span> <span class="nav-text">reference</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#flags-%E6%AF%94%E8%BC%83"><span class="nav-number">1.3.</span> <span class="nav-text">flags 比較</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#File-to-fd"><span class="nav-number">1.4.</span> <span class="nav-text">File* to fd</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#return-2"><span class="nav-number">1.4.1.</span> <span class="nav-text">return</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#reference-2"><span class="nav-number">1.4.2.</span> <span class="nav-text">reference</span></a></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-overview">
+            <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Lin Yunwen"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Lin Yunwen</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">91</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">108</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/LinYunWen" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;LinYunWen" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:l40303k@gmail.com" title="E-Mail → mailto:l40303k@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="回到頂端">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://linyunwen.github.io/2021/10/02/c-c-open/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Lin Yunwen">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Lin Yunwen's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          File Open 系列
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">發表於</span>
+      
+
+      <time title="創建時間：2021-10-02 21:21:08 / 修改時間：21:26:58" itemprop="dateCreated datePublished" datetime="2021-10-02T21:21:08+08:00">2021-10-02</time>
+    </span>
+
+  
+      </div>
+      <div class="post-meta">
+    <span class="post-meta-item" title="文章字數">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">文章字數：</span>
+      <span>4.7k</span>
+    </span>
+    <span class="post-meta-item" title="所需閱讀時間">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+      <span>9 分鐘</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="File-Open-系列"><a href="#File-Open-系列" class="headerlink" title="File Open 系列"></a>File Open 系列</h1><h2 id="open"><a href="#open" class="headerlink" title="open"></a>open</h2><blockquote>
+<ul>
+<li><code>#include &lt;fcntl.h&gt;</code></li>
+</ul>
+</blockquote>
+<ul>
+<li>open, openat, creat - open and possibly create a file<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">int open(const char *pathname, int flags);</span><br><span class="line">int open(const char *pathname, int flags, mode_t mode);</span><br></pre></td></tr></table></figure>
+<span id="more"></span>
+<h3 id="參數"><a href="#參數" class="headerlink" title="參數"></a>參數</h3></li>
+<li>flags<ul>
+<li>The argument flags must include one of the following access modes: O_RDONLY, O_WRONLY, or O_RDWR.  These request opening the file read-only, write-only, or read/write, respectively.<h3 id="return"><a href="#return" class="headerlink" title="return"></a>return</h3></li>
+</ul>
+</li>
+<li>On success, open(), openat(), and creat() return the new file descriptor (a nonnegative integer).</li>
+<li>On error, -1 is returned and errno is set to indicate the error.<ul>
+<li>EACCES<h3 id="e-g"><a href="#e-g" class="headerlink" title="e.g."></a>e.g.</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;stdio.h&gt;</span><br><span class="line">#include &lt;fcntl.h&gt;</span><br><span class="line">main()</span><br><span class="line">&#123;</span><br><span class="line">int sz;</span><br><span class="line"> </span><br><span class="line">int fd = open(&quot;foo.txt&quot;, O_WRONLY | O_CREAT | O_TRUNC, 0644);</span><br><span class="line">if (fd &lt; 0)</span><br><span class="line">&#123;</span><br><span class="line">    perror(&quot;r1&quot;);</span><br><span class="line">    exit(1);</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">sz = write(fd, &quot;hello geeks\n&quot;, strlen(&quot;hello geeks\n&quot;));</span><br><span class="line"> </span><br><span class="line">printf(&quot;called write(% d, \&quot;hello geeks\\n\&quot;, %d).&quot;</span><br><span class="line">    &quot; It returned %d\n&quot;, fd, strlen(&quot;hello geeks\n&quot;), sz);</span><br><span class="line"> </span><br><span class="line">close(fd);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">#define MAXLEN  1024</span><br><span class="line">int main(void)</span><br><span class="line">&#123; </span><br><span class="line">    int ret;</span><br><span class="line">   // char key[17];</span><br><span class="line">    char *p;</span><br><span class="line"></span><br><span class="line">    p = (char*)malloc(MAXLEN*(sizeof(char*)));	//申請一塊記憶體，存放讀取資料</span><br><span class="line">    memset(p,0,MAXLEN);</span><br><span class="line"></span><br><span class="line">    printf(&quot;請輸入一串字元：\n&quot;);</span><br><span class="line"></span><br><span class="line">    ret = read(0,p,MAXLEN);</span><br><span class="line"></span><br><span class="line">    printf(&quot;read 函式就可以直接從command line 讀取資料嗎？試一試read到沒！\n&quot;);</span><br><span class="line">    printf(&quot;下面為定義記憶體資料輸出。。。\n&quot;);</span><br><span class="line"></span><br><span class="line">    for(int i =0; p[i]!=&#x27;\n&#x27;;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        printf(&quot;key[%d] = %c\n&quot;,i,p[i]);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    printf(&quot;試一試write函式~~~\n&quot;);</span><br><span class="line">	for(int i =0; p[i] != &#x27;\n&#x27;;i++)</span><br><span class="line">	&#123;</span><br><span class="line">		ret = write(1,&amp;p[i],1);</span><br><span class="line">		printf(&quot;\n&quot;);</span><br><span class="line">		printf(&quot;寫入資料個數：ret = %d\n&quot;,ret);</span><br><span class="line">	&#125;</span><br><span class="line">	free(p);</span><br><span class="line">	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="reference"><a href="#reference" class="headerlink" title="reference"></a>reference</h3></li>
+</ul>
+</li>
+<li><a target="_blank" rel="noopener" href="https://man7.org/linux/man-pages/man2/open.2.html">open(2) - Linux manual page</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.itread01.com/content/1542382033.html">C語言read和write函式解析 - IT閱讀</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.geeksforgeeks.org/input-output-system-calls-c-create-open-close-read-write/">Input-output system calls in C | Create, Open, Close, Read, Write - GeeksforGeeks</a><h2 id="fopen-fdopen-freopn"><a href="#fopen-fdopen-freopn" class="headerlink" title="fopen, fdopen, freopn"></a>fopen, fdopen, freopn</h2><blockquote>
+<ul>
+<li><code>#include &lt;stdio.h&gt;</code></li>
+</ul>
+</blockquote>
+</li>
+<li> fopen, fdopen, freopen - stream open functions<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">FILE *fopen(const char *restrict pathname, const char *restrict mode);</span><br><span class="line">FILE *fdopen(int fd, const char *mode);</span><br><span class="line">FILE *freopen(const char *restrict pathname, const char *restrict mode, FILE *restrict stream);</span><br></pre></td></tr></table></figure>
+<h3 id="參數-1"><a href="#參數-1" class="headerlink" title="參數"></a>參數</h3></li>
+<li>mode<ul>
+<li>r <ul>
+<li>Open text file for reading.  The stream is positioned at the beginning of the file.</li>
+</ul>
+</li>
+<li>r+<ul>
+<li>Open for reading and writing.  The stream is positioned at the beginning of the file.</li>
+</ul>
+</li>
+<li>w<ul>
+<li>Truncate file to zero length or create text file for writing.  The stream is positioned at the beginning of the file.</li>
+</ul>
+</li>
+<li>w+<ul>
+<li>Open for reading and writing.  The file is created if it does not exist, otherwise it is truncated.  The stream is positioned at the beginning of the file.</li>
+</ul>
+</li>
+<li>a<ul>
+<li>Open for appending (writing at end of file).  The file is created if it does not exist.  The stream is positioned at the end of the file.</li>
+</ul>
+</li>
+<li>a+<ul>
+<li>Open for reading and appending (writing at end of file). The file is created if it does not exist.  Output is always appended to the end of the file.  POSIX is silent on what the initial read position is when using this mode. For glibc, the initial file position for reading is at the beginning of the file, but for Android/BSD/MacOS, the initial file position for reading is at the end of the file.<blockquote>
+<ul>
+<li>The mode string can also include the letter ‘b’ either as a last character or as a character between the characters in any of the two-character strings described above.  This is strictly for compatibility with C89 and has no effect; the ‘b’ is ignored on all POSIX conforming systems, including Linux.  (Other systems may treat text files and binary files differently, and adding the ‘b’ may be a good idea if you do I/O to a binary file and expect that your program may be ported to non-UNIX environments.)</li>
+</ul>
+</blockquote>
+<h3 id="return-1"><a href="#return-1" class="headerlink" title="return"></a>return</h3></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Upon successful completion fopen(), fdopen(), and freopen() return a FILE pointer.</li>
+<li>Otherwise, NULL is returned and errno is set to indicate the error.<ul>
+<li>EINVAL The mode provided to fopen(), fdopen(), or freopen() was invalid.</li>
+</ul>
+</li>
+</ul>
+<h3 id="e-g-1"><a href="#e-g-1" class="headerlink" title="e.g."></a>e.g.</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">   FILE * fp;</span><br><span class="line"></span><br><span class="line">   fp = fopen (&quot;file.txt&quot;, &quot;w+&quot;);</span><br><span class="line">   fprintf(fp, &quot;%s %s %s %d&quot;, &quot;We&quot;, &quot;are&quot;, &quot;in&quot;, 2012);</span><br><span class="line">   </span><br><span class="line">   fclose(fp);</span><br><span class="line">   </span><br><span class="line">   return(0);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="note"><a href="#note" class="headerlink" title="note"></a>note</h3><ul>
+<li>The C standard doesn’t mention anything about fopening directories.<blockquote>
+<p>The fopen() function will fail if:<br>[…]<br>[EISDIR] The named file is a directory and mode requires write access.</p>
+</blockquote>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/42876210/c-fopen-opening-directories">linux - c - fopen opening directories? - Stack Overflow</a><h3 id="reference-1"><a href="#reference-1" class="headerlink" title="reference"></a>reference</h3></li>
+</ul>
+</li>
+<li><a target="_blank" rel="noopener" href="https://man7.org/linux/man-pages/man3/fopen.3.html">fopen(3) - Linux manual page</a></li>
+<li><a target="_blank" rel="noopener" href="https://pubs.opengroup.org/onlinepubs/9699919799/functions/fopen.html">fopen</a></li>
+<li><a target="_blank" rel="noopener" href="http://tw.gitbook.net/c_standard_library/c_function_fopen.html">fopen() - C語言庫函數 - C語言標準庫</a><h2 id="flags-比較"><a href="#flags-比較" class="headerlink" title="flags 比較"></a>flags 比較</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">┌─────────────┬───────────────────────────────┐</span><br><span class="line">│fopen() mode │ open() flags                  │</span><br><span class="line">├─────────────┼───────────────────────────────┤</span><br><span class="line">│     r       │ O_RDONLY                      │</span><br><span class="line">├─────────────┼───────────────────────────────┤</span><br><span class="line">│     w       │ O_WRONLY | O_CREAT | O_TRUNC  │</span><br><span class="line">├─────────────┼───────────────────────────────┤</span><br><span class="line">│     a       │ O_WRONLY | O_CREAT | O_APPEND │</span><br><span class="line">├─────────────┼───────────────────────────────┤</span><br><span class="line">│     r+      │ O_RDWR                        │</span><br><span class="line">├─────────────┼───────────────────────────────┤</span><br><span class="line">│     w+      │ O_RDWR | O_CREAT | O_TRUNC    │</span><br><span class="line">├─────────────┼───────────────────────────────┤</span><br><span class="line">│     a+      │ O_RDWR | O_CREAT | O_APPEND   │</span><br><span class="line">└─────────────┴───────────────────────────────┘</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h2 id="File-to-fd"><a href="#File-to-fd" class="headerlink" title="File* to fd"></a>File* to fd</h2><blockquote>
+<ul>
+<li><code>#include &lt;stdio.h&gt;</code></li>
+</ul>
+</blockquote>
+<ul>
+<li>obtain file descriptor of a stdio stream</li>
+<li><code>int fileno(FILE *stream)</code></li>
+</ul>
+<h3 id="return-2"><a href="#return-2" class="headerlink" title="return"></a>return</h3><ul>
+<li>On success, fileno() returns the file descriptor associated with stream.</li>
+<li>On failure, -1 is returned and errno is set to indicate the error.<h3 id="reference-2"><a href="#reference-2" class="headerlink" title="reference"></a>reference</h3></li>
+<li><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/3167298/how-can-i-convert-a-file-pointer-file-fp-to-a-file-descriptor-int-fd">c - How can I convert a file pointer ( FILE* fp ) to a file descriptor (int fd)? - Stack Overflow</a></li>
+<li><a target="_blank" rel="noopener" href="https://man7.org/linux/man-pages/man3/fileno.3.html">fileno(3) - Linux manual page</a></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/note/" rel="tag"># note</a>
+              <a href="/tags/c-c/" rel="tag"># c/c++</a>
+              <a href="/tags/book-section/" rel="tag"># book section</a>
+              <a href="/tags/file/" rel="tag"># file</a>
+              <a href="/tags/open/" rel="tag"># open</a>
+              <a href="/tags/fopen/" rel="tag"># fopen</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/09/28/c-c-dup/" rel="prev" title="c-c++-dup">
+                  <i class="fa fa-chevron-left"></i> c-c++-dup
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Lin Yunwen</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>總字數：</span>
+    <span title="總字數">223k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>所需總閱讀時間 &asymp;</span>
+    <span title="所需總閱讀時間">6:46</span>
+  </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>
