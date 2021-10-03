@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/linyunwen_icon/icon_32x32.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/linyunwen_icon/icon_32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/linyunwen_icon/icon_16x16.png">
+  <link rel="mask-icon" href="/images/linyunwen_icon/icon_32x32.png" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css" integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"linyunwen.github.io","root":"/","images":"/images","scheme":"Gemini","version":"8.6.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"disqus","storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"${hits} 找到 ${time} 個結果","hits":"找到 ${hits} 個結果"}}</script><script src="/js/config.js"></script>
+<meta name="description" content="C&#x2F;C++ f 系列fopenfgetc  #include &lt;stdio.h&gt;   123456int fgetc(FILE *stream);char *fgets(char *s, int size, FILE *stream);int getc(FILE *stream);int getchar(void);char *gets(char *s);int ungetc(int">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C&#x2F;C++ f 系列">
+<meta property="og:url" content="https://linyunwen.github.io/2021/10/04/c-c-f-family/index.html">
+<meta property="og:site_name" content="Lin Yunwen&#39;s Blog">
+<meta property="og:description" content="C&#x2F;C++ f 系列fopenfgetc  #include &lt;stdio.h&gt;   123456int fgetc(FILE *stream);char *fgets(char *s, int size, FILE *stream);int getc(FILE *stream);int getchar(void);char *gets(char *s);int ungetc(int">
+<meta property="og:locale" content="zh_TW">
+<meta property="article:published_time" content="2021-10-03T23:53:45.000Z">
+<meta property="article:modified_time" content="2021-10-03T23:54:19.485Z">
+<meta property="article:author" content="Lin Yunwen">
+<meta property="article:tag" content="note, c&#x2F;c++, fget, fopen, fclose, book section">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://linyunwen.github.io/2021/10/04/c-c-f-family/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-TW","comments":true,"permalink":"https://linyunwen.github.io/2021/10/04/c-c-f-family/","path":"2021/10/04/c-c-f-family/","title":"C/C++ f 系列"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>C/C++ f 系列 | Lin Yunwen's Blog</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-H43D6184CW"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"G-H43D6184CW","only_pageview":false}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Lin Yunwen's Blog</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">keep moving forward</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>標籤</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#C-C-f-%E7%B3%BB%E5%88%97"><span class="nav-number">1.</span> <span class="nav-text">C&#x2F;C++ f 系列</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#fopen"><span class="nav-number">1.1.</span> <span class="nav-text">fopen</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#fgetc"><span class="nav-number">1.2.</span> <span class="nav-text">fgetc</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#param"><span class="nav-number">1.2.1.</span> <span class="nav-text">param</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#return"><span class="nav-number">1.2.2.</span> <span class="nav-text">return</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#e-g"><span class="nav-number">1.2.3.</span> <span class="nav-text">e.g.</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#reference"><span class="nav-number">1.2.4.</span> <span class="nav-text">reference</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#clearerr-feof-ferror-fileno"><span class="nav-number">1.3.</span> <span class="nav-text">clearerr, feof, ferror, fileno</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#param-1"><span class="nav-number">1.3.1.</span> <span class="nav-text">param</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#return-1"><span class="nav-number">1.3.2.</span> <span class="nav-text">return</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#e-g-1"><span class="nav-number">1.3.3.</span> <span class="nav-text">e.g.</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#reference-1"><span class="nav-number">1.3.4.</span> <span class="nav-text">reference</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#fclose"><span class="nav-number">1.4.</span> <span class="nav-text">fclose</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#return-2"><span class="nav-number">1.4.1.</span> <span class="nav-text">return</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#reference-2"><span class="nav-number">1.4.2.</span> <span class="nav-text">reference</span></a></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-overview">
+            <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Lin Yunwen"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Lin Yunwen</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">96</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">113</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/LinYunWen" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;LinYunWen" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:l40303k@gmail.com" title="E-Mail → mailto:l40303k@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="回到頂端">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://linyunwen.github.io/2021/10/04/c-c-f-family/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Lin Yunwen">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Lin Yunwen's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          C/C++ f 系列
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">發表於</span>
+      
+
+      <time title="創建時間：2021-10-04 07:53:45 / 修改時間：07:54:19" itemprop="dateCreated datePublished" datetime="2021-10-04T07:53:45+08:00">2021-10-04</time>
+    </span>
+
+  
+      </div>
+      <div class="post-meta">
+    <span class="post-meta-item" title="文章字數">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">文章字數：</span>
+      <span>3.3k</span>
+    </span>
+    <span class="post-meta-item" title="所需閱讀時間">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+      <span>6 分鐘</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="C-C-f-系列"><a href="#C-C-f-系列" class="headerlink" title="C/C++ f 系列"></a>C/C++ f 系列</h1><h2 id="fopen"><a href="#fopen" class="headerlink" title="fopen"></a>fopen</h2><h2 id="fgetc"><a href="#fgetc" class="headerlink" title="fgetc"></a>fgetc</h2><blockquote>
+<ul>
+<li><code>#include &lt;stdio.h&gt;</code></li>
+</ul>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">int fgetc(FILE *stream);</span><br><span class="line">char *fgets(char *s, int size, FILE *stream);</span><br><span class="line">int getc(FILE *stream);</span><br><span class="line">int getchar(void);</span><br><span class="line">char *gets(char *s);</span><br><span class="line">int ungetc(int c, FILE *stream);</span><br></pre></td></tr></table></figure>
+<span id="more"></span>
+<ul>
+<li>fgetc()<ul>
+<li>get a byte from a stream</li>
+<li>reads the next character from stream and returns it as an unsigned char cast to an int, or EOF on end of file or error.</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>getc()<ul>
+<li>is equivalent to fgetc() except that it may be implemented as a macro which evaluates stream more than once.</li>
+</ul>
+</li>
+<li>getchar()<ul>
+<li>is equivalent to getc(stdin).</li>
+</ul>
+</li>
+<li>gets()<ul>
+<li>reads a line from stdin into the buffer pointed to by s until either a terminating newline or EOF, which it replaces with a null byte (aq\0aq).</li>
+<li>No check for buffer overrun is performed (see BUGS below).</li>
+</ul>
+</li>
+<li>fgets()<ul>
+<li>reads in at most one less than size characters from stream and stores them into the buffer pointed to by s.</li>
+<li>Reading stops after an EOF <strong>or a newline</strong>.</li>
+<li>If a newline is read, it is stored into the buffer. A terminating null byte (aq\0aq) is stored after the last character in the buffer.</li>
+</ul>
+</li>
+<li>ungetc()<ul>
+<li>pushes c back to stream, cast to unsigned char, where it is available for subsequent read operations. Pushed-back characters will be returned in reverse order; only one pushback is guaranteed.<h3 id="param"><a href="#param" class="headerlink" title="param"></a>param</h3></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>fgets<ul>
+<li>str – 這是字符串讀取存儲的字符數組的指針。</li>
+<li>n – 這是最大的被讀取的字符數（包括最後的空字符）。通常情況下，通過使用str是數組的長度。 </li>
+<li>stream – 這是一個文件對象標識流中讀取字符的指針。<h3 id="return"><a href="#return" class="headerlink" title="return"></a>return</h3></li>
+</ul>
+</li>
+<li>fgetc(), getc() and getchar()<ul>
+<li>character read as an unsigned char cast to an int or EOF on end of file or error.</li>
+</ul>
+</li>
+<li>gets() and fgets()<ul>
+<li>return s on success</li>
+<li>NULL on error or when end of file occurs while no characters have been read.</li>
+</ul>
+</li>
+<li>ungetc()<ul>
+<li>c on success, or EOF on error.</li>
+</ul>
+</li>
+</ul>
+<h3 id="e-g"><a href="#e-g" class="headerlink" title="e.g."></a>e.g.</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">   FILE *fp;</span><br><span class="line">   char str[60];</span><br><span class="line"></span><br><span class="line">   /* opening file for reading */</span><br><span class="line">   fp = fopen(&quot;file.txt&quot; , &quot;r&quot;);</span><br><span class="line">   if(fp == NULL) &#123;</span><br><span class="line">      perror(&quot;Error opening file&quot;);</span><br><span class="line">      return(-1);</span><br><span class="line">   &#125;</span><br><span class="line">   if( fgets (str, 60, fp)!=NULL ) &#123;</span><br><span class="line">      /* writing content to stdout */</span><br><span class="line">      puts(str);</span><br><span class="line">   &#125;</span><br><span class="line">   fclose(fp);</span><br><span class="line">   </span><br><span class="line">   return(0);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="reference"><a href="#reference" class="headerlink" title="reference"></a>reference</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://man7.org/linux/man-pages/man3/fgetc.3p.html">fgetc(3p) - Linux manual page</a></li>
+<li><a target="_blank" rel="noopener" href="https://linux.die.net/man/3/fgetc">fgetc(3): input of char/strings - Linux man page</a></li>
+<li><a target="_blank" rel="noopener" href="http://tw.gitbook.net/c_standard_library/c_function_fgets.html">fgets() - C語言庫函數 - C語言標準庫</a></li>
+<li><a target="_blank" rel="noopener" href="http://tw.gitbook.net/c_standard_library/c_function_fgetc.html">fgetc() - C語言庫函數 - C語言標準庫</a></li>
+</ul>
+<h2 id="clearerr-feof-ferror-fileno"><a href="#clearerr-feof-ferror-fileno" class="headerlink" title="clearerr, feof, ferror, fileno"></a>clearerr, feof, ferror, fileno</h2><blockquote>
+<ul>
+<li><code>#include &lt;stdio.h&gt;</code></li>
+</ul>
+</blockquote>
+<ul>
+<li>check and reset stream status<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">void clearerr(FILE *stream);</span><br><span class="line">int feof(FILE *stream);</span><br><span class="line">int ferror(FILE *stream);</span><br><span class="line">int fileno(FILE *stream);</span><br></pre></td></tr></table></figure></li>
+</ul>
+<ul>
+<li>clearerr()<ul>
+<li>clears the end-of-file and error indicators for the stream pointed to by stream.</li>
+</ul>
+</li>
+<li>feof()<ul>
+<li>tests the end-of-file indicator for the stream pointed to by stream, returning nonzero if it is set. The end-of-file indicator can only be cleared by the function clearerr().</li>
+</ul>
+</li>
+<li>ferror()<ul>
+<li>tests the error indicator for the stream pointed to by stream, returning nonzero if it is set. The error indicator can only be reset by the clearerr() function.</li>
+</ul>
+</li>
+<li>fileno()<ul>
+<li>examines the argument stream and returns its integer descriptor.</li>
+</ul>
+</li>
+</ul>
+<h3 id="param-1"><a href="#param-1" class="headerlink" title="param"></a>param</h3><ul>
+<li>stream – 這是一個文件 FILE 對象的標識流的指針。<h3 id="return-1"><a href="#return-1" class="headerlink" title="return"></a>return</h3></li>
+<li>feof<ul>
+<li>這個函數返回一個非零值時，與該流關聯的文件結束指示器設置</li>
+<li>否則返回零。</li>
+</ul>
+</li>
+</ul>
+<h3 id="e-g-1"><a href="#e-g-1" class="headerlink" title="e.g."></a>e.g.</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line"></span><br><span class="line">int main ()</span><br><span class="line">&#123;</span><br><span class="line">   FILE *fp;</span><br><span class="line">   int c;</span><br><span class="line">   int n = 0;</span><br><span class="line">  </span><br><span class="line">   fp = fopen(&quot;file.txt&quot;,&quot;r&quot;);</span><br><span class="line">   if(fp == NULL) </span><br><span class="line">   &#123;</span><br><span class="line">      perror(&quot;Error in opening file&quot;);</span><br><span class="line">      return(-1);</span><br><span class="line">   &#125;</span><br><span class="line">   while(!feof(fp))</span><br><span class="line">   &#123;</span><br><span class="line">      c = fgetc(fp);</span><br><span class="line">      printf(&quot;%c&quot;, c);</span><br><span class="line">   &#125;</span><br><span class="line">  </span><br><span class="line">   fclose(fp);</span><br><span class="line">   </span><br><span class="line">   return(0);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="reference-1"><a href="#reference-1" class="headerlink" title="reference"></a>reference</h3><ul>
+<li><a target="_blank" rel="noopener" href="http://tw.gitbook.net/c_standard_library/c_function_feof.html">feof() - C庫函數 - C語言標準庫</a></li>
+<li><a target="_blank" rel="noopener" href="https://linux.die.net/man/3/feof">feof(3): check/reset stream status - Linux man page</a><h2 id="fclose"><a href="#fclose" class="headerlink" title="fclose"></a>fclose</h2><blockquote>
+<ul>
+<li><code>#include &lt;stdio.h&gt;</code></li>
+</ul>
+</blockquote>
+</li>
+<li>flushes the stream pointed to by stream (writing any buffered output data using fflush(3))</li>
+<li>closes the underlying file descriptor.<h3 id="return-2"><a href="#return-2" class="headerlink" title="return"></a>return</h3></li>
+<li>Upon successful completion, 0 is returned.</li>
+<li>Otherwise, EOF is returned and errno is set to indicate the error.<ul>
+<li>In either case, any further access (including another call to fclose()) to the stream results in undefined behavior.</li>
+</ul>
+</li>
+</ul>
+<h3 id="reference-2"><a href="#reference-2" class="headerlink" title="reference"></a>reference</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://man7.org/linux/man-pages/man3/fclose.3.html">fclose(3) - Linux manual page</a></li>
+<li><a target="_blank" rel="noopener" href="http://tw.gitbook.net/c_standard_library/c_function_fclose.html">fclose() - C庫函數 - C語言標準庫</a></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/note-c-c-fget-fopen-fclose-book-section/" rel="tag"># note, c/c++, fget, fopen, fclose, book section</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/10/04/c-c-lambda-function/" rel="prev" title="C/C++ Lambda Function">
+                  <i class="fa fa-chevron-left"></i> C/C++ Lambda Function
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Lin Yunwen</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>總字數：</span>
+    <span title="總字數">235k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>所需總閱讀時間 &asymp;</span>
+    <span title="所需總閱讀時間">7:07</span>
+  </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>
