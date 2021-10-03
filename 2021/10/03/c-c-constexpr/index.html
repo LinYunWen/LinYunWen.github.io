@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/linyunwen_icon/icon_32x32.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/linyunwen_icon/icon_32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/linyunwen_icon/icon_16x16.png">
+  <link rel="mask-icon" href="/images/linyunwen_icon/icon_32x32.png" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css" integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"linyunwen.github.io","root":"/","images":"/images","scheme":"Gemini","version":"8.6.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"disqus","storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"${hits} 找到 ${time} 個結果","hits":"找到 ${hits} 個結果"}}</script><script src="/js/config.js"></script>
+<meta name="description" content="C&#x2F;C++ constexprintroduction 是 C++11 對於我們已經熟到透的 const 修飾子的一個加強   const 代表的是被修飾的變數數值編譯期 (compile-time) 已定，也無法再通過語法修改    但是這種狀況就沒辦法  123456int sq(int N) &amp;#123;  return N * N;&amp;#125;const int N &#x3D; 123;const">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C&#x2F;C++ constexpr">
+<meta property="og:url" content="https://linyunwen.github.io/2021/10/03/c-c-constexpr/index.html">
+<meta property="og:site_name" content="Lin Yunwen&#39;s Blog">
+<meta property="og:description" content="C&#x2F;C++ constexprintroduction 是 C++11 對於我們已經熟到透的 const 修飾子的一個加強   const 代表的是被修飾的變數數值編譯期 (compile-time) 已定，也無法再通過語法修改    但是這種狀況就沒辦法  123456int sq(int N) &amp;#123;  return N * N;&amp;#125;const int N &#x3D; 123;const">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://i.imgur.com/zgiHshD.png">
+<meta property="article:published_time" content="2021-10-03T03:04:49.000Z">
+<meta property="article:modified_time" content="2021-10-03T03:06:38.810Z">
+<meta property="article:author" content="Lin Yunwen">
+<meta property="article:tag" content="note">
+<meta property="article:tag" content="c&#x2F;c++">
+<meta property="article:tag" content="book section">
+<meta property="article:tag" content="constexpr">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.imgur.com/zgiHshD.png">
+
+
+<link rel="canonical" href="https://linyunwen.github.io/2021/10/03/c-c-constexpr/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-TW","comments":true,"permalink":"https://linyunwen.github.io/2021/10/03/c-c-constexpr/","path":"2021/10/03/c-c-constexpr/","title":"C/C++ constexpr"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>C/C++ constexpr | Lin Yunwen's Blog</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-H43D6184CW"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"G-H43D6184CW","only_pageview":false}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Lin Yunwen's Blog</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">keep moving forward</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>標籤</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#C-C-constexpr"><span class="nav-number">1.</span> <span class="nav-text">C&#x2F;C++ constexpr</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#introduction"><span class="nav-number">1.1.</span> <span class="nav-text">introduction</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#props"><span class="nav-number">1.1.1.</span> <span class="nav-text">props</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#advance"><span class="nav-number">1.2.</span> <span class="nav-text">advance</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#constexpr-constructor-constexpr-operator-overloading"><span class="nav-number">1.2.1.</span> <span class="nav-text">constexpr constructor, constexpr operator overloading</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#constexpr-if-%E7%B7%A8%E8%AD%AF%E6%9C%9F%E5%B0%B1%E7%9F%A5%E9%81%93%E7%B5%90%E6%9E%9C%E7%9A%84-if"><span class="nav-number">1.2.2.</span> <span class="nav-text">constexpr if 編譯期就知道結果的 if!?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#props-1"><span class="nav-number">1.2.3.</span> <span class="nav-text">props</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#std-enable-if"><span class="nav-number">1.2.4.</span> <span class="nav-text">std::enable_if</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#e-g"><span class="nav-number">1.2.4.1.</span> <span class="nav-text">e.g.</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#reference"><span class="nav-number">1.3.</span> <span class="nav-text">reference</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-overview">
+            <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Lin Yunwen"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Lin Yunwen</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">92</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">109</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/LinYunWen" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;LinYunWen" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:l40303k@gmail.com" title="E-Mail → mailto:l40303k@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="回到頂端">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://linyunwen.github.io/2021/10/03/c-c-constexpr/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Lin Yunwen">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Lin Yunwen's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          C/C++ constexpr
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">發表於</span>
+      
+
+      <time title="創建時間：2021-10-03 11:04:49 / 修改時間：11:06:38" itemprop="dateCreated datePublished" datetime="2021-10-03T11:04:49+08:00">2021-10-03</time>
+    </span>
+
+  
+      </div>
+      <div class="post-meta">
+    <span class="post-meta-item" title="文章字數">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">文章字數：</span>
+      <span>3.3k</span>
+    </span>
+    <span class="post-meta-item" title="所需閱讀時間">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+      <span>6 分鐘</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="C-C-constexpr"><a href="#C-C-constexpr" class="headerlink" title="C/C++ constexpr"></a>C/C++ constexpr</h1><h2 id="introduction"><a href="#introduction" class="headerlink" title="introduction"></a>introduction</h2><ul>
+<li><p>是 C++11 對於我們已經熟到透的 <code>const</code> 修飾子的一個加強</p>
+<blockquote>
+<ul>
+<li>const 代表的是被修飾的變數數值編譯期 (compile-time) 已定，也無法再通過語法修改</li>
+</ul>
+</blockquote>
+<ul>
+<li>但是這種狀況就沒辦法  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">int sq(int N) &#123;</span><br><span class="line">  return N * N;</span><br><span class="line">&#125;</span><br><span class="line">const int N = 123;</span><br><span class="line">const int SQ_N = sq(N);</span><br><span class="line">printf(&quot;%d %d\n&quot;, N, SQ_N);</span><br></pre></td></tr></table></figure>
+<ul>
+<li>他能算出個值初始化 SQ_N，但是卻是發生在運行期而不是編譯期<span id="more"></span></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>這也就是 constexpr 所想滿足的語意：常數表達式 (constant expression)。</p>
+<ul>
+<li>一堆常數可以在編譯時期經過固定確定運算得到確切值的表達式。除了可以在變數掛上 constexpr ，甚至可以在函式的返回值宣告也可以加上 constexpr 來修飾這個函式變成 constexpr function，讓編譯器在編譯時期就能依照 C++ 標準把能算的都算好<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">constexpr int sq(int n)</span><br><span class="line">&#123;</span><br><span class="line">  return n * n;</span><br><span class="line">&#125;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">  constexpr int N = 123;</span><br><span class="line">  constexpr int N_SQ = sq(N);</span><br><span class="line">  printf(&quot;%d %d\n&quot;, N, N_SQ);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>因此一開始 constexpr function 裡面是不能出現如 if for 這樣的流程控制的，必須一步到位計算結果，函式體中間也不得出現 n++ 這類的表達式，也不能宣告變數</p>
+<ul>
+<li>到了 C++14 之後就解禁大開放， if 可以寫。反正 if 內的關於參數的邏輯陳述只要也是 constexpr statement，他就會幫你編譯期計算。也可以在函式體裡頭宣告你輔助用的變數。也可以寫超過一個 return 敘述。  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">constexpr int calc(int n)</span><br><span class="line">&#123;</span><br><span class="line">  if (n % 2 == 0) &#123; // C++11 compile error</span><br><span class="line">    return n * n;</span><br><span class="line">  &#125;</span><br><span class="line">  int a = 10; // C++11 compile error</span><br><span class="line">  return n * n + a; // C++11 compile error</span><br><span class="line">&#125;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">  constexpr int N = 123;</span><br><span class="line">  constexpr int N_SQ = sq(N);</span><br><span class="line">  constexpr int N_CALC = calc(N);</span><br><span class="line">  printf(&quot;%d %d %d\n&quot;, N, N_SQ, N_CALC); // 123 15129 15139</span><br><span class="line">  printf(&quot;%d\n&quot;, sq(4)); // 編譯期不會計算 sq(4)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>在 enum, switch 的應用</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">constexpr int fib(int n)</span><br><span class="line">&#123;</span><br><span class="line">  if (n &lt;= 0) &#123;</span><br><span class="line">    return 1;</span><br><span class="line">  &#125;</span><br><span class="line">  return fib(n - 1) + fib(n - 2);</span><br><span class="line">&#125;</span><br><span class="line">enum FIB_ENUM &#123;</span><br><span class="line">  a = fib(5),</span><br><span class="line">  b = fib(10),</span><br><span class="line">  c = fib(20),</span><br><span class="line">  dummy = fib(0)</span><br><span class="line">&#125;;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">  FIB_ENUM my_fib = a;</span><br><span class="line">  printf(&quot;%d %d %d\n&quot;, my_fib, FIB_ENUM::b, FIB_ENUM::c);</span><br><span class="line">  // 8 89 10946</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<ul>
+<li><code>g++ a.cpp -S</code> 我們查看 assembly</li>
+</ul>
+</blockquote>
+<h3 id="props"><a href="#props" class="headerlink" title="props"></a>props</h3></li>
+<li><p>constexpr function 可以用 macro 函式來想像，但是避掉了非常多使用 macro 的困擾，比如定義的展開結尾分號爆炸，忘記對參數加上括號導致不同優先級的運算子攪和在一起…。</p>
+</li>
+</ul>
+<h2 id="advance"><a href="#advance" class="headerlink" title="advance"></a>advance</h2><h3 id="constexpr-constructor-constexpr-operator-overloading"><a href="#constexpr-constructor-constexpr-operator-overloading" class="headerlink" title="constexpr constructor, constexpr operator overloading"></a>constexpr constructor, constexpr operator overloading</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">class CClass</span><br><span class="line">&#123;</span><br><span class="line">public:</span><br><span class="line">  constexpr explicit CClass(int n) : n_(n) &#123;&#125;</span><br><span class="line">  constexpr CClass operator*(const CClass &amp;rhs) const &#123; </span><br><span class="line">    return CClass(n_ * rhs.n_); </span><br><span class="line">  &#125;</span><br><span class="line">  int n_;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>CClass 的 constructor 完全沒有操作，也初始化了所有，也是唯一的成員變數 n_，因此自然就符合了 constexpr 的限制。(可以試試看把 n_ 寫在 constructor 函式體裡面賦值，就會吃 compile error 了)</li>
+<li>operator*() 就是個成員函式，做了一個 constexpr 物件回來，也很乖巧。<h3 id="constexpr-if-編譯期就知道結果的-if"><a href="#constexpr-if-編譯期就知道結果的-if" class="headerlink" title="constexpr if 編譯期就知道結果的 if!?"></a>constexpr if 編譯期就知道結果的 if!?</h3></li>
+<li>主要的語法和用法非常直觀  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">if constexpr (condition) &#123;</span><br><span class="line">  // ...</span><br><span class="line">&#125;</span><br><span class="line">// 或是加上 else</span><br><span class="line">if constexpr (condition) &#123;</span><br><span class="line">  // ...</span><br><span class="line">&#125; else &#123;</span><br><span class="line">  // ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>如果在編譯期 (compile-time) 就能算出 true 或 false。或是通過轉型得出 true 或 false。</li>
+<li>也就是文件上所說的 contextually converted constant expression of type bool。中文解釋大致上是說他是情境上可轉換為 bool (這是個專有概念)，並且轉換為 bool 的結果是 constant expression。可以參考這篇的編譯期自訂型別轉換得到更實際的代碼範例。</li>
+<li>兩條件其一成立，編譯器便會依照出值 true 或 false 編譯 (而不是傳統的執行) if constexpr 內的區塊內容或是 else 的區塊內容。沒有編譯到的區塊內容可以粗略理解為被編譯器丟棄。<h3 id="props-1"><a href="#props-1" class="headerlink" title="props"></a>props</h3></li>
+</ul>
+</li>
+<li>第一點是開發樣版過程中避開 C++11 出現的各種繁複的 type traits 型別特徵，不用再為了不同型別條件去寫各式各樣的樣版特化，利用 SFINAE 加上 std::enable_if 寫得天花亂墜。</li>
+<li>第二是，語法上完美地融入了原有習慣的 if 思考邏輯，使用直述式的直觀語法就能做到以前要寫得滿目瘡痍才能做到的事的代碼。<h3 id="std-enable-if"><a href="#std-enable-if" class="headerlink" title="std::enable_if"></a>std::enable_if</h3></li>
+<li>他是 C++ 標準在 C++11 新引入的一個 STL 內建樣版類別。他不是用來創建物件的，而是通過樣板參數去特化不同的成員 typedef。  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">template&lt;bool B, typename T&gt;</span><br><span class="line">class enable_if&lt;bool B, T=void&gt;;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>顯然是一個非型別的類別樣版 (non-type template class)。當第一個樣版參數B 為 true 時， enable_if&lt;true&gt; 會有一個成員 typedef 叫 type 定義為 T，預設為 void；如果具現化樣版時 B 給的是 false，那就不會有成員 typedef。<h4 id="e-g"><a href="#e-g" class="headerlink" title="e.g."></a>e.g.</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">template&lt;typename T&gt;</span><br><span class="line">void func(T t) &#123; puts(&quot;General&quot;); &#125; // (1)</span><br><span class="line">template&lt;&gt;</span><br><span class="line">void func&lt;double&gt;(double) &#123; puts(&quot;Hello&quot;); &#125; // (2)</span><br><span class="line">template&lt;&gt;</span><br><span class="line">void func&lt;int&gt;(int) &#123; puts(&quot;Hello&quot;); &#125; // (3)</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><img src="https://i.imgur.com/zgiHshD.png"></li>
+</ul>
+<h2 id="reference"><a href="#reference" class="headerlink" title="reference"></a>reference</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://tjsw.medium.com/%E6%BD%AE-c-constexpr-ac1bb2bdc5e2">潮．C++11 | constexpr, constexpr function | by TJSW | Medium</a></li>
+<li><a target="_blank" rel="noopener" href="https://tjsw.medium.com/%E6%BD%AE-c-constexpr-constructor-constexpr-operator-overloading-3a11062900ff">潮．C++: constexpr constructor, constexpr operator overloading | by TJSW | Medium</a></li>
+<li><a target="_blank" rel="noopener" href="https://tjsw.medium.com/%E6%BD%AE-c-17-constexpr-if-%E7%B7%A8%E8%AD%AF%E6%9C%9F%E5%B0%B1%E7%9F%A5%E9%81%93%E7%B5%90%E6%9E%9C%E7%9A%84-if-fc6b6db7864b">潮．C++17 | constexpr if (1) 編譯期就知道結果的 if!? | by TJSW | Medium</a></li>
+<li><a target="_blank" rel="noopener" href="https://tjsw.medium.com/%E6%BD%AE-c-17-constexpr-if-part-2-%E5%86%8D%E6%9C%83%E4%BA%86-std-enable-if-%E5%86%8D%E4%B9%9F%E4%B8%8D%E7%94%A8%E6%A8%A3%E7%89%88%E7%89%B9%E5%8C%96%E4%BA%86-86f06ac768da">潮．C++17 | constexpr if (2) 再會了 enable_if !? 再也不用樣版特化了 | by TJSW | Medium</a></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/note/" rel="tag"># note</a>
+              <a href="/tags/c-c/" rel="tag"># c/c++</a>
+              <a href="/tags/book-section/" rel="tag"># book section</a>
+              <a href="/tags/constexpr/" rel="tag"># constexpr</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/10/02/c-c-open/" rel="prev" title="File Open 系列">
+                  <i class="fa fa-chevron-left"></i> File Open 系列
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Lin Yunwen</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>總字數：</span>
+    <span title="總字數">227k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>所需總閱讀時間 &asymp;</span>
+    <span title="所需總閱讀時間">6:52</span>
+  </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>
