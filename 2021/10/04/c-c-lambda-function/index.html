@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/linyunwen_icon/icon_32x32.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/linyunwen_icon/icon_32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/linyunwen_icon/icon_16x16.png">
+  <link rel="mask-icon" href="/images/linyunwen_icon/icon_32x32.png" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css" integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"linyunwen.github.io","root":"/","images":"/images","scheme":"Gemini","version":"8.6.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"disqus","storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"${hits} 找到 ${time} 個結果","hits":"找到 ${hits} 個結果"}}</script><script src="/js/config.js"></script>
+<meta name="description" content="C&#x2F;C++ Lambda Function  since C++11   syntax [ captures ] ( params ) lambda-specifiers requires(optional) &amp;#123; body &amp;#125;  capture 子句 (也稱為 c + + 規格中的 lambda introducer 。 )   參數清單 (選)。 (也稱為 lambda 宣告">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C&#x2F;C++ Lambda Function">
+<meta property="og:url" content="https://linyunwen.github.io/2021/10/04/c-c-lambda-function/index.html">
+<meta property="og:site_name" content="Lin Yunwen&#39;s Blog">
+<meta property="og:description" content="C&#x2F;C++ Lambda Function  since C++11   syntax [ captures ] ( params ) lambda-specifiers requires(optional) &amp;#123; body &amp;#125;  capture 子句 (也稱為 c + + 規格中的 lambda introducer 。 )   參數清單 (選)。 (也稱為 lambda 宣告">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://i.imgur.com/vC2eLst.png">
+<meta property="article:published_time" content="2021-10-03T23:51:26.000Z">
+<meta property="article:modified_time" content="2021-10-03T23:52:12.541Z">
+<meta property="article:author" content="Lin Yunwen">
+<meta property="article:tag" content="note, c&#x2F;c++, lambda function, book section">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.imgur.com/vC2eLst.png">
+
+
+<link rel="canonical" href="https://linyunwen.github.io/2021/10/04/c-c-lambda-function/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-TW","comments":true,"permalink":"https://linyunwen.github.io/2021/10/04/c-c-lambda-function/","path":"2021/10/04/c-c-lambda-function/","title":"C/C++ Lambda Function"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>C/C++ Lambda Function | Lin Yunwen's Blog</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-H43D6184CW"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"G-H43D6184CW","only_pageview":false}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Lin Yunwen's Blog</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">keep moving forward</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>標籤</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#C-C-Lambda-Function"><span class="nav-number">1.</span> <span class="nav-text">C&#x2F;C++ Lambda Function</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#syntax"><span class="nav-number">1.1.</span> <span class="nav-text">syntax</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#capture-closure"><span class="nav-number">1.2.</span> <span class="nav-text">capture closure</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#parameter-list"><span class="nav-number">1.3.</span> <span class="nav-text">parameter list</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#return-type"><span class="nav-number">1.4.</span> <span class="nav-text">return type</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#reference"><span class="nav-number">1.5.</span> <span class="nav-text">reference</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-overview">
+            <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Lin Yunwen"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Lin Yunwen</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">95</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">112</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/LinYunWen" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;LinYunWen" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:l40303k@gmail.com" title="E-Mail → mailto:l40303k@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="回到頂端">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://linyunwen.github.io/2021/10/04/c-c-lambda-function/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Lin Yunwen">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Lin Yunwen's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          C/C++ Lambda Function
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">發表於</span>
+      
+
+      <time title="創建時間：2021-10-04 07:51:26 / 修改時間：07:52:12" itemprop="dateCreated datePublished" datetime="2021-10-04T07:51:26+08:00">2021-10-04</time>
+    </span>
+
+  
+      </div>
+      <div class="post-meta">
+    <span class="post-meta-item" title="文章字數">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">文章字數：</span>
+      <span>1.5k</span>
+    </span>
+    <span class="post-meta-item" title="所需閱讀時間">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+      <span>3 分鐘</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="C-C-Lambda-Function"><a href="#C-C-Lambda-Function" class="headerlink" title="C/C++ Lambda Function"></a>C/C++ Lambda Function</h1><blockquote>
+<ul>
+<li>since C++11</li>
+</ul>
+</blockquote>
+<h2 id="syntax"><a href="#syntax" class="headerlink" title="syntax"></a>syntax</h2><ul>
+<li><code>[ captures ] ( params ) lambda-specifiers requires(optional) &#123; body &#125;</code></li>
+<li><img src="https://i.imgur.com/vC2eLst.png"><ul>
+<li>capture 子句 (也稱為 c + + 規格中的 lambda introducer 。 )</li>
+</ul>
+<ul>
+<li>參數清單 (選)。 (也稱為 lambda 宣告子)</li>
+<li>可變規格 (選)。</li>
+<li>例外狀況規格 (選)。</li>
+<li>尾端-傳回類型 (選)。</li>
+<li>lambda 主體。<span id="more"></span></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>直接呼叫 Lambda Expression  <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line">  <span class="keyword">int</span> n = [] (<span class="keyword">int</span> x, <span class="keyword">int</span> y) &#123; <span class="keyword">return</span> x + y; &#125;(<span class="number">5</span>, <span class="number">4</span>);</span><br><span class="line">  cout &lt;&lt; n &lt;&lt; endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<ul>
+<li>e.g.  <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cmath&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">abssort</span><span class="params">(<span class="keyword">float</span>* x, <span class="keyword">unsigned</span> n)</span> </span>&#123;</span><br><span class="line">    std::<span class="built_in">sort</span>(x, x + n,</span><br><span class="line">        <span class="comment">// Lambda expression begins</span></span><br><span class="line">        [](<span class="keyword">float</span> a, <span class="keyword">float</span> b) &#123;</span><br><span class="line">            <span class="built_in"><span class="keyword">return</span></span> (std::<span class="built_in">abs</span>(a) &lt; std::<span class="built_in">abs</span>(b));</span><br><span class="line">        &#125; <span class="comment">// end of lambda expression</span></span><br><span class="line">    );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="capture-closure"><a href="#capture-closure" class="headerlink" title="capture closure"></a>capture closure</h2></li>
+<li><code>[=]</code>：lambda-introducer，也稱為 capture clause。</li>
+<li>所有的 lambda expression 都是以它來作為開頭，不可以省略，它除了用來作為 lambda expression 開頭的關鍵字之外，也有抓取（capture）變數的功能，指定該如何將目前 scope 範圍之變數抓取至 lambda expression 中使用，而抓取變數的方式則分為傳值（by value）與傳參考（by reference）兩種，跟一般函數參數的傳入方式類似，不過其語法有些不同，以下我們以範例解釋：<ul>
+<li>  <code>[]</code>：只有兩個中括號，完全不抓取外部的變數。</li>
+<li>  <code>[=]</code>：所有的變數都以傳值（by value）的方式抓取。</li>
+<li>  <code>[&amp;]</code>：所有的變數都以傳參考（by reference）的方式抓取。</li>
+<li>  <code>[x, &amp;y]</code>：<code>x</code> 變數使用傳值、<code>y</code> 變數使用傳參考。</li>
+<li>  <code>[=, &amp;y]</code>：除了 <code>y</code> 變數使用傳參考之外，其餘的變數皆使用傳值的方式。</li>
+</ul>
+</li>
+<li>  <code>[&amp;, x]</code>：除了 <code>x</code> 變數使用傳值之外，其餘的變數皆使用傳參考的方式。</li>
+<li>這裡要注意一點，預設的抓取選項（capture-default，亦即 <code>=</code> 或是 <code>&amp;</code>）要放在所有的項目之前，也就是放在第一個位置。</li>
+</ul>
+<h2 id="parameter-list"><a href="#parameter-list" class="headerlink" title="parameter list"></a>parameter list</h2><ul>
+<li>定義此匿名函數的傳入參數列表，基本的用法跟一般函數的傳入參數列表一樣，不過多了一些限制條件：<ul>
+<li>  不可指定參數的預設值。</li>
+<li>  不可使用可變長度的參數列表。</li>
+<li>  參數列表不可以包含沒有命名的參數。</li>
+</ul>
+</li>
+<li>參數清單在 lambda expression 中並不是一個必要的項目，如果不需要傳入任何參數的話，可以連同小括號都一起省略。</li>
+</ul>
+<h2 id="return-type"><a href="#return-type" class="headerlink" title="return type"></a>return type</h2><ul>
+<li>指定 lambda expression 傳回值的型別，這個範例是指定傳回值型別為整數（<code>int</code>），其他的型別則以此類推。如果 lambda expression 所定義的函數很單純，只有包含一個傳回陳述式（statement）或是根本沒有傳回值的話，這部分就可以直接省略，讓編譯器自行判斷傳回值的型別。</li>
+</ul>
+<h2 id="reference"><a href="#reference" class="headerlink" title="reference"></a>reference</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://docs.microsoft.com/zh-tw/cpp/cpp/lambda-expressions-in-cpp?view=msvc-160">C++ 中的 Lambda 運算式 | Microsoft Docs</a></li>
+<li><a target="_blank" rel="noopener" href="https://en.cppreference.com/w/cpp/language/lambda">Lambda expressions (since C++11) - cppreference.com</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.gtwang.org/programming/lambda-expression-in-c11/">C++11 Lambda Expression 語法教學與範例 - G. T. Wang</a></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/note-c-c-lambda-function-book-section/" rel="tag"># note, c/c++, lambda function, book section</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/10/03/google-search/" rel="prev" title="Tips on Google Search">
+                  <i class="fa fa-chevron-left"></i> Tips on Google Search
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Lin Yunwen</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>總字數：</span>
+    <span title="總字數">231k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>所需總閱讀時間 &asymp;</span>
+    <span title="所需總閱讀時間">7:01</span>
+  </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>
