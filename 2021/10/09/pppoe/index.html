@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/linyunwen_icon/icon_32x32.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/linyunwen_icon/icon_32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/linyunwen_icon/icon_16x16.png">
+  <link rel="mask-icon" href="/images/linyunwen_icon/icon_32x32.png" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css" integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"linyunwen.github.io","root":"/","images":"/images","scheme":"Gemini","version":"8.6.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"disqus","storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"${hits} 找到 ${time} 個結果","hits":"找到 ${hits} 個結果"}}</script><script src="/js/config.js"></script>
+<meta name="description" content="PPPOE Point-to-Point Protocol over Ethernet 是將對等協定（PPP）封裝在乙太網路（Ethernet）框架中的一種網路隧道協定 由於協定中整合PPP協定，所以實現出傳統乙太網路不能提供的身分驗證、加密以及壓縮等功能，也可用於纜線數據機（cable modem）和數位使用者線路（DSL）等以乙太網路協定向使用者提供接入服務的協定體系 本質上，它是一個允許在乙">
+<meta property="og:type" content="article">
+<meta property="og:title" content="PPPOE">
+<meta property="og:url" content="https://linyunwen.github.io/2021/10/09/pppoe/index.html">
+<meta property="og:site_name" content="Lin Yunwen&#39;s Blog">
+<meta property="og:description" content="PPPOE Point-to-Point Protocol over Ethernet 是將對等協定（PPP）封裝在乙太網路（Ethernet）框架中的一種網路隧道協定 由於協定中整合PPP協定，所以實現出傳統乙太網路不能提供的身分驗證、加密以及壓縮等功能，也可用於纜線數據機（cable modem）和數位使用者線路（DSL）等以乙太網路協定向使用者提供接入服務的協定體系 本質上，它是一個允許在乙">
+<meta property="og:locale" content="zh_TW">
+<meta property="article:published_time" content="2021-10-09T09:14:45.000Z">
+<meta property="article:modified_time" content="2021-10-09T09:15:36.794Z">
+<meta property="article:author" content="Lin Yunwen">
+<meta property="article:tag" content="note">
+<meta property="article:tag" content="net">
+<meta property="article:tag" content="pppoe">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://linyunwen.github.io/2021/10/09/pppoe/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-TW","comments":true,"permalink":"https://linyunwen.github.io/2021/10/09/pppoe/","path":"2021/10/09/pppoe/","title":"PPPOE"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>PPPOE | Lin Yunwen's Blog</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-H43D6184CW"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"G-H43D6184CW","only_pageview":false}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Lin Yunwen's Blog</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">keep moving forward</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>標籤</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#PPPOE"><span class="nav-number">1.</span> <span class="nav-text">PPPOE</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#introduction"><span class="nav-number">1.1.</span> <span class="nav-text">introduction</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#PPPoE%E7%99%BC%E7%8F%BE"><span class="nav-number">1.1.1.</span> <span class="nav-text">PPPoE發現</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#details"><span class="nav-number">1.1.1.1.</span> <span class="nav-text">details</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%AE%A2%E6%88%B6%E7%AB%AF%E5%88%B0%E4%BC%BA%E6%9C%8D%E5%99%A8%EF%BC%9AInitiation%EF%BC%88PADI%EF%BC%89"><span class="nav-number">1.1.1.1.1.</span> <span class="nav-text">客戶端到伺服器：Initiation（PADI）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BC%BA%E6%9C%8D%E5%99%A8%E5%88%B0%E5%AE%A2%E6%88%B6%E7%AB%AF%EF%BC%9AOffer-PADO"><span class="nav-number">1.1.1.1.2.</span> <span class="nav-text">伺服器到客戶端：Offer (PADO)</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E5%AE%A2%E6%88%B6%E7%AB%AF%E5%88%B0%E4%BC%BA%E6%9C%8D%E5%99%A8%EF%BC%9ARequest%EF%BC%88PADR%EF%BC%89"><span class="nav-number">1.1.1.1.2.1.</span> <span class="nav-text">客戶端到伺服器：Request（PADR）</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E4%BC%BA%E6%9C%8D%E5%99%A8%E5%88%B0%E5%AE%A2%E6%88%B6%E7%AB%AF%EF%BC%9ASession-confirmation%EF%BC%88PADS%EF%BC%89"><span class="nav-number">1.1.1.1.2.2.</span> <span class="nav-text">伺服器到客戶端：Session-confirmation（PADS）</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E4%BB%BB%E4%BD%95%E4%B8%80%E6%96%B9%EF%BC%9ATermination%EF%BC%88PADT%EF%BC%89"><span class="nav-number">1.1.1.1.2.3.</span> <span class="nav-text">任何一方：Termination（PADT）</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PPP%E5%B0%8D%E8%AB%87"><span class="nav-number">1.1.2.</span> <span class="nav-text">PPP對談</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#error-code"><span class="nav-number">1.2.</span> <span class="nav-text">error code</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#cons"><span class="nav-number">1.3.</span> <span class="nav-text">cons</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#reference"><span class="nav-number">1.4.</span> <span class="nav-text">reference</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-overview">
+            <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Lin Yunwen"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Lin Yunwen</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">99</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">116</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/LinYunWen" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;LinYunWen" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:l40303k@gmail.com" title="E-Mail → mailto:l40303k@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="回到頂端">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://linyunwen.github.io/2021/10/09/pppoe/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Lin Yunwen">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Lin Yunwen's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          PPPOE
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">發表於</span>
+      
+
+      <time title="創建時間：2021-10-09 17:14:45 / 修改時間：17:15:36" itemprop="dateCreated datePublished" datetime="2021-10-09T17:14:45+08:00">2021-10-09</time>
+    </span>
+
+  
+      </div>
+      <div class="post-meta">
+    <span class="post-meta-item" title="文章字數">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">文章字數：</span>
+      <span>2.2k</span>
+    </span>
+    <span class="post-meta-item" title="所需閱讀時間">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+      <span>4 分鐘</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="PPPOE"><a href="#PPPOE" class="headerlink" title="PPPOE"></a>PPPOE</h1><ul>
+<li>Point-to-Point Protocol over Ethernet</li>
+<li>是將對等協定（PPP）封裝在乙太網路（Ethernet）框架中的一種網路隧道協定</li>
+<li>由於協定中整合PPP協定，所以實現出傳統乙太網路不能提供的身分驗證、加密以及壓縮等功能，也可用於纜線數據機（cable modem）和數位使用者線路（DSL）等以乙太網路協定向使用者提供接入服務的協定體系</li>
+<li>本質上，它是一個允許在乙太網路廣播域中的兩個乙太網路介面間建立對等隧道的協定。<span id="more"></span>
+<h2 id="introduction"><a href="#introduction" class="headerlink" title="introduction"></a>introduction</h2></li>
+<li>PPPoE分為兩個階段，PPPoE發現、PPP對談</li>
+</ul>
+<h3 id="PPPoE發現"><a href="#PPPoE發現" class="headerlink" title="PPPoE發現"></a>PPPoE發現</h3><ul>
+<li>由於傳統的PPP連接是建立在串行鏈路或撥號時建立的ATM虛電路連接上的，所有的PPP訊框都可以確保通過電纜到達對端。</li>
+<li>但是乙太網路是多路存取的，每一個節點都可以相互存取。以太影格包含目的節點的實體位址（MAC位址），這使得該影格可以到達預期的目的節點。 </li>
+<li>因此，為了在乙太網路上建立連接而交換PPP控制報文之前，兩個端點都必須知道對端的MAC位址，這樣才可以在控制報文中攜帶MAC位址。</li>
+<li>PPPoE發現階段做的就是這件事。除此之外，在此階段還將建立一個對談ID，以供後面交換報文使用。<h4 id="details"><a href="#details" class="headerlink" title="details"></a>details</h4></li>
+<li>儘管傳統的PPP是對等協定，但是由於多個主機可以通過一個單獨的物理連接連接到一個服務提供者，因此PPPoE本身就是一個客戶端-伺服器的關係。</li>
+<li>發現過程包含四個步驟。</li>
+<li>主機作為客戶端，ISP端的存取集中器作為伺服器</li>
+<li>最後一步第五步是關閉一個現存對談的方法<h5 id="客戶端到伺服器：Initiation（PADI）"><a href="#客戶端到伺服器：Initiation（PADI）" class="headerlink" title="客戶端到伺服器：Initiation（PADI）"></a>客戶端到伺服器：Initiation（PADI）</h5></li>
+<li>PADI為PPPoE Active Discovery Initiation的縮寫。<ul>
+<li>如果一個使用者想要使用DSL撥號連入Internet，那麼他的電腦必須首先在其ISP的網路服務提供點（POP）找到DSL存取集中器（DSL-AC）。</li>
+<li>在乙太網路上通訊只能通過MAC位址。</li>
+<li>由於電腦不知道DSL-AC的MAC位址，於是就在乙太網路上廣播一個PADI報文。這個報文中包含傳送者的MAC位址。<h5 id="伺服器到客戶端：Offer-PADO"><a href="#伺服器到客戶端：Offer-PADO" class="headerlink" title="伺服器到客戶端：Offer (PADO)"></a>伺服器到客戶端：Offer (PADO)</h5></li>
+</ul>
+</li>
+<li>PADO為PPPoE Active Discovery Offer的縮寫。<ul>
+<li>一但使用者電腦傳送了PADI報文，DSL-AC就會使用PADI中提供的MAC位址回覆一個PADO報文。</li>
+<li>PADO報文中包含了DSL-AC的MAC位址、名稱以及服務名。如果多於一個POP的DSL-AC回覆了PADO報文，使用者電腦就使用提供的名稱和服務來從中選擇一個。</li>
+</ul>
+</li>
+</ul>
+<h6 id="客戶端到伺服器：Request（PADR）"><a href="#客戶端到伺服器：Request（PADR）" class="headerlink" title="客戶端到伺服器：Request（PADR）"></a>客戶端到伺服器：Request（PADR）</h6><ul>
+<li>PADR為PPPoE Active Discovery Request的縮寫。<ul>
+<li>當使用者電腦收到一個來自DSL-AC的可接受的PADO報文後，就會傳送一個PADR報文給DSL-AC，用來確認接受傳送PADO報文的DSL-AC所提供的PPPoE連接。</li>
+</ul>
+</li>
+</ul>
+<h6 id="伺服器到客戶端：Session-confirmation（PADS）"><a href="#伺服器到客戶端：Session-confirmation（PADS）" class="headerlink" title="伺服器到客戶端：Session-confirmation（PADS）"></a>伺服器到客戶端：Session-confirmation（PADS）</h6><ul>
+<li>PADS為PPPoE Active Discovery Session-confirmation的縮寫。<ul>
+<li>上面的PADR報文由DSL-AC的PADS報文進行確認，並在其中攜帶一個對談ID。使用者電腦與此DSL-AC的連接現在就完整建立了。</li>
+</ul>
+</li>
+</ul>
+<h6 id="任何一方：Termination（PADT）"><a href="#任何一方：Termination（PADT）" class="headerlink" title="任何一方：Termination（PADT）"></a>任何一方：Termination（PADT）</h6><ul>
+<li>PADT為PPPoE Active Discovery Termination的縮寫。<ul>
+<li>這個報文終結使用者電腦與POP的的連接，可由使用者電腦或DSL-AC任意一方傳送。</li>
+</ul>
+</li>
+</ul>
+<h3 id="PPP對談"><a href="#PPP對談" class="headerlink" title="PPP對談"></a>PPP對談</h3><ul>
+<li>一旦連接的雙方知道了對端的MAC位址，對談就建立了。<h2 id="error-code"><a href="#error-code" class="headerlink" title="error code"></a>error code</h2></li>
+<li>678: 沒有應答。<ul>
+<li>問題原因：ISP運營商的伺服器出現故障，或者數據機出現故障。</li>
+<li>解決方法：<ul>
+<li>首先查看光貓的狀態，可以斷電重新啟動一次。</li>
+<li>再不行打客服電話報故障。從實際經驗看，是原來的撥號沒有斷開，直接拔下網線插到路由器WAN口就會出現撥號失敗。</li>
+<li>插到電腦撥號會出現678錯誤，是運營商伺服器掛起，後台顯示連接未斷開。</li>
+<li>解決辦法，5分鐘後重試。如果是光貓，光貓斷電5分鐘以上然後重啟，再撥號絕大部分時候就可以了，這個辦法是電信機房工作人員告訴我的。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>691<ul>
+<li>問題原因：輸入的用戶名和密碼不對，無法建立連接。</li>
+<li>解決方法：<ul>
+<li>出現691的錯誤時，用戶名和密碼輸入有誤的可能性很大，重新手動輸入用戶名和密碼，儘量不要粘貼，從實際經驗看粘貼密碼經常這樣，可能多了些控制字符或空格吧。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>602: 埠已經打開。<ul>
+<li>問題原因：撥號網絡由於設備安裝錯誤或正在使用，不能進行連接。</li>
+<li>解決方法：<ul>
+<li>撥號網絡網絡由於設備安裝錯誤或正在使用，不能進行連接導致，需要卸載乾淨任何PPPoE軟體，重新安裝。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="cons"><a href="#cons" class="headerlink" title="cons"></a>cons</h2><ul>
+<li>使用Internet前，需先透過PPPoE進行撥接，而非電腦啟動後立即上網。</li>
+<li>部分ISP會對PPPoE的連線使用者採取定時斷線，以節省營運成本及IP位址的佔用，故對於需長時間掛網的使用者較不利。但也有部份ISP為提供使用者選擇PPPoE可發配非固定IP或固定IP的服務。</li>
+<li>目前Windows XP之後的Windows，Mac OS X、Linux等作業系統等皆已內建PPPoE的撥接功能，更早期的作業系統需另行安裝PPPoE的撥接程式，如Enternet 300、RAS PPPoE等。<h2 id="reference"><a href="#reference" class="headerlink" title="reference"></a>reference</h2></li>
+<li><a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/PPPoE">PPPoE - 維基百科，自由的百科全書</a></li>
+<li><a target="_blank" rel="noopener" href="https://kknews.cc/news/665blgp.html">科普一下什麼是PPPoE - 每日頭條</a></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/note/" rel="tag"># note</a>
+              <a href="/tags/net/" rel="tag"># net</a>
+              <a href="/tags/pppoe/" rel="tag"># pppoe</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/10/09/linux-acl/" rel="prev" title="linux acl">
+                  <i class="fa fa-chevron-left"></i> linux acl
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Lin Yunwen</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>總字數：</span>
+    <span title="總字數">240k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>所需總閱讀時間 &asymp;</span>
+    <span title="所需總閱讀時間">7:16</span>
+  </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>
