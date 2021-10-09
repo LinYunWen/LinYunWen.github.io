@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/linyunwen_icon/icon_32x32.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/linyunwen_icon/icon_32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/linyunwen_icon/icon_16x16.png">
+  <link rel="mask-icon" href="/images/linyunwen_icon/icon_32x32.png" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css" integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"linyunwen.github.io","root":"/","images":"/images","scheme":"Gemini","version":"8.6.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"disqus","storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"${hits} 找到 ${time} 個結果","hits":"找到 ${hits} 個結果"}}</script><script src="/js/config.js"></script>
+<meta name="description" content="Access Control List (ACL) ACL 是 Access Control List 的縮寫，主要的目的是在提供傳統的 owner,group,others 的 read,write,execute 權限之外的細部權限設定。 ACL 可以針對單一使用者，單一檔案或目錄來進行 r,w,x 的權限規範，對於需要特殊權限的使用狀況非常有幫助。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="linux acl">
+<meta property="og:url" content="https://linyunwen.github.io/2021/10/09/linux-acl/index.html">
+<meta property="og:site_name" content="Lin Yunwen&#39;s Blog">
+<meta property="og:description" content="Access Control List (ACL) ACL 是 Access Control List 的縮寫，主要的目的是在提供傳統的 owner,group,others 的 read,write,execute 權限之外的細部權限設定。 ACL 可以針對單一使用者，單一檔案或目錄來進行 r,w,x 的權限規範，對於需要特殊權限的使用狀況非常有幫助。">
+<meta property="og:locale" content="zh_TW">
+<meta property="article:published_time" content="2021-10-09T08:45:26.000Z">
+<meta property="article:modified_time" content="2021-10-09T08:46:39.955Z">
+<meta property="article:author" content="Lin Yunwen">
+<meta property="article:tag" content="note">
+<meta property="article:tag" content="linux">
+<meta property="article:tag" content="book section">
+<meta property="article:tag" content="ACL">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://linyunwen.github.io/2021/10/09/linux-acl/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-TW","comments":true,"permalink":"https://linyunwen.github.io/2021/10/09/linux-acl/","path":"2021/10/09/linux-acl/","title":"linux acl"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>linux acl | Lin Yunwen's Blog</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-H43D6184CW"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"G-H43D6184CW","only_pageview":false}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Lin Yunwen's Blog</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">keep moving forward</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>標籤</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Access-Control-List-ACL"><span class="nav-number">1.</span> <span class="nav-text">Access Control List (ACL)</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#introduction"><span class="nav-number">1.1.</span> <span class="nav-text">introduction</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E6%AC%8A%E9%99%90"><span class="nav-number">1.1.1.</span> <span class="nav-text">基本權限</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ACL"><span class="nav-number">1.1.2.</span> <span class="nav-text">ACL</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#reference"><span class="nav-number">1.2.</span> <span class="nav-text">reference</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-overview">
+            <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Lin Yunwen"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Lin Yunwen</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">98</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">115</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/LinYunWen" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;LinYunWen" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:l40303k@gmail.com" title="E-Mail → mailto:l40303k@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="回到頂端">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://linyunwen.github.io/2021/10/09/linux-acl/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Lin Yunwen">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Lin Yunwen's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          linux acl
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">發表於</span>
+      
+
+      <time title="創建時間：2021-10-09 16:45:26 / 修改時間：16:46:39" itemprop="dateCreated datePublished" datetime="2021-10-09T16:45:26+08:00">2021-10-09</time>
+    </span>
+
+  
+      </div>
+      <div class="post-meta">
+    <span class="post-meta-item" title="文章字數">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">文章字數：</span>
+      <span>1.7k</span>
+    </span>
+    <span class="post-meta-item" title="所需閱讀時間">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+      <span>3 分鐘</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="Access-Control-List-ACL"><a href="#Access-Control-List-ACL" class="headerlink" title="Access Control List (ACL)"></a>Access Control List (ACL)</h1><ul>
+<li>ACL 是 Access Control List 的縮寫，主要的目的是在提供傳統的 owner,group,others 的 read,write,execute 權限之外的細部權限設定。</li>
+<li>ACL 可以針對單一使用者，單一檔案或目錄來進行 r,w,x 的權限規範，對於需要特殊權限的使用狀況非常有幫助。<span id="more"></span>
+<h2 id="introduction"><a href="#introduction" class="headerlink" title="introduction"></a>introduction</h2></li>
+<li>每一個（檔案系統內的）物件對應一個串列主體。存取控制串列由存取控制條目（access control entries，ACE）組成。存取控制串列描述使用者或系統行程對每個物件的存取控制權限。</li>
+<li>存取控制串列的主要缺點是不可以有效迅速地枚舉一個物件的存取權限。因此，要確定一個物件的所有存取權限需要搜尋整個存取控制串列來找出相對應的存取權限。</li>
+<li>由於Linux POSIX ACL 預設是關閉，因此需要透過檔案系統的啟用才能用此功能  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ubuntu@ubuntu:~$ vim /etc/fstab                                  #編輯/etc/fstab</span><br><span class="line">LABEL=cloudimg-rootfs   /home        ext4   defaults,acl  0 0    #於defaults後加入acl </span><br><span class="line">ubuntu@ubuntu:~$ sudo mount -o remount /home                     #重新掛載</span><br><span class="line">ubuntu@ubuntu:~$ cat /etc/mtab                                   #查看ACL是否已啟用</span><br><span class="line">/dev/sda1 / ext4 rw,acl 0 0                                      #ACL已啟用</span><br></pre></td></tr></table></figure>
+<h3 id="基本權限"><a href="#基本權限" class="headerlink" title="基本權限"></a>基本權限</h3></li>
+<li>三種 owner, group, others 對應 read, write, execute<blockquote>
+<ul>
+<li>如果有一個目錄底下有一堆人要使用，每個人或群組所需要的權限每個都不一樣，而基本的權限管理只有檔案擁有者、群組、其他人，沒辦法針對 aming 這個單一用戶設定權限，因此就有以下的 ACL 概念。</li>
+</ul>
+</blockquote>
+</li>
+</ul>
+<h3 id="ACL"><a href="#ACL" class="headerlink" title="ACL"></a>ACL</h3><ul>
+<li><p>ACL 的控制權</p>
+<ul>
+<li>  使用者(user):針對使用者設定權限</li>
+<li>  群組(group):針對群組設定權限</li>
+<li>  預設屬性(mask):該目錄新建檔案/目錄時，規範新資料的預設權限。</li>
+</ul>
+</li>
+<li><p>檢查 ACL</p>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dmesg | grep -i acl</span><br></pre></td></tr></table></figure></li>
+<li><p>設定 ACL</p>
+<ul>
+<li>setfacl<ul>
+<li>選項與參數：<ul>
+<li>-m ：設定後續的 acl 參數給檔案使用，不可與 -x 合用；</li>
+<li>-x ：刪除後續的 acl 參數，不可與 -m 合用；</li>
+<li>-b ：移除『所有的』 ACL 設定參數；</li>
+<li>-k ：移除『預設的』 ACL 參數，關於所謂的『預設』參數於後續範例中介紹；</li>
+<li>-R ：遞迴設定 acl ，亦即包括次目錄都會被設定起來；</li>
+<li>-d ：設定『預設 acl 參數』的意思！只對目錄有效，在該目錄新建的資料會引用此預設值</li>
+<li></li>
+</ul>
+</li>
+<li>我們來針對特定使用者 aming 來設定權限 r,x，一開始先建一個檔案並檢視其一般權限。  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">root$&gt; touch test</span><br><span class="line">root$&gt; ll test</span><br><span class="line">-rw-r--r-- 1 root root 0 八 07 08:07 test</span><br></pre></td></tr></table></figure></li>
+<li>接下來使用 ACL 權限設定:  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">setfacl -m u:aming:rx test</span><br><span class="line">ll test</span><br></pre></td></tr></table></figure></li>
+<li>接下來檔案權限會變成這樣:  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-rwxr-xr--+ 1 root root 0 八 07 08:07 test</span><br></pre></td></tr></table></figure></li>
+<li>我們來比較一下兩個檔案權限，會發現差了一個 + 號還有 owner 的 x、group 的 x。</li>
+<li>移除所有ACL權限：<code>setfacl -b 檔案／目錄</code></li>
+</ul>
+</li>
+<li>getfacl<ul>
+<li>這樣就會列出詳細資訊，其中最重要的  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">getfacl test</span><br><span class="line"># file: test     #檔案名稱</span><br><span class="line"># owner: ubuntu  #檔案擁有者</span><br><span class="line"># group: ubuntu  #檔案擁有群組</span><br><span class="line">user::rw-        #擁有者權限</span><br><span class="line">group::rw-       #擁有群組權限</span><br><span class="line">other::r--       #其他使用者權限</span><br></pre></td></tr></table></figure></li>
+<li>凸顯了透過 AC　使 aming 和其他使用者權限的產生差異。</li>
+</ul>
+</li>
+<li>針對特定群組  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">root$&gt; setfacl -m g:groooop:wx test</span><br><span class="line">getfacl test</span><br></pre></td></tr></table></figure>
+<ul>
+<li>一樣我們看群組的欄位：<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">group::r--</span><br><span class="line">group:groooop:wx</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="reference"><a href="#reference" class="headerlink" title="reference"></a>reference</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://david50.pixnet.net/blog/post/45269868-%5B%E7%AD%86%E8%A8%98%5Dlinux-access-control-list(acl)">[筆記]Linux-Access Control List(ACL) @ David Liao’s Blog :: 痞客邦 ::</a></li>
+<li><a target="_blank" rel="noopener" href="https://ithelp.ithome.com.tw/articles/10221185">[Day 10] Linux 細部權限 ACL - iT 邦幫忙::一起幫忙解決難題，拯救 IT 人的一天</a></li>
+<li><a target="_blank" rel="noopener" href="http://linux.vbird.org/linux_basic/0410accountmanager.php#acl_talk_what">鳥哥的 Linux 私房菜 – 第十三章、Linux 帳號管理與 ACL 權限設定</a></li>
+<li><a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E5%AD%98%E5%8F%96%E6%8E%A7%E5%88%B6%E4%B8%B2%E5%88%97">存取控制串列 - 維基百科，自由的百科全書</a></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/note/" rel="tag"># note</a>
+              <a href="/tags/linux/" rel="tag"># linux</a>
+              <a href="/tags/book-section/" rel="tag"># book section</a>
+              <a href="/tags/ACL/" rel="tag"># ACL</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/10/04/c-c-define/" rel="prev" title="C/C++ define">
+                  <i class="fa fa-chevron-left"></i> C/C++ define
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Lin Yunwen</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>總字數：</span>
+    <span title="總字數">237k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>所需總閱讀時間 &asymp;</span>
+    <span title="所需總閱讀時間">7:12</span>
+  </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>
