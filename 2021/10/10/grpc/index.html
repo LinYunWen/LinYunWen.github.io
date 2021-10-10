@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/linyunwen_icon/icon_32x32.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/linyunwen_icon/icon_32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/linyunwen_icon/icon_16x16.png">
+  <link rel="mask-icon" href="/images/linyunwen_icon/icon_32x32.png" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css" integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"linyunwen.github.io","root":"/","images":"/images","scheme":"Gemini","version":"8.6.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"disqus","storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"${hits} 找到 ${time} 個結果","hits":"找到 ${hits} 個結果"}}</script><script src="/js/config.js"></script>
+<meta name="description" content="gRPC RPC 的全名是 remote procedure call，主要是作為電腦和電腦間溝通使用。 A 電腦可以呼叫 B 電腦執行某些程式，B 電腦會將結果回傳給 A 電腦，A 電腦在收到回應後會再繼續處理其他任務。 RPC 的好處在於，雖然 A 電腦是發送請求去請 B 電腦做事，但其呼叫的方式，就很像是 A 電腦直接在呼叫自己內部的函式一般。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="gRPC">
+<meta property="og:url" content="https://linyunwen.github.io/2021/10/10/grpc/index.html">
+<meta property="og:site_name" content="Lin Yunwen&#39;s Blog">
+<meta property="og:description" content="gRPC RPC 的全名是 remote procedure call，主要是作為電腦和電腦間溝通使用。 A 電腦可以呼叫 B 電腦執行某些程式，B 電腦會將結果回傳給 A 電腦，A 電腦在收到回應後會再繼續處理其他任務。 RPC 的好處在於，雖然 A 電腦是發送請求去請 B 電腦做事，但其呼叫的方式，就很像是 A 電腦直接在呼叫自己內部的函式一般。">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://i.imgur.com/CfguHEE.png">
+<meta property="og:image" content="https://i.imgur.com/K6XIElE.png">
+<meta property="og:image" content="https://i.imgur.com/jCI40ft.png">
+<meta property="article:published_time" content="2021-10-10T02:14:43.000Z">
+<meta property="article:modified_time" content="2021-10-10T02:16:28.664Z">
+<meta property="article:author" content="Lin Yunwen">
+<meta property="article:tag" content="note">
+<meta property="article:tag" content="net">
+<meta property="article:tag" content="grpc">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.imgur.com/CfguHEE.png">
+
+
+<link rel="canonical" href="https://linyunwen.github.io/2021/10/10/grpc/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-TW","comments":true,"permalink":"https://linyunwen.github.io/2021/10/10/grpc/","path":"2021/10/10/grpc/","title":"gRPC"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>gRPC | Lin Yunwen's Blog</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-H43D6184CW"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"G-H43D6184CW","only_pageview":false}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Lin Yunwen's Blog</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">keep moving forward</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>標籤</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#gRPC"><span class="nav-number">1.</span> <span class="nav-text">gRPC</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Protocol-Buffers"><span class="nav-number">1.1.</span> <span class="nav-text">Protocol Buffers</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-Protocol-Buffers-%E7%9A%84%E5%A5%BD%E8%99%95"><span class="nav-number">1.1.1.</span> <span class="nav-text">使用 Protocol Buffers 的好處#</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#gRPC-mode"><span class="nav-number">1.2.</span> <span class="nav-text">gRPC mode</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#gRPC-v-s-RESTFUL-API"><span class="nav-number">1.3.</span> <span class="nav-text">gRPC v.s. RESTFUL API</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#cons"><span class="nav-number">1.4.</span> <span class="nav-text">cons</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#gRPC-%E5%BB%BA%E8%AD%B0%E7%9A%84%E6%A1%88%E4%BE%8B"><span class="nav-number">1.5.</span> <span class="nav-text">gRPC 建議的案例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#reference"><span class="nav-number">1.6.</span> <span class="nav-text">reference</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-overview">
+            <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Lin Yunwen"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Lin Yunwen</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">101</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">120</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/LinYunWen" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;LinYunWen" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:l40303k@gmail.com" title="E-Mail → mailto:l40303k@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="回到頂端">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://linyunwen.github.io/2021/10/10/grpc/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Lin Yunwen">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Lin Yunwen's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          gRPC
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">發表於</span>
+      
+
+      <time title="創建時間：2021-10-10 10:14:43 / 修改時間：10:16:28" itemprop="dateCreated datePublished" datetime="2021-10-10T10:14:43+08:00">2021-10-10</time>
+    </span>
+
+  
+      </div>
+      <div class="post-meta">
+    <span class="post-meta-item" title="文章字數">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">文章字數：</span>
+      <span>1.8k</span>
+    </span>
+    <span class="post-meta-item" title="所需閱讀時間">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+      <span>3 分鐘</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="gRPC"><a href="#gRPC" class="headerlink" title="gRPC"></a>gRPC</h1><ul>
+<li>RPC 的全名是 remote procedure call，主要是作為電腦和電腦間溝通使用。<ul>
+<li>A 電腦可以呼叫 B 電腦執行某些程式，B 電腦會將結果回傳給 A 電腦，A 電腦在收到回應後會再繼續處理其他任務。</li>
+<li>RPC 的好處在於，雖然 A 電腦是發送請求去請 B 電腦做事，但其呼叫的方式，就很像是 A 電腦直接在呼叫自己內部的函式一般。<span id="more"></span></li>
+</ul>
+</li>
+<li>gRPC 也是基於這樣的概念，讓想要呼叫 server 處理請求的 client，在使用這支 API 時就好像是呼叫自己內部的函式一樣簡單自然。</li>
+<li>從功能面來說，gRPC 就像 Web 常用的 Restful API 一樣，都是在處理請求和回應，並且進行資料交換，但 gRPC 還多了其他的功能和特色。</li>
+<li>gRPC 是由 Google 開發的開源框架，它快速有效、奠基在 HTTP/2 上提供低延遲（low latency），支援串流，更容易做到權限驗證（authentication）。</li>
+<li><img src="https://i.imgur.com/CfguHEE.png"></li>
+</ul>
+<h2 id="Protocol-Buffers"><a href="#Protocol-Buffers" class="headerlink" title="Protocol Buffers"></a>Protocol Buffers</h2><ul>
+<li>在傳統的 Restful API 中，最常使用的資料交換格式通常是 JSON；但到了 gRPC 中，資料交換的格式則是使用名為 Protocol Buffers 的規範／語言。</li>
+<li>也就是說，當我們想要使用 gRPC 的服務來交換資料前，必須先把資料「格式」和「方法」都定義清楚。<ul>
+<li><img src="https://i.imgur.com/K6XIElE.png"></li>
+</ul>
+</li>
+<li>透過 Protocol Buffer 定義好資料的傳輸欄位（<code>message</code>）和呼叫的方法（<code>service</code>）後，gRPC 即可在不同程式語言上運行，這非常適合微服務（micro-services）的應用情境，只要雙方一起定義好 schema 後，就可以用不同的程式語言進行開發。</li>
+</ul>
+<blockquote>
+<ul>
+<li>使用 gRPC 前，不只需要先把資料交換的格式定義清楚，同時也需要把資料交換的方法定義清楚。</li>
+<li>Protocol Buffers 可以獨立使用，不一定要搭配 gRPC；但使用 gRPC 一定要搭配 Protocol Buffers</li>
+</ul>
+</blockquote>
+<h3 id="使用-Protocol-Buffers-的好處"><a href="#使用-Protocol-Buffers-的好處" class="headerlink" title="使用 Protocol Buffers 的好處#"></a>使用 Protocol Buffers 的好處#</h3><ul>
+<li>節省網路傳輸量：速度更快、檔案更小</li>
+<li>節省 CPU 消耗：Parse JSON 本身是 CPU intensive 的任務；Parse Protocol Buffer（binary format）因為更接近底層機器表徵資料的方式，消耗的 CPU 資源較低</li>
+<li>跨程式語言：Protocol Buffer 可以根據不同的程式語言編譯出不同的檔案</li>
+<li>可以寫註解、型別清楚明確</li>
+</ul>
+<h2 id="gRPC-mode"><a href="#gRPC-mode" class="headerlink" title="gRPC mode"></a>gRPC mode</h2><ul>
+<li>Unary：<ul>
+<li>類似傳統 API，client 發送 request 而 server 回傳 response</li>
+</ul>
+</li>
+<li>Server Streaming：<ul>
+<li>透過 HTTP/2，client 發送一次 request，而 server 可以回傳多次資料</li>
+</ul>
+</li>
+<li>Client Streaming：<ul>
+<li>client 發送多次資料，直到告知 server 資料傳完後，server 再給予 response</li>
+</ul>
+</li>
+<li>Bi Directional Streaming：<ul>
+<li>兩邊都用串流的方式傳送資料<br><img src="https://i.imgur.com/jCI40ft.png"></li>
+</ul>
+</li>
+</ul>
+<h2 id="gRPC-v-s-RESTFUL-API"><a href="#gRPC-v-s-RESTFUL-API" class="headerlink" title="gRPC v.s. RESTFUL API"></a>gRPC v.s. RESTFUL API</h2><table>
+<thead>
+<tr>
+<th>功能</th>
+<th>gRPC</th>
+<th>HTTP Api 與 JSON</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>合約</td>
+<td>必要 (<em>。 proto</em>)</td>
+<td>選擇性的 (OpenAPI)</td>
+</tr>
+<tr>
+<td>通訊協定</td>
+<td>HTTP/2</td>
+<td>HTTP</td>
+</tr>
+<tr>
+<td>Payload</td>
+<td><a target="_blank" rel="noopener" href="https://docs.microsoft.com/zh-tw/aspnet/core/grpc/comparison?view=aspnetcore-5.0#performance">Protobuf (small、binary)</a></td>
+<td>JSON (大型、人類看得懂的)</td>
+</tr>
+<tr>
+<td>Prescriptiveness</td>
+<td><a target="_blank" rel="noopener" href="https://docs.microsoft.com/zh-tw/aspnet/core/grpc/comparison?view=aspnetcore-5.0#strict-specification">嚴格規格</a></td>
+<td>鬆散。 任何 HTTP 都有效。</td>
+</tr>
+<tr>
+<td>串流</td>
+<td><a target="_blank" rel="noopener" href="https://docs.microsoft.com/zh-tw/aspnet/core/grpc/comparison?view=aspnetcore-5.0#streaming">用戶端、伺服器、雙向</a></td>
+<td>用戶端、伺服器</td>
+</tr>
+<tr>
+<td>瀏覽器支援</td>
+<td><a target="_blank" rel="noopener" href="https://docs.microsoft.com/zh-tw/aspnet/core/grpc/comparison?view=aspnetcore-5.0#limited-browser-support">無 (需要 grpc-web)</a></td>
+<td>是</td>
+</tr>
+<tr>
+<td>安全性</td>
+<td>傳輸 (TLS)</td>
+<td>傳輸 (TLS)</td>
+</tr>
+<tr>
+<td>用戶端程式代碼產生</td>
+<td><a target="_blank" rel="noopener" href="https://docs.microsoft.com/zh-tw/aspnet/core/grpc/comparison?view=aspnetcore-5.0#code-generation">是</a></td>
+<td>OpenAPI + 協力廠商工具</td>
+</tr>
+</tbody></table>
+<h2 id="cons"><a href="#cons" class="headerlink" title="cons"></a>cons</h2><ul>
+<li>Protocol Buffer 不像 JSON 是 Human Readable。</li>
+<li>需要額外的學習時間和導入成本。</li>
+<li>瀏覽器原生目前還不支援，須透過套件 grpc-web 來處理</li>
+</ul>
+<h2 id="gRPC-建議的案例"><a href="#gRPC-建議的案例" class="headerlink" title="gRPC 建議的案例"></a>gRPC 建議的案例</h2><ul>
+<li>微服務： gRPC 是針對低延遲和高輸送量的通訊所設計。 gRPC 非常適合於高效率的輕量微服務。</li>
+<li>點對點即時通訊： gRPC 有絕佳的雙向串流支援。 gRPC services 可以即時推播訊息，而不會進行輪詢。</li>
+<li>多語言環境： gRPC 工具支援所有熱門的開發語言，讓 gRPC 成為多國語言環境的理想選擇。</li>
+<li>網路受限的環境： gRPC 訊息會以 Protobuf （輕量訊息格式）進行序列化。 GRPC 訊息一律小於相等的 JSON 訊息。</li>
+<li>處理序間通訊 (ipc)：如 Unix 網域通訊端和具名管道等 ipc 傳輸，可與 gRPC 搭配使用，以在同一部電腦上的應用程式之間進行通訊。 如需詳細資訊，請參閱與 gRPC 的處理程序間通訊。</li>
+</ul>
+<h2 id="reference"><a href="#reference" class="headerlink" title="reference"></a>reference</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://pjchender.dev/golang/grpc-getting-started/">[gRPC] gRPC Getting Started | PJCHENder 未整理筆記</a></li>
+<li><a target="_blank" rel="noopener" href="https://grpc.io/">gRPC</a></li>
+<li><a target="_blank" rel="noopener" href="https://docs.microsoft.com/zh-tw/aspnet/core/grpc/comparison?view=aspnetcore-5.0">比較 gRPC 服務與 HTTP API | Microsoft Docs</a></li>
+<li><a target="_blank" rel="noopener" href="http://gelis-dotnet.blogspot.com/2019/04/grpc.html">什麼是 gRPC ？</a></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/note/" rel="tag"># note</a>
+              <a href="/tags/net/" rel="tag"># net</a>
+              <a href="/tags/grpc/" rel="tag"># grpc</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/10/10/disk-smart-test/" rel="prev" title="Disk SMART Test">
+                  <i class="fa fa-chevron-left"></i> Disk SMART Test
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Lin Yunwen</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>總字數：</span>
+    <span title="總字數">243k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>所需總閱讀時間 &asymp;</span>
+    <span title="所需總閱讀時間">7:22</span>
+  </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>
