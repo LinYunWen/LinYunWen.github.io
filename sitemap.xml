@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://linyunwen.github.io/2021/10/17/c-c-thread/</loc>
+    
+    <lastmod>2021-10-17</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://linyunwen.github.io/2021/10/17/rtc/</loc>
     
     <lastmod>2021-10-17</lastmod>
@@ -1657,6 +1664,13 @@
   
   <url>
     <loc>https://linyunwen.github.io/tags/note-rtc-linux/</loc>
+    <lastmod>2021-10-17</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://linyunwen.github.io/tags/note-c-c-thread-book-section/</loc>
     <lastmod>2021-10-17</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
