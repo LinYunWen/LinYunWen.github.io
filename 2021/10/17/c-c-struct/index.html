@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/linyunwen_icon/icon_32x32.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/linyunwen_icon/icon_32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/linyunwen_icon/icon_16x16.png">
+  <link rel="mask-icon" href="/images/linyunwen_icon/icon_32x32.png" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css" integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"linyunwen.github.io","root":"/","images":"/images","scheme":"Gemini","version":"8.6.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"disqus","storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"${hits} 找到 ${time} 個結果","hits":"找到 ${hits} 個結果"}}</script><script src="/js/config.js"></script>
+<meta name="description" content="C&#x2F;C++ struct 自訂不同資料型態串在一起   12345678910111213141516171819202122struct person_t &amp;#123;    char *name;    unsigned age;&amp;#125;;&#x2F;&#x2F; or &#x2F;&#x2F; typedef struct &amp;#123;&#x2F;&#x2F;     char *name;&#x2F;&#x2F;     unsigned age;&#x2F;&#x2F; &amp;#125">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C&#x2F;C++ struct">
+<meta property="og:url" content="https://linyunwen.github.io/2021/10/17/c-c-struct/index.html">
+<meta property="og:site_name" content="Lin Yunwen&#39;s Blog">
+<meta property="og:description" content="C&#x2F;C++ struct 自訂不同資料型態串在一起   12345678910111213141516171819202122struct person_t &amp;#123;    char *name;    unsigned age;&amp;#125;;&#x2F;&#x2F; or &#x2F;&#x2F; typedef struct &amp;#123;&#x2F;&#x2F;     char *name;&#x2F;&#x2F;     unsigned age;&#x2F;&#x2F; &amp;#125">
+<meta property="og:locale" content="zh_TW">
+<meta property="article:published_time" content="2021-10-17T12:05:26.000Z">
+<meta property="article:modified_time" content="2021-10-17T12:06:15.926Z">
+<meta property="article:author" content="Lin Yunwen">
+<meta property="article:tag" content="note, c&#x2F;c++, struct, book section">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://linyunwen.github.io/2021/10/17/c-c-struct/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-TW","comments":true,"permalink":"https://linyunwen.github.io/2021/10/17/c-c-struct/","path":"2021/10/17/c-c-struct/","title":"C/C++ struct"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>C/C++ struct | Lin Yunwen's Blog</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-H43D6184CW"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"G-H43D6184CW","only_pageview":false}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Lin Yunwen's Blog</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">keep moving forward</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>標籤</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#C-C-struct"><span class="nav-number">1.</span> <span class="nav-text">C&#x2F;C++ struct</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#reference"><span class="nav-number">1.1.</span> <span class="nav-text">reference</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-overview">
+            <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Lin Yunwen"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Lin Yunwen</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">106</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">127</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/LinYunWen" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;LinYunWen" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:l40303k@gmail.com" title="E-Mail → mailto:l40303k@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="回到頂端">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://linyunwen.github.io/2021/10/17/c-c-struct/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Lin Yunwen">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Lin Yunwen's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          C/C++ struct
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">發表於</span>
+      
+
+      <time title="創建時間：2021-10-17 20:05:26 / 修改時間：20:06:15" itemprop="dateCreated datePublished" datetime="2021-10-17T20:05:26+08:00">2021-10-17</time>
+    </span>
+
+  
+      </div>
+      <div class="post-meta">
+    <span class="post-meta-item" title="文章字數">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">文章字數：</span>
+      <span>1.7k</span>
+    </span>
+    <span class="post-meta-item" title="所需閱讀時間">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+      <span>3 分鐘</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="C-C-struct"><a href="#C-C-struct" class="headerlink" title="C/C++ struct"></a>C/C++ struct</h1><ul>
+<li><p>自訂不同資料型態串在一起</p>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">struct person_t &#123;</span><br><span class="line">    char *name;</span><br><span class="line">    unsigned age;</span><br><span class="line">&#125;;</span><br><span class="line">// or </span><br><span class="line">// typedef struct &#123;</span><br><span class="line">//     char *name;</span><br><span class="line">//     unsigned age;</span><br><span class="line">// &#125; person_t;</span><br><span class="line"></span><br><span class="line">int main(void)</span><br><span class="line">&#123;</span><br><span class="line">    struct person_t p = &#123; &quot;Michelle&quot;, 37 &#125;;  </span><br><span class="line">//     or</span><br><span class="line">//     struct person_t p = &#123; </span><br><span class="line">//         .name = &quot;Michelle&quot;, </span><br><span class="line">//         .age = 37</span><br><span class="line">//     &#125;;  </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+  <span id="more"></span>
+<ul>
+<li>在C語言中，定義一個結構體型別要用typedef :  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">typedef struct point &#123;</span><br><span class="line">    int x;</span><br><span class="line">    int y;</span><br><span class="line">&#125;Point;</span><br><span class="line"></span><br><span class="line">// 在宣告變數的時候就可以：Point p1;</span><br><span class="line">// 如果沒有typedef, 如：</span><br><span class="line">struct point &#123;</span><br><span class="line">    int x;</span><br><span class="line">    int y;</span><br><span class="line">&#125;;</span><br><span class="line">// 在宣告變數的時候就必須用：struct point p1;</span><br><span class="line">// Point是struct point的別名。</span><br></pre></td></tr></table></figure></li>
+<li>在 C中，struct不能包含函式</li>
+</ul>
+<ul>
+<li>在C++中，對struct進行了擴充套件，可以包含函式。</li>
+</ul>
+</li>
+<li><p>struct 可以內嵌在結構內的結構</p>
+<ul>
+<li>結構內不能嵌入同一個結構，也就是結構不能遞迴宣告</li>
+</ul>
+</li>
+<li><p>儲存結構的陣列</p>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">point_t pts[] = &#123;</span><br><span class="line">    &#123; .x = 0.0, .y = 0.0 &#125;,</span><br><span class="line">    &#123; .x = 1.0, .y = 2.0 &#125;,</span><br><span class="line">    &#123; .x = 3.0, .y = 4.0 &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">for (size_t i = 0; i &lt; 3; i++) &#123;</span><br><span class="line">    printf(&quot;(%.2f, %.2f)\n&quot;, pts[i].x, pts[i].y);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>存取結構指標的屬性</p>
+<ul>
+<li>存取結構指標內的屬性有兩種方式：<ul>
+<li>解指標 (dereference)</li>
+<li>使用 -&gt; (箭號)</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>第二種方式在語法上比較簡潔，故較受歡迎，可以當做一種語法糖<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">point_t *pt = malloc(sizeof(point_t));</span><br><span class="line">if (!pt)</span><br><span class="line">    return 1;</span><br><span class="line"></span><br><span class="line">/* Init x and y with dereference. */</span><br><span class="line">(*pt).x = 0.0;</span><br><span class="line">(*pt).y = 0.0;</span><br><span class="line"></span><br><span class="line">/* Access fields of pt with dereference. */</span><br><span class="line">assert((*pt).x == 0.0);</span><br><span class="line">assert((*pt).y == 0.0);</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">/* Mutate x and y with `-&gt;` */</span><br><span class="line">pt-&gt;x = 3.0;</span><br><span class="line">pt-&gt;y = 4.0;</span><br><span class="line"></span><br><span class="line">/* Access fields of pt with `-&gt;` */</span><br><span class="line">assert(pt-&gt;x == 3.0);</span><br><span class="line">assert(pt-&gt;y == 4.0);</span><br><span class="line"></span><br><span class="line">free(pt);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>Initializing default values in a struct</p>
+<ul>
+<li>declare a variable bar with the type of foo<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">struct foo &#123;</span><br><span class="line">    foo() : a(true), b(true) &#123;&#125;</span><br><span class="line">    bool a;</span><br><span class="line">    bool b;</span><br><span class="line">    bool c;</span><br><span class="line">&#125; bar;</span><br></pre></td></tr></table></figure>
+改成<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">struct foo &#123;</span><br><span class="line">    bool a = true;</span><br><span class="line">    bool b = true;</span><br><span class="line">    bool c;</span><br><span class="line">&#125; bar;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<ul>
+<li>This was added in C++11.</li>
+</ul>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><p>可以做繼承、constructor、methods</p>
+<h2 id="reference"><a href="#reference" class="headerlink" title="reference"></a>reference</h2></li>
+<li><p><a target="_blank" rel="noopener" href="https://opensourcedoc.com/c-programming/struct/">[C 語言] 程式設計教學：如何使用結構 (Struct) | 開放原始碼技術文件網</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://www.itread01.com/content/1546383061.html">C/C++ struct 結構體定義 用法詳解 - IT閱讀</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://crmne0707.pixnet.net/blog/post/317076414-c%2B%2B-%E7%B5%90%E6%A7%8B-struct">C++ 結構 struct @ 程式語言教學 :: 痞客邦 ::</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://kopu.chat/2017/05/30/c-%E8%AA%9E%E8%A8%80%EF%BC%9A%E7%B5%90%E6%A7%8B%EF%BC%88struct%EF%BC%89%E8%87%AA%E8%A8%82%E4%B8%8D%E5%90%8C%E8%B3%87%E6%96%99%E5%9E%8B%E6%85%8B%E7%B6%81%E4%B8%80%E8%B5%B7/">C 語言：結構（struct）自訂不同資料型態綁一起 - 寫點科普 Kopuchat</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/16782103/initializing-default-values-in-a-struct">c++ - Initializing default values in a struct - Stack Overflow</a></p>
+</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/note-c-c-struct-book-section/" rel="tag"># note, c/c++, struct, book section</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/10/11/data-deduplication/" rel="prev" title="Data Deduplication">
+                  <i class="fa fa-chevron-left"></i> Data Deduplication
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Lin Yunwen</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>總字數：</span>
+    <span title="總字數">251k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>所需總閱讀時間 &asymp;</span>
+    <span title="所需總閱讀時間">7:37</span>
+  </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>
