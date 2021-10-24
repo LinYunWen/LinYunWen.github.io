@@ -133,14 +133,14 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">114</span>
+          <span class="site-state-item-count">115</span>
           <span class="site-state-item-name">文章</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">138</span>
+        <span class="site-state-item-count">139</span>
         <span class="site-state-item-name">標籤</span></a>
       </div>
   </nav>
@@ -178,6 +178,391 @@
 
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://linyunwen.github.io/2021/10/24/ntpq/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Lin Yunwen">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Lin Yunwen's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2021/10/24/ntpq/" class="post-title-link" itemprop="url">ntpq</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">發表於</span>
+      
+
+      <time title="創建時間：2021-10-24 08:58:15 / 修改時間：08:59:41" itemprop="dateCreated datePublished" datetime="2021-10-24T08:58:15+08:00">2021-10-24</time>
+    </span>
+
+  
+      </div>
+      <div class="post-meta">
+    <span class="post-meta-item" title="文章字數">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">文章字數：</span>
+      <span>10k</span>
+    </span>
+    <span class="post-meta-item" title="所需閱讀時間">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+      <span>18 分鐘</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="ntpq"><a href="#ntpq" class="headerlink" title="ntpq"></a>ntpq</h1><ul>
+<li>standard NTP query program</li>
+</ul>
+<h2 id="introduction"><a href="#introduction" class="headerlink" title="introduction"></a>introduction</h2><ul>
+<li><code>ntpq [-46dinp] [-c command] [host] [...]</code></li>
+<li>ntpq uses NTP mode 6 packets to communicate with the NTP server, and hence can be used to query any compatible server on the network which permits it.<ul>
+<li>Note that since NTP is a UDP protocol this communication will be somewhat unreliable, especially over large distances in terms of network topology. ntpq makes one attempt to retransmit requests, and will time requests out if the remote host is not heard from within a suitable timeout time.</li>
+</ul>
+</li>
+</ul>
+<h2 id="options"><a href="#options" class="headerlink" title="options"></a>options</h2><ul>
+<li>-4<ul>
+<li>Force DNS resolution of following host names on the command line to the IPv4 namespace.</li>
+</ul>
+</li>
+<li>-6<ul>
+<li>Force DNS resolution of following host names on the command line to the IPv6 namespace.</li>
+</ul>
+</li>
+<li>-c<ul>
+<li>The following argument is interpreted as an interactive format command and is added to the list of commands to be executed on the specified host(s). Multiple -c options may be given.</li>
+</ul>
+</li>
+<li>-d<ul>
+<li>Turn on debugging mode.</li>
+</ul>
+</li>
+<li>-i<ul>
+<li>Force ntpq to operate in interactive mode. Prompts will be written to the standard output and commands read from the standard input.</li>
+</ul>
+</li>
+<li>-n<ul>
+<li>Output all host addresses in dotted-quad numeric format rather than converting to the canonical host names.</li>
+</ul>
+</li>
+<li>-p<ul>
+<li>Print a list of the peers known to the server as well as a summary of their state. This is equivalent to the peers interactive command.</li>
+</ul>
+</li>
+</ul>
+<h2 id="internal-commands"><a href="#internal-commands" class="headerlink" title="internal commands"></a>internal commands</h2><ul>
+<li>? [command_keyword]</li>
+<li>helpl [command_keyword]<ul>
+<li>A ? by itself will print a list of all the command keywords known to this incarnation of ntpq[char46] A ? followed by a command keyword will print function and usage information about the command. This command is probably a better source of information about ntpq than this manual page.</li>
+</ul>
+</li>
+<li>addvars variable_name [ = value] […]</li>
+<li>rmvars variable_name […]</li>
+<li>clearvars<ul>
+<li>The data carried by NTP mode 6 messages consists of a list of items of the form variable_name = value, where the = value is ignored, and can be omitted, in requests to the server to read variables. ntpq maintains an internal list in which data to be included in control messages can be assembled, and sent using the readlist and writelist commands described below. The addvars command allows variables and their optional values to be added to the list. If more than one variable is to be added, the list should be comma-separated and not contain white space. The rmvars command can be used to remove individual variables from the list, while the clearlist command removes all variables from the list.</li>
+</ul>
+</li>
+<li>cooked<ul>
+<li>Causes output from query commands to be “cooked”, so that variables which are recognized by ntpq will have their values reformatted for human consumption. Variables which ntpq thinks should have a decodable value but didn’t are marked with a trailing ?[char46]</li>
+</ul>
+</li>
+<li>debug more | less | off<ul>
+<li>Turns internal query program debugging on and off.</li>
+</ul>
+</li>
+<li>delay milliseconds<ul>
+<li>Specify a time interval to be added to timestamps included in requests which require authentication. This is used to enable (unreliable) server reconfiguration over long delay network paths or between machines whose clocks are unsynchronized. Actually the server does not now require timestamps in authenticated requests, so this command may be obsolete.</li>
+</ul>
+</li>
+<li>host hostname<ul>
+<li>Set the host to which future queries will be sent. Hostname may be either a host name or a numeric address.</li>
+</ul>
+</li>
+<li>hostnames [yes | no]<ul>
+<li>If yes is specified, host names are printed in information displays. If no is specified, numeric addresses are printed instead. The default is yes, unless modified using the command line -n switch.</li>
+</ul>
+</li>
+<li>keyid keyid<ul>
+<li>This command specifies the key number to be used to authenticate configuration requests. This must correspond to a key number the server has been configured to use for this purpose.</li>
+</ul>
+</li>
+<li>ntpversion 1 | 2 | 3 | 4<ul>
+<li>Sets the NTP version number which ntpq claims in packets. Defaults to 2, Note that mode 6 control messages (and modes, for that matter) didn’t exist in NTP version 1.</li>
+</ul>
+</li>
+<li>passwd<ul>
+<li>This command prompts for a password (which will not be echoed) which will be used to authenticate configuration requests. The password must correspond to the key configured for NTP server for this purpose.</li>
+</ul>
+</li>
+<li>quit<ul>
+<li>Exit ntpq[char46]</li>
+</ul>
+</li>
+<li>raw<ul>
+<li>Causes all output from query commands is printed as received from the remote server. The only formatting/interpretation done on the data is to transform non-ASCII data into a printable (but barely understandable) form.</li>
+</ul>
+</li>
+<li>timeout millseconds<ul>
+<li>Specify a timeout period for responses to server queries. The default is about 5000 milliseconds. Note that since ntpq retries each query once after a timeout, the total waiting time for a timeout will be twice the timeout value set.</li>
+</ul>
+</li>
+</ul>
+<h2 id="Control-Message-Commands"><a href="#Control-Message-Commands" class="headerlink" title="Control Message Commands"></a>Control Message Commands</h2><blockquote>
+<ul>
+<li>Each association known to an NTP server has a 16 bit integer association identifier.</li>
+<li>NTP control messages which carry peer variables must identify the peer the values correspond to by including its association ID.</li>
+<li>An association ID of 0 is special, and indicates the variables are system variables, whose names are drawn from a separate name space.</li>
+</ul>
+</blockquote>
+<ul>
+<li>associations<ul>
+<li>Obtains and prints a list of association identifiers and peer statuses for in-spec peers of the server being queried. The list is printed in columns. The first of these is an index numbering the associations from 1 for internal use, the second the actual association identifier returned by the server and the third the status word for the peer. This is followed by a number of columns containing data decoded from the status word. See the peers command for a decode of the condition field. Note that the data returned by the associations command is cached internally in ntpq[char46] The index is then of use when dealing with stupid servers which use association identifiers which are hard for humans to type, in that for any subsequent commands which require an association identifier as an argument, the form &amp;index may be used as an alternative.</li>
+</ul>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>conf</strong></td>
+<td><strong>yes</strong>: persistent, <strong>no</strong>: ephemeral</td>
+</tr>
+<tr>
+<td><strong>reach</strong></td>
+<td><strong>yes</strong>: reachable, <strong>no</strong>: unreachable</td>
+</tr>
+<tr>
+<td><strong>auth</strong></td>
+<td><strong>ok</strong>, <strong>yes</strong>, <strong>bad</strong> and <strong>none</strong></td>
+</tr>
+<tr>
+<td><strong>condition</strong></td>
+<td>selection status (see the <strong>select</strong> field of the peer status word)</td>
+</tr>
+<tr>
+<td><strong>last_event</strong></td>
+<td>event report (see the <strong>event</strong> field of the peer status word)</td>
+</tr>
+<tr>
+<td><strong>cnt</strong></td>
+<td>event count (see the <strong>count</strong> field of the peer status word)</td>
+</tr>
+</tbody></table>
+<ul>
+<li>clockvar [assocID] [variable_name [ = value[…]] […]</li>
+<li>cv [assocID] [variable_name [ = value […] ][…]<ul>
+<li>Requests that a list of the server’s clock variables be sent. Servers which have a radio clock or other external synchronization will respond positively to this. If the association identifier is omitted or zero the request is for the variables of the system clock and will generally get a positive response from all servers with a clock. If the server treats clocks as pseudo-peers, and hence can possibly have more than one clock connected at once, referencing the appropriate peer association ID will show the variables of a particular clock. Omitting the variable list will cause the server to return a default variable display.</li>
+</ul>
+</li>
+<li>lassociations<ul>
+<li>Obtains and prints a list of association identifiers and peer statuses for all associations for which the server is maintaining state. This command differs from the associations command only for servers which retain state for out-of-spec client associations (i.e., fuzzballs). Such associations are normally omitted from the display when the associations command is used, but are included in the output of lassociations[char46]</li>
+</ul>
+</li>
+<li>lpassociations<ul>
+<li>Print data for all associations, including out-of-spec client associations, from the internally cached list of associations. This command differs from passociations only when dealing with fuzzballs.</li>
+</ul>
+</li>
+<li>lpeers<ul>
+<li>Like R peers, except a summary of all associations for which the server is maintaining state is printed. This can produce a much longer list of peers from fuzzball servers.</li>
+</ul>
+</li>
+<li>mreadlist assocID assocID</li>
+<li>mrl assocID assocID<ul>
+<li>Like the readlist command, except the query is done for each of a range of (nonzero) association IDs. This range is determined from the association list cached by the most recent associations command.</li>
+</ul>
+</li>
+<li>mreadvar assocID assocID [ variable_name [ = value[ … ]</li>
+<li>mrv assocID assocID [ variable_name [ = value[ … ]<ul>
+<li>Like the readvar command, except the query is done for each of a range of (nonzero) association IDs. This range is determined from the association list cached by the most recent associations command.</li>
+</ul>
+</li>
+<li>opeers<ul>
+<li>An old form of the peers command with the reference ID replaced by the local interface address.</li>
+</ul>
+</li>
+<li>passociations<ul>
+<li>Displays association data concerning in-spec peers from the internally cached list of associations. This command performs identically to the associations except that it displays the internally stored data rather than making a new query.</li>
+</ul>
+</li>
+<li>peers<ul>
+<li>Obtains a current list peers of the server, along with a summary of each peer’s state. Summary information includes the address of the remote peer, the reference ID (0.0.0.0 if this is unknown), the stratum of the remote peer, the type of the peer (local, unicast, multicast or broadcast), when the last packet was received, the polling interval, in seconds, the reachability register, in octal, and the current estimated delay, offset and dispersion of the peer, all in milliseconds. The character at the left margin of each line shows the synchronization status of the association and is a valuable diagnostic tool. The encoding and meaning of this character, called the tally code, is given later in this page.</li>
+</ul>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>[tally]</strong></td>
+<td>single-character code indicating current value of the <strong>select</strong> field of the peer status word</td>
+</tr>
+<tr>
+<td><strong>remote</strong></td>
+<td>host name (or IP number) of peer</td>
+</tr>
+<tr>
+<td><strong>refid</strong></td>
+<td>association ID or kiss code</td>
+</tr>
+<tr>
+<td><strong>st</strong></td>
+<td>stratum</td>
+</tr>
+<tr>
+<td><strong>t</strong></td>
+<td>Type of peer (local, unicast, multicast, or broadcast) <strong>u</strong>: unicast, <strong>b</strong>: broadcast, <strong>l</strong>: local</td>
+</tr>
+<tr>
+<td><strong>when</strong></td>
+<td>sec/min/hr since last received packet</td>
+</tr>
+<tr>
+<td><strong>poll</strong></td>
+<td>poll interval (log2 s)</td>
+</tr>
+<tr>
+<td><strong>reach</strong></td>
+<td>reach shift register (octal)</td>
+</tr>
+<tr>
+<td><strong>delay</strong></td>
+<td>roundtrip delay</td>
+</tr>
+<tr>
+<td><strong>offset</strong></td>
+<td>offset</td>
+</tr>
+<tr>
+<td><strong>jitter</strong></td>
+<td>jitter</td>
+</tr>
+</tbody></table>
+<ul>
+<li>tally code<ul>
+<li>space<ul>
+<li>Discarded due to high stratum and/or failed sanity checks.</li>
+</ul>
+</li>
+<li>\x<ul>
+<li>Designated falseticker by the intersection algorithm.</li>
+</ul>
+</li>
+<li>.<ul>
+<li>Culled from the end of the candidate list.</li>
+</ul>
+</li>
+<li>-<ul>
+<li>Discarded by the clustering algorithm.</li>
+</ul>
+</li>
+<li>+<ul>
+<li>Included in the final selection set.</li>
+</ul>
+</li>
+<li>#<ul>
+<li>Selected for synchronization but distance exceeds maximum.</li>
+</ul>
+</li>
+<li>*<ul>
+<li>Selected for synchronization.</li>
+</ul>
+</li>
+<li>o<ul>
+<li>Selected for synchronization, pps signal in use.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>pstatus assocID<ul>
+<li>Sends a read status request to the server for the given association. The names and values of the peer variables returned will be printed. Note that the status word from the header is displayed preceding the variables, both in hexadecimal and in pidgeon English.</li>
+</ul>
+</li>
+<li>readlist [ assocID]</li>
+<li>rl [ assocID ]<ul>
+<li>Requests that the values of the variables in the internal variable list be returned by the server. If the association ID is omitted or is 0 the variables are assumed to be system variables. Otherwise they are treated as peer variables. If the internal variable list is empty a request is sent without data, which should induce the remote server to return a default display.</li>
+</ul>
+</li>
+<li>readvar assocID variable_name [ = value ] [ …]</li>
+<li>rv assocID [ variable_name [ = value ] […]<ul>
+<li>Requests that the values of the specified variables be returned by the server by sending a read variables request. If the association ID is omitted or is given as zero the variables are system variables, otherwise they are peer variables and the values returned will be those of the corresponding peer. Omitting the variable list will send a request with no data which should induce the server to return a default display. The encoding and meaning of the variables derived from NTPv3 is given in RFC-1305; the encoding and meaning of the additional NTPv4 variables are given later in this page.</li>
+</ul>
+</li>
+<li>writevar assocID variable_name[ = value [ …]<ul>
+<li>Like the readvar request, except the specified variables are written instead of read.</li>
+</ul>
+</li>
+<li>writelist [ assocID ]<ul>
+<li>Like the readlist request, except the internal list variables are written instead of read.</li>
+</ul>
+</li>
+</ul>
+<h2 id="reference"><a href="#reference" class="headerlink" title="reference"></a>reference</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://www.ibm.com/docs/en/aix/7.2?topic=n-ntpq-command">ntpq Command - IBM Documentation</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.systutorials.com/docs/linux/man/8-ntpq/">ntpq: standard NTP query program - Linux Man Pages (8)</a></li>
+<li><a target="_blank" rel="noopener" href="http://www.unixlinux.online/unixlinux/gdliunx/linuxml/201702/21882.html">詳細解讀Linux系統中ntpq命令的使用_Linux命令</a></li>
+<li><a target="_blank" rel="noopener" href="https://kknews.cc/zh-tw/tech/ynyqggn.html">網絡時間的那些事及 ntpq 詳解 - 每日頭條</a></li>
+<li><a target="_blank" rel="noopener" href="https://linux.die.net/man/8/ntpq">ntpq(8): standard NTP query program - Linux man page</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.cyberciti.biz/faq/linux-unix-bsd-is-ntp-client-working/">How to verify NTP is working Or not (Check Status of NTP) - nixCraft</a></li>
+<li><a target="_blank" rel="noopener" href="https://docs.ntpsec.org/latest/decode.html#peer">Event Messages and Status Words</a></li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -1276,106 +1661,6 @@
 
 
 
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://linyunwen.github.io/2021/10/11/data-deduplication/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="Lin Yunwen">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Lin Yunwen's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2021/10/11/data-deduplication/" class="post-title-link" itemprop="url">Data Deduplication</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">發表於</span>
-      
-
-      <time title="創建時間：2021-10-11 15:00:03 / 修改時間：15:01:00" itemprop="dateCreated datePublished" datetime="2021-10-11T15:00:03+08:00">2021-10-11</time>
-    </span>
-
-  
-      </div>
-      <div class="post-meta">
-    <span class="post-meta-item" title="文章字數">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">文章字數：</span>
-      <span>1k</span>
-    </span>
-    <span class="post-meta-item" title="所需閱讀時間">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
-      <span>2 分鐘</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="Data-Deduplication"><a href="#Data-Deduplication" class="headerlink" title="Data Deduplication"></a>Data Deduplication</h1><ul>
-<li>重複數據刪除（英語：data deduplication）是一種節約數據存儲空間的技術</li>
-<li>在計算機中存儲了很多重複數據，這些數據占用了大量硬碟空間，利用重複數據刪除技術，可以只存儲一份數據。另外一項節約存儲空間的技術是數據壓縮<ul>
-<li>數據壓縮技術在比較小的範圍內以比較小的粒度查找重複數據，粒度一般為幾個比特到幾個字節。</li>
-<li>重複數據刪除是在比較大的範圍內查找大塊的重複數據，一般重複數據塊尺寸在1KB以上。</li>
-</ul>
-</li>
-<li>重複數據刪除技術被廣泛應用於網絡硬碟、電子郵件、磁碟備份介質設備等。<ul>
-<li>用戶文件共享可能有許多相同或相似文件的副本。</li>
-</ul>
-<ul>
-<li>從 VM 到 VM，虛擬化來賓可能幾乎相同。</li>
-<li>備份快照可能每天都有細微的差異。
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2021/10/11/data-deduplication/#more" rel="contents">
-                閱讀全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
   <nav class="pagination">
     <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/12/">12</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一頁"></i></a>
   </nav>
@@ -1401,14 +1686,14 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>總字數：</span>
-    <span title="總字數">276k</span>
+    <span title="總字數">286k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>所需總閱讀時間 &asymp;</span>
-    <span title="所需總閱讀時間">8:21</span>
+    <span title="所需總閱讀時間">8:40</span>
   </span>
 </div>
 
