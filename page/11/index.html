@@ -133,14 +133,14 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">113</span>
+          <span class="site-state-item-count">114</span>
           <span class="site-state-item-name">文章</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">137</span>
+        <span class="site-state-item-count">138</span>
         <span class="site-state-item-name">標籤</span></a>
       </div>
   </nav>
@@ -178,6 +178,219 @@
 
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://linyunwen.github.io/2020/10/01/linux-file-access/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Lin Yunwen">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Lin Yunwen's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2020/10/01/linux-file-access/" class="post-title-link" itemprop="url">linux-file-access</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">發表於</span>
+
+      <time title="創建時間：2020-10-01 22:09:04" itemprop="dateCreated datePublished" datetime="2020-10-01T22:09:04+08:00">2020-10-01</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新於</span>
+        <time title="修改時間：2021-07-10 14:46:19" itemprop="dateModified" datetime="2021-07-10T14:46:19+08:00">2021-07-10</time>
+      </span>
+
+  
+      </div>
+      <div class="post-meta">
+    <span class="post-meta-item" title="文章字數">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">文章字數：</span>
+      <span>1.3k</span>
+    </span>
+    <span class="post-meta-item" title="所需閱讀時間">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+      <span>2 分鐘</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="Linux-File-Access-Permission"><a href="#Linux-File-Access-Permission" class="headerlink" title="Linux File Access Permission"></a>Linux File Access Permission</h1><h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><ul>
+<li>在 linux 中，每個檔案都會有自己的檔案權限，可以利用 <code>ls -l</code> 或是 <code>ll</code> 來查看</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ ls -l</span><br><span class="line">drwxrwxr-x+ <span class="number">46</span> root  admin   <span class="number">1.4</span>K <span class="number">10</span>  <span class="number">1</span> <span class="number">11</span>:<span class="number">33</span> Applications/</span><br><span class="line">drwxr-xr-x  <span class="number">67</span> root  wheel   <span class="number">2.1</span>K  <span class="number">8</span> <span class="number">30</span> <span class="number">09</span>:<span class="number">18</span> Library/</span><br><span class="line">drwxr-xr-x@  <span class="number">8</span> root  wheel   <span class="number">256B</span>  <span class="number">8</span> <span class="number">11</span> <span class="number">02</span>:<span class="number">18</span> System/</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<ul>
+<li>第一個值<ul>
+<li>- 為檔案，d 表示目錄，l 表示連結檔案 (link)</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p>去除掉最一開頭的 d，分為三組值</p>
+<blockquote>
+<ul>
+<li>r: readable</li>
+<li>w: writable</li>
+<li>x: executable</li>
+<li>-: 表示無權限</li>
+</ul>
+</blockquote>
+<ul>
+<li>其實它是二進制的三個值<ul>
+<li>無權限即為 000</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>而分三組為</p>
+<blockquote>
+<ul>
+<li>owner 的權限</li>
+<li>member in group 的權限</li>
+<li>others 的權限</li>
+</ul>
+</blockquote>
+<ul>
+<li>每組將其二進制轉為十進制<table>
+<thead>
+<tr>
+<th>Number</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>7</code> (111)</td>
+<td>read, write, and execute</td>
+</tr>
+<tr>
+<td><code>6</code> (110)</td>
+<td>read and write</td>
+</tr>
+<tr>
+<td><code>5</code> (101)</td>
+<td>read and execute</td>
+</tr>
+<tr>
+<td><code>4</code> (100)</td>
+<td>read only</td>
+</tr>
+<tr>
+<td><code>3</code> (011)</td>
+<td>write and execute</td>
+</tr>
+<tr>
+<td><code>2</code> (010)</td>
+<td>write only</td>
+</tr>
+<tr>
+<td><code>1</code> (001)</td>
+<td>execute only</td>
+</tr>
+<tr>
+<td><code>0</code> (000)</td>
+<td>no permission</td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<ul>
+<li>in nodejs  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fs.chmodSync(<span class="string">&#x27;my_file.txt&#x27;</span>, <span class="number">0o765</span>);</span><br></pre></td></tr></table></figure>
+<ul>
+<li>For example, the octal value <code>0o765</code> means:<ul>
+<li>The owner may read, write and execute the file.</li>
+<li>The group may read and write the file.</li>
+<li>Others may read and execute the file.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<h2 id="Command"><a href="#Command" class="headerlink" title="Command"></a>Command</h2><ul>
+<li><p>chmod</p>
+<ul>
+<li>修改權限</li>
+<li>用法<ul>
+<li><code>\[ugoa...\]\[\[+-=\]\[rwxX\]...\]\[,...\]</code><ul>
+<li>u 表示該檔案的擁有者 (user)</li>
+<li>g 表示該 group </li>
+<li>o 表示其他以外的人 (others)</li>
+<li>a 表示這三者皆是 (all)</li>
+<li>+ 表示增加權限</li>
+<li>- 表示取消權限</li>
+<li>= 表示唯一設定權限</li>
+<li><code>-R</code> 目錄下所有檔案皆做相同權限操作<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ chmod ugo+r file1.txt</span><br><span class="line">$ chmod a+w file1.txt</span><br><span class="line"><span class="comment">// 將檔案 file1.txt 與 file2.txt 設為該檔案擁有者，與其所屬同一個群體者可寫入，但其他以外的人則不可寫入</span></span><br><span class="line">$ chmod ug+w,o-w file1.txt file2.txt</span><br><span class="line">$ chmod <span class="number">777</span> file.txt</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>chown</p>
+<ul>
+<li>修改擁有者或是群組<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 將 temp.txt 的 owner 改為 user2</span></span><br><span class="line">$ chown user2 temp.txt</span><br><span class="line"><span class="comment">// 將 temp.txt 的 group 改為 group2</span></span><br><span class="line">$ chown :group2 temp.txt</span><br><span class="line"><span class="comment">// 將 temp.txt 的 owner 改為 user2 並 group 改為 group2</span></span><br><span class="line">$ chown user2:group2 temp.txt</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://blog.techbridge.cc/2017/12/23/linux-commnd-line-tutorial/">Linux Command 命令列指令與基本操作入門教學</a></li>
+<li><a target="_blank" rel="noopener" href="https://charleslin74.pixnet.net/blog/post/419874889">[Linux] chmod的用法</a></li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -1108,109 +1321,6 @@
 
 
 
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://linyunwen.github.io/2020/09/24/hexo-tutorial/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="Lin Yunwen">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Lin Yunwen's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2020/09/24/hexo-tutorial/" class="post-title-link" itemprop="url">Hexo Tutorial</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">發表於</span>
-
-      <time title="創建時間：2020-09-24 09:04:27" itemprop="dateCreated datePublished" datetime="2020-09-24T09:04:27+08:00">2020-09-24</time>
-    </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">更新於</span>
-        <time title="修改時間：2021-07-10 14:46:18" itemprop="dateModified" datetime="2021-07-10T14:46:18+08:00">2021-07-10</time>
-      </span>
-
-  
-      </div>
-      <div class="post-meta">
-    <span class="post-meta-item" title="文章字數">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">文章字數：</span>
-      <span>3k</span>
-    </span>
-    <span class="post-meta-item" title="所需閱讀時間">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
-      <span>5 分鐘</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="Hexo-Tutorial"><a href="#Hexo-Tutorial" class="headerlink" title="Hexo Tutorial"></a>Hexo Tutorial</h1><h2 id="blog"><a href="#blog" class="headerlink" title="blog"></a>blog</h2><blockquote>
-<ul>
-<li>ref<ul>
-<li><a target="_blank" rel="noopener" href="https://medium.com/@moojing/%E5%80%8B%E4%BA%BA%E6%8A%80%E8%A1%93%E7%AB%99%E4%B8%80%E6%8A%8A%E7%BD%A9-%E9%83%A8%E8%90%BD%E6%A0%BC%E5%BB%BA%E7%BD%AE%E5%A4%A7%E5%85%A8-%E4%B8%80-%E4%BD%BF%E7%94%A8-hexo-%E6%90%AD%E9%85%8D-github-page-%E5%BB%BA%E7%BD%AE%E8%87%AA%E5%B7%B1%E7%9A%84%E9%83%A8%E8%90%BD%E6%A0%BC-4fe5d02dbbf8">個人技術站一把罩！部落格建置大全（一）- 使用 Hexo 搭配 Github Page 建置自己的部落格</a></li>
-<li><a target="_blank" rel="noopener" href="https://isdaniel.github.io/hexo-blog-theme/">建立自己Blog系列(三) Hexo next theme 介紹</a></li>
-<li><a target="_blank" rel="noopener" href="https://awesomeopensource.com/projects/hexo-theme">The Top 87 Hexo Theme Open Source Projects</a></li>
-</ul>
-</li>
-</ul>
-</blockquote>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/09/24/hexo-tutorial/#more" rel="contents">
-                閱讀全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
   <nav class="pagination">
     <a class="extend prev" rel="prev" href="/page/10/"><i class="fa fa-angle-left" aria-label="上一頁"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><span class="page-number current">11</span><a class="page-number" href="/page/12/">12</a><a class="extend next" rel="next" href="/page/12/"><i class="fa fa-angle-right" aria-label="下一頁"></i></a>
   </nav>
@@ -1236,14 +1346,14 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>總字數：</span>
-    <span title="總字數">269k</span>
+    <span title="總字數">276k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>所需總閱讀時間 &asymp;</span>
-    <span title="所需總閱讀時間">8:09</span>
+    <span title="所需總閱讀時間">8:21</span>
   </span>
 </div>
 

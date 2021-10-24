@@ -133,14 +133,14 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">113</span>
+          <span class="site-state-item-count">114</span>
           <span class="site-state-item-name">文章</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">137</span>
+        <span class="site-state-item-count">138</span>
         <span class="site-state-item-name">標籤</span></a>
       </div>
   </nav>
@@ -178,6 +178,119 @@
 
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://linyunwen.github.io/2021/08/11/logrotate/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Lin Yunwen">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Lin Yunwen's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2021/08/11/logrotate/" class="post-title-link" itemprop="url">logrotate</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">發表於</span>
+      
+
+      <time title="創建時間：2021-08-11 20:59:23 / 修改時間：20:59:40" itemprop="dateCreated datePublished" datetime="2021-08-11T20:59:23+08:00">2021-08-11</time>
+    </span>
+
+  
+      </div>
+      <div class="post-meta">
+    <span class="post-meta-item" title="文章字數">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">文章字數：</span>
+      <span>1.8k</span>
+    </span>
+    <span class="post-meta-item" title="所需閱讀時間">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+      <span>3 分鐘</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="logrotate"><a href="#logrotate" class="headerlink" title="logrotate"></a>logrotate</h1><ul>
+<li>logrotate - rotates, compresses, and mails system logs</li>
+</ul>
+<h2 id="logrotate-的設定"><a href="#logrotate-的設定" class="headerlink" title="logrotate 的設定"></a>logrotate 的設定</h2><ul>
+<li>Linux系統預設安裝logrotate工具，它預設的配置檔案在：<ul>
+<li>/etc/logrotate.conf</li>
+<li>/etc/logrotate.d/</li>
+</ul>
+</li>
+<li>Logrotate 是基於 cron 來執行的</li>
+<li>restart service: `sudo /usr/sbin/logrotate -v /etc/logrotate.conf<h2 id="切割介紹"><a href="#切割介紹" class="headerlink" title="切割介紹"></a>切割介紹</h2></li>
+<li>比如以系統日誌/var/log/message做切割來簡單說明下：<ul>
+<li>第一次執行完rotate(輪轉)之後，原本的messages會變成messages.1，而且會製造一個空的messages給系統來儲存日誌；</li>
+<li>第二次執行之後，messages.1會變成messages.2，而messages會變成messages.1，又造成一個空的messages來儲存日誌！</li>
+<li>如果僅設定保留三個日誌（即輪轉3次）的話，那麼執行第三次時，則 messages.3這個檔案就會被刪除，並由後面的較新的儲存日誌所取代！也就是會儲存最新的幾個日誌。</li>
+</ul>
+</li>
+<li>日誌究竟輪換幾次，這個是根據配置檔案中的dateext 引數來判定的。<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"># cat /etc/logrotate.conf</span><br><span class="line"># 底下的設定是 &quot;logrotate 的預設值&quot; ，如果別的檔案設定了其他的值，</span><br><span class="line"># 就會以其它檔案的設定為主</span><br><span class="line">weekly  //預設每一週執行一次rotate輪轉工作</span><br><span class="line">rotate 4 //保留多少個日誌檔案(輪轉幾次).預設保留四個.就是指定日誌檔案刪除之前輪轉的次數，0 指沒有備份</span><br><span class="line">create  //自動建立新的日誌檔案，新的日誌檔案具有和原來的檔案相同的許可權；因為日誌被改名,因此要建立一個新的來繼續儲存之前的日誌</span><br><span class="line">dateext //這個引數很重要！就是切割後的日誌檔案以當前日期為格式結尾，如xxx.log-20131216這樣,如果註釋掉,切割出來是按數字遞增,即前面說的 xxx.log-1這種格式</span><br><span class="line">compress //是否通過gzip壓縮轉儲以後的日誌檔案，如xxx.log-20131216.gz ；如果不需要壓縮，註釋掉就行</span><br><span class="line">include /etc/logrotate.d</span><br><span class="line"># 將 /etc/logrotate.d/ 目錄中的所有檔案都載入進來</span><br><span class="line">/var/log/wtmp &#123;   //僅針對 /var/log/wtmp 所設定的引數</span><br><span class="line">monthly   //每月一次切割,取代預設的一週</span><br><span class="line">minsize 1M  //檔案大小超過 1M 後才會切割</span><br><span class="line">create 0664 root utmp  //指定新建的日誌檔案許可權以及所屬使用者和組</span><br><span class="line">rotate 1   //只保留一個日誌.</span><br><span class="line">&#125;</span><br><span class="line"># 這個 wtmp 可記錄使用者登入系統及系統重啟的時間</span><br><span class="line"># 因為有 minsize 的引數，因此不見得每個月一定會執行一次喔.要看檔案大小。</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h2 id="logrotate-config-file"><a href="#logrotate-config-file" class="headerlink" title="logrotate config file"></a>logrotate config file</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"># sample logrotate configuration file</span><br><span class="line">compress</span><br><span class="line"></span><br><span class="line">/var/log/messages &#123;</span><br><span class="line">    rotate 5</span><br><span class="line">    weekly</span><br><span class="line">    postrotate</span><br><span class="line">        /usr/bin/killall -HUP syslogd</span><br><span class="line">    endscript</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="compress-tool"><a href="#compress-tool" class="headerlink" title="compress tool"></a>compress tool</h2><h3 id="compress"><a href="#compress" class="headerlink" title="compress"></a>compress</h3><ul>
+<li>Old versions of log files are compressed with gzip(1) by default. See also nocompress.<h3 id="compresscmd"><a href="#compresscmd" class="headerlink" title="compresscmd"></a>compresscmd</h3></li>
+<li>Specifies which command to use to compress log files. The default is gzip. See also compress.<h3 id="uncompresscmd"><a href="#uncompresscmd" class="headerlink" title="uncompresscmd"></a>uncompresscmd</h3></li>
+<li>Specifies which command to use to uncompress log files. The default is gunzip.</li>
+</ul>
+<h2 id="reference"><a href="#reference" class="headerlink" title="reference"></a>reference</h2><ul>
+<li>[logrotate(8) - Linux man page](<a target="_blank" rel="noopener" href="https://linux.die.net/man/8/logrotate">https://linux.die.net/man/8/logrotate</a></li>
+<li><a target="_blank" rel="noopener" href="https://dotblogs.com.tw/grayyin/2019/05/14/113632">[Linux] logrotate 設定 | 阿輝的零碎筆記 - 點部落</a></li>
+<li><a target="_blank" rel="noopener" href="https://codertw.com/%E4%BC%BA%E6%9C%8D%E5%99%A8/377513/">Linux中logrotate日誌輪詢操作總結 | 程式前沿</a></li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -1085,115 +1198,6 @@
 
 
 
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://linyunwen.github.io/2021/07/22/sqlite/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="Lin Yunwen">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Lin Yunwen's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2021/07/22/sqlite/" class="post-title-link" itemprop="url">sqlite</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">發表於</span>
-      
-
-      <time title="創建時間：2021-07-22 21:30:20 / 修改時間：21:31:01" itemprop="dateCreated datePublished" datetime="2021-07-22T21:30:20+08:00">2021-07-22</time>
-    </span>
-
-  
-      </div>
-      <div class="post-meta">
-    <span class="post-meta-item" title="文章字數">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">文章字數：</span>
-      <span>1.2k</span>
-    </span>
-    <span class="post-meta-item" title="所需閱讀時間">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
-      <span>2 分鐘</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="sqlite"><a href="#sqlite" class="headerlink" title="sqlite"></a>sqlite</h1><h2 id="type"><a href="#type" class="headerlink" title="type"></a>type</h2><ul>
-<li>NULL：標識一個NULL值</li>
-<li>INTERGER：整數類型</li>
-<li>REAL：浮點數</li>
-<li>TEXT：字符串</li>
-<li>BLOB：二進制數<h2 id="command"><a href="#command" class="headerlink" title="command"></a>command</h2><h3 id="basic"><a href="#basic" class="headerlink" title="basic"></a>basic</h3></li>
-</ul>
-<ul>
-<li><p>open a db</p>
-<ul>
-<li><code>sqlite3 $&#123;database.sqlite&#125;</code></li>
-</ul>
-</li>
-<li><p>in sqlite mode</p>
-<ul>
-<li>  <code>.tables</code> will list tables</li>
-<li><code>.schema [tablename]</code> will show the CREATE statement(s) for a table or tables<ul>
-<li>  <code>.schema</code> 查看所有表的創建語句</li>
-</ul>
-</li>
-<li><code>.dump</code>, <code>.dump table_name</code> view the entire contents</li>
-<li><code>select * from some_table;</code>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2021/07/22/sqlite/#more" rel="contents">
-                閱讀全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
   <nav class="pagination">
     <a class="extend prev" rel="prev" href="/page/6/"><i class="fa fa-angle-left" aria-label="上一頁"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span><a class="page-number" href="/page/8/">8</a><span class="space">&hellip;</span><a class="page-number" href="/page/12/">12</a><a class="extend next" rel="next" href="/page/8/"><i class="fa fa-angle-right" aria-label="下一頁"></i></a>
   </nav>
@@ -1219,14 +1223,14 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>總字數：</span>
-    <span title="總字數">269k</span>
+    <span title="總字數">276k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>所需總閱讀時間 &asymp;</span>
-    <span title="所需總閱讀時間">8:09</span>
+    <span title="所需總閱讀時間">8:21</span>
   </span>
 </div>
 
