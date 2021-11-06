@@ -133,14 +133,14 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">116</span>
+          <span class="site-state-item-count">117</span>
           <span class="site-state-item-name">文章</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">141</span>
+        <span class="site-state-item-count">143</span>
         <span class="site-state-item-name">標籤</span></a>
       </div>
   </nav>
@@ -178,6 +178,146 @@
 
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://linyunwen.github.io/2021/11/06/c-c-getopt/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Lin Yunwen">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Lin Yunwen's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2021/11/06/c-c-getopt/" class="post-title-link" itemprop="url">C/C++ optind, getopt</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">發表於</span>
+      
+
+      <time title="創建時間：2021-11-06 13:32:04 / 修改時間：13:33:51" itemprop="dateCreated datePublished" datetime="2021-11-06T13:32:04+08:00">2021-11-06</time>
+    </span>
+
+  
+      </div>
+      <div class="post-meta">
+    <span class="post-meta-item" title="文章字數">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">文章字數：</span>
+      <span>2.9k</span>
+    </span>
+    <span class="post-meta-item" title="所需閱讀時間">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+      <span>5 分鐘</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="C-C-optind-getopt"><a href="#C-C-optind-getopt" class="headerlink" title="C/C++ optind, getopt"></a>C/C++ optind, getopt</h1><blockquote>
+<ul>
+<li>getopt, getopt_long, getopt_long_only, optarg, optind, opterr, optopt</li>
+<li><code>#include &lt;getopt.h&gt;</code></li>
+</ul>
+</blockquote>
+<ul>
+<li>Parse command-line options</li>
+<li>An element of argv that starts with ‘-‘ (and is not exactly “-“ or “–”) is an option element<h2 id="getopt"><a href="#getopt" class="headerlink" title="getopt"></a>getopt</h2></li>
+<li>函式用於解析選項並從程式中檢索給定引數，並根據輸入執行相應的程式碼路徑。<h3 id="參數"><a href="#參數" class="headerlink" title="參數"></a>參數</h3></li>
+<li>其中前兩個引數是傳遞給 main 函式的 argc 和 argv。</li>
+<li>第三個引數是 optstring-指向表示合法選項字元的字串的指標。<ul>
+<li>需要連續呼叫 getopt，直到檢索到每個選項為止。</li>
+<li><code>optstring</code> 以冒號開頭，當遇到缺少的引數時，該值指示 <code>getopt</code> 呼叫需要返回的值。</li>
+<li>另外，在字元（例如 <code>p</code>）之後指定的冒號表示該選項需要該引數；兩個冒號表示該引數是可選的。</li>
+<li>可以在命令列上多次傳遞相同的選項字元。</li>
+<li><code>getopt</code> 函式返回選項字元（如果成功的話）</li>
+<li>return 字元 <code>?</code> 如果遇到的選項字元不在 <code>optstring</code> 中。</li>
+</ul>
+</li>
+</ul>
+<h3 id="return"><a href="#return" class="headerlink" title="return"></a>return</h3><ul>
+<li>If an option was successfully found<ul>
+<li>returns the option character.</li>
+</ul>
+</li>
+<li>If all command-line options have been parsed<ul>
+<li>returns -1.</li>
+</ul>
+</li>
+<li>If getopt() encounters an option character that was not in optstring<ul>
+<li>‘?’ is returned.</li>
+</ul>
+</li>
+<li>If getopt() encounters an option with a missing argument<ul>
+<li>return value depends on the first character in optstring<ul>
+<li>if it is ‘:’, then ‘:’ is returned; otherwise ‘?’ is returned.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="e-g"><a href="#e-g" class="headerlink" title="e.g."></a>e.g.</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">#include &lt;getopt.h&gt;</span><br><span class="line"></span><br><span class="line">int main(int argc, char *argv[]) &#123;</span><br><span class="line">    int opt, xnum = 0;</span><br><span class="line">    char *pstr = NULL;</span><br><span class="line"></span><br><span class="line">    while ((opt = getopt(argc, argv, &quot;:p:x&quot;)) != -1) &#123;</span><br><span class="line">        printf(&quot;opt = %3d (%c); optind = %d\n&quot;, opt, opt, optind);</span><br><span class="line"></span><br><span class="line">        switch (opt) &#123;</span><br><span class="line">            case &#x27;p&#x27;: pstr = optarg;        break;</span><br><span class="line">            case &#x27;x&#x27;: xnum++;               break;</span><br><span class="line">            case &#x27;:&#x27;: fprintf(stderr, &quot;Missing argument!\n&quot;</span><br><span class="line">                                      &quot;Usage: %s [-p arg] [-x]\n&quot;, argv[0]); exit(EXIT_FAILURE);</span><br><span class="line">            case &#x27;?&#x27;: fprintf(stderr, &quot;Unrecognized option!\n&quot;</span><br><span class="line">                                      &quot;Usage: %s [-p arg] [-x]\n&quot;, argv[0]); exit(EXIT_FAILURE);</span><br><span class="line">            default:  fprintf(stderr, &quot;Unexpected case in switch()&quot;); exit(EXIT_FAILURE);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    exit(EXIT_SUCCESS);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="optind"><a href="#optind" class="headerlink" title="optind"></a>optind</h2><ul>
+<li>表示 argv 中下一個元素的 index，並且在第一次呼叫 getopt 之前將其初始化為 1。</li>
+<li>The caller can reset it to 1 to restart scanning of the same <em>argv</em>, or when scanning a new argument vector.</li>
+<li>optarg 是一個外部變數<ul>
+<li>它指向當前選項字元後面的引數。</li>
+<li>如果該選項不包含引數，則將 optarg 設定為零。</li>
+<li>下一個程式碼示例顯示如何儲存 optarg 變數指向的引數，然後根據需要對其進行操作。</li>
+<li>請注意，引數可以在選項之後而不使用空格分隔符。</li>
+</ul>
+</li>
+</ul>
+<h3 id="e-g-1"><a href="#e-g-1" class="headerlink" title="e.g."></a>e.g.</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">#include &lt;getopt.h&gt;</span><br><span class="line"></span><br><span class="line">int main(int argc, char *argv[]) &#123;</span><br><span class="line">    int opt, xnum = 0;</span><br><span class="line">    char *pstr = NULL;</span><br><span class="line"></span><br><span class="line">    while ((opt = getopt(argc, argv, &quot;:p:x&quot;)) != -1) &#123;</span><br><span class="line">        printf(&quot;opt = %3d (%c); optind = %d\n&quot;, opt, opt, optind);</span><br><span class="line"></span><br><span class="line">        switch (opt) &#123;</span><br><span class="line">            case &#x27;p&#x27;: pstr = optarg;        break;</span><br><span class="line">            case &#x27;x&#x27;: xnum++;               break;</span><br><span class="line">            case &#x27;:&#x27;: fprintf(stderr, &quot;Missing argument!\n&quot;</span><br><span class="line">                                      &quot;Usage: %s [-p arg] [-x]\n&quot;, argv[0]); exit(EXIT_FAILURE);</span><br><span class="line">            case &#x27;?&#x27;: fprintf(stderr, &quot;Unrecognized option!\n&quot;</span><br><span class="line">                                      &quot;Usage: %s [-p arg] [-x]\n&quot;, argv[0]); exit(EXIT_FAILURE);</span><br><span class="line">            default:  fprintf(stderr, &quot;Unexpected case in switch()&quot;); exit(EXIT_FAILURE);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    if (xnum != 0)</span><br><span class="line">        printf(&quot;-x was specified (count=%d)\n&quot;, xnum);</span><br><span class="line">    if (pstr != NULL)</span><br><span class="line">        printf(&quot;-p was specified with the value \&quot;%s\&quot;\n&quot;, pstr);</span><br><span class="line">    if (optind &lt; argc)</span><br><span class="line">        printf(&quot;First non-option argument is \&quot;%s\&quot; at argv[%d]\n&quot;,</span><br><span class="line">               argv[optind], optind);</span><br><span class="line"></span><br><span class="line">    exit(EXIT_SUCCESS);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="reference"><a href="#reference" class="headerlink" title="reference"></a>reference</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://www.delftstack.com/zh-tw/howto/c/optind-in-c/">optind 變數在 C 語言中是如何分配的 | D棧 - Delft Stack</a></li>
+<li><a target="_blank" rel="noopener" href="https://linux.die.net/man/3/optind">optind(3): Parse options - Linux man page</a></li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -1694,96 +1834,6 @@
 
 
 
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://linyunwen.github.io/2021/10/17/rtc/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="Lin Yunwen">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Lin Yunwen's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2021/10/17/rtc/" class="post-title-link" itemprop="url">RTC (Real Time Clock)</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">發表於</span>
-      
-
-      <time title="創建時間：2021-10-17 20:09:00 / 修改時間：20:09:21" itemprop="dateCreated datePublished" datetime="2021-10-17T20:09:00+08:00">2021-10-17</time>
-    </span>
-
-  
-      </div>
-      <div class="post-meta">
-    <span class="post-meta-item" title="文章字數">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">文章字數：</span>
-      <span>527</span>
-    </span>
-    <span class="post-meta-item" title="所需閱讀時間">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
-      <span>1 分鐘</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="RTC-Real-Time-Clock"><a href="#RTC-Real-Time-Clock" class="headerlink" title="RTC (Real Time Clock)"></a>RTC (Real Time Clock)</h1><ul>
-<li>是指可以像時鐘一樣輸出實際時間的電子設備，一般會是積體電路，因此也稱為時鐘晶片</li>
-<li>實時時鐘和定時器訊號（Clock signal）不同，後者只是數位電路中一個表示時間的方波訊號，而且不會以日常使用的時間單位表示。
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2021/10/17/rtc/#more" rel="contents">
-                閱讀全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
   <nav class="pagination">
     <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/12/">12</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一頁"></i></a>
   </nav>
@@ -1809,14 +1859,14 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>總字數：</span>
-    <span title="總字數">289k</span>
+    <span title="總字數">292k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>所需總閱讀時間 &asymp;</span>
-    <span title="所需總閱讀時間">8:45</span>
+    <span title="所需總閱讀時間">8:50</span>
   </span>
 </div>
 
