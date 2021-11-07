@@ -2,6 +2,48 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://linyunwen.github.io/2021/10/21/ntpdate/</loc>
+    
+    <lastmod>2021-11-07</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://linyunwen.github.io/2021/10/23/vim-plugin/</loc>
+    
+    <lastmod>2021-11-07</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://linyunwen.github.io/2021/10/24/ntpd/</loc>
+    
+    <lastmod>2021-11-07</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://linyunwen.github.io/2021/10/24/ntpq/</loc>
+    
+    <lastmod>2021-11-07</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://linyunwen.github.io/2021/10/31/linux-kernel-module/</loc>
+    
+    <lastmod>2021-11-07</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://linyunwen.github.io/2021/11/06/c-c-getopt/</loc>
+    
+    <lastmod>2021-11-07</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://linyunwen.github.io/2021/11/07/file-magic-number/</loc>
     
     <lastmod>2021-11-07</lastmod>
@@ -12,48 +54,6 @@
     <loc>https://linyunwen.github.io/2021/11/07/c-c-compiler/</loc>
     
     <lastmod>2021-11-07</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://linyunwen.github.io/2021/11/06/c-c-getopt/</loc>
-    
-    <lastmod>2021-11-06</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://linyunwen.github.io/2021/10/31/linux-kernel-module/</loc>
-    
-    <lastmod>2021-10-31</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://linyunwen.github.io/2021/10/24/ntpq/</loc>
-    
-    <lastmod>2021-10-24</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://linyunwen.github.io/2021/10/24/ntpd/</loc>
-    
-    <lastmod>2021-10-24</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://linyunwen.github.io/2021/10/23/vim-plugin/</loc>
-    
-    <lastmod>2021-10-23</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://linyunwen.github.io/2021/10/21/ntpdate/</loc>
-    
-    <lastmod>2021-10-21</lastmod>
     
   </url>
   

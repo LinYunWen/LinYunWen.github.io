@@ -20,15 +20,15 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"linyunwen.github.io","root":"/","images":"/images","scheme":"Gemini","version":"8.6.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"disqus","storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"${hits} 找到 ${time} 個結果","hits":"找到 ${hits} 個結果"}}</script><script src="/js/config.js"></script>
-<meta name="description" content="Linux Kernel Modules 系統啟動後,正常工作的模組都在&#x2F;proc&#x2F;modules檔案中列出。使用lsmod命令也可顯示相同內容。 Linux 會將所有核心模組放在 &#x2F;lib&#x2F;modules&#x2F;uname -r&#x2F;kernel&#x2F;drivers&#x2F; 目錄下lsmod 列出核心已載入模組的狀態 lsmod 顯示當前載入的所有模組，相當於cat &#x2F;proc&#x2F;modules output 模組名">
+<meta name="description" content="Linux Kernel Modules 系統啟動後,正常工作的模組都在&#x2F;proc&#x2F;modules檔案中列出。使用lsmod命令也可顯示相同內容。 Linux 會將所有核心模組放在 &#x2F;lib&#x2F;modules&#x2F;uname -r&#x2F;kernel&#x2F;drivers&#x2F; 目錄下">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Linux Kernel Modules">
 <meta property="og:url" content="https://linyunwen.github.io/2021/10/31/linux-kernel-module/index.html">
 <meta property="og:site_name" content="Lin Yunwen&#39;s Blog">
-<meta property="og:description" content="Linux Kernel Modules 系統啟動後,正常工作的模組都在&#x2F;proc&#x2F;modules檔案中列出。使用lsmod命令也可顯示相同內容。 Linux 會將所有核心模組放在 &#x2F;lib&#x2F;modules&#x2F;uname -r&#x2F;kernel&#x2F;drivers&#x2F; 目錄下lsmod 列出核心已載入模組的狀態 lsmod 顯示當前載入的所有模組，相當於cat &#x2F;proc&#x2F;modules output 模組名">
+<meta property="og:description" content="Linux Kernel Modules 系統啟動後,正常工作的模組都在&#x2F;proc&#x2F;modules檔案中列出。使用lsmod命令也可顯示相同內容。 Linux 會將所有核心模組放在 &#x2F;lib&#x2F;modules&#x2F;uname -r&#x2F;kernel&#x2F;drivers&#x2F; 目錄下">
 <meta property="og:locale" content="zh_TW">
 <meta property="article:published_time" content="2021-10-31T01:04:42.000Z">
-<meta property="article:modified_time" content="2021-10-31T01:06:17.871Z">
+<meta property="article:modified_time" content="2021-11-07T01:24:59.163Z">
 <meta property="article:author" content="Lin Yunwen">
 <meta property="article:tag" content="note">
 <meta property="article:tag" content="linux">
@@ -221,10 +221,16 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">發表於</span>
-      
 
-      <time title="創建時間：2021-10-31 09:04:42 / 修改時間：09:06:17" itemprop="dateCreated datePublished" datetime="2021-10-31T09:04:42+08:00">2021-10-31</time>
+      <time title="創建時間：2021-10-31 09:04:42" itemprop="dateCreated datePublished" datetime="2021-10-31T09:04:42+08:00">2021-10-31</time>
     </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新於</span>
+        <time title="修改時間：2021-11-07 09:24:59" itemprop="dateModified" datetime="2021-11-07T09:24:59+08:00">2021-11-07</time>
+      </span>
 
   
       </div>
@@ -254,7 +260,8 @@
     <div class="post-body" itemprop="articleBody">
         <h1 id="Linux-Kernel-Modules"><a href="#Linux-Kernel-Modules" class="headerlink" title="Linux Kernel Modules"></a>Linux Kernel Modules</h1><ul>
 <li>系統啟動後,正常工作的模組都在/proc/modules檔案中列出。使用lsmod命令也可顯示相同內容。</li>
-<li>Linux 會將所有核心模組放在 <code>/lib/modules/uname -r/kernel/drivers/</code> 目錄下<h2 id="lsmod"><a href="#lsmod" class="headerlink" title="lsmod"></a>lsmod</h2></li>
+<li>Linux 會將所有核心模組放在 <code>/lib/modules/uname -r/kernel/drivers/</code> 目錄下<span id="more"></span>
+<h2 id="lsmod"><a href="#lsmod" class="headerlink" title="lsmod"></a>lsmod</h2></li>
 <li>列出核心已載入模組的狀態</li>
 <li>lsmod 顯示當前載入的所有模組，相當於cat /proc/modules</li>
 <li>output<ul>

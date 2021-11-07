@@ -28,7 +28,7 @@
 <meta property="og:description" content="ntpdate  NTP 服務（ntpd）本身就有自動校時的功能，若啟用 NTP 服務後，就不可以使用 ntpdate 的方式校時，兩者僅能擇一使用。    以手動更新系統時間 ntpdate time.stdtime.gov.tw:::info 台灣常見 NTP 伺服器   tock.stdtime.gov.tw   watch.stdtime.gov.tw   time.stdtime.gov">
 <meta property="og:locale" content="zh_TW">
 <meta property="article:published_time" content="2021-10-21T13:16:01.000Z">
-<meta property="article:modified_time" content="2021-10-21T13:16:43.532Z">
+<meta property="article:modified_time" content="2021-11-07T01:26:08.139Z">
 <meta property="article:author" content="Lin Yunwen">
 <meta property="article:tag" content="note">
 <meta property="article:tag" content="linux">
@@ -220,10 +220,16 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">發表於</span>
-      
 
-      <time title="創建時間：2021-10-21 21:16:01 / 修改時間：21:16:43" itemprop="dateCreated datePublished" datetime="2021-10-21T21:16:01+08:00">2021-10-21</time>
+      <time title="創建時間：2021-10-21 21:16:01" itemprop="dateCreated datePublished" datetime="2021-10-21T21:16:01+08:00">2021-10-21</time>
     </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新於</span>
+        <time title="修改時間：2021-11-07 09:26:08" itemprop="dateModified" datetime="2021-11-07T09:26:08+08:00">2021-11-07</time>
+      </span>
 
   
       </div>
@@ -264,11 +270,10 @@
 <li>  <code>watch.stdtime.gov.tw</code></li>
 <li>  <code>time.stdtime.gov.tw</code></li>
 <li>  <code>clock.stdtime.gov.tw</code></li>
-<li>  <code>tick.stdtime.gov.tw</code><br>:::</li>
+<li>  <code>tick.stdtime.gov.tw</code><br>:::<span id="more"></span>
+<h2 id="introduction"><a href="#introduction" class="headerlink" title="introduction"></a>introduction</h2></li>
 </ul>
 </li>
-</ul>
-<h2 id="introduction"><a href="#introduction" class="headerlink" title="introduction"></a>introduction</h2><ul>
 <li><code>ntpdate [ -46bBdqsuv ] [ -a key ] [ -e authdelay] [ -k keyfile ] [ -o version ] [ -p samples ] [ -t timeout ] [ -U user_name] server [ ... ]</code></li>
 </ul>
 <h3 id="Options"><a href="#Options" class="headerlink" title="Options"></a>Options</h3><ul>

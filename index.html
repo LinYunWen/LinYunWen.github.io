@@ -405,10 +405,16 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">發表於</span>
-      
 
-      <time title="創建時間：2021-11-06 13:32:04 / 修改時間：13:33:51" itemprop="dateCreated datePublished" datetime="2021-11-06T13:32:04+08:00">2021-11-06</time>
+      <time title="創建時間：2021-11-06 13:32:04" itemprop="dateCreated datePublished" datetime="2021-11-06T13:32:04+08:00">2021-11-06</time>
     </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新於</span>
+        <time title="修改時間：2021-11-07 09:24:34" itemprop="dateModified" datetime="2021-11-07T09:24:34+08:00">2021-11-07</time>
+      </span>
 
   
       </div>
@@ -444,59 +450,15 @@
 </blockquote>
 <ul>
 <li>Parse command-line options</li>
-<li>An element of argv that starts with ‘-‘ (and is not exactly “-“ or “–”) is an option element<h2 id="getopt"><a href="#getopt" class="headerlink" title="getopt"></a>getopt</h2></li>
-<li>函式用於解析選項並從程式中檢索給定引數，並根據輸入執行相應的程式碼路徑。<h3 id="參數"><a href="#參數" class="headerlink" title="參數"></a>參數</h3></li>
-<li>其中前兩個引數是傳遞給 main 函式的 argc 和 argv。</li>
-<li>第三個引數是 optstring-指向表示合法選項字元的字串的指標。<ul>
-<li>需要連續呼叫 getopt，直到檢索到每個選項為止。</li>
-<li><code>optstring</code> 以冒號開頭，當遇到缺少的引數時，該值指示 <code>getopt</code> 呼叫需要返回的值。</li>
-<li>另外，在字元（例如 <code>p</code>）之後指定的冒號表示該選項需要該引數；兩個冒號表示該引數是可選的。</li>
-<li>可以在命令列上多次傳遞相同的選項字元。</li>
-<li><code>getopt</code> 函式返回選項字元（如果成功的話）</li>
-<li>return 字元 <code>?</code> 如果遇到的選項字元不在 <code>optstring</code> 中。</li>
-</ul>
-</li>
-</ul>
-<h3 id="return"><a href="#return" class="headerlink" title="return"></a>return</h3><ul>
-<li>If an option was successfully found<ul>
-<li>returns the option character.</li>
-</ul>
-</li>
-<li>If all command-line options have been parsed<ul>
-<li>returns -1.</li>
-</ul>
-</li>
-<li>If getopt() encounters an option character that was not in optstring<ul>
-<li>‘?’ is returned.</li>
-</ul>
-</li>
-<li>If getopt() encounters an option with a missing argument<ul>
-<li>return value depends on the first character in optstring<ul>
-<li>if it is ‘:’, then ‘:’ is returned; otherwise ‘?’ is returned.</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h3 id="e-g"><a href="#e-g" class="headerlink" title="e.g."></a>e.g.</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">#include &lt;getopt.h&gt;</span><br><span class="line"></span><br><span class="line">int main(int argc, char *argv[]) &#123;</span><br><span class="line">    int opt, xnum = 0;</span><br><span class="line">    char *pstr = NULL;</span><br><span class="line"></span><br><span class="line">    while ((opt = getopt(argc, argv, &quot;:p:x&quot;)) != -1) &#123;</span><br><span class="line">        printf(&quot;opt = %3d (%c); optind = %d\n&quot;, opt, opt, optind);</span><br><span class="line"></span><br><span class="line">        switch (opt) &#123;</span><br><span class="line">            case &#x27;p&#x27;: pstr = optarg;        break;</span><br><span class="line">            case &#x27;x&#x27;: xnum++;               break;</span><br><span class="line">            case &#x27;:&#x27;: fprintf(stderr, &quot;Missing argument!\n&quot;</span><br><span class="line">                                      &quot;Usage: %s [-p arg] [-x]\n&quot;, argv[0]); exit(EXIT_FAILURE);</span><br><span class="line">            case &#x27;?&#x27;: fprintf(stderr, &quot;Unrecognized option!\n&quot;</span><br><span class="line">                                      &quot;Usage: %s [-p arg] [-x]\n&quot;, argv[0]); exit(EXIT_FAILURE);</span><br><span class="line">            default:  fprintf(stderr, &quot;Unexpected case in switch()&quot;); exit(EXIT_FAILURE);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    exit(EXIT_SUCCESS);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="optind"><a href="#optind" class="headerlink" title="optind"></a>optind</h2><ul>
-<li>表示 argv 中下一個元素的 index，並且在第一次呼叫 getopt 之前將其初始化為 1。</li>
-<li>The caller can reset it to 1 to restart scanning of the same <em>argv</em>, or when scanning a new argument vector.</li>
-<li>optarg 是一個外部變數<ul>
-<li>它指向當前選項字元後面的引數。</li>
-<li>如果該選項不包含引數，則將 optarg 設定為零。</li>
-<li>下一個程式碼示例顯示如何儲存 optarg 變數指向的引數，然後根據需要對其進行操作。</li>
-<li>請注意，引數可以在選項之後而不使用空格分隔符。</li>
-</ul>
-</li>
-</ul>
-<h3 id="e-g-1"><a href="#e-g-1" class="headerlink" title="e.g."></a>e.g.</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">#include &lt;getopt.h&gt;</span><br><span class="line"></span><br><span class="line">int main(int argc, char *argv[]) &#123;</span><br><span class="line">    int opt, xnum = 0;</span><br><span class="line">    char *pstr = NULL;</span><br><span class="line"></span><br><span class="line">    while ((opt = getopt(argc, argv, &quot;:p:x&quot;)) != -1) &#123;</span><br><span class="line">        printf(&quot;opt = %3d (%c); optind = %d\n&quot;, opt, opt, optind);</span><br><span class="line"></span><br><span class="line">        switch (opt) &#123;</span><br><span class="line">            case &#x27;p&#x27;: pstr = optarg;        break;</span><br><span class="line">            case &#x27;x&#x27;: xnum++;               break;</span><br><span class="line">            case &#x27;:&#x27;: fprintf(stderr, &quot;Missing argument!\n&quot;</span><br><span class="line">                                      &quot;Usage: %s [-p arg] [-x]\n&quot;, argv[0]); exit(EXIT_FAILURE);</span><br><span class="line">            case &#x27;?&#x27;: fprintf(stderr, &quot;Unrecognized option!\n&quot;</span><br><span class="line">                                      &quot;Usage: %s [-p arg] [-x]\n&quot;, argv[0]); exit(EXIT_FAILURE);</span><br><span class="line">            default:  fprintf(stderr, &quot;Unexpected case in switch()&quot;); exit(EXIT_FAILURE);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    if (xnum != 0)</span><br><span class="line">        printf(&quot;-x was specified (count=%d)\n&quot;, xnum);</span><br><span class="line">    if (pstr != NULL)</span><br><span class="line">        printf(&quot;-p was specified with the value \&quot;%s\&quot;\n&quot;, pstr);</span><br><span class="line">    if (optind &lt; argc)</span><br><span class="line">        printf(&quot;First non-option argument is \&quot;%s\&quot; at argv[%d]\n&quot;,</span><br><span class="line">               argv[optind], optind);</span><br><span class="line"></span><br><span class="line">    exit(EXIT_SUCCESS);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="reference"><a href="#reference" class="headerlink" title="reference"></a>reference</h2><ul>
-<li><a target="_blank" rel="noopener" href="https://www.delftstack.com/zh-tw/howto/c/optind-in-c/">optind 變數在 C 語言中是如何分配的 | D棧 - Delft Stack</a></li>
-<li><a target="_blank" rel="noopener" href="https://linux.die.net/man/3/optind">optind(3): Parse options - Linux man page</a></li>
-</ul>
-
+<li>An element of argv that starts with ‘-‘ (and is not exactly “-“ or “–”) is an option element
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2021/11/06/c-c-getopt/#more" rel="contents">
+                閱讀全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -545,10 +507,16 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">發表於</span>
-      
 
-      <time title="創建時間：2021-10-31 09:04:42 / 修改時間：09:06:17" itemprop="dateCreated datePublished" datetime="2021-10-31T09:04:42+08:00">2021-10-31</time>
+      <time title="創建時間：2021-10-31 09:04:42" itemprop="dateCreated datePublished" datetime="2021-10-31T09:04:42+08:00">2021-10-31</time>
     </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新於</span>
+        <time title="修改時間：2021-11-07 09:24:59" itemprop="dateModified" datetime="2021-11-07T09:24:59+08:00">2021-11-07</time>
+      </span>
 
   
       </div>
@@ -578,138 +546,15 @@
     <div class="post-body" itemprop="articleBody">
           <h1 id="Linux-Kernel-Modules"><a href="#Linux-Kernel-Modules" class="headerlink" title="Linux Kernel Modules"></a>Linux Kernel Modules</h1><ul>
 <li>系統啟動後,正常工作的模組都在/proc/modules檔案中列出。使用lsmod命令也可顯示相同內容。</li>
-<li>Linux 會將所有核心模組放在 <code>/lib/modules/uname -r/kernel/drivers/</code> 目錄下<h2 id="lsmod"><a href="#lsmod" class="headerlink" title="lsmod"></a>lsmod</h2></li>
-<li>列出核心已載入模組的狀態</li>
-<li>lsmod 顯示當前載入的所有模組，相當於cat /proc/modules</li>
-<li>output<ul>
-<li>模組名稱(Module)；</li>
-</ul>
-<ul>
-<li>模組的大小(size)；</li>
-<li>此模組是否被其他模組所使用 (Used by)。</li>
-</ul>
-</li>
-</ul>
-<h3 id="e-g"><a href="#e-g" class="headerlink" title="e.g."></a>e.g.</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Module(模組名)    Size(模組大小)   Used by(被…使用)</span><br><span class="line">eg. ne2k_pci           8928               0</span><br><span class="line">8390                 9472              1 ne2k_pci</span><br></pre></td></tr></table></figure>
-
-<h2 id="modinfo"><a href="#modinfo" class="headerlink" title="modinfo"></a>modinfo</h2><ul>
-<li>顯示核心模組的資訊</li>
-</ul>
-<h3 id="參數："><a href="#參數：" class="headerlink" title="參數："></a>參數：</h3><ul>
-<li>-V –version 版本</li>
-<li>-F –field 僅在一行上顯示field值，這對於指令碼較為有用。常用的field有：author, description, licence, param, depends, alias, filename。</li>
-<li>-0 –NULL 使用’/0′字元分隔field值，而不是一個新行。對指令碼比較有用。</li>
-<li>-a -d -l -p -n 這些分別是author, description, license, param ,filename的簡短形式。</li>
-</ul>
-<h3 id="e-g-1"><a href="#e-g-1" class="headerlink" title="e.g."></a>e.g.</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">$ modinfo sg</span><br><span class="line">filename:    /lib/modules/2.6.9-42.ELsmp/kernel/drivers/scsi/sg.ko</span><br><span class="line">author:     Douglas Gilbert</span><br><span class="line">description:  SCSI generic (sg) driver</span><br><span class="line">license:    GPL</span><br><span class="line">version:    3.5.31 B0B0CB1BB59F0669A1F0D6B</span><br><span class="line">parm:      def_reserved_size:size of buffer reserved for each fd</span><br><span class="line">parm:      allow_dio:allow direct I/O (default: 0 (disallow))</span><br><span class="line">alias:     char-major-21-*</span><br><span class="line">vermagic:    2.6.9-42.ELsmp SMP 686 REGPARM 4KSTACKS gcc-3.4</span><br><span class="line">depends:    scsi_mod</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
-<h2 id="insmod"><a href="#insmod" class="headerlink" title="insmod"></a>insmod</h2><blockquote>
-<ul>
-<li><code>insmod [filename] [modue options …]</code></li>
-</ul>
-</blockquote>
-<ul>
-<li>向Linux核心中插入一個模組</li>
-<li>insmod 則完全由使用者自行載入一個完整檔名的模組， 並不會主動的分析模組相依性啊</li>
-</ul>
-<h2 id="modprobe"><a href="#modprobe" class="headerlink" title="modprobe"></a>modprobe</h2><ul>
-<li>insmod 與 modprobe 都是載入 kernel module，不過一般差別於 modprobe 能夠處理 module 載入的相依問題。<ul>
-<li>比方你要載入 a module，但是 a module 要求系統先載入 b module 時，直接用 insmod 掛入通常都會出現錯誤訊息，不過 modprobe 倒是能夠知道先載入 b module  後才載入 a module，如此相依性就會滿足。</li>
-<li>不過 modprobe 並不是大神，不會厲害到知道 module 之間的相依性為何，該程式是讀取 /lib/modules/2.6.xx/modules.dep 檔案得知相依性的。而該檔案是透過 depmod 程式所建立。</li>
-<li>/lib/modules/<code>uname -r</code>/modules.dep<h3 id="參-數"><a href="#參-數" class="headerlink" title="參 數:"></a>參 數:</h3></li>
-</ul>
-</li>
-</ul>
-<ul>
-<li>  -a或–all  載入全部的模組。 </li>
-<li>  -c或–show-conf  顯示所有模組的設定資訊。 </li>
-<li>  -d或–debug  使用排錯模式。 </li>
-<li>  -l或–list  顯示可用的模組。 </li>
-<li>  -r或–remove  模組閒置不用時,即自動解除安裝模組。 </li>
-<li>  -t或–type  指定模組型別。 </li>
-<li>  -v或–verbose  執行時顯示詳細的資訊。 </li>
-<li>  -V或–version  顯示版本資訊。 </li>
-<li>  -help  顯示幫助。</li>
-</ul>
-<h3 id="e-g-2"><a href="#e-g-2" class="headerlink" title="e.g."></a>e.g.</h3><ul>
-<li>刪除模組的命令是<ul>
-<li><code>modprobe -r filename</code></li>
-</ul>
-</li>
-<li>列出核心中所有已經或者未掛載的所有模組:<ul>
-<li><code>modprobe -l</code></li>
-</ul>
-</li>
-<li>掛載 vfat 模組<ul>
-<li>modprobe vfat<ul>
-<li>這裡,使用格式 “modprobe 模組名” 來掛載一個模組。</li>
-<li>掛載之後,用lsmod可以檢視已經掛載的模組。</li>
-<li>模組名是不能帶有後綴的,我們通過modprobe -l 所看到的模組,都是帶有.ko 或.o字尾。</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>查看modules的配置文件：<ul>
-<li><code>modprobe -c</code></li>
-</ul>
-</li>
-<li>modprobe 另一個用處是顯示核心模組的相依性<ul>
-<li><code>modprobe –show-depends ip_tables</code></li>
-</ul>
-</li>
-</ul>
-<h2 id="rmmod"><a href="#rmmod" class="headerlink" title="rmmod"></a>rmmod</h2><blockquote>
-<ul>
-<li><code>rmmod [-fw] module_name</code></li>
-</ul>
-</blockquote>
-<h3 id="參數：-1"><a href="#參數：-1" class="headerlink" title="參數："></a>參數：</h3><ul>
-<li>-v –verbose  顯示程式正在做些什麼，一般只顯示執行時的錯誤資訊。</li>
-<li>-f –force  該選項是非常危險：除非編譯核心時，CONFIG_MODULE_FORCE_UNLOAD被設定該命令才有效果，否則沒效果。用該選項可以刪除正在被使用的模組，設計為不能刪除的模組，或者標記為unsafe的模組。</li>
-<li>-w –wait 通常，rmmod拒絕刪除正在被使用的模組。使用該選項後，指定的模組會被孤立起來，直到不被使用。</li>
-<li>-s  –syslog  將錯誤資訊寫入syslog，而不是標準錯誤(stderr)。</li>
-<li>-V  –version 版本資訊</li>
-</ul>
-<h3 id="e-g-3"><a href="#e-g-3" class="headerlink" title="e.g."></a>e.g.</h3><ul>
-<li>smbfs 模組移除<ul>
-<li>rmmod smbfs</li>
-</ul>
-</li>
-</ul>
-<h2 id="depmod"><a href="#depmod" class="headerlink" title="depmod"></a>depmod</h2><blockquote>
-<ul>
-<li><code>depmod(选项)</code></li>
-</ul>
-</blockquote>
-<ul>
-<li>depmod命令可产生模块依赖的映射文件，在构建嵌入式系统时，需要由这个命令来生成相应的文件，由modprobe使用<h3 id="參數"><a href="#參數" class="headerlink" title="參數"></a>參數</h3></li>
-</ul>
-<ul>
-<li>-a或–all：分析所有可用的模块；</li>
-<li>-d或debug：执行排错模式；</li>
-<li>-e：输出无法参照的符号；</li>
-<li>-i：不检查符号表的版本；</li>
-<li>-m&lt;文件&gt;或system-map&lt;文件&gt;：使用指定的符号表文件；</li>
-<li>-s或–system-log：在系统记录中记录错误；</li>
-<li>-v或–verbose：执行时显示详细的信息；</li>
-<li>-V或–version：显示版本信息；</li>
-<li>–help：显示帮助。</li>
-</ul>
-<h3 id="e-g-4"><a href="#e-g-4" class="headerlink" title="e.g."></a>e.g.</h3><ul>
-<li><code>depmod -b /home/windsome/EMMA3PF-KernelSource-20080626/install_pos -e -F ./boot/System.map -v 2.6.18_pro500-bcm91250-mips2_fp_be -A -a</code><ul>
-<li>/home/windsome/EMMA3PF-KernelSource-20080626/install_pos是我make mod_install后，所有模块的存放路径。</li>
-<li>./boot/System.map是make linux后生成，我拷贝到此目录的。</li>
-<li>2.6.18_pro500-bcm91250-mips2_fp_be是我build的linux的版本。<h3 id="reference"><a href="#reference" class="headerlink" title="reference"></a>reference</h3></li>
-</ul>
-</li>
-<li><a target="_blank" rel="noopener" href="https://blog.xuite.net/lidj37/twblog/179517568-modprobe+vs.+insmod+vs.+rmmod">modprobe vs. insmod vs. rmmod @ R &amp; D LAB :: 隨意窩 Xuite日誌</a></li>
-<li><a target="_blank" rel="noopener" href="https://www.itread01.com/p/1389731.html">linux modprobe命令引數及用法詳解–linux載入模組命令 - IT閱讀</a></li>
-<li><a target="_blank" rel="noopener" href="https://man.linuxde.net/modprobe">modprobe命令_Linux modprobe 命令用法详解：自动处理可载入模块</a></li>
-<li><a target="_blank" rel="noopener" href="https://man.linuxde.net/depmod">depmod命令_Linux depmod 命令用法详解：分析可载入模块的相依性</a></li>
-<li><a target="_blank" rel="noopener" href="http://mingyi-ulinux.blogspot.com/2009/01/lsmod-modinfo.html">千變萬化Linux: 核心模組的觀察： lsmod, modinfo</a></li>
-<li><a target="_blank" rel="noopener" href="https://www.opencli.com/linux/linux-kernel-module-management">Linux 核心模組管理</a></li>
-<li><a target="_blank" rel="noopener" href="https://www.runoob.com/linux/linux-comm-modinfo.html">Linux modinfo命令 | 菜鸟教程</a></li>
-</ul>
-
+<li>Linux 會將所有核心模組放在 <code>/lib/modules/uname -r/kernel/drivers/</code> 目錄下
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2021/10/31/linux-kernel-module/#more" rel="contents">
+                閱讀全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -758,10 +603,16 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">發表於</span>
-      
 
-      <time title="創建時間：2021-10-24 08:58:15 / 修改時間：08:59:41" itemprop="dateCreated datePublished" datetime="2021-10-24T08:58:15+08:00">2021-10-24</time>
+      <time title="創建時間：2021-10-24 08:58:15" itemprop="dateCreated datePublished" datetime="2021-10-24T08:58:15+08:00">2021-10-24</time>
     </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新於</span>
+        <time title="修改時間：2021-11-07 09:25:12" itemprop="dateModified" datetime="2021-11-07T09:25:12+08:00">2021-11-07</time>
+      </span>
 
   
       </div>
@@ -795,306 +646,15 @@
 <h2 id="introduction"><a href="#introduction" class="headerlink" title="introduction"></a>introduction</h2><ul>
 <li><code>ntpq [-46dinp] [-c command] [host] [...]</code></li>
 <li>ntpq uses NTP mode 6 packets to communicate with the NTP server, and hence can be used to query any compatible server on the network which permits it.<ul>
-<li>Note that since NTP is a UDP protocol this communication will be somewhat unreliable, especially over large distances in terms of network topology. ntpq makes one attempt to retransmit requests, and will time requests out if the remote host is not heard from within a suitable timeout time.</li>
-</ul>
-</li>
-</ul>
-<h2 id="options"><a href="#options" class="headerlink" title="options"></a>options</h2><ul>
-<li>-4<ul>
-<li>Force DNS resolution of following host names on the command line to the IPv4 namespace.</li>
-</ul>
-</li>
-<li>-6<ul>
-<li>Force DNS resolution of following host names on the command line to the IPv6 namespace.</li>
-</ul>
-</li>
-<li>-c<ul>
-<li>The following argument is interpreted as an interactive format command and is added to the list of commands to be executed on the specified host(s). Multiple -c options may be given.</li>
-</ul>
-</li>
-<li>-d<ul>
-<li>Turn on debugging mode.</li>
-</ul>
-</li>
-<li>-i<ul>
-<li>Force ntpq to operate in interactive mode. Prompts will be written to the standard output and commands read from the standard input.</li>
-</ul>
-</li>
-<li>-n<ul>
-<li>Output all host addresses in dotted-quad numeric format rather than converting to the canonical host names.</li>
-</ul>
-</li>
-<li>-p<ul>
-<li>Print a list of the peers known to the server as well as a summary of their state. This is equivalent to the peers interactive command.</li>
-</ul>
-</li>
-</ul>
-<h2 id="internal-commands"><a href="#internal-commands" class="headerlink" title="internal commands"></a>internal commands</h2><ul>
-<li>? [command_keyword]</li>
-<li>helpl [command_keyword]<ul>
-<li>A ? by itself will print a list of all the command keywords known to this incarnation of ntpq[char46] A ? followed by a command keyword will print function and usage information about the command. This command is probably a better source of information about ntpq than this manual page.</li>
-</ul>
-</li>
-<li>addvars variable_name [ = value] […]</li>
-<li>rmvars variable_name […]</li>
-<li>clearvars<ul>
-<li>The data carried by NTP mode 6 messages consists of a list of items of the form variable_name = value, where the = value is ignored, and can be omitted, in requests to the server to read variables. ntpq maintains an internal list in which data to be included in control messages can be assembled, and sent using the readlist and writelist commands described below. The addvars command allows variables and their optional values to be added to the list. If more than one variable is to be added, the list should be comma-separated and not contain white space. The rmvars command can be used to remove individual variables from the list, while the clearlist command removes all variables from the list.</li>
-</ul>
-</li>
-<li>cooked<ul>
-<li>Causes output from query commands to be “cooked”, so that variables which are recognized by ntpq will have their values reformatted for human consumption. Variables which ntpq thinks should have a decodable value but didn’t are marked with a trailing ?[char46]</li>
-</ul>
-</li>
-<li>debug more | less | off<ul>
-<li>Turns internal query program debugging on and off.</li>
-</ul>
-</li>
-<li>delay milliseconds<ul>
-<li>Specify a time interval to be added to timestamps included in requests which require authentication. This is used to enable (unreliable) server reconfiguration over long delay network paths or between machines whose clocks are unsynchronized. Actually the server does not now require timestamps in authenticated requests, so this command may be obsolete.</li>
-</ul>
-</li>
-<li>host hostname<ul>
-<li>Set the host to which future queries will be sent. Hostname may be either a host name or a numeric address.</li>
-</ul>
-</li>
-<li>hostnames [yes | no]<ul>
-<li>If yes is specified, host names are printed in information displays. If no is specified, numeric addresses are printed instead. The default is yes, unless modified using the command line -n switch.</li>
-</ul>
-</li>
-<li>keyid keyid<ul>
-<li>This command specifies the key number to be used to authenticate configuration requests. This must correspond to a key number the server has been configured to use for this purpose.</li>
-</ul>
-</li>
-<li>ntpversion 1 | 2 | 3 | 4<ul>
-<li>Sets the NTP version number which ntpq claims in packets. Defaults to 2, Note that mode 6 control messages (and modes, for that matter) didn’t exist in NTP version 1.</li>
-</ul>
-</li>
-<li>passwd<ul>
-<li>This command prompts for a password (which will not be echoed) which will be used to authenticate configuration requests. The password must correspond to the key configured for NTP server for this purpose.</li>
-</ul>
-</li>
-<li>quit<ul>
-<li>Exit ntpq[char46]</li>
-</ul>
-</li>
-<li>raw<ul>
-<li>Causes all output from query commands is printed as received from the remote server. The only formatting/interpretation done on the data is to transform non-ASCII data into a printable (but barely understandable) form.</li>
-</ul>
-</li>
-<li>timeout millseconds<ul>
-<li>Specify a timeout period for responses to server queries. The default is about 5000 milliseconds. Note that since ntpq retries each query once after a timeout, the total waiting time for a timeout will be twice the timeout value set.</li>
-</ul>
-</li>
-</ul>
-<h2 id="Control-Message-Commands"><a href="#Control-Message-Commands" class="headerlink" title="Control Message Commands"></a>Control Message Commands</h2><blockquote>
-<ul>
-<li>Each association known to an NTP server has a 16 bit integer association identifier.</li>
-<li>NTP control messages which carry peer variables must identify the peer the values correspond to by including its association ID.</li>
-<li>An association ID of 0 is special, and indicates the variables are system variables, whose names are drawn from a separate name space.</li>
-</ul>
-</blockquote>
-<ul>
-<li>associations<ul>
-<li>Obtains and prints a list of association identifiers and peer statuses for in-spec peers of the server being queried. The list is printed in columns. The first of these is an index numbering the associations from 1 for internal use, the second the actual association identifier returned by the server and the third the status word for the peer. This is followed by a number of columns containing data decoded from the status word. See the peers command for a decode of the condition field. Note that the data returned by the associations command is cached internally in ntpq[char46] The index is then of use when dealing with stupid servers which use association identifiers which are hard for humans to type, in that for any subsequent commands which require an association identifier as an argument, the form &amp;index may be used as an alternative.</li>
-</ul>
-</li>
-</ul>
-<table>
-<thead>
-<tr>
-<th>Variable</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody><tr>
-<td><strong>conf</strong></td>
-<td><strong>yes</strong>: persistent, <strong>no</strong>: ephemeral</td>
-</tr>
-<tr>
-<td><strong>reach</strong></td>
-<td><strong>yes</strong>: reachable, <strong>no</strong>: unreachable</td>
-</tr>
-<tr>
-<td><strong>auth</strong></td>
-<td><strong>ok</strong>, <strong>yes</strong>, <strong>bad</strong> and <strong>none</strong></td>
-</tr>
-<tr>
-<td><strong>condition</strong></td>
-<td>selection status (see the <strong>select</strong> field of the peer status word)</td>
-</tr>
-<tr>
-<td><strong>last_event</strong></td>
-<td>event report (see the <strong>event</strong> field of the peer status word)</td>
-</tr>
-<tr>
-<td><strong>cnt</strong></td>
-<td>event count (see the <strong>count</strong> field of the peer status word)</td>
-</tr>
-</tbody></table>
-<ul>
-<li>clockvar [assocID] [variable_name [ = value[…]] […]</li>
-<li>cv [assocID] [variable_name [ = value […] ][…]<ul>
-<li>Requests that a list of the server’s clock variables be sent. Servers which have a radio clock or other external synchronization will respond positively to this. If the association identifier is omitted or zero the request is for the variables of the system clock and will generally get a positive response from all servers with a clock. If the server treats clocks as pseudo-peers, and hence can possibly have more than one clock connected at once, referencing the appropriate peer association ID will show the variables of a particular clock. Omitting the variable list will cause the server to return a default variable display.</li>
-</ul>
-</li>
-<li>lassociations<ul>
-<li>Obtains and prints a list of association identifiers and peer statuses for all associations for which the server is maintaining state. This command differs from the associations command only for servers which retain state for out-of-spec client associations (i.e., fuzzballs). Such associations are normally omitted from the display when the associations command is used, but are included in the output of lassociations[char46]</li>
-</ul>
-</li>
-<li>lpassociations<ul>
-<li>Print data for all associations, including out-of-spec client associations, from the internally cached list of associations. This command differs from passociations only when dealing with fuzzballs.</li>
-</ul>
-</li>
-<li>lpeers<ul>
-<li>Like R peers, except a summary of all associations for which the server is maintaining state is printed. This can produce a much longer list of peers from fuzzball servers.</li>
-</ul>
-</li>
-<li>mreadlist assocID assocID</li>
-<li>mrl assocID assocID<ul>
-<li>Like the readlist command, except the query is done for each of a range of (nonzero) association IDs. This range is determined from the association list cached by the most recent associations command.</li>
-</ul>
-</li>
-<li>mreadvar assocID assocID [ variable_name [ = value[ … ]</li>
-<li>mrv assocID assocID [ variable_name [ = value[ … ]<ul>
-<li>Like the readvar command, except the query is done for each of a range of (nonzero) association IDs. This range is determined from the association list cached by the most recent associations command.</li>
-</ul>
-</li>
-<li>opeers<ul>
-<li>An old form of the peers command with the reference ID replaced by the local interface address.</li>
-</ul>
-</li>
-<li>passociations<ul>
-<li>Displays association data concerning in-spec peers from the internally cached list of associations. This command performs identically to the associations except that it displays the internally stored data rather than making a new query.</li>
-</ul>
-</li>
-<li>peers<ul>
-<li>Obtains a current list peers of the server, along with a summary of each peer’s state. Summary information includes the address of the remote peer, the reference ID (0.0.0.0 if this is unknown), the stratum of the remote peer, the type of the peer (local, unicast, multicast or broadcast), when the last packet was received, the polling interval, in seconds, the reachability register, in octal, and the current estimated delay, offset and dispersion of the peer, all in milliseconds. The character at the left margin of each line shows the synchronization status of the association and is a valuable diagnostic tool. The encoding and meaning of this character, called the tally code, is given later in this page.</li>
-</ul>
-</li>
-</ul>
-<table>
-<thead>
-<tr>
-<th>Variable</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody><tr>
-<td><strong>[tally]</strong></td>
-<td>single-character code indicating current value of the <strong>select</strong> field of the peer status word</td>
-</tr>
-<tr>
-<td><strong>remote</strong></td>
-<td>host name (or IP number) of peer</td>
-</tr>
-<tr>
-<td><strong>refid</strong></td>
-<td>association ID or kiss code</td>
-</tr>
-<tr>
-<td><strong>st</strong></td>
-<td>stratum</td>
-</tr>
-<tr>
-<td><strong>t</strong></td>
-<td>Type of peer (local, unicast, multicast, or broadcast) <strong>u</strong>: unicast, <strong>b</strong>: broadcast, <strong>l</strong>: local</td>
-</tr>
-<tr>
-<td><strong>when</strong></td>
-<td>sec/min/hr since last received packet</td>
-</tr>
-<tr>
-<td><strong>poll</strong></td>
-<td>poll interval (log2 s)</td>
-</tr>
-<tr>
-<td><strong>reach</strong></td>
-<td>reach shift register (octal)</td>
-</tr>
-<tr>
-<td><strong>delay</strong></td>
-<td>roundtrip delay</td>
-</tr>
-<tr>
-<td><strong>offset</strong></td>
-<td>offset</td>
-</tr>
-<tr>
-<td><strong>jitter</strong></td>
-<td>jitter</td>
-</tr>
-</tbody></table>
-<ul>
-<li>tally code<ul>
-<li>space<ul>
-<li>Discarded due to high stratum and/or failed sanity checks.</li>
-</ul>
-</li>
-<li>\x<ul>
-<li>Designated falseticker by the intersection algorithm.</li>
-</ul>
-</li>
-<li>.<ul>
-<li>Culled from the end of the candidate list.</li>
-</ul>
-</li>
-<li>-<ul>
-<li>Discarded by the clustering algorithm.</li>
-</ul>
-</li>
-<li>+<ul>
-<li>Included in the final selection set.</li>
-</ul>
-</li>
-<li>#<ul>
-<li>Selected for synchronization but distance exceeds maximum.</li>
-</ul>
-</li>
-<li>*<ul>
-<li>Selected for synchronization.</li>
-</ul>
-</li>
-<li>o<ul>
-<li>Selected for synchronization, pps signal in use.</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<ul>
-<li>pstatus assocID<ul>
-<li>Sends a read status request to the server for the given association. The names and values of the peer variables returned will be printed. Note that the status word from the header is displayed preceding the variables, both in hexadecimal and in pidgeon English.</li>
-</ul>
-</li>
-<li>readlist [ assocID]</li>
-<li>rl [ assocID ]<ul>
-<li>Requests that the values of the variables in the internal variable list be returned by the server. If the association ID is omitted or is 0 the variables are assumed to be system variables. Otherwise they are treated as peer variables. If the internal variable list is empty a request is sent without data, which should induce the remote server to return a default display.</li>
-</ul>
-</li>
-<li>readvar assocID variable_name [ = value ] [ …]</li>
-<li>rv assocID [ variable_name [ = value ] […]<ul>
-<li>Requests that the values of the specified variables be returned by the server by sending a read variables request. If the association ID is omitted or is given as zero the variables are system variables, otherwise they are peer variables and the values returned will be those of the corresponding peer. Omitting the variable list will send a request with no data which should induce the server to return a default display. The encoding and meaning of the variables derived from NTPv3 is given in RFC-1305; the encoding and meaning of the additional NTPv4 variables are given later in this page.</li>
-</ul>
-</li>
-<li>writevar assocID variable_name[ = value [ …]<ul>
-<li>Like the readvar request, except the specified variables are written instead of read.</li>
-</ul>
-</li>
-<li>writelist [ assocID ]<ul>
-<li>Like the readlist request, except the internal list variables are written instead of read.</li>
-</ul>
-</li>
-</ul>
-<h2 id="reference"><a href="#reference" class="headerlink" title="reference"></a>reference</h2><ul>
-<li><a target="_blank" rel="noopener" href="https://www.ibm.com/docs/en/aix/7.2?topic=n-ntpq-command">ntpq Command - IBM Documentation</a></li>
-<li><a target="_blank" rel="noopener" href="https://www.systutorials.com/docs/linux/man/8-ntpq/">ntpq: standard NTP query program - Linux Man Pages (8)</a></li>
-<li><a target="_blank" rel="noopener" href="http://www.unixlinux.online/unixlinux/gdliunx/linuxml/201702/21882.html">詳細解讀Linux系統中ntpq命令的使用_Linux命令</a></li>
-<li><a target="_blank" rel="noopener" href="https://kknews.cc/zh-tw/tech/ynyqggn.html">網絡時間的那些事及 ntpq 詳解 - 每日頭條</a></li>
-<li><a target="_blank" rel="noopener" href="https://linux.die.net/man/8/ntpq">ntpq(8): standard NTP query program - Linux man page</a></li>
-<li><a target="_blank" rel="noopener" href="https://www.cyberciti.biz/faq/linux-unix-bsd-is-ntp-client-working/">How to verify NTP is working Or not (Check Status of NTP) - nixCraft</a></li>
-<li><a target="_blank" rel="noopener" href="https://docs.ntpsec.org/latest/decode.html#peer">Event Messages and Status Words</a></li>
-</ul>
-
+<li>Note that since NTP is a UDP protocol this communication will be somewhat unreliable, especially over large distances in terms of network topology. ntpq makes one attempt to retransmit requests, and will time requests out if the remote host is not heard from within a suitable timeout time.
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2021/10/24/ntpq/#more" rel="contents">
+                閱讀全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -1143,10 +703,16 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">發表於</span>
-      
 
-      <time title="創建時間：2021-10-24 08:54:49 / 修改時間：08:56:57" itemprop="dateCreated datePublished" datetime="2021-10-24T08:54:49+08:00">2021-10-24</time>
+      <time title="創建時間：2021-10-24 08:54:49" itemprop="dateCreated datePublished" datetime="2021-10-24T08:54:49+08:00">2021-10-24</time>
     </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新於</span>
+        <time title="修改時間：2021-11-07 09:25:37" itemprop="dateModified" datetime="2021-11-07T09:25:37+08:00">2021-11-07</time>
+      </span>
 
   
       </div>
@@ -1177,143 +743,15 @@
           <h1 id="ntpd"><a href="#ntpd" class="headerlink" title="ntpd"></a>ntpd</h1><h2 id="introduction"><a href="#introduction" class="headerlink" title="introduction"></a>introduction</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">systemctl start ntpd</span><br><span class="line">systemctl status ntpd</span><br></pre></td></tr></table></figure>
 <ul>
 <li>編輯 <code>/etc/ntp.conf</code><ul>
-<li>e.g.<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># 自己指定 NTP 伺服器</span><br><span class="line">server tock.stdtime.gov.tw</span><br><span class="line">server watch.stdtime.gov.tw</span><br><span class="line">server time.stdtime.gov.tw</span><br><span class="line">server clock.stdtime.gov.tw</span><br><span class="line">server tick.stdtime.gov.tw</span><br></pre></td></tr></table></figure></li>
-</ul>
-</li>
-<li><code>ntpd [ -46aAbdDgLmnNqx ] [ -c conffile ] [ -f driftfile ] [ -i jaildir ] [ -I iface ] [ -k keyfile] [ -l logfile ] [ -p pidfile ] [ -P priority ] [ -r broadcastdelay ] [ -s statsdir] [ -t key ] [ -u user[:group] ] [ -U interface_update_interval ] [ -v variable] [ -V variable ]</code></li>
-<li>Poll Interval Control<br>This version of NTP includes an intricate state machine to reduce the network load while maintaining a quality of synchronization consistent with the observed jitter and wander. There are a number of ways to tailor the operation in order enhance accuracy by reducing the interval or to reduce network overhead by increasing it. However, the user is advised to carefully consider the consequences of changing the poll adjustment range from the default minimum of 64 s to the default maximum of 1,024 s. The default minimum can be changed with the tinker minpoll command to a value not less than 16 s. This value is used for all configured associations, unless overridden by the minpoll option on the configuration command. Note that most device drivers will not operate properly if the poll interval is less than 64 s and that the broadcast server and manycast client associations will also use the default, unless overridden.</li>
-</ul>
-<p>In some cases involving dial up or toll services, it may be useful to increase the minimum interval to a few tens of minutes and maximum interval to a day or so. Under normal operation conditions, once the clock discipline loop has stabilized the interval will be increased in steps from the minimum to the maximum. However, this assumes the intrinsic clock frequency error is small enough for the discipline loop correct it. The capture range of the loop is 500 PPM at an interval of 64s decreasing by a factor of two for each doubling of interval. At a minimum of 1,024 s, for example, the capture range is only 31 PPM. If the intrinsic error is greater than this, the drift file ntp.drift will have to be specially tailored to reduce the residual error below this limit. Once this is done, the drift file is automatically updated once per hour and is available to initialize the frequency on subsequent daemon restarts.</p>
-<h2 id="options"><a href="#options" class="headerlink" title="options"></a>options</h2><ul>
-<li>-4<ul>
-<li>Force DNS resolution of host names to the IPv4 namespace.</li>
-</ul>
-</li>
-<li>-6<ul>
-<li>Force DNS resolution of host names to the IPv6 namespace.</li>
-</ul>
-</li>
-<li>-a<ul>
-<li>Require cryptographic authentication for broadcast client, multicast client and symmetric passive associations. This is the default.</li>
-</ul>
-</li>
-<li>-A<ul>
-<li>Do not require cryptographic authentication for broadcast client, multicast client and symmetric passive associations. This is almost never a good idea.</li>
-</ul>
-</li>
-<li>-b<ul>
-<li>Enable the client to synchronize to broadcast servers.</li>
-</ul>
-</li>
-<li>-c conffile<ul>
-<li>Specify the name and path of the configuration file, default /etc/ntp.conf[char46]</li>
-</ul>
-</li>
-<li>-d<ul>
-<li>Specify debugging mode. This option may occur more than once, with each occurrence indicating greater detail of display.</li>
-</ul>
-</li>
-<li>-D level<ul>
-<li>Specify debugging level directly.</li>
-</ul>
-</li>
-<li>-f driftfile<ul>
-<li>Specify the name and path of the frequency file. This is the same operation as the driftfile driftfile configuration command.</li>
-</ul>
-</li>
-<li>-g<ul>
-<li>Normally, ntpd exits with a message to the system log if the offset exceeds the panic threshold, which is 1000 s by default. This option allows the time to be set to any value without restriction; however, this can happen only once. If the threshold is exceeded after that, ntpd will exit with a message to the system log. This option can be used with the -q and -x options. See the tinker command for other options.</li>
-</ul>
-</li>
-<li>-i jaildir<ul>
-<li>Chroot the server to the directory jaildir[char46] This option also implies that the server attempts to drop root privileges at startup (otherwise, chroot gives very little additional security), and it is only available if the OS supports to run the server without full root privileges. You may need to also specify a -u option.</li>
-</ul>
-</li>
-<li>-I iface<ul>
-<li>Listen on interface. This option may appear an unlimited number of times.</li>
-</ul>
-</li>
-<li>-k keyfile<ul>
-<li>Specify the name and path of the symmetric key file. This is the same operation as the keys keyfile configuration command.</li>
-</ul>
-</li>
-<li>-l logfile<ul>
-<li>Specify the name and path of the log file. The default is the system log file. This is the same operation as the logfile logfile configuration command.</li>
-</ul>
-</li>
-<li>-L<ul>
-<li>Do not listen to virtual IPs. The default is to listen.</li>
-</ul>
-</li>
-<li>-m<ul>
-<li>Lock memory.</li>
-</ul>
-</li>
-<li>-n<ul>
-<li>Don’t fork.</li>
-</ul>
-</li>
-<li>-N<ul>
-<li>To the extent permitted by the operating system, run the ntpd at the highest priority.</li>
-</ul>
-</li>
-<li>-p pidfile<ul>
-<li>Specify the name and path of the file used to record the ntpd process ID. This is the same operation as the pidfile pidfile configuration command.</li>
-</ul>
-</li>
-<li>-P priority<ul>
-<li>To the extent permitted by the operating system, run the ntpd at the specified priority.</li>
-</ul>
-</li>
-<li>-q<ul>
-<li>Exit the ntpd just after the first time the clock is set. This behavior mimics that of the ntpdate program, which is to be retired. The -g and -x options can be used with this option. Note: The kernel time discipline is disabled with this option.</li>
-</ul>
-</li>
-<li>-r broadcastdelay<ul>
-<li>Specify the default propagation delay from the broadcast/multicast server to this client. This is necessary only if the delay cannot be computed automatically by the protocol.</li>
-</ul>
-</li>
-<li>-s statsdir<ul>
-<li>Specify the directory path for files created by the statistics facility. This is the same operation as the statsdir statsdir configuration command.</li>
-</ul>
-</li>
-<li>-t key<ul>
-<li>Add a key number to the trusted key list. This option can occur more than once.</li>
-</ul>
-</li>
-<li>-u user[:group]<ul>
-<li>Specify a user, and optionally a group, to switch to. This option is only available if the OS supports to run the server without full root privileges. Currently, this option is supported under NetBSD (configure with –enable-clockctl) and Linux (configure with –enable-linuxcaps).</li>
-</ul>
-</li>
-<li>-U interface update interval<ul>
-<li>Number of seconds to wait between interface list scans to pick up new and delete network interface. Set to 0 to disable dynamic interface list updating. The default is to scan every 5 minutes.</li>
-</ul>
-</li>
-<li>-v variable</li>
-<li>-V variable<ul>
-<li>Add a system variable listed by default.</li>
-</ul>
-</li>
-<li>-x<ul>
-<li>Normally, the time is slewed if the offset is less than the step threshold, which is 128 ms by default, and stepped if above the threshold. This option sets the threshold to 600 s, which is well within the accuracy window to set the clock manually. Note: Since the slew rate of typical Unix kernels is limited to 0.5 ms/s, each second of adjustment requires an amortization interval of 2000 s. Thus, an adjustment as much as 600 s will take almost 14 days to complete. This option can be used with the -g and -q options. See the tinker command for other options. Note: The kernel time discipline is disabled with this option.<h2 id="ntp-conf"><a href="#ntp-conf" class="headerlink" title="ntp.conf"></a>ntp.conf</h2></li>
-</ul>
-</li>
-</ul>
-<ul>
-<li>The various modes are determined by the command keyword and the required IP address. Addresses are classed by type as (s) a remote server or peer (IPv4 class A, B and C), (b) the broadcast address of a local interface, (m) a multicast address (IPv4 class D), or (r) a reference clock address (127.127.x.x). The options that can be used with these commands are listed below.</li>
-<li>server<ul>
-<li>For type s and r addresses (only), this command normally mobilizes a persistent client mode association with the specified remote server or local reference clock. If the preempt flag is specified, a preemptable association is mobilized instead. In client mode the client clock can synchronize to the remote server or local reference clock, but the remote server can never be synchronized to the client clock. This command should NOT be used for type b or m addresses.</li>
-</ul>
-</li>
-<li>peer<ul>
-<li>For type s addresses (only), this command mobilizes a persistent symmetric-active mode association with the specified remote peer. In this mode the local clock can be synchronized to the remote peer or the remote peer can be synchronized to the local clock. This is useful in a network of servers where, depending on various failure scenarios, either the local or remote peer may be the better source of time. This command should NOT be used for type b, m or r addresses.<h2 id="reference"><a href="#reference" class="headerlink" title="reference"></a>reference</h2></li>
-</ul>
-</li>
-<li><a target="_blank" rel="noopener" href="https://blog.gtwang.org/linux/linux-ntp-installation-and-configuration-tutorial/">Linux 設定 NTP 同步系統時間，自動網路校時教學 - G. T. Wang</a></li>
-<li><a target="_blank" rel="noopener" href="https://linux.die.net/man/5/ntp.conf">ntp.conf(5): Server Options - Linux man page</a></li>
-<li><a target="_blank" rel="noopener" href="https://linux.die.net/man/8/ntpd">ntpd(8): Network Time Protocol daemon - Linux man page</a></li>
-</ul>
-
+<li>e.g.<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># 自己指定 NTP 伺服器</span><br><span class="line">server tock.stdtime.gov.tw</span><br><span class="line">server watch.stdtime.gov.tw</span><br><span class="line">server time.stdtime.gov.tw</span><br><span class="line">server clock.stdtime.gov.tw</span><br><span class="line">server tick.stdtime.gov.tw</span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2021/10/24/ntpd/#more" rel="contents">
+                閱讀全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -1362,10 +800,16 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">發表於</span>
-      
 
-      <time title="創建時間：2021-10-23 13:34:09 / 修改時間：13:34:30" itemprop="dateCreated datePublished" datetime="2021-10-23T13:34:09+08:00">2021-10-23</time>
+      <time title="創建時間：2021-10-23 13:34:09" itemprop="dateCreated datePublished" datetime="2021-10-23T13:34:09+08:00">2021-10-23</time>
     </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新於</span>
+        <time title="修改時間：2021-11-07 09:25:57" itemprop="dateModified" datetime="2021-11-07T09:25:57+08:00">2021-11-07</time>
+      </span>
 
   
       </div>
@@ -1403,39 +847,14 @@
   <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">call plug#begin(&#x27;~/.vim/plugged&#x27;)</span><br><span class="line">Plug &#x27;plugin&#x27;</span><br><span class="line">call plug#end()</span><br></pre></td></tr></table></figure></li>
 <li><p>install</p>
   <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">// 先退出 vim 再進去執行 :PluginInstall</span><br><span class="line">// or</span><br><span class="line">vim +PluginInstall +qall</span><br></pre></td></tr></table></figure>
-<h3 id="NeoBundle"><a href="#NeoBundle" class="headerlink" title="NeoBundle"></a>NeoBundle</h3></li>
-<li><p>install</p>
-  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">// 先退出 vim 再進去執行 :PluginInstall</span><br><span class="line">// or</span><br><span class="line">vim +PluginInstall +qall</span><br></pre></td></tr></table></figure>
-<h3 id="Vundle"><a href="#Vundle" class="headerlink" title="Vundle"></a><a target="_blank" rel="noopener" href="https://github.com/VundleVim/Vundle.vim">Vundle</a></h3></li>
-<li><p><code>git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle</code></p>
-</li>
-<li><p>.vimrc</p>
-  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">filetype off &quot; required</span><br><span class="line"></span><br><span class="line">&quot; set the runtime path to include Vundle and initialize</span><br><span class="line">set rtp+=~/.vim/bundle/Vundle.vim</span><br><span class="line">call vundle#begin()</span><br><span class="line">&quot; alternatively, pass a path where Vundle should install plugins</span><br><span class="line">&quot;call vundle#begin(&#x27;~/some/path/here&#x27;)</span><br><span class="line"></span><br><span class="line">&quot; let Vundle manage Vundle, required</span><br><span class="line">Plugin &#x27;VundleVim/Vundle.vim&#x27;</span><br><span class="line"></span><br><span class="line">&quot; The following are examples of different formats supported.</span><br><span class="line">&quot; Keep Plugin commands between vundle#begin/end.</span><br><span class="line">&quot; plugin on GitHub repo</span><br><span class="line">Plugin &#x27;tpope/vim-fugitive&#x27;</span><br><span class="line">&quot; plugin from http://vim-scripts.org/vim/scripts.html</span><br><span class="line">&quot; Plugin &#x27;L9&#x27;</span><br><span class="line">&quot; Git plugin not hosted on GitHub</span><br><span class="line">Plugin &#x27;git://git.wincent.com/command-t.git&#x27;</span><br><span class="line">&quot; git repos on your local machine (i.e. when working on your own plugin)</span><br><span class="line">Plugin &#x27;file:///home/gmarik/path/to/plugin&#x27;</span><br><span class="line">&quot; The sparkup vim script is in a subdirectory of this repo called vim.</span><br><span class="line">&quot; Pass the path to set the runtimepath properly.</span><br><span class="line">Plugin &#x27;rstacruz/sparkup&#x27;, &#123;&#x27;rtp&#x27;: &#x27;vim/&#x27;&#125;</span><br><span class="line">&quot; Install L9 and avoid a Naming conflict if you&#x27;ve already installed a</span><br><span class="line">&quot; different version somewhere else.</span><br><span class="line">&quot; Plugin &#x27;ascenator/L9&#x27;, &#123;&#x27;name&#x27;: &#x27;newL9&#x27;&#125;</span><br><span class="line"></span><br><span class="line">&quot; All of your Plugins must be added before the following line</span><br><span class="line">call vundle#end() &quot; required</span><br><span class="line">filetype plugin indent on &quot; required</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
-<li><p>install</p>
-  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">// 先退出 vim 再進去執行 :PluginInstall</span><br><span class="line">// or</span><br><span class="line">vim +PluginInstall +qall</span><br></pre></td></tr></table></figure>
-<h4 id="reference"><a href="#reference" class="headerlink" title="reference"></a>reference</h4></li>
-<li><p><a target="_blank" rel="noopener" href="https://blog.gtwang.org/linux/vundle-vim-bundle-plugin-manager/">Vundle：Vim Plugin 自動下載、安裝、更新與管理工具（Vim Bundle） - G. T. Wang</a></p>
-</li>
-</ul>
-<h2 id="other-commands"><a href="#other-commands" class="headerlink" title="other commands"></a>other commands</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&quot; :PluginList       - lists configured plugins</span><br><span class="line">&quot; :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate</span><br><span class="line">&quot; :PluginSearch foo - searches for foo; append `!` to refresh local cache</span><br><span class="line">&quot; :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal</span><br></pre></td></tr></table></figure>
-
-<h2 id="spelling"><a href="#spelling" class="headerlink" title="spelling"></a>spelling</h2><h3 id="Spelunker-vim"><a href="#Spelunker-vim" class="headerlink" title="Spelunker.vim"></a><a target="_blank" rel="noopener" href="https://github.com/kamykn/spelunker.vim">Spelunker.vim</a></h3><ul>
-<li><code>Plug &#39;kamykn/spelunker.vim&#39;</code><h4 id="setting"><a href="#setting" class="headerlink" title="setting"></a>setting</h4></li>
-<li><code>set nospell</code><h4 id="options"><a href="#options" class="headerlink" title="options"></a>options</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br></pre></td><td class="code"><pre><span class="line">&quot; Enable spelunker.vim. (default: 1)</span><br><span class="line">&quot; 1: enable</span><br><span class="line">&quot; 0: disable</span><br><span class="line">let g:enable_spelunker_vim = 1</span><br><span class="line"></span><br><span class="line">&quot; Enable spelunker.vim on readonly files or buffer. (default: 0)</span><br><span class="line">&quot; 1: enable</span><br><span class="line">&quot; 0: disable</span><br><span class="line">let g:enable_spelunker_vim_on_readonly = 0</span><br><span class="line"></span><br><span class="line">&quot; Check spelling for words longer than set characters. (default: 4)</span><br><span class="line">let g:spelunker_target_min_char_len = 4</span><br><span class="line"></span><br><span class="line">&quot; Max amount of word suggestions. (default: 15)</span><br><span class="line">let g:spelunker_max_suggest_words = 15</span><br><span class="line"></span><br><span class="line">&quot; Max amount of highlighted words in buffer. (default: 100)</span><br><span class="line">let g:spelunker_max_hi_words_each_buf = 100</span><br><span class="line"></span><br><span class="line">&quot; Spellcheck type: (default: 1)</span><br><span class="line">&quot; 1: File is checked for spelling mistakes when opening and saving. This</span><br><span class="line">&quot; may take a bit of time on large files.</span><br><span class="line">&quot; 2: Spellcheck displayed words in buffer. Fast and dynamic. The waiting time</span><br><span class="line">&quot; depends on the setting of CursorHold `set updatetime=1000`.</span><br><span class="line">let g:spelunker_check_type = 1</span><br><span class="line"></span><br><span class="line">&quot; Highlight type: (default: 1)</span><br><span class="line">&quot; 1: Highlight all types (SpellBad, SpellCap, SpellRare, SpellLocal).</span><br><span class="line">&quot; 2: Highlight only SpellBad.</span><br><span class="line">&quot; FYI: https://vim-jp.org/vimdoc-en/spell.html#spell-quickstart</span><br><span class="line">let g:spelunker_highlight_type = 1</span><br><span class="line"></span><br><span class="line">&quot; Option to disable word checking.</span><br><span class="line">&quot; Disable URI checking. (default: 0)</span><br><span class="line">let g:spelunker_disable_uri_checking = 1</span><br><span class="line"></span><br><span class="line">&quot; Disable email-like words checking. (default: 0)</span><br><span class="line">let g:spelunker_disable_email_checking = 1</span><br><span class="line"></span><br><span class="line">&quot; Disable account name checking, e.g. @foobar, foobar@. (default: 0)</span><br><span class="line">&quot; NOTE: Spell checking is also disabled for JAVA annotations.</span><br><span class="line">let g:spelunker_disable_account_name_checking = 1</span><br><span class="line"></span><br><span class="line">&quot; Disable acronym checking. (default: 0)</span><br><span class="line">let g:spelunker_disable_acronym_checking = 1</span><br><span class="line"></span><br><span class="line">&quot; Disable checking words in backtick/backquote. (default: 0)</span><br><span class="line">let g:spelunker_disable_backquoted_checking = 1</span><br><span class="line"></span><br><span class="line">&quot; Disable default autogroup. (default: 0)</span><br><span class="line">let g:spelunker_disable_auto_group = 1</span><br><span class="line"></span><br><span class="line">&quot; Create own custom autogroup to enable spelunker.vim for specific filetypes.</span><br><span class="line">augroup spelunker</span><br><span class="line">  autocmd!</span><br><span class="line">  &quot; Setting for g:spelunker_check_type = 1:</span><br><span class="line">  autocmd BufWinEnter,BufWritePost *.vim,*.js,*.jsx,*.json,*.md call spelunker#check()</span><br><span class="line"></span><br><span class="line">  &quot; Setting for g:spelunker_check_type = 2:</span><br><span class="line">  autocmd CursorHold *.vim,*.js,*.jsx,*.json,*.md call spelunker#check_displayed_words()</span><br><span class="line">augroup END</span><br><span class="line"></span><br><span class="line">&quot; Override highlight group name of incorrectly spelled words. (default:</span><br><span class="line">&quot; &#x27;SpelunkerSpellBad&#x27;)</span><br><span class="line">let g:spelunker_spell_bad_group = &#x27;SpelunkerSpellBad&#x27;</span><br><span class="line"></span><br><span class="line">&quot; Override highlight group name of complex or compound words. (default:</span><br><span class="line">&quot; &#x27;SpelunkerComplexOrCompoundWord&#x27;)</span><br><span class="line">let g:spelunker_complex_or_compound_word_group = &#x27;SpelunkerComplexOrCompoundWord&#x27;</span><br><span class="line"></span><br><span class="line">&quot; Override highlight setting.</span><br><span class="line">highlight SpelunkerSpellBad cterm=underline ctermfg=247 gui=underline guifg=#9e9e9e</span><br><span class="line">highlight SpelunkerComplexOrCompoundWord cterm=underline ctermfg=NONE gui=underline guifg=NONE</span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
-<h4 id="others"><a href="#others" class="headerlink" title="others"></a>others</h4><ul>
-<li>Add words to spellfile<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">&quot; Add selected word to spellfile</span><br><span class="line">&quot; zg =&gt;</span><br><span class="line">Zg</span><br><span class="line"></span><br><span class="line">&quot; zw =&gt;</span><br><span class="line">Zw</span><br><span class="line"></span><br><span class="line">&quot; zug =&gt;</span><br><span class="line">Zug</span><br><span class="line"></span><br><span class="line">&quot; zuw =&gt;</span><br><span class="line">Zuw</span><br><span class="line"></span><br><span class="line">&quot; Add selected word to the internal word list</span><br><span class="line">&quot; zG =&gt;</span><br><span class="line">ZG</span><br><span class="line"></span><br><span class="line">&quot; zW =&gt;</span><br><span class="line">ZW</span><br><span class="line"></span><br><span class="line">&quot; zuG =&gt;</span><br><span class="line">ZUG</span><br><span class="line"></span><br><span class="line">&quot; zuW =&gt;</span><br><span class="line">ZUW</span><br></pre></td></tr></table></figure></li>
-<li>Jump cursor to misspelled words.<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&quot; Jump cursor to next misspelled words.</span><br><span class="line">ZN</span><br><span class="line">&quot; Jump cursor to previous misspelled words.</span><br><span class="line">ZP</span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
-<h4 id="reference-1"><a href="#reference-1" class="headerlink" title="reference"></a>reference</h4><ul>
-<li><a target="_blank" rel="noopener" href="https://github.com/kamykn/spelunker.vim">kamykn/spelunker.vim: Improved vim spelling plugin (with camel case support)!</a><h2 id="reference-2"><a href="#reference-2" class="headerlink" title="reference"></a>reference</h2></li>
-<li></li>
-</ul>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2021/10/23/vim-plugin/#more" rel="contents">
+                閱讀全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -1484,10 +903,16 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">發表於</span>
-      
 
-      <time title="創建時間：2021-10-21 21:16:01 / 修改時間：21:16:43" itemprop="dateCreated datePublished" datetime="2021-10-21T21:16:01+08:00">2021-10-21</time>
+      <time title="創建時間：2021-10-21 21:16:01" itemprop="dateCreated datePublished" datetime="2021-10-21T21:16:01+08:00">2021-10-21</time>
     </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新於</span>
+        <time title="修改時間：2021-11-07 09:26:08" itemprop="dateModified" datetime="2021-11-07T09:26:08+08:00">2021-11-07</time>
+      </span>
 
   
       </div>
@@ -1528,85 +953,15 @@
 <li>  <code>watch.stdtime.gov.tw</code></li>
 <li>  <code>time.stdtime.gov.tw</code></li>
 <li>  <code>clock.stdtime.gov.tw</code></li>
-<li>  <code>tick.stdtime.gov.tw</code><br>:::</li>
-</ul>
-</li>
-</ul>
-<h2 id="introduction"><a href="#introduction" class="headerlink" title="introduction"></a>introduction</h2><ul>
-<li><code>ntpdate [ -46bBdqsuv ] [ -a key ] [ -e authdelay] [ -k keyfile ] [ -o version ] [ -p samples ] [ -t timeout ] [ -U user_name] server [ ... ]</code></li>
-</ul>
-<h3 id="Options"><a href="#Options" class="headerlink" title="Options"></a>Options</h3><ul>
-<li>-4<ul>
-<li>Force DNS resolution of following host names on the command line to the IPv4 namespace.</li>
-</ul>
-</li>
-<li>-6<ul>
-<li>Force DNS resolution of following host names on the command line to the IPv6 namespace.</li>
-</ul>
-</li>
-<li>-a key<ul>
-<li>Enable the authentication function and specify the key identifier to be used for authentication as the argument key[char46] The keys and key identifiers must match in both the client and server key files. The default is to disable the authentication function.</li>
-</ul>
-</li>
-<li>-B<ul>
-<li>Force the time to always be slewed using the adjtime() system call, even if the measured offset is greater than +-500 ms. The default is to step the time using settimeofday() if the offset is greater than +-500 ms. Note that, if the offset is much greater than +-500 ms in this case, that it can take a long time (hours) to slew the clock to the correct value. During this time. the host should not be used to synchronize clients.</li>
-</ul>
-</li>
-<li>-b<ul>
-<li>Force the time to be stepped using the settimeofday() system call, rather than slewed (default) using the adjtime() system call. This option should be used when called from a startup file at boot time.</li>
-</ul>
-</li>
-<li>-d<ul>
-<li>Enable the debugging mode, in which ntpdate will go through all the steps, but not adjust the local clock. Information useful for general debugging will also be printed.</li>
-</ul>
-</li>
-<li>-e authdelay<ul>
-<li>Specify the processing delay to perform an authentication function as the value authdelay, in seconds and fraction (see ntpd for details). This number is usually small enough to be negligible for most purposes, though specifying a value may improve timekeeping on very slow CPU’s.</li>
-</ul>
-</li>
-<li>-k keyfile<ul>
-<li>Specify the path for the authentication key file as the string keyfile[char46] The default is /etc/ntp/keys[char46] This file should be in the format described in ntpd[char46]</li>
-</ul>
-</li>
-<li>-o version<ul>
-<li>Specify the NTP version for outgoing packets as the integer version, which can be 1 or 2. The default is 4. This allows ntpdate to be used with older NTP versions.</li>
-</ul>
-</li>
-<li>-p samples<ul>
-<li>Specify the number of samples to be acquired from each server as the integer samples, with values from 1 to 8 inclusive. The default is 4.</li>
-</ul>
-</li>
-<li>-q<ul>
-<li>Query only - don’t set the clock.</li>
-</ul>
-</li>
-<li>-s<ul>
-<li>Divert logging output from the standard output (default) to the system syslog facility. This is designed primarily for convenience of cron scripts.</li>
-</ul>
-</li>
-<li>-t timeout<ul>
-<li>Specify the maximum time waiting for a server response as the value timeout, in seconds and fraction. The value is is rounded to a multiple of 0.2 seconds. The default is 1 second, a value suitable for polling across a LAN.</li>
-</ul>
-</li>
-<li>-u<ul>
-<li>Direct ntpdate to use an unprivileged port for outgoing packets. This is most useful when behind a firewall that blocks incoming traffic to privileged ports, and you want to synchronize with hosts beyond the firewall. Note that the -d option always uses unprivileged ports.</li>
-</ul>
-</li>
-<li>-v<ul>
-<li>Be verbose. This option will cause ntpdate’s version identification string to be logged.</li>
-</ul>
-</li>
-<li>-U user_name<ul>
-<li>ntpdate process drops root privileges and changes user ID to user_name and group ID to the primary group of server_user[char46]</li>
-</ul>
-</li>
-</ul>
-<h2 id="reference"><a href="#reference" class="headerlink" title="reference"></a>reference</h2><ul>
-<li><a target="_blank" rel="noopener" href="https://linux.die.net/man/8/ntpdate">ntpdate(8): set date/time via NTP - Linux man page</a></li>
-<li><a target="_blank" rel="noopener" href="https://man.cx/ntpdate(1)">Linux Manpages Online - man.cx manual pages</a></li>
-<li><a target="_blank" rel="noopener" href="https://blog.gtwang.org/linux/linux-ntp-installation-and-configuration-tutorial/">Linux 設定 NTP 同步系統時間，自動網路校時教學 - G. T. Wang</a></li>
-</ul>
-
+<li>  <code>tick.stdtime.gov.tw</code><br>:::
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2021/10/21/ntpdate/#more" rel="contents">
+                閱讀全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
