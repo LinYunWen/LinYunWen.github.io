@@ -7,6 +7,7 @@ tags: [note, linux, kernel, module, book section]
 # Linux Kernel Modules
 - 系統啟動後,正常工作的模組都在/proc/modules檔案中列出。使用lsmod命令也可顯示相同內容。
 - Linux 會將所有核心模組放在 `/lib/modules/uname -r/kernel/drivers/` 目錄下
+<!--more-->
 ## lsmod
 - 列出核心已載入模組的狀態
 - lsmod 顯示當前載入的所有模組，相當於cat /proc/modules

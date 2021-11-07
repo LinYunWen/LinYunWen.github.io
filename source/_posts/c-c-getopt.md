@@ -9,6 +9,7 @@ tags: [note, c/c++, book section, optind, getopt]
 > - `#include <getopt.h>`
 - Parse command-line options
 - An element of argv that starts with '-' (and is not exactly "-" or "--") is an option element
+<!--more-->
 ## getopt
 - 函式用於解析選項並從程式中檢索給定引數，並根據輸入執行相應的程式碼路徑。
 ### 參數

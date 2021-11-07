@@ -11,7 +11,7 @@ tags: [note, ntp, ntpq, linux]
 - `ntpq [-46dinp] [-c command] [host] [...]`
 - ntpq uses NTP mode 6 packets to communicate with the NTP server, and hence can be used to query any compatible server on the network which permits it.
     - Note that since NTP is a UDP protocol this communication will be somewhat unreliable, especially over large distances in terms of network topology. ntpq makes one attempt to retransmit requests, and will time requests out if the remote host is not heard from within a suitable timeout time.
-
+<!--more-->
 ## options
 * -4
     * Force DNS resolution of following host names on the command line to the IPv4 namespace.

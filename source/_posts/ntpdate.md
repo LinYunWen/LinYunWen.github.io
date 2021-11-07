@@ -17,7 +17,7 @@ tags: [note, ntp, ntpdate, linux]
     -   `clock.stdtime.gov.tw`
     -   `tick.stdtime.gov.tw`
 :::
-
+<!--more-->
 ## introduction
 - `ntpdate [ -46bBdqsuv ] [ -a key ] [ -e authdelay] [ -k keyfile ] [ -o version ] [ -p samples ] [ -t timeout ] [ -U user_name] server [ ... ]`
 

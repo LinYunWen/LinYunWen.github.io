@@ -22,6 +22,7 @@ tags: [note, vim, plugin]
     // or
     vim +PluginInstall +qall
     ```
+<!--more-->
 ### NeoBundle
 
 - install
