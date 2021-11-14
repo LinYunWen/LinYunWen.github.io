@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/linyunwen_icon/icon_32x32.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/linyunwen_icon/icon_32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/linyunwen_icon/icon_16x16.png">
+  <link rel="mask-icon" href="/images/linyunwen_icon/icon_32x32.png" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css" integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"linyunwen.github.io","root":"/","images":"/images","scheme":"Gemini","version":"8.6.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"disqus","storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"${hits} 找到 ${time} 個結果","hits":"找到 ${hits} 個結果"}}</script><script src="/js/config.js"></script>
+<meta name="description" content="loginctl   loginctl [OPTIONS…] {COMMAND} [NAME…]    控制 systemd 登錄管理器 可用於內省與控制 systemd(1) 登錄管理服務 systemd-logind.service(8)  return 返回值爲 0 表示成功， 非零返回值表示失敗代碼。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="loginctl">
+<meta property="og:url" content="https://linyunwen.github.io/2021/11/14/loginctl/index.html">
+<meta property="og:site_name" content="Lin Yunwen&#39;s Blog">
+<meta property="og:description" content="loginctl   loginctl [OPTIONS…] {COMMAND} [NAME…]    控制 systemd 登錄管理器 可用於內省與控制 systemd(1) 登錄管理服務 systemd-logind.service(8)  return 返回值爲 0 表示成功， 非零返回值表示失敗代碼。">
+<meta property="og:locale" content="zh_TW">
+<meta property="article:published_time" content="2021-11-14T01:39:28.000Z">
+<meta property="article:modified_time" content="2021-11-14T01:40:25.081Z">
+<meta property="article:author" content="Lin Yunwen">
+<meta property="article:tag" content="note">
+<meta property="article:tag" content="systemd">
+<meta property="article:tag" content="loginctl">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://linyunwen.github.io/2021/11/14/loginctl/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-TW","comments":true,"permalink":"https://linyunwen.github.io/2021/11/14/loginctl/","path":"2021/11/14/loginctl/","title":"loginctl"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>loginctl | Lin Yunwen's Blog</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-H43D6184CW"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"G-H43D6184CW","only_pageview":false}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Lin Yunwen's Blog</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">keep moving forward</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>標籤</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#loginctl"><span class="nav-number">1.</span> <span class="nav-text">loginctl</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#return"><span class="nav-number">1.1.</span> <span class="nav-text">return</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#options"><span class="nav-number">1.2.</span> <span class="nav-text">options</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#command"><span class="nav-number">1.3.</span> <span class="nav-text">command</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%83%E8%A9%B1%E5%91%BD%E4%BB%A4"><span class="nav-number">1.3.1.</span> <span class="nav-text">會話命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%94%A8%E6%88%B6%E5%91%BD%E4%BB%A4"><span class="nav-number">1.3.2.</span> <span class="nav-text">用戶命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%AD%E4%BD%8D%E5%91%BD%E4%BB%A4"><span class="nav-number">1.3.3.</span> <span class="nav-text">席位命令</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#reference"><span class="nav-number">1.4.</span> <span class="nav-text">reference</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-overview">
+            <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Lin Yunwen"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Lin Yunwen</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">120</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">149</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/LinYunWen" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;LinYunWen" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:l40303k@gmail.com" title="E-Mail → mailto:l40303k@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="回到頂端">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://linyunwen.github.io/2021/11/14/loginctl/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Lin Yunwen">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Lin Yunwen's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          loginctl
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">發表於</span>
+      
+
+      <time title="創建時間：2021-11-14 09:39:28 / 修改時間：09:40:25" itemprop="dateCreated datePublished" datetime="2021-11-14T09:39:28+08:00">2021-11-14</time>
+    </span>
+
+  
+      </div>
+      <div class="post-meta">
+    <span class="post-meta-item" title="文章字數">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">文章字數：</span>
+      <span>3.1k</span>
+    </span>
+    <span class="post-meta-item" title="所需閱讀時間">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+      <span>6 分鐘</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="loginctl"><a href="#loginctl" class="headerlink" title="loginctl"></a>loginctl</h1><blockquote>
+<ul>
+<li> loginctl [OPTIONS…] {COMMAND} [NAME…]</li>
+</ul>
+</blockquote>
+<ul>
+<li>控制 systemd 登錄管理器</li>
+<li>可用於內省與控制 systemd(1) 登錄管理服務 systemd-logind.service(8)</li>
+</ul>
+<h2 id="return"><a href="#return" class="headerlink" title="return"></a>return</h2><ul>
+<li>返回值爲 0 表示成功， 非零返回值表示失敗代碼。<span id="more"></span>
+<h2 id="options"><a href="#options" class="headerlink" title="options"></a>options</h2></li>
+</ul>
+<ul>
+<li>–no-ask-password<ul>
+<li>在執行特權操作時不向用戶索要密碼。</li>
+</ul>
+</li>
+<li>-p, –property=<ul>
+<li>在顯示 session/user/seat 屬性時， 僅顯示此處指定的屬性。 若未指定，則顯示全部屬性。參數必須是屬性名(例如”Sessions”)。 可以多次使用此選項以指定多個屬性。</li>
+</ul>
+</li>
+<li>–value<ul>
+<li>在使用 show 顯示屬性時， 僅顯示屬性值，而不顯示屬性名及等號。</li>
+</ul>
+</li>
+<li>-a, –all<ul>
+<li>在顯示 session/user/seat 屬性時， 顯示全部屬性，無論這些屬性是否已經被設置。</li>
+</ul>
+</li>
+<li>-l, –full<ul>
+<li>在顯示進程樹的時候，不對超長行進行截斷。</li>
+</ul>
+</li>
+<li>–kill-who=<ul>
+<li>與 kill-session 連用，指定殺死哪個進程。 leader 表示僅殺死會話的領導進程； all 表示殺死會話的所有進程。 默認值爲 all</li>
+</ul>
+</li>
+<li>-s, –signal=<ul>
+<li>與 kill-session 或 kill-user 連用， 指定向選中的進程發送什麼信號。必須設爲衆所周知的信號名稱，例如 SIGTERM(默認值), SIGINT, SIGSTOP 之類</li>
+</ul>
+</li>
+<li>-n, –lines=<ul>
+<li>與 user-status 或 session-status 連用， 控制顯示多少行日誌(從最新的一條日誌開始計算)。必須設爲一個正整數，默認值是”10”。</li>
+</ul>
+</li>
+<li>-o, –output=<ul>
+<li>與 user-status 或 session-status 連用， 控制日誌的輸出格式。 可用值參見 journalctl(1) 手冊。 默認爲 “short”</li>
+</ul>
+</li>
+<li>-H, –host=<ul>
+<li>操作指定的遠程主機。可以僅指定一個主機名(hostname)， 也可以使用 “username@hostname” 格式。 hostname 後面還可以加上容器名(以冒號分隔)， 也就是形如 “hostname:container” 的格式， 以表示直接連接到指定主機的指定容器內。 操作將通過SSH協議進行，以確保安全。可以通過 machinectl -H HOST 命令列出遠程主機上的所有容器名稱。</li>
+</ul>
+</li>
+<li>-M, –machine=<ul>
+<li>在本地容器內執行操作。 必須明確指定容器的名稱。</li>
+</ul>
+</li>
+<li>–no-pager<ul>
+<li>不將程序的輸出內容管道(pipe)給分頁程序。</li>
+</ul>
+</li>
+<li>–no-legend<ul>
+<li>不輸出列標題， 也就是不在輸出列表的頭部和尾部顯示字段的名稱。</li>
+</ul>
+</li>
+</ul>
+<h2 id="command"><a href="#command" class="headerlink" title="command"></a>command</h2><h3 id="會話命令"><a href="#會話命令" class="headerlink" title="會話命令"></a>會話命令</h3><ul>
+<li>list-sessions<ul>
+<li>列出當前所有的會話。這是默認命令。</li>
+</ul>
+</li>
+<li>session-status [ID…]<ul>
+<li>顯示簡潔的會話狀態信息，後跟最近的日誌。 如果指定了會話ID，那麼僅顯示指定的會話，否則顯示當前調用者的會話。 此命令主要用於輸出人類易讀的信息，如果你想輸出易於程序分析的信息， 那麼應該使用 show-session 命令</li>
+</ul>
+</li>
+<li>show-session [ID…]<ul>
+<li>如果指定了會話ID，那麼顯示指定會話的各項屬性值， 否則顯示登陸管理器自身的各項屬性值。除非使用了 –all 選項， 否則空屬性將被忽略。 還可以使用 –property= 選項指定僅顯示個別屬性。 此命令主要用於輸出易於程序分析的信息，如果你想輸出人類易讀的信息， 那麼應該使用 session-status 命令。</li>
+</ul>
+</li>
+<li>activate [ID]<ul>
+<li>激活會話。 也就是將處於後臺的會話切換到前臺(如果同席位的另一個會話正處於前臺)。如果指定了會話ID， 那麼將激活指定的會話， 否則將激活當前調用者的會話。</li>
+</ul>
+</li>
+<li>lock-session [ID…], unlock-session [ID…]<ul>
+<li>鎖定/解鎖會話(如果會話支持屏幕鎖)。 如果指定了會話ID，那麼將鎖定/解鎖指定的會話，否則將鎖定/解鎖當前調用者的會話。</li>
+</ul>
+</li>
+<li>lock-sessions, unlock-sessions<ul>
+<li>鎖定/解鎖所有支持屏幕鎖的會話。</li>
+</ul>
+</li>
+<li>terminate-session ID…<ul>
+<li>結束指定的會話。 也就是殺死指定會話的所有進程、釋放所有與此會話相關的資源。</li>
+</ul>
+</li>
+<li>kill-session ID…<ul>
+<li>向指定的會話進程發送信號。 使用 –kill-who= 指定目標進程， 使用 –signal= 指定要發送的信號。</li>
+</ul>
+</li>
+</ul>
+<h3 id="用戶命令"><a href="#用戶命令" class="headerlink" title="用戶命令"></a>用戶命令</h3><ul>
+<li>list-users<ul>
+<li>列出當前登錄的用戶</li>
+</ul>
+</li>
+<li>user-status [USER…]<ul>
+<li>顯示簡潔的已登錄用戶信息，後跟最近的日誌。 如果指定了用戶名或UID，那麼僅顯示指定的用戶， 否則顯示當前調用者的用戶。 此命令主要用於輸出人類易讀的信息，如果你想輸出易於程序分析的信息， 那麼應該使用 show-user 命令。</li>
+</ul>
+</li>
+<li>show-user [USER…]<ul>
+<li>如果指定了用戶名或UID，那麼顯示指定用戶的各項屬性值，否則顯示登陸管理器自身的各項屬性值。 除非使用了 –all 選項， 否則空屬性將被忽略。還可以使用 –property= 選項來顯示指定的屬性。 此命令主要用於輸出易於程序分析的信息，如果你想輸出人類易讀的信息， 那麼應該使用 user-status 命令。</li>
+</ul>
+</li>
+<li>enable-linger [USER…], disable-linger [USER…]<ul>
+<li>啓用/禁止用戶逗留(相當於保持登錄狀態)。 如果指定了用戶名或UID，那麼系統將會在啓動時自動爲這些用戶派生出用戶管理器， 並且在用戶登出後繼續保持運行。這樣就可以允許未登錄的用戶在後臺運行持續時間很長的服務。 如果沒有指定任何參數，那麼將作用於當前調用者的用戶。</li>
+<li>參見 logind.conf(5) 中的 KillUserProcesses= 指令。</li>
+</ul>
+</li>
+<li>terminate-user USER…<ul>
+<li>結束指定用戶的所有會話。 這將殺死該用戶的所有會話中的所有進程，同時釋放與此用戶有關的所有資源。</li>
+</ul>
+</li>
+<li>kill-user USER…<ul>
+<li>向指定用戶的所有進程發送 –signal= 選項指定的信號。</li>
+</ul>
+</li>
+</ul>
+<h3 id="席位命令"><a href="#席位命令" class="headerlink" title="席位命令"></a>席位命令</h3><ul>
+<li>list-seats<ul>
+<li>列出當前本機上的所有可用席位</li>
+</ul>
+</li>
+<li>seat-status [NAME…]<ul>
+<li>顯示簡潔的席位信息，後跟最近的日誌。 如果指定了席位名，那麼僅顯示指定的席位，否則顯示當前調用者會話所屬的席位。 此命令主要用於輸出人類易讀的信息，如果你想輸出易於程序分析的信息， 那麼應該使用 show-seat 命令。</li>
+</ul>
+</li>
+<li>show-seat [NAME…]<ul>
+<li>如果指定了席位名，那麼顯示指定席位的各項屬性值， 否則顯示登陸管理器自身的各項屬性值。除非使用了 –all 選項， 否則空屬性將被忽略。 還可以使用 –property=選項來顯示指定的屬性。 此命令主要用於輸出易於程序分析的信息，如果你想輸出人類易讀的信息， 那麼應該使用 seat-status 命令。</li>
+</ul>
+</li>
+<li>attach NAME DEVICE…<ul>
+<li>將指定的設備(DEVICE)持久的連接到指定的席位(NAME)上。 設備可以用相對於 /sys文件系統的設備路徑表示。 要創建一個新席位，至少需要連接一個顯卡。席位名稱必須以 “seat” 開頭， 後跟 a–z, A–Z, 0–9, “-“, “_” 字符。 要想從席位上刪除一個設備，可以將此設備連接到另一個席位， 或者使用 flush-devices 命令。</li>
+</ul>
+</li>
+<li>flush-devices<ul>
+<li>刪除所有先前用 attach 命令連接的設備(同時也刪除了所有先前用 attach 命令創建的席位)。調用此命令之後，所有自動生成的席位將會被保留，同時所有席位設備將會連接到自動生成的席位上。</li>
+</ul>
+</li>
+<li>terminate-seat NAME…<ul>
+<li>結束指定席位上的所有會話。 這將殺死指定席位上的所有會話進程，同時釋放與之關聯的所有資源。</li>
+</ul>
+</li>
+</ul>
+<h2 id="reference"><a href="#reference" class="headerlink" title="reference"></a>reference</h2><ul>
+<li><a target="_blank" rel="noopener" href="http://manpages.ubuntu.com/manpages/bionic/zh_TW/man1/loginctl.1.html">Ubuntu Manpage: loginctl - 控制 systemd 登錄管理器</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.freedesktop.org/software/systemd/man/loginctl.html">loginctl</a></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/note/" rel="tag"># note</a>
+              <a href="/tags/systemd/" rel="tag"># systemd</a>
+              <a href="/tags/loginctl/" rel="tag"># loginctl</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/11/07/file-magic-number/" rel="prev" title="Linux File Magic Number">
+                  <i class="fa fa-chevron-left"></i> Linux File Magic Number
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Lin Yunwen</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>總字數：</span>
+    <span title="總字數">301k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>所需總閱讀時間 &asymp;</span>
+    <span title="所需總閱讀時間">9:08</span>
+  </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>
