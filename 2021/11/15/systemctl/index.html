@@ -28,7 +28,7 @@
 <meta property="og:description" content="systemctl  systemctl [OPTIONS…] COMMAND [NAME…]    控制 systemd 系統與服務管理器 可用於檢查和控制 systemd(1) 系統與服務管理器的狀態。  return 返回值爲 0 表示成功， 非零返回值表示失敗代碼。">
 <meta property="og:locale" content="zh_TW">
 <meta property="article:published_time" content="2021-11-15T14:29:27.000Z">
-<meta property="article:modified_time" content="2021-11-16T14:43:45.763Z">
+<meta property="article:modified_time" content="2021-11-17T13:47:00.707Z">
 <meta property="article:author" content="Lin Yunwen">
 <meta property="article:tag" content="note">
 <meta property="article:tag" content="systemd">
@@ -227,7 +227,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">更新於</span>
-        <time title="修改時間：2021-11-16 22:43:45" itemprop="dateModified" datetime="2021-11-16T22:43:45+08:00">2021-11-16</time>
+        <time title="修改時間：2021-11-17 21:47:00" itemprop="dateModified" datetime="2021-11-17T21:47:00+08:00">2021-11-17</time>
       </span>
 
   
@@ -367,454 +367,202 @@
 <li>與 kill 命令連用， 表示向目標進程發送哪個信號。 必須是 SIGTERM, SIGINT, SIGSTOP之類衆所周知的信號。 默認值爲 SIGTERM。</li>
 </ul>
 </li>
-<li>-f, –force</li>
-<li>   當與 enable 命令連用時， 表示覆蓋所有現存的同名符號鏈接。</li>
-<li></li>
-<li>   當與 edit 命令連用時， 表示創建所有尚不存在的指定單元。</li>
-<li></li>
-<li>   當與 halt, poweroff, reboot, kexec</li>
-<li>   命令連用時，表示跳過單元的正常停止步驟，強制直接執行關機操作。</li>
-<li>   如果僅使用此選項一次，那麼所有進程都將被強制殺死，並且所有文件系統都將被卸載(或以只讀模式重新掛載)。</li>
-<li>   這可以算是一種野蠻但還算相對比較安全的快速關機或重啓的方法。</li>
-<li>   如果連續兩次使用此選項，那麼將既不殺死進程，也不卸載文件系統，</li>
-<li>   而是直接強制關機或重啓(但 kexec 除外)。 警告：連續兩次使用 –force</li>
-<li>   選項將會導致數據丟失、文件系統不一致等不良後果。 注意，如果連續兩次使用 –force</li>
-<li>   選項，那麼所有操作都將由 systemctl 自己直接執行，而不會與 systemd 進程通信。</li>
-<li>   這意味着，即使 systemd 進程已經僵死或者崩潰，連續兩次使用 –force</li>
-<li>   選項所指定的操作依然能夠執行成功。</li>
-<li></li>
-<li>–message=</li>
-<li>   當與 halt, poweroff, reboot, kexec 命令一起使用時，</li>
-<li>   用於設置一個解釋爲什麼進行該操作的字符串。</li>
-<li>   此字符串將與默認的關機消息一起記錄到日誌中。</li>
-<li></li>
-<li>–now</li>
-<li>   當與 enable 命令連用時， 表示同時還要啓動該單元。 當與 disable 或 mask</li>
-<li>   命令連用時， 表示同時還要停止該單元。</li>
-<li></li>
-<li>–root=</li>
-<li>   與 enable/disable/is-enabled 等相關命令連用，用於設置尋找單元文件時的根目錄。</li>
-<li></li>
-<li>–runtime</li>
-<li>   當與 enable, disable, edit 等相關命令連用時，</li>
-<li>   表示僅作臨時變更，從而確保這些變更會在重啓後丟失。 這意味着所做的變更將會保存在</li>
-<li>   /run 目錄下(立即生效但重啓後該目錄的內容將全部丟失)， 而不是保存在 /etc 目錄下。</li>
-<li></li>
-<li>   類似的，當與 set-property 命令連用時， 所做的變更亦是臨時的，</li>
-<li>   這些變更在重啓後亦會丟失。</li>
-<li></li>
-<li>–preset-mode=</li>
-<li>   與 preset 或 preset-all 命令連用，可設爲下列值之一： “full”(默認值)</li>
-<li>   表示完全按照預設規則啓用與停用各單元。 “enable-only”</li>
-<li>   表示僅按照預設規則啓用各單元。 “disable-only” 表示僅按照預設規則停用各單元。</li>
-<li></li>
-<li>-n, –lines=</li>
-<li>   與 status 命令連用， 控制日誌的顯示行數(從最新的一行開始計算)。</li>
-<li>   必須設爲一個正整數，默認值是”10”。</li>
-<li></li>
-<li>-o, –output=</li>
-<li>   與 status 命令連用， 控制日誌的顯示格式。 詳見 journalctl(1) 手冊。默認值爲</li>
-<li>   “short”</li>
-<li><pre><code>。
-</code></pre>
+<li>-f, –force<ul>
+<li>當與 enable 命令連用時， 表示覆蓋所有現存的同名符號鏈接。當與 edit 命令連用時， 表示創建所有尚不存在的指定單元。當與 halt, poweroff, reboot, kexec命令連用時，表示跳過單元的正常停止步驟，強制直接執行關機操作。如果僅使用此選項一次，那麼所有進程都將被強制殺死，並且所有文件系統都將被卸載(或以只讀模式重新掛載)。這可以算是一種野蠻但還算相對比較安全的快速關機或重啓的方法。如果連續兩次使用此選項，那麼將既不殺死進程，也不卸載文件系統，而是直接強制關機或重啓(但 kexec 除外)。 警告：連續兩次使用 –force選項將會導致數據丟失、文件系統不一致等不良後果。 注意，如果連續兩次使用 –force選項，那麼所有操作都將由 systemctl 自己直接執行，而不會與 systemd 進程通信。這意味着，即使 systemd 進程已經僵死或者崩潰，連續兩次使用 –force選項所指定的操作依然能夠執行成功。</li>
+</ul>
 </li>
-<li><pre><code>       .RE
-</code></pre>
+<li>–message=<ul>
+<li>當與 halt, poweroff, reboot, kexec 命令一起使用時，用於設置一個解釋爲什麼進行該操作的字符串。此字符串將與默認的關機消息一起記錄到日誌中。</li>
+</ul>
 </li>
-<li></li>
-<li>   –firmware-setup</li>
-<li><pre><code>   與 reboot 命令連用， 要求系統主板的UEFI固件重啓到安裝模式。
-</code></pre>
+<li>–now<ul>
+<li>當與 enable 命令連用時， 表示同時還要啓動該單元。 當與 disable 或 mask命令連用時， 表示同時還要停止該單元。</li>
+</ul>
 </li>
-<li><pre><code>   僅支持某些以UEFI模式啓動的主板。
-</code></pre>
+<li>–root=<ul>
+<li>與 enable/disable/is-enabled 等相關命令連用，用於設置尋找單元文件時的根目錄。</li>
+</ul>
 </li>
-<li></li>
-<li>   –plain</li>
-<li><pre><code>   與 list-dependencies, list-units, list-machines 命令連用，
-</code></pre>
+<li>–runtime<ul>
+<li>當與 enable, disable, edit 等相關命令連用時，表示僅作臨時變更，從而確保這些變更會在重啓後丟失。 這意味着所做的變更將會保存在/run 目錄下(立即生效但重啓後該目錄的內容將全部丟失)， 而不是保存在 /etc 目錄下。類似的，當與 set-property 命令連用時， 所做的變更亦是臨時的，這些變更在重啓後亦會丟失。</li>
+</ul>
 </li>
-<li><pre><code>   將輸出從默認的樹形變爲列表型。
-</code></pre>
+<li>–preset-mode=<ul>
+<li>與 preset 或 preset-all 命令連用，可設爲下列值之一： “full”(默認值)表示完全按照預設規則啓用與停用各單元。 “enable-only”表示僅按照預設規則啓用各單元。 “disable-only” 表示僅按照預設規則停用各單元。</li>
+</ul>
 </li>
-<li></li>
-<li>   -H, –host=</li>
-<li><pre><code>   操作指定的遠程主機。可以僅指定一個主機名(hostname)， 也可以使用
-</code></pre>
+<li>-n, –lines=<ul>
+<li>與 status 命令連用， 控制日誌的顯示行數(從最新的一行開始計算)。必須設爲一個正整數，默認值是”10”。</li>
+</ul>
 </li>
-<li><pre><code>   &quot;username@hostname&quot; 格式。 hostname 後面還可以加上容器名(以冒號分隔)，
-</code></pre>
+<li>-o, –output=<ul>
+<li>與 status 命令連用， 控制日誌的顯示格式。 詳見 journalctl(1) 手冊。默認值爲 “short”</li>
+</ul>
 </li>
-<li><pre><code>   也就是形如 &quot;hostname:container&quot; 的格式，
-</code></pre>
+<li>–firmware-setup<ul>
+<li>與 reboot 命令連用， 要求系統主板的UEFI固件重啓到安裝模式。僅支持某些以UEFI模式啓動的主板。</li>
+</ul>
 </li>
-<li><pre><code>   以表示直接連接到指定主機的指定容器內。 操作將通過SSH協議進行，以確保安全。
-</code></pre>
+<li>–plain<ul>
+<li>與 list-dependencies, list-units, list-machines 命令連用，將輸出從默認的樹形變爲列表型。</li>
+</ul>
 </li>
-<li><pre><code>   可以通過 machinectl -H HOST 命令列出遠程主機上的所有容器名稱。
-</code></pre>
+</ul>
+<ul>
+<li>-H, –host=<ul>
+<li>操作指定的遠程主機。可以僅指定一個主機名(hostname)， 也可以使用”username@hostname” 格式。 hostname 後面還可以加上容器名(以冒號分隔)，也就是形如 “hostname:container” 的格式，以表示直接連接到指定主機的指定容器內。 操作將通過SSH協議進行，以確保安全。可以通過 machinectl -H HOST 命令列出遠程主機上的所有容器名稱。</li>
+</ul>
 </li>
-<li></li>
-<li>   -M, –machine=</li>
-<li><pre><code>   在本地容器內執行操作。 必須明確指定容器的名稱。
-</code></pre>
+</ul>
+<ul>
+<li>-M, –machine=<ul>
+<li>在本地容器內執行操作。 必須明確指定容器的名稱。</li>
+</ul>
 </li>
-<li></li>
-<li>   –no-pager</li>
-<li><pre><code>   不將程序的輸出內容管道(pipe)給分頁程序。
-</code></pre>
+<li>–no-pager<ul>
+<li>不將程序的輸出內容管道(pipe)給分頁程序。</li>
+</ul>
 </li>
-<li></li>
-<li>   –no-legend</li>
-<li><pre><code>   不輸出列標題， 也就是不在輸出列表的頭部和尾部顯示字段的名稱。
-</code></pre>
+<li>–no-legend<ul>
+<li>不輸出列標題， 也就是不在輸出列表的頭部和尾部顯示字段的名稱。</li>
+</ul>
 </li>
 </ul>
 <h2 id="command"><a href="#command" class="headerlink" title="command"></a>command</h2><h3 id="單元命令"><a href="#單元命令" class="headerlink" title="單元命令"></a>單元命令</h3><ul>
-<li>list-units [PATTERN…]</li>
-<li>列出 systemd 已加載的單元。 除非明確使用 –all</li>
-<li>選項列出全部單元(包括：直接引用的單元、出於依賴關係而被引用的單元、活動的單元、失敗的單元)，</li>
-<li>否則默認僅列出：活動的單元、失敗的單元、正處於任務隊列中的單元。</li>
-<li>如果給出了模式(PATTERN)參數，那麼表示該命令僅作用於單元名稱與至少一個模式相匹配的單元。</li>
-<li>還可以通過 –type= 與 –state= 選項過濾要列出的單元。</li>
-<li></li>
-<li>這是默認命令。</li>
-<li></li>
-<li>list-sockets [PATTERN…]</li>
-<li>列出已加載的套接字(socket)單元，並按照監聽地址排序。</li>
-<li>如果給出了模式(PATTERN)參數，那麼表示該命令僅作用於單元名稱與至少一個模式相匹配的單元。</li>
-<li>該命令的輸出大致像下面這樣子：</li>
-<li></li>
-<li>   LISTEN           UNIT                        ACTIVATES</li>
-<li>   /dev/initctl     systemd-initctl.socket      systemd-initctl.service</li>
-<li>   …</li>
-<li>   [::]:22          sshd.socket                 sshd.service</li>
-<li>   kobject-uevent 1 systemd-udevd-kernel.socket systemd-udevd.service</li>
-<li></li>
-<li>   5 sockets listed.</li>
-<li></li>
-<li>注意：因爲監聽地址中有可能包含空格， 所以不適合使用程序分析該命令的輸出。</li>
-<li></li>
-<li>參見 –show-types, –all, –state= 選項。</li>
-<li></li>
-<li>list-timers [PATTERN…]</li>
-<li>列出已加載的定時器(timer)單元，並按照下次執行的時間點排序。</li>
-<li>如果給出了模式(PATTERN)參數，那麼表示該命令僅作用於單元名稱與至少一個模式相匹配的單元。</li>
-<li></li>
-<li>參見 –all 與 –state= 選項。</li>
-<li></li>
-<li>start PATTERN…</li>
-<li>啓動(activate)指定的已加載單元(無法啓動未加載的單元)。</li>
-<li></li>
-<li>如果某個單元未被啓動，又沒有處於失敗(failed)狀態，</li>
-<li>那麼通常是因爲該單元沒有被加載，所以根本沒有被模式匹配到。</li>
-<li>此外，對於從模板實例化而來的單元，因爲 systemd 會在其尚未啓動前忽略它們，</li>
-<li>又因爲模式(PATTERN)參數僅能匹配已加載單元的”主名稱”(不含單元的”別名”)，</li>
-<li>所以，在這個命令中使用包含通配符的模式並沒有多少實際意義。</li>
-<li></li>
-<li>stop PATTERN…</li>
-<li>停止(deactivate)指定的單元</li>
-<li></li>
-<li>reload PATTERN…</li>
-<li>要求指定的單元重新加載它們的配置。 注意，這裏所說的”配置”是服務進程專屬的配置(例如</li>
-<li>httpd.conf 之類)， 而不是 systemd 的”單元文件”。 如果你想重新加載 systemd</li>
-<li>的”單元文件”， 那麼應該使用 daemon-reload 命令。 以 Apache 爲例， 該命令會導致重新加載</li>
-<li>httpd.conf 文件， 而不是 apache.service 文件。</li>
-<li></li>
-<li>不要將此命令與 daemon-reload 命令混淆。</li>
-<li></li>
-<li>restart PATTERN…</li>
-<li>重新啓動指定的單元。 若指定的單元尚未啓動，則啓動它們。</li>
-<li></li>
-<li>try-restart PATTERN…</li>
-<li>重新啓動指定的已啓動單元。 注意，若指定的單元尚未啓動，則不做任何操作。</li>
-<li></li>
-<li>reload-or-restart PATTERN…</li>
-<li>首先嚐試重新加載指定單元的進程專屬配置，</li>
-<li>對於那些加載失敗的單元，再繼續嘗試重新啓動它們。 若指定的單元尚未啓動，則啓動它們。</li>
-<li></li>
-<li>try-reload-or-restart PATTERN…</li>
-<li>首先嚐試重新加載指定單元的進程專屬配置，</li>
-<li>對於那些加載失敗的單元，再繼續嘗試重新啓動它們。</li>
-<li>注意，若指定的單元尚未啓動，則不做任何操作。</li>
-<li></li>
-<li>isolate NAME</li>
-<li>啓動指定的單元以及所有依賴單元，同時停止所有其他單元。 如果沒有給出單元的後綴名，</li>
-<li>那麼相當於以 “.target” 作爲後綴名。</li>
-<li></li>
-<li>這類似於傳統上切換SysV運行級的概念。 該命令會立即停止所有在新目標單元中不需要的進程，</li>
-<li>這其中可能包括當前正在運行的圖形環境以及正在使用的終端。</li>
-<li></li>
-<li>注意，該命令僅可用於 AllowIsolate=yes 的單元。參見 systemd.unit(5) 手冊。</li>
-<li></li>
-<li>kill PATTERN…</li>
-<li>向指定單元的 –kill-who= 進程發送 –signal= 信號。</li>
-<li></li>
-<li>is-active PATTERN…</li>
-<li>檢查指定的單元中，是否有處於活動(active)狀態的單元。</li>
-<li>如果存在至少一個處於活動(active)狀態的單元，那麼返回”0”值，否則返回非零值。</li>
-<li>除非同時使用了 –quiet 選項， 否則，此命令還會在標準輸出上顯示單元的狀態。</li>
-<li></li>
-<li>is-failed PATTERN…</li>
-<li>檢查指定的單元中，是否有處於失敗(failed)狀態的單元。</li>
-<li>如果存在至少一個處於失敗(failed)狀態的單元，那麼返回”0”值，否則返回非零值。</li>
-<li>除非同時使用了 –quiet 選項， 否則，此命令還會在標準輸出上顯示單元的狀態。</li>
-<li></li>
-<li>status [PATTERN…|PID…]</li>
-<li>如果指定了單元，那麼顯示指定單元的運行時狀態信息，以及這些單元最近的日誌數據。</li>
-<li>如果指定了PID，那麼顯示指定PID所屬單元的運行時狀態信息，以及這些單元最近的日誌數據。</li>
-<li>如果未指定任何單元或PID，那麼顯示整個系統的狀態信息， 此時若與 –all 連用，</li>
-<li>則同時顯示所有已加載單元(可以用 -t 限定單元類型)的狀態信息。</li>
-<li></li>
-<li>此命令用於輸出人類易讀的結果，不要將其用於程序分析(應該使用 show 命令)。 除非使用了</li>
-<li>–lines 與 –full 選項， 否則默認只輸出10行日誌， 並且超長的部分會被省略號截斷。此外，</li>
-<li>journalctl –unit=NAME 或 journalctl –user-unit=NAME</li>
-<li>也會對超長的消息使用類似的省略號截斷。</li>
-<li></li>
-<li>show [PATTERN…|JOB…]</li>
-<li>以”屬性=值”的格式顯示指定單元或任務的所有屬性。 單元用其名稱表示，而任務則用其id表示。</li>
-<li>如果沒有指定任何單元或任務， 那麼顯示管理器(systemd)自身的屬性。 除非使用了 –all</li>
-<li>選項， 否則默認不顯示屬性值爲空的屬性。 可以使用 –property=</li>
-<li>選項限定僅顯示特定的屬性。 此命令的輸出適合用於程序分析， 而不適合被人類閱讀(應該使用</li>
-<li>status 命令)。</li>
-<li></li>
-<li>cat PATTERN…</li>
-<li>顯示指定單元的單元文件內容。 在顯示每個單元文件的內容之前，</li>
-<li>會額外顯示一行單元文件的絕對路徑。</li>
-<li></li>
-<li>set-property NAME ASSIGNMENT…</li>
-<li>在運行時修改單元的屬性值。 主要用於修改單元的資源控制屬性值而無需直接修改單元文件。</li>
-<li>並非所有屬性都可以在運行時被修改， 但大多數資源控制屬性(參見 systemd.resource-</li>
-<li>control(5))可以。 所作修改會立即生效，並永久保存在磁盤上，以確保永遠有效。</li>
-<li>但是如果使用了 –runtime 選項，</li>
-<li>那麼此修改僅臨時有效，下次重啓此單元后，將會恢復到原有的設置。</li>
-<li>設置屬性的語法與單元文件中的寫法相同。</li>
-<li></li>
-<li>例如： systemctl set-property foobar.service CPUShares=777</li>
-<li></li>
-<li>注意，此命令可以同時修改多個屬性值， 只需依次將各個屬性用空格分隔即可。</li>
-<li></li>
-<li>與單元文件中的規則相同， 設爲空表示清空當前已存在的列表。</li>
-<li></li>
-<li>help PATTERN…|PID…</li>
-<li>顯示指定單元的手冊頁(若存在)。 指定PID表示顯示該進程所屬單元的手冊頁(若存在)。</li>
-<li></li>
-<li>reset-failed [PATTERN…]</li>
-<li>重置指定單元的失敗(failed)狀態。</li>
-<li>如果未指定任何單元，則重置所有單元的失敗(failed)狀態。</li>
-<li>當某個單元因爲某種原因操作失敗(例如退出狀態碼不爲零或進程被強制殺死或啓動超時)，</li>
-<li>將會自動進入失敗(failed)狀態， 退出狀態碼與導致故障的原因</li>
-<li>將被記錄到日誌中以方便日後排查。</li>
-<li></li>
-<li>list-dependencies [NAME]</li>
-<li>顯示單元的依賴關係。 也就是顯示由 Requires=, Requisite=, ConsistsOf=, Wants=, BindsTo=</li>
-<li>所形成的依賴關係。 如果沒有明確指定單元的名稱， 那麼表示顯示 default.target</li>
-<li>的依賴關係樹。</li>
-<li></li>
-<li>默認情況下，僅以遞歸方式顯示 target</li>
-<li>單元的依賴關係樹，而對於其他類型的單元，僅顯示一層依賴關係(不遞歸)。 但如果使用了</li>
-<li>–all 選項， 那麼將對所有類型的單元都強制遞歸的顯示完整的依賴關係樹。</li>
-<li></li>
-<li>還可以使用 –reverse, –after, –before 選項指定僅顯示特定類型的依賴關係。</li>
-</ul>
-<h3 id="單元文件命令"><a href="#單元文件命令" class="headerlink" title="單元文件命令"></a>單元文件命令</h3><ul>
-<li>list-unit-files [PATTERN…]</li>
-<li>列出所有已安裝的單元文件及其啓用狀態(相當於同時使用了 is-enabled 命令)。</li>
-<li>如果給出了模式(PATTERN)參數，</li>
-<li>那麼表示該命令僅作用於單元文件名稱與至少一個模式相匹配的單元(僅匹配文件名，不匹配路徑)。</li>
-<li></li>
-<li>enable NAME…, enable PATH…</li>
-<li>啓用指定的單元或單元實例(多數時候相當於將這些單元設爲”開機時自動啓動”或”插入某個硬件時自動啓動”)。</li>
-<li>這將會按照單元文件中 “[Install]” 小節的指示， 在例如</li>
-<li>/etc/systemd/system/multi-user.target.wants/</li>
-<li>這樣的目錄中，創建指向單元文件自身的軟鏈接。 創建完軟連接之後，systemd</li>
-<li>將會自動重新加載自身的配置(相當於執行 daemon-reload 命令)，以確保所做的變更立即生效。</li>
-<li>注意，除非同時使用了 –now 選項(相當於同時執行 start 命令)，</li>
-<li>否則啓用一個單元並不會導致該單元被啓動。 注意，對於形如 <a href="mailto:&#102;&#111;&#111;&#64;&#98;&#97;&#114;&#46;&#x73;&#101;&#x72;&#x76;&#x69;&#99;&#101;">&#102;&#111;&#111;&#64;&#98;&#97;&#114;&#46;&#x73;&#101;&#x72;&#x76;&#x69;&#99;&#101;</a></li>
-<li>這樣的單元實例， 軟鏈接自身的文件名是實例化之後的單元名稱，</li>
-<li>但是軟連接所指向的目標文件則是該單元的模板文件。</li>
-<li></li>
-<li>如果此命令的參數是一個有效的單元名稱(NAME)，那麼將自動搜索所有單元目錄。</li>
-<li>如果此命令的參數是一個單元文件的絕對路徑(PATH)，那麼將直接使用指定的單元文件。</li>
-<li>如果參數是一個位於標準單元目錄之外的單元文件，</li>
-<li>那麼將會在標準單元目錄中額外創建一個指向此單元文件的軟連接， 以確保該單元文件能夠被</li>
-<li>start 之類的命令找到。</li>
-<li></li>
-<li>除非使用了 –quiet 選項， 否則此命令還會顯示對文件系統所執行的操作(Created symlink</li>
-<li>…)。</li>
-<li></li>
-<li>此命令是維護 .{wants,requires}/ 目錄與單元別名的首選方法。</li>
-<li>注意，此命令僅會按照單元文件中 “[Install]” 小節預設的名稱創建軟鏈接。</li>
-<li>另一方面，系統管理員亦可手動創建所需的軟鏈接，</li>
-<li>特別是在需要創建不同於默認軟鏈接名稱的時候。</li>
-<li>不過需要注意的是，系統管理員必須在創建完軟連接之後手動執行 daemon-reload 命令，</li>
-<li>以確保所做的變更立即生效。</li>
-<li></li>
-<li>不要將此命令與 start 命令混淆，它們是相互獨立的命令：</li>
-<li>可以啓動一個尚未啓用的單元，也可以啓用一個尚未啓動的單元。 enable</li>
-<li>命令只是設置了單元的啓動鉤子(通過創建軟鏈接)，</li>
-<li>例如在系統啓動時或者某個硬件插入時，自動啓動某個單元。 而 start</li>
-<li>命令則是具體執行單元的啓動操作，</li>
-<li>例如對於服務單元來說就是啓動守護進程，而對於套接字單元來說則是綁定套接字，等等。</li>
-<li></li>
-<li>若與 –user 選項連用，則表示變更僅作用於用戶實例，否則默認作用於系統實例(相當於使用</li>
-<li>–system 選項)。 若與 –runtime</li>
-<li>選項連用，則表示僅作臨時性變更(重啓後所有變更都將丟失)，否則默認爲永久性變更。 若與</li>
-<li>–global</li>
-<li>選項連用，則表示變更作用於所有用戶(在全局用戶單元目錄上操作)，否則默認僅作用於當前用戶(在私有用戶單元目錄上操作)。</li>
-<li>注意，當與 –runtime 選項連用時，systemd 守護進程不會重新加載自身的配置。</li>
-<li></li>
-<li>不可將此命令應用於已被 mask 命令屏蔽的單元，否則將會導致錯誤。</li>
-<li></li>
-<li>disable NAME…</li>
-<li>停用指定的單元或單元實例(多數時候相當於撤銷這些單元的”開機時自動啓動”以及”插入某個硬件時自動啓動”)。</li>
-<li>這將會從單元目錄中刪除所有指向單元自身及所有支持單元的軟鏈接。 這相當於撤銷 enable 或</li>
-<li>link 命令所做的操作。 注意，此命令會刪除所有指向單元自身及所有支持單元的軟鏈接，</li>
-<li>包括手動創建的軟連接以及通過 enable 與 link 命令創建的軟連接。 注意，雖然 disable 與</li>
-<li>enable 是一對相反的命令，但是它們的效果並不一定總是完全對稱的。 因爲 disable</li>
-<li>刪除的軟連接數量有可能比上一次 enable 命令創建的軟連接數量更多。</li>
-<li></li>
-<li>此命令的參數僅能接受單元的名字，而不能接受單元文件的路徑。</li>
-<li></li>
-<li>除了停用參數中明確指定的單元之外，那些在被停用單元 “[Install]” 小節的 Also=</li>
-<li>選項中列出的所有單元，也同樣會被停用。 也就是說，這個停用動作是沿着 Also=</li>
-<li>選項不斷傳遞的。</li>
-<li></li>
-<li>刪除完軟連接之後， systemd 將會自動重新加載自身的配置(相當於執行 daemon-reload</li>
-<li>命令)，以確保所做的變更立即生效。 注意，除非同時使用了 –now 選項(相當於同時執行 stop</li>
-<li>命令)， 否則停用一個單元並不會導致該單元被停止。</li>
-<li></li>
-<li>除非使用了 –quiet 選項， 否則此命令還會顯示對文件系統所執行的操作(Removed symlink</li>
-<li>…)。</li>
-<li></li>
-<li>有關 –system, –user, –runtime, –global 選項的影響，參見上面對 enable 命令的解釋。</li>
-<li></li>
-<li>reenable NAME…</li>
-<li>重新啓用指定的單元或單元實例。 這相當於先使用 disable 命令之後再使用 enable 命令。</li>
-<li>通常用於按照單元文件中 “[Install]” 小節的指示重置軟鏈接名稱。</li>
-<li>此命令的參數僅能接受單元的名字，而不能接受單元文件的路徑。</li>
-<li></li>
-<li>preset NAME…</li>
-<li>按照預設文件(*.preset)的指示，重置指定單元的啓用(enable)/停用(disable)狀態。</li>
-<li>其效果等價於按照預設規則，對列出的單元依次使用 disable 或 enable 命令。</li>
-<li></li>
-<li>可以使用 –preset-mode= 選項控制如何參照預設文件： 既啓用又停用、僅啓用、僅停用</li>
-<li></li>
-<li>如果指定單元的 “[Install]” 小節不包含必要的啓用信息，</li>
-<li>那麼此命令將會悄無聲息的忽略該單元。</li>
-<li></li>
-<li>有關預設文件的更多說明，詳見 systemd.preset(5) 手冊與 Preset[1] 文檔。</li>
-<li></li>
-<li>preset-all</li>
-<li>按照預設文件(*.preset)的指示，</li>
-<li>重置全部單元的啓用(enable)/停用(disable)狀態(參見上文)。</li>
-<li></li>
-<li>可以使用 –preset-mode= 選項控制如何參照預設文件： 既啓用又停用、僅啓用、僅停用</li>
-<li></li>
-<li>is-enabled NAME…</li>
-<li>檢查是否有至少一個指定的單元或單元實例已經被啓用。如果有，那麼返回”0”，否則返回非零。</li>
-<li>除非使用了 –quiet 選項，否則此命令還會顯示指定的單元或單元實例的當前啓用狀態：</li>
-<li></li>
-<li>Table 1. is-enabled 命令的輸出</li>
-<li>┌──────────────────┬────────────────────────────────────────────────────────────────────────────────────┬────────┐</li>
-<li>│狀態              │ 含義                                                                               │ 返回值 │</li>
-<li>├──────────────────┼────────────────────────────────────────────────────────────────────────────────────┼────────┤</li>
-<li>│”enabled”         │ 已經通過                                                                           │ 0      │</li>
-<li>│                  │ /etc/systemd/system/*.{wants,requires}/                                            │        │</li>
-<li>│                  │ 目錄下的軟連接被永久啓用                                                           │        │</li>
-<li>├──────────────────┼────────────────────────────────────────────────────────────────────────────────────┼────────┤</li>
-<li>│”enabled-runtime” │ 已經通過                                                                           │ 0      │</li>
-<li>│                  │ /run/systemd/system/*.{wants,requires}/                                            │        │</li>
-<li>│                  │ 目錄下的軟連接被臨時啓用                                                           │        │</li>
-<li>├──────────────────┼────────────────────────────────────────────────────────────────────────────────────┼────────┤</li>
-<li>│”linked”          │ 雖然單元文件本身不在標準單元目錄中，但是指向此單元文件的一個或多個軟連接已經存在於 │ &gt; 0    │</li>
-<li>│                  │ /etc/systemd/system/ 永久目錄中                                                    │        │</li>
-<li>├──────────────────┼────────────────────────────────────────────────────────────────────────────────────┼────────┤</li>
-<li>│”linked-runtime”  │ 雖然單元文件本身不在標準單元目錄中，但是指向此單元文件的一個或多個軟連接已經存在於 │ &gt; 0    │</li>
-<li>│                  │ /run/systemd/system/ 臨時目錄中                                                    │        │</li>
-<li>├──────────────────┼────────────────────────────────────────────────────────────────────────────────────┼────────┤</li>
-<li>│”masked”          │ 已經被 /etc/systemd/system/ 目錄永久屏蔽(軟連接指向 /dev/null 文件)，因此 start    │ &gt; 0    │</li>
-<li>│                  │ 操作會失敗                                                                         │        │</li>
-<li>├──────────────────┼────────────────────────────────────────────────────────────────────────────────────┼────────┤</li>
-<li>│”masked-runtime”  │ 已經被 /run/systemd/systemd/ 目錄臨時屏蔽(軟連接指向 /dev/null 文件)，因此 start   │ &gt; 0    │</li>
-<li>│                  │ 操作會失敗                                                                         │        │</li>
-<li>├──────────────────┼────────────────────────────────────────────────────────────────────────────────────┼────────┤</li>
-<li>│”static”          │ 尚未被啓用，並且單元文件的 “[Install]” 小節中沒有可用於 enable 命令的選項          │ 0      │</li>
-<li>├──────────────────┼────────────────────────────────────────────────────────────────────────────────────┼────────┤</li>
-<li>│”indirect”        │ 尚未被啓用，但是單元文件的 “[Install]” 小節中 Also=                                │ 0      │</li>
-<li>│                  │ 選項的值列表非空(也就是列表中的某些單元可能已被啓用)                               │        │</li>
-<li>├──────────────────┼────────────────────────────────────────────────────────────────────────────────────┼────────┤</li>
-<li>│”disabled”        │ 尚未被啓用，但是單元文件的 “[Install]” 小節中存在可用於 enable 命令的選項          │ &gt; 0    │</li>
-<li>├──────────────────┼────────────────────────────────────────────────────────────────────────────────────┼────────┤</li>
-<li>│”generated”       │ 單元文件是被單元生成器動態生成的(參見 systemd.generator(7)                         │ 0      │</li>
-<li>│                  │ 手冊)。被生成的單元文件可能並未被直接啓用，而是被單元生成器隱含的啓用了。          │        │</li>
-<li>├──────────────────┼────────────────────────────────────────────────────────────────────────────────────┼────────┤</li>
-<li>│”transient”       │ 單元文件是被運行時API動態臨時生成的。該臨時單元可能並未被啓用。                    │ 0      │</li>
-<li>├──────────────────┼────────────────────────────────────────────────────────────────────────────────────┼────────┤</li>
-<li>│”bad”             │ 單元文件不正確或者出現其他錯誤。 is-enabled                                        │ &gt; 0    │</li>
-<li>│                  │ 不會返回此狀態，而是會顯示一條出錯信息。 list-unit-files 命令有可能會顯示此單元。  │        │</li>
-<li>└──────────────────┴────────────────────────────────────────────────────────────────────────────────────┴────────┘</li>
-<li></li>
-<li>mask NAME…</li>
-<li>屏蔽指定的單元或單元實例。 也就是在單元目錄中創建指向 /dev/null</li>
-<li>的同名符號連接，從而在根本上確保無法啓動這些單元。 這比 disable</li>
-<li>命令更徹底，可以通殺一切啓動方法(包括手動啓動)，所以應該謹慎使用該命令。 若與</li>
-<li>–runtime 選項連用，則表示僅作臨時性屏蔽(重啓後屏蔽將失效)，否則默認爲永久性屏蔽。</li>
-<li>除非使用了 –now 選項(相當於同時執行 stop</li>
-<li>命令)，否則僅屏蔽一個單元並不會導致該單元被停止。</li>
-<li>此命令的參數僅能接受單元的名字，而不能接受單元文件的路徑。</li>
-<li></li>
-<li>unmask NAME…</li>
-<li>解除對指定單元或單元實例的屏蔽，這是 mask 命令的反動作。 也就是在單元目錄中刪除指向</li>
-<li>/dev/null 的同名符號連接。 此命令的參數僅能接受單元的名字，而不能接受單元文件的路徑。</li>
-<li></li>
-<li>link PATH…</li>
-<li>將不在標準單元目錄中的單元文件(通過軟鏈接)連接到標準單元目錄中去。 PATH</li>
-<li>參數必須是單元文件的絕對路徑。該命令的結果可以通過 disable 命令撤消。</li>
-<li>通過該命令，可以讓一個不在標準單元目錄中的單元文件，也可以像位於標準單元目錄中的常規單元文件一樣，</li>
-<li>被 start, stop … 等各種命令操作。</li>
-<li></li>
-<li>revert NAME…</li>
-<li>將指定的單元恢復成初始版本。 這將會刪除對指定單元的所有修改。 例如，對於 “foo.service”</li>
-<li>單元來說， 將會刪除所有 foo.service.d/ 目錄。 如果指定的單元在 /usr/lib/ 目錄中</li>
-<li>還存在單元文件的初始版本，那麼還會進一步刪除 /etc/ 與 /run/ 目錄中</li>
-<li>所有用來覆蓋初始單元文件的軟連接與自定義單元文件。</li>
-<li>如果指定的單元已經被屏蔽，那麼將會被解除屏蔽。</li>
-<li></li>
-<li>從效果上看，該命令相當於撤銷 edit, set-property, mask 命令所做的操作，</li>
-<li>並且將指定單元的配置恢復成軟件包提供的初始值。</li>
-<li></li>
-<li>add-wants TARGET NAME…, add-requires TARGET NAME…</li>
-<li>將指定的單元或單元實例(NAME) 作爲 “Wants=” 或 “Requires=” 依賴， 添加到 TARGET</li>
-<li>單元中。</li>
-<li></li>
-<li>關於 –system, –user, –runtime, –global 選項的影響， 參見前文對 enable 命令的解釋。</li>
-<li></li>
-<li>edit NAME…<ul>
-<li>調用文本編輯器(參見下面的”環境變量”小節)修改指定的單元或單元實例。</li>
+<li>list-units [PATTERN…]<ul>
+<li>列出 systemd 已加載的單元。 除非明確使用 –all選項列出全部單元(包括：直接引用的單元、出於依賴關係而被引用的單元、活動的單元、失敗的單元)，否則默認僅列出：活動的單元、失敗的單元、正處於任務隊列中的單元。如果給出了模式(PATTERN)參數，那麼表示該命令僅作用於單元名稱與至少一個模式相匹配的單元。還可以通過 –type= 與 –state= 選項過濾要列出的單元。這是默認命令。</li>
 </ul>
 </li>
-<li></li>
-<li>若使用了 –full 選項，則表示使用新編輯的單元文件完全取代原始單元文件，</li>
-<li>否則默認將新編輯的單元配置片段(位於 .d/ 目錄)附加到原始單元文件的末尾。</li>
-<li></li>
-<li>如果使用了 –force 選項，並且某些指定的單元文件不存在，</li>
-<li>那麼將會強制打開一個新的空單元文件以供編輯。</li>
-<li></li>
-<li>注意，在編輯過程中，編輯器實際操作的只是臨時文件，</li>
-<li>僅在編輯器正常退出時，臨時文件的內容纔會被實際寫入到目標文件中。</li>
-<li></li>
-<li>注意，如果在編輯器退出時，臨時文件的內容爲空，</li>
-<li>則表示取消編輯動作(而不是寫入一個空文件)。</li>
-<li></li>
-<li>編輯動作完成之後，systemd 將會自動重新加載自身的配置(相當於執行 daemon-reload</li>
-<li>命令)，以確保所做的變更立即生效。</li>
-<li></li>
-<li>關於 –system, –user, –runtime, –global 選項的影響， 參見前文對 enable 命令的解釋。</li>
-<li></li>
-<li>注意：(1)該命令不可用於編輯遠程主機上的單元文件。 (2)禁止在編輯 /etc</li>
-<li>中的原始單元文件時使用 –runtime 選項， 因爲 /etc 中的單元文件優先級高於 /run</li>
-<li>中的單元文件。</li>
+<li>list-sockets [PATTERN…]<ul>
+<li>列出已加載的套接字(socket)單元，並按照監聽地址排序。如果給出了模式(PATTERN)參數，那麼表示該命令僅作用於單元名稱與至少一個模式相匹配的單元。該命令的輸出大致像下面這樣子：<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">LISTEN           UNIT                        ACTIVATES</span><br><span class="line">/dev/initctl     systemd-initctl.socket      systemd-initctl.service</span><br><span class="line">...</span><br><span class="line">[::]:22          sshd.socket                 sshd.service</span><br><span class="line">kobject-uevent 1 systemd-udevd-kernel.socket systemd-udevd.service</span><br><span class="line"></span><br><span class="line">5 sockets listed.</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li>list-timers [PATTERN…]<ul>
+<li>列出已加載的定時器(timer)單元，並按照下次執行的時間點排序。如果給出了模式(PATTERN)參數，那麼表示該命令僅作用於單元名稱與至少一個模式相匹配的單元。參見 –all 與 –state= 選項。</li>
+</ul>
+</li>
+<li>start PATTERN…<ul>
+<li>啓動(activate)指定的已加載單元(無法啓動未加載的單元)。如果某個單元未被啓動，又沒有處於失敗(failed)狀態，那麼通常是因爲該單元沒有被加載，所以根本沒有被模式匹配到。此外，對於從模板實例化而來的單元，因爲 systemd 會在其尚未啓動前忽略它們，又因爲模式(PATTERN)參數僅能匹配已加載單元的”主名稱”(不含單元的”別名”)，所以，在這個命令中使用包含通配符的模式並沒有多少實際意義。</li>
+</ul>
+</li>
+<li>stop PATTERN…<ul>
+<li>停止(deactivate)指定的單元</li>
+</ul>
+</li>
+<li>reload PATTERN…<ul>
+<li>要求指定的單元重新加載它們的配置。 注意，這裏所說的”配置”是服務進程專屬的配置(例如httpd.conf 之類)， 而不是 systemd 的”單元文件”。 如果你想重新加載 systemd的”單元文件”， 那麼應該使用 daemon-reload 命令。 以 Apache 爲例， 該命令會導致重新加載httpd.conf 文件， 而不是 apache.service 文件。不要將此命令與 daemon-reload 命令混淆。</li>
+</ul>
+</li>
+<li>restart PATTERN…<ul>
+<li>重新啓動指定的單元。 若指定的單元尚未啓動，則啓動它們。</li>
+</ul>
+</li>
+<li>try-restart PATTERN…<ul>
+<li>重新啓動指定的已啓動單元。 注意，若指定的單元尚未啓動，則不做任何操作。</li>
+</ul>
+</li>
+<li>reload-or-restart PATTERN…<ul>
+<li>首先嚐試重新加載指定單元的進程專屬配置，對於那些加載失敗的單元，再繼續嘗試重新啓動它們。 若指定的單元尚未啓動，則啓動它們。</li>
+</ul>
+</li>
+<li>try-reload-or-restart PATTERN…<ul>
+<li>首先嚐試重新加載指定單元的進程專屬配置，對於那些加載失敗的單元，再繼續嘗試重新啓動它們。注意，若指定的單元尚未啓動，則不做任何操作。</li>
+</ul>
+</li>
+<li>isolate NAME<ul>
+<li>啓動指定的單元以及所有依賴單元，同時停止所有其他單元。 如果沒有給出單元的後綴名，那麼相當於以 “.target” 作爲後綴名。這類似於傳統上切換SysV運行級的概念。 該命令會立即停止所有在新目標單元中不需要的進程，這其中可能包括當前正在運行的圖形環境以及正在使用的終端。注意，該命令僅可用於 AllowIsolate=yes 的單元。參見 systemd.unit(5) 手冊。</li>
+</ul>
+</li>
+<li>kill PATTERN…<ul>
+<li>向指定單元的 –kill-who= 進程發送 –signal= 信號。</li>
+</ul>
+</li>
+<li>is-active PATTERN…<ul>
+<li>檢查指定的單元中，是否有處於活動(active)狀態的單元。如果存在至少一個處於活動(active)狀態的單元，那麼返回”0”值，否則返回非零值。除非同時使用了 –quiet 選項， 否則，此命令還會在標準輸出上顯示單元的狀態。</li>
+</ul>
+</li>
+<li>is-failed PATTERN…<ul>
+<li>檢查指定的單元中，是否有處於失敗(failed)狀態的單元。如果存在至少一個處於失敗(failed)狀態的單元，那麼返回”0”值，否則返回非零值。除非同時使用了 –quiet 選項， 否則，此命令還會在標準輸出上顯示單元的狀態。</li>
+</ul>
+</li>
+<li>status [PATTERN…|PID…]<ul>
+<li>如果指定了單元，那麼顯示指定單元的運行時狀態信息，以及這些單元最近的日誌數據。如果指定了PID，那麼顯示指定PID所屬單元的運行時狀態信息，以及這些單元最近的日誌數據。如果未指定任何單元或PID，那麼顯示整個系統的狀態信息， 此時若與 –all 連用，則同時顯示所有已加載單元(可以用 -t 限定單元類型)的狀態信息。此命令用於輸出人類易讀的結果，不要將其用於程序分析(應該使用 show 命令)。 除非使用了–lines 與 –full 選項， 否則默認只輸出10行日誌， 並且超長的部分會被省略號截斷。此外，journalctl –unit=NAME 或 journalctl –user-unit=NAME也會對超長的消息使用類似的省略號截斷。</li>
+</ul>
+</li>
+<li>show [PATTERN…|JOB…]<ul>
+<li>以”屬性=值”的格式顯示指定單元或任務的所有屬性。 單元用其名稱表示，而任務則用其id表示。如果沒有指定任何單元或任務， 那麼顯示管理器(systemd)自身的屬性。 除非使用了 –all選項， 否則默認不顯示屬性值爲空的屬性。 可以使用 –property=選項限定僅顯示特定的屬性。 此命令的輸出適合用於程序分析， 而不適合被人類閱讀(應該使用status 命令)。</li>
+</ul>
+</li>
+<li>cat PATTERN…<ul>
+<li>顯示指定單元的單元文件內容。 在顯示每個單元文件的內容之前，會額外顯示一行單元文件的絕對路徑。</li>
+</ul>
+</li>
+<li>set-property NAME ASSIGNMENT…<ul>
+<li>在運行時修改單元的屬性值。 主要用於修改單元的資源控制屬性值而無需直接修改單元文件。並非所有屬性都可以在運行時被修改， 但大多數資源控制屬性(參見 systemd.resource-control(5))可以。 所作修改會立即生效，並永久保存在磁盤上，以確保永遠有效。但是如果使用了 –runtime 選項，那麼此修改僅臨時有效，下次重啓此單元后，將會恢復到原有的設置。設置屬性的語法與單元文件中的寫法相同。例如： systemctl set-property foobar.service CPUShares=777注意，此命令可以同時修改多個屬性值， 只需依次將各個屬性用空格分隔即可。與單元文件中的規則相同， 設爲空表示清空當前已存在的列表。</li>
+</ul>
+</li>
+<li>help PATTERN…|PID…<ul>
+<li>顯示指定單元的手冊頁(若存在)。 指定PID表示顯示該進程所屬單元的手冊頁(若存在)。</li>
+</ul>
+</li>
+<li>reset-failed [PATTERN…]<ul>
+<li>重置指定單元的失敗(failed)狀態。如果未指定任何單元，則重置所有單元的失敗(failed)狀態。當某個單元因爲某種原因操作失敗(例如退出狀態碼不爲零或進程被強制殺死或啓動超時)，將會自動進入失敗(failed)狀態， 退出狀態碼與導致故障的原因將被記錄到日誌中以方便日後排查。</li>
+</ul>
+</li>
+<li>list-dependencies [NAME]<ul>
+<li>顯示單元的依賴關係。 也就是顯示由 Requires=, Requisite=, ConsistsOf=, Wants=, BindsTo=所形成的依賴關係。 如果沒有明確指定單元的名稱， 那麼表示顯示 default.target的依賴關係樹。默認情況下，僅以遞歸方式顯示 target單元的依賴關係樹，而對於其他類型的單元，僅顯示一層依賴關係(不遞歸)。 但如果使用了–all 選項， 那麼將對所有類型的單元都強制遞歸的顯示完整的依賴關係樹。還可以使用 –reverse, –after, –before 選項指定僅顯示特定類型的依賴關係。</li>
+</ul>
+</li>
+</ul>
+<h3 id="單元文件命令"><a href="#單元文件命令" class="headerlink" title="單元文件命令"></a>單元文件命令</h3><ul>
+<li>list-unit-files [PATTERN…]<ul>
+<li>列出所有已安裝的單元文件及其啓用狀態(相當於同時使用了 is-enabled 命令)。如果給出了模式(PATTERN)參數，那麼表示該命令僅作用於單元文件名稱與至少一個模式相匹配的單元(僅匹配文件名，不匹配路徑)。</li>
+</ul>
+</li>
+<li>enable NAME…, enable PATH…<ul>
+<li>啓用指定的單元或單元實例(多數時候相當於將這些單元設爲”開機時自動啓動”或”插入某個硬件時自動啓動”)。這將會按照單元文件中 “[Install]” 小節的指示， 在例如/etc/systemd/system/multi-user.target.wants/這樣的目錄中，創建指向單元文件自身的軟鏈接。 創建完軟連接之後，systemd將會自動重新加載自身的配置(相當於執行 daemon-reload 命令)，以確保所做的變更立即生效。注意，除非同時使用了 –now 選項(相當於同時執行 start 命令)，否則啓用一個單元並不會導致該單元被啓動。 注意，對於形如 <a href="mailto:&#102;&#111;&#x6f;&#x40;&#98;&#x61;&#114;&#46;&#115;&#x65;&#x72;&#x76;&#x69;&#99;&#101;">&#102;&#111;&#x6f;&#x40;&#98;&#x61;&#114;&#46;&#115;&#x65;&#x72;&#x76;&#x69;&#99;&#101;</a>這樣的單元實例， 軟鏈接自身的文件名是實例化之後的單元名稱，但是軟連接所指向的目標文件則是該單元的模板文件。如果此命令的參數是一個有效的單元名稱(NAME)，那麼將自動搜索所有單元目錄。如果此命令的參數是一個單元文件的絕對路徑(PATH)，那麼將直接使用指定的單元文件。如果參數是一個位於標準單元目錄之外的單元文件，那麼將會在標準單元目錄中額外創建一個指向此單元文件的軟連接， 以確保該單元文件能夠被start 之類的命令找到。除非使用了 –quiet 選項， 否則此命令還會顯示對文件系統所執行的操作(Created symlink…)。此命令是維護 .{wants,requires}/ 目錄與單元別名的首選方法。注意，此命令僅會按照單元文件中 “[Install]” 小節預設的名稱創建軟鏈接。另一方面，系統管理員亦可手動創建所需的軟鏈接，特別是在需要創建不同於默認軟鏈接名稱的時候。不過需要注意的是，系統管理員必須在創建完軟連接之後手動執行 daemon-reload 命令，以確保所做的變更立即生效。不要將此命令與 start 命令混淆，它們是相互獨立的命令：可以啓動一個尚未啓用的單元，也可以啓用一個尚未啓動的單元。 enable命令只是設置了單元的啓動鉤子(通過創建軟鏈接)，例如在系統啓動時或者某個硬件插入時，自動啓動某個單元。 而 start命令則是具體執行單元的啓動操作，例如對於服務單元來說就是啓動守護進程，而對於套接字單元來說則是綁定套接字，等等。若與 –user 選項連用，則表示變更僅作用於用戶實例，否則默認作用於系統實例(相當於使用–system 選項)。 若與 –runtime選項連用，則表示僅作臨時性變更(重啓後所有變更都將丟失)，否則默認爲永久性變更。 若與–global選項連用，則表示變更作用於所有用戶(在全局用戶單元目錄上操作)，否則默認僅作用於當前用戶(在私有用戶單元目錄上操作)。注意，當與 –runtime 選項連用時，systemd 守護進程不會重新加載自身的配置。不可將此命令應用於已被 mask 命令屏蔽的單元，否則將會導致錯誤。</li>
+</ul>
+</li>
+<li>disable NAME…<ul>
+<li>停用指定的單元或單元實例(多數時候相當於撤銷這些單元的”開機時自動啓動”以及”插入某個硬件時自動啓動”)。這將會從單元目錄中刪除所有指向單元自身及所有支持單元的軟鏈接。 這相當於撤銷 enable 或link 命令所做的操作。 注意，此命令會刪除所有指向單元自身及所有支持單元的軟鏈接，包括手動創建的軟連接以及通過 enable 與 link 命令創建的軟連接。 注意，雖然 disable 與enable 是一對相反的命令，但是它們的效果並不一定總是完全對稱的。 因爲 disable刪除的軟連接數量有可能比上一次 enable 命令創建的軟連接數量更多。此命令的參數僅能接受單元的名字，而不能接受單元文件的路徑。除了停用參數中明確指定的單元之外，那些在被停用單元 “[Install]” 小節的 Also=選項中列出的所有單元，也同樣會被停用。 也就是說，這個停用動作是沿着 Also=選項不斷傳遞的。刪除完軟連接之後， systemd 將會自動重新加載自身的配置(相當於執行 daemon-reload命令)，以確保所做的變更立即生效。 注意，除非同時使用了 –now 選項(相當於同時執行 stop命令)， 否則停用一個單元並不會導致該單元被停止。除非使用了 –quiet 選項， 否則此命令還會顯示對文件系統所執行的操作(Removed symlink…)。有關 –system, –user, –runtime, –global 選項的影響，參見上面對 enable 命令的解釋。</li>
+</ul>
+</li>
+<li>reenable NAME…<ul>
+<li>重新啓用指定的單元或單元實例。 這相當於先使用 disable 命令之後再使用 enable 命令。通常用於按照單元文件中 “[Install]” 小節的指示重置軟鏈接名稱。此命令的參數僅能接受單元的名字，而不能接受單元文件的路徑。</li>
+</ul>
+</li>
+<li>preset NAME…<ul>
+<li>按照預設文件(*.preset)的指示，重置指定單元的啓用(enable)/停用(disable)狀態。其效果等價於按照預設規則，對列出的單元依次使用 disable 或 enable 命令。可以使用 –preset-mode= 選項控制如何參照預設文件： 既啓用又停用、僅啓用、僅停用如果指定單元的 “[Install]” 小節不包含必要的啓用信息，那麼此命令將會悄無聲息的忽略該單元。有關預設文件的更多說明，詳見 systemd.preset(5) 手冊與 Preset[1] 文檔。</li>
+</ul>
+</li>
+<li>preset-all<ul>
+<li>按照預設文件(*.preset)的指示，重置全部單元的啓用(enable)/停用(disable)狀態(參見上文)。可以使用 –preset-mode= 選項控制如何參照預設文件： 既啓用又停用、僅啓用、僅停用</li>
+</ul>
+</li>
+<li>is-enabled NAME…<ul>
+<li>檢查是否有至少一個指定的單元或單元實例已經被啓用。如果有，那麼返回”0”，否則返回非零。除非使用了 –quiet 選項，否則此命令還會顯示指定的單元或單元實例的當前啓用狀態：<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">┌──────────────────┬────────────────────────────────────────────────────────────────────────────────────┬────────┐</span><br><span class="line">│狀態               │ 含義                                                                               │ 返回值 │</span><br><span class="line">├──────────────────┼────────────────────────────────────────────────────────────────────────────────────┼────────┤</span><br><span class="line">│&quot;enabled&quot;         │ 已經通過                                                                           │ 0      │</span><br><span class="line">│                  │ /etc/systemd/system/*.&#123;wants,requires&#125;/                                            │        │</span><br><span class="line">│                  │ 目錄下的軟連接被永久啓用                                                           │        │</span><br><span class="line">├──────────────────┼────────────────────────────────────────────────────────────────────────────────────┼────────┤</span><br><span class="line">│&quot;enabled-runtime&quot; │ 已經通過                                                                           │ 0      │</span><br><span class="line">│                  │ /run/systemd/system/*.&#123;wants,requires&#125;/                                            │        │</span><br><span class="line">│                  │ 目錄下的軟連接被臨時啓用                                                           │        │</span><br><span class="line">├──────────────────┼────────────────────────────────────────────────────────────────────────────────────┼────────┤</span><br><span class="line">│&quot;linked&quot;          │ 雖然單元文件本身不在標準單元目錄中，但是指向此單元文件的一個或多個軟連接已經存在於 │ &gt; 0    │</span><br><span class="line">|                  │ /etc/systemd/system/ 永久目錄中                                                    │        │</span><br><span class="line">├──────────────────┼────────────────────────────────────────────────────────────────────────────────────┼────────┤</span><br><span class="line">│&quot;linked-runtime&quot;  │ 雖然單元文件本身不在標準單元目錄中，但是指向此單元文件的一個或多個軟連接已經存在於 │ &gt; 0    │</span><br><span class="line">│                  │ /run/systemd/system/ 臨時目錄中                                                    │        │</span><br><span class="line">├──────────────────┼────────────────────────────────────────────────────────────────────────────────────┼────────┤</span><br><span class="line">│&quot;masked&quot;          │ 已經被 /etc/systemd/system/ 目錄永久屏蔽(軟連接指向 /dev/null 文件)，因此 start    │ &gt; 0    │</span><br><span class="line">│                  │ 操作會失敗                                                                         │        │</span><br><span class="line">├──────────────────┼────────────────────────────────────────────────────────────────────────────────────┼────────┤</span><br><span class="line">│&quot;masked-runtime&quot;  │ 已經被 /run/systemd/systemd/ 目錄臨時屏蔽(軟連接指向 /dev/null 文件)，因此 start   │ &gt; 0    │</span><br><span class="line">│                  │ 操作會失敗                                                                         │        │</span><br><span class="line">├──────────────────┼────────────────────────────────────────────────────────────────────────────────────┼────────┤</span><br><span class="line">│&quot;static&quot;          │ 尚未被啓用，並且單元文件的 &quot;[Install]&quot; 小節中沒有可用於 enable 命令的選項          │ 0      │</span><br><span class="line">├──────────────────┼────────────────────────────────────────────────────────────────────────────────────┼────────┤</span><br><span class="line">│&quot;indirect&quot;        │ 尚未被啓用，但是單元文件的 &quot;[Install]&quot; 小節中 Also=                                │ 0      │</span><br><span class="line">│                  │ 選項的值列表非空(也就是列表中的某些單元可能已被啓用)                               │        │</span><br><span class="line">├──────────────────┼────────────────────────────────────────────────────────────────────────────────────┼────────┤</span><br><span class="line">│&quot;disabled&quot;        │ 尚未被啓用，但是單元文件的 &quot;[Install]&quot; 小節中存在可用於 enable 命令的選項          │ &gt; 0    │</span><br><span class="line">├──────────────────┼────────────────────────────────────────────────────────────────────────────────────┼────────┤</span><br><span class="line">│&quot;generated&quot;       │ 單元文件是被單元生成器動態生成的(參見 systemd.generator(7)                         │ 0      │</span><br><span class="line">│                  │ 手冊)。被生成的單元文件可能並未被直接啓用，而是被單元生成器隱含的啓用了。          │        │</span><br><span class="line">├──────────────────┼────────────────────────────────────────────────────────────────────────────────────┼────────┤</span><br><span class="line">│&quot;transient&quot;       │ 單元文件是被運行時API動態臨時生成的。該臨時單元可能並未被啓用。                    │ 0      │</span><br><span class="line">├──────────────────┼────────────────────────────────────────────────────────────────────────────────────┼────────┤</span><br><span class="line">│&quot;bad&quot;             │ 單元文件不正確或者出現其他錯誤。 is-enabled                                        │ &gt; 0    │</span><br><span class="line">│                  │ 不會返回此狀態，而是會顯示一條出錯信息。 list-unit-files 命令有可能會顯示此單元。  │        │</span><br><span class="line">└──────────────────┴────────────────────────────────────────────────────────────────────────────────────┴────────┘</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li>mask NAME…<ul>
+<li>屏蔽指定的單元或單元實例。 也就是在單元目錄中創建指向 /dev/null的同名符號連接，從而在根本上確保無法啓動這些單元。 這比 disable命令更徹底，可以通殺一切啓動方法(包括手動啓動)，所以應該謹慎使用該命令。 若與–runtime 選項連用，則表示僅作臨時性屏蔽(重啓後屏蔽將失效)，否則默認爲永久性屏蔽。除非使用了 –now 選項(相當於同時執行 stop命令)，否則僅屏蔽一個單元並不會導致該單元被停止。此命令的參數僅能接受單元的名字，而不能接受單元文件的路徑。</li>
+</ul>
+</li>
+<li>unmask NAME…<ul>
+<li>解除對指定單元或單元實例的屏蔽，這是 mask 命令的反動作。 也就是在單元目錄中刪除指向/dev/null 的同名符號連接。 此命令的參數僅能接受單元的名字，而不能接受單元文件的路徑。</li>
+</ul>
+</li>
+<li>link PATH…<ul>
+<li>將不在標準單元目錄中的單元文件(通過軟鏈接)連接到標準單元目錄中去。 PATH參數必須是單元文件的絕對路徑。該命令的結果可以通過 disable 命令撤消。通過該命令，可以讓一個不在標準單元目錄中的單元文件，也可以像位於標準單元目錄中的常規單元文件一樣，被 start, stop … 等各種命令操作。</li>
+</ul>
+</li>
+<li>revert NAME…<ul>
+<li>將指定的單元恢復成初始版本。 這將會刪除對指定單元的所有修改。 例如，對於 “foo.service”單元來說， 將會刪除所有 foo.service.d/ 目錄。 如果指定的單元在 /usr/lib/ 目錄中還存在單元文件的初始版本，那麼還會進一步刪除 /etc/ 與 /run/ 目錄中所有用來覆蓋初始單元文件的軟連接與自定義單元文件。如果指定的單元已經被屏蔽，那麼將會被解除屏蔽。從效果上看，該命令相當於撤銷 edit, set-property, mask 命令所做的操作，並且將指定單元的配置恢復成軟件包提供的初始值。add-wants TARGET NAME…, add-requires TARGET NAME…將指定的單元或單元實例(NAME) 作爲 “Wants=” 或 “Requires=” 依賴， 添加到 TARGET單元中。關於 –system, –user, –runtime, –global 選項的影響， 參見前文對 enable 命令的解釋。</li>
+</ul>
+</li>
+<li>edit NAME…<ul>
+<li>調用文本編輯器(參見下面的”環境變量”小節)修改指定的單元或單元實例。若使用了 –full 選項，則表示使用新編輯的單元文件完全取代原始單元文件，否則默認將新編輯的單元配置片段(位於 .d/ 目錄)附加到原始單元文件的末尾。如果使用了 –force 選項，並且某些指定的單元文件不存在，那麼將會強制打開一個新的空單元文件以供編輯。注意，在編輯過程中，編輯器實際操作的只是臨時文件，僅在編輯器正常退出時，臨時文件的內容纔會被實際寫入到目標文件中。注意，如果在編輯器退出時，臨時文件的內容爲空，則表示取消編輯動作(而不是寫入一個空文件)。編輯動作完成之後，systemd 將會自動重新加載自身的配置(相當於執行 daemon-reload命令)，以確保所做的變更立即生效。關於 –system, –user, –runtime, –global 選項的影響， 參見前文對 enable 命令的解釋。注意：(1)該命令不可用於編輯遠程主機上的單元文件。 (2)禁止在編輯 /etc中的原始單元文件時使用 –runtime 選項， 因爲 /etc 中的單元文件優先級高於 /run中的單元文件。</li>
+</ul>
+</li>
 <li>get-default<ul>
 <li>顯示默認的啓動目標。 這將顯示 default.target 軟鏈接所指向的實際單元文件的名稱。</li>
 </ul>
@@ -863,7 +611,7 @@
 <h3 id="系統命令"><a href="#系統命令" class="headerlink" title="系統命令"></a>系統命令</h3><ul>
 <li><p>is-system-running</p>
 <ul>
-<li>檢查當前系統是否處於正常運行狀態(running)，若正常則返回”0”，否則返回大於零的正整數。所謂正常運行狀態是指： 系統完成了全部的啓動操作，整個系統已經處於完全可用的狀態，特別是沒有處於啓動/關閉/維護狀態，並且沒有任何單元處於失敗(failed)狀態。 除非使用了–quiet 選項， 否則此命令還會在標準輸出上顯示系統的當前狀態， 如下表所示：<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"> ┌─────────────┬────────────────────────────────────────────────────────┬────────┐</span><br><span class="line">│狀態         │ 含義                                                   │ 返回值 │</span><br><span class="line">├─────────────┼────────────────────────────────────────────────────────┼────────┤</span><br><span class="line">│initializing │ 啓動的早期階段。也就是尚未到達                         │ &gt; 0    │</span><br><span class="line">│             │ basic.target/rescue.target/emergency.target            │        │</span><br><span class="line">│             │ 之前的階段。                                           │        │</span><br><span class="line">├─────────────┼────────────────────────────────────────────────────────┼────────┤</span><br><span class="line">│starting     │ 啓動的晚期階段。                                       │ &gt; 0    │</span><br><span class="line">│             │ 也就是任務隊列首次達到空閒之前的階段，                 │        │</span><br><span class="line">│             │ 或者已經啓動到了某個救援 target 中。                   │        │</span><br><span class="line">├─────────────┼────────────────────────────────────────────────────────┼────────┤</span><br><span class="line">│running      │ 完成了全部的啓動操作，整個系統已經處於完全可用的狀態， │ 0      │</span><br><span class="line">│             │ 並且沒有任何單元處於失敗(failed)狀態。                 │        │</span><br><span class="line">├─────────────┼────────────────────────────────────────────────────────┼────────┤</span><br><span class="line">│degraded     │ 完成了全部的啓動操作，系統已經可用，                   │ &gt; 0    │</span><br><span class="line">│             │ 但是某些單元處於失敗(failed)狀態。                     │        │</span><br><span class="line">├─────────────┼────────────────────────────────────────────────────────┼────────┤</span><br><span class="line">│maintenance  │ 啓動了 rescue.target/emergency.target 目標。           │ &gt; 0    │</span><br><span class="line">├─────────────┼────────────────────────────────────────────────────────┼────────┤</span><br><span class="line">│stopping     │ 系統正處於關閉過程中。                                 │ &gt; 0    │</span><br><span class="line">├─────────────┼────────────────────────────────────────────────────────┼────────┤</span><br><span class="line">│offline      │ 整個系統已經處於完全可用的狀態， 但init進程(PID=1)不是 │ &gt; 0    │</span><br><span class="line">│             │ systemd                                                │        │</span><br><span class="line">├─────────────┼────────────────────────────────────────────────────────┼────────┤</span><br><span class="line">│unknown      │ 由於資源不足或未知原因， 無法檢測系統的當前狀態        │ &gt; 0    │</span><br><span class="line">└─────────────┴────────────────────────────────────────────────────────┴────────┘</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<li>檢查當前系統是否處於正常運行狀態(running)，若正常則返回”0”，否則返回大於零的正整數。所謂正常運行狀態是指： 系統完成了全部的啓動操作，整個系統已經處於完全可用的狀態，特別是沒有處於啓動/關閉/維護狀態，並且沒有任何單元處於失敗(failed)狀態。 除非使用了–quiet 選項， 否則此命令還會在標準輸出上顯示系統的當前狀態， 如下表所示：<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">┌─────────────┬────────────────────────────────────────────────────────┬────────┐</span><br><span class="line">│狀態         │ 含義                                                   │ 返回值 │</span><br><span class="line">├─────────────┼────────────────────────────────────────────────────────┼────────┤</span><br><span class="line">│initializing │ 啓動的早期階段。也就是尚未到達                         │ &gt; 0    │</span><br><span class="line">│             │ basic.target/rescue.target/emergency.target            │        │</span><br><span class="line">│             │ 之前的階段。                                           │        │</span><br><span class="line">├─────────────┼────────────────────────────────────────────────────────┼────────┤</span><br><span class="line">│starting     │ 啓動的晚期階段。                                       │ &gt; 0    │</span><br><span class="line">│             │ 也就是任務隊列首次達到空閒之前的階段，                 │        │</span><br><span class="line">│             │ 或者已經啓動到了某個救援 target 中。                   │        │</span><br><span class="line">├─────────────┼────────────────────────────────────────────────────────┼────────┤</span><br><span class="line">│running      │ 完成了全部的啓動操作，整個系統已經處於完全可用的狀態， │ 0      │</span><br><span class="line">│             │ 並且沒有任何單元處於失敗(failed)狀態。                 │        │</span><br><span class="line">├─────────────┼────────────────────────────────────────────────────────┼────────┤</span><br><span class="line">│degraded     │ 完成了全部的啓動操作，系統已經可用，                   │ &gt; 0    │</span><br><span class="line">│             │ 但是某些單元處於失敗(failed)狀態。                     │        │</span><br><span class="line">├─────────────┼────────────────────────────────────────────────────────┼────────┤</span><br><span class="line">│maintenance  │ 啓動了 rescue.target/emergency.target 目標。           │ &gt; 0    │</span><br><span class="line">├─────────────┼────────────────────────────────────────────────────────┼────────┤</span><br><span class="line">│stopping     │ 系統正處於關閉過程中。                                 │ &gt; 0    │</span><br><span class="line">├─────────────┼────────────────────────────────────────────────────────┼────────┤</span><br><span class="line">│offline      │ 整個系統已經處於完全可用的狀態， 但init進程(PID=1)不是 │ &gt; 0    │</span><br><span class="line">│             │ systemd                                                │        │</span><br><span class="line">├─────────────┼────────────────────────────────────────────────────────┼────────┤</span><br><span class="line">│unknown      │ 由於資源不足或未知原因， 無法檢測系統的當前狀態        │ &gt; 0    │</span><br><span class="line">└─────────────┴────────────────────────────────────────────────────────┴────────┘</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
 </li>
