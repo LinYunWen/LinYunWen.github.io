@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/linyunwen_icon/icon_32x32.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/linyunwen_icon/icon_32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/linyunwen_icon/icon_16x16.png">
+  <link rel="mask-icon" href="/images/linyunwen_icon/icon_32x32.png" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css" integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"linyunwen.github.io","root":"/","images":"/images","scheme":"Gemini","version":"8.6.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"disqus","storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"${hits} 找到 ${time} 個結果","hits":"找到 ${hits} 個結果"}}</script><script src="/js/config.js"></script>
+<meta name="description" content="共享記憶體函式shmgetdescription12#include &lt;sys&#x2F;ipc.h&gt;#include &lt;sys&#x2F;shm.h&gt;  得到一个共享内存标识符或创建一个共享内存对象并返回共享内存标识符 int shmget(key_t key, size_t size, int shmflg)">
+<meta property="og:type" content="article">
+<meta property="og:title" content="共享記憶體函式">
+<meta property="og:url" content="https://linyunwen.github.io/2021/12/27/c-c-share-memory/index.html">
+<meta property="og:site_name" content="Lin Yunwen&#39;s Blog">
+<meta property="og:description" content="共享記憶體函式shmgetdescription12#include &lt;sys&#x2F;ipc.h&gt;#include &lt;sys&#x2F;shm.h&gt;  得到一个共享内存标识符或创建一个共享内存对象并返回共享内存标识符 int shmget(key_t key, size_t size, int shmflg)">
+<meta property="og:locale" content="zh_TW">
+<meta property="article:published_time" content="2021-12-26T23:47:23.000Z">
+<meta property="article:modified_time" content="2021-12-26T23:47:53.639Z">
+<meta property="article:author" content="Lin Yunwen">
+<meta property="article:tag" content="note">
+<meta property="article:tag" content="c&#x2F;c++">
+<meta property="article:tag" content="shmget">
+<meta property="article:tag" content="shmat">
+<meta property="article:tag" content="shmdt">
+<meta property="article:tag" content="shmctl">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://linyunwen.github.io/2021/12/27/c-c-share-memory/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-TW","comments":true,"permalink":"https://linyunwen.github.io/2021/12/27/c-c-share-memory/","path":"2021/12/27/c-c-share-memory/","title":"共享記憶體函式"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>共享記憶體函式 | Lin Yunwen's Blog</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-H43D6184CW"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"G-H43D6184CW","only_pageview":false}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Lin Yunwen's Blog</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">keep moving forward</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>標籤</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%85%B1%E4%BA%AB%E8%A8%98%E6%86%B6%E9%AB%94%E5%87%BD%E5%BC%8F"><span class="nav-number">1.</span> <span class="nav-text">共享記憶體函式</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#shmget"><span class="nav-number">1.1.</span> <span class="nav-text">shmget</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#description"><span class="nav-number">1.1.1.</span> <span class="nav-text">description</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%87%BD%E6%95%B0%E4%BC%A0%E5%85%A5%E5%80%BC"><span class="nav-number">1.1.2.</span> <span class="nav-text">函数传入值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%87%BD%E6%95%B0%E8%BF%94%E5%9B%9E%E5%80%BC"><span class="nav-number">1.1.3.</span> <span class="nav-text">函数返回值</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#shmat%E5%87%BD%E5%BC%8F%E5%8E%9F%E5%9E%8B"><span class="nav-number">1.2.</span> <span class="nav-text">shmat函式原型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%87%BD%E5%BC%8F%E8%AA%AA%E6%98%8E"><span class="nav-number">1.2.1.</span> <span class="nav-text">函式說明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%87%BD%E5%BC%8F%E5%82%B3%E5%85%A5%E5%80%BC"><span class="nav-number">1.2.2.</span> <span class="nav-text">函式傳入值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%87%BD%E5%BC%8F%E8%BF%94%E5%9B%9E%E5%80%BC"><span class="nav-number">1.2.3.</span> <span class="nav-text">函式返回值</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#shmdt%E5%87%BD%E5%BC%8F%E5%8E%9F%E5%9E%8B"><span class="nav-number">1.3.</span> <span class="nav-text">shmdt函式原型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%87%BD%E5%BC%8F%E8%AA%AA%E6%98%8E-1"><span class="nav-number">1.3.1.</span> <span class="nav-text">函式說明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%87%BD%E5%BC%8F%E5%82%B3%E5%85%A5%E5%80%BC-1"><span class="nav-number">1.3.2.</span> <span class="nav-text">函式傳入值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%87%BD%E5%BC%8F%E8%BF%94%E5%9B%9E%E5%80%BC-1"><span class="nav-number">1.3.3.</span> <span class="nav-text">函式返回值</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#shmctl%E5%87%BD%E5%BC%8F%E5%8E%9F%E5%9E%8B"><span class="nav-number">1.4.</span> <span class="nav-text">shmctl函式原型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%87%BD%E5%BC%8F%E8%AA%AA%E6%98%8E-2"><span class="nav-number">1.4.1.</span> <span class="nav-text">函式說明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%87%BD%E5%BC%8F%E5%82%B3%E5%85%A5%E5%80%BC-2"><span class="nav-number">1.4.2.</span> <span class="nav-text">函式傳入值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%87%BD%E5%BC%8F%E8%BF%94%E5%9B%9E%E5%80%BC-2"><span class="nav-number">1.4.3.</span> <span class="nav-text">函式返回值</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#reference"><span class="nav-number">1.5.</span> <span class="nav-text">reference</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-overview">
+            <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Lin Yunwen"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Lin Yunwen</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">133</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">174</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/LinYunWen" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;LinYunWen" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:l40303k@gmail.com" title="E-Mail → mailto:l40303k@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="回到頂端">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://linyunwen.github.io/2021/12/27/c-c-share-memory/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Lin Yunwen">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Lin Yunwen's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          共享記憶體函式
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">發表於</span>
+      
+
+      <time title="創建時間：2021-12-27 07:47:23 / 修改時間：07:47:53" itemprop="dateCreated datePublished" datetime="2021-12-27T07:47:23+08:00">2021-12-27</time>
+    </span>
+
+  
+      </div>
+      <div class="post-meta">
+    <span class="post-meta-item" title="文章字數">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">文章字數：</span>
+      <span>2.3k</span>
+    </span>
+    <span class="post-meta-item" title="所需閱讀時間">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+      <span>4 分鐘</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="共享記憶體函式"><a href="#共享記憶體函式" class="headerlink" title="共享記憶體函式"></a>共享記憶體函式</h1><h2 id="shmget"><a href="#shmget" class="headerlink" title="shmget"></a>shmget</h2><h3 id="description"><a href="#description" class="headerlink" title="description"></a>description</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;sys/ipc.h&gt;</span><br><span class="line">#include &lt;sys/shm.h&gt;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>得到一个共享内存标识符或创建一个共享内存对象并返回共享内存标识符</li>
+<li><code>int shmget(key_t key, size_t size, int shmflg)</code></li>
+</ul>
+<span id="more"></span>
+<h3 id="函数传入值"><a href="#函数传入值" class="headerlink" title="函数传入值"></a>函数传入值</h3><ul>
+<li>key<ul>
+<li>0(IPC_PRIVATE)：会建立新共享内存对象</li>
+<li>大于0的32位整数：视参数shmflg来确定操作。通常要求此值来源于ftok返回的IPC键值</li>
+</ul>
+</li>
+<li>size<ul>
+<li>大于0的整数：新建的共享内存大小，以字节为单位</li>
+<li>0：只获取共享内存时指定为0</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>shmflg<ul>
+<li>0：取共享内存标识符，若不存在则函数会报错</li>
+<li>IPC_CREAT：当shmflg&amp;IPC_CREAT为真时，如果内核中不存在键值与key相等的共享内存，则新建一个共享内存；如果存在这样的共享内存，返回此共享内存的标识符</li>
+<li>IPC_CREAT|IPC_EXCL：如果内核中不存在键值与key相等的共享内存，则新建一个消息队列；如果存在这样的共享内存则报错<h3 id="函数返回值"><a href="#函数返回值" class="headerlink" title="函数返回值"></a>函数返回值</h3></li>
+</ul>
+</li>
+<li>成功：返回共享内存的标识符<ul>
+<li>shmid_ds結構成員變數的值設定如下:<ul>
+<li>shm_lpid、shm_nattach、shm_atime、shm_dtime設定為0。</li>
+<li>msg_ctime設定為當前時間。</li>
+<li>shm_segsz設成建立共享記憶體的大小。</li>
+<li>shmflg的讀寫許可權放在shm_perm.mode中。</li>
+<li>shm_perm結構的uid和cuid成員被設定成當前程序的有效使用者ID,gid和cuid成員被設定成當前程序的有效組ID。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>出错：-1，错误原因存于error中<ul>
+<li>附加说明<ul>
+<li>上述shmflg参数为模式标志参数，使用时需要与IPC对象存取权限（如0600）进行|运算来确定信号量集的存取权限</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>错误代码<ul>
+<li>EINVAL：参数size小于SHMMIN或大于SHMMAX</li>
+<li>EEXIST：预建立key所指的共享内存，但已经存在</li>
+<li>EIDRM：参数key所指的共享内存已经删除</li>
+<li>ENOSPC：超过了系统允许建立的共享内存的最大值(SHMALL)</li>
+<li>ENOENT：参数key所指的共享内存不存在，而参数shmflg未设IPC_CREAT位</li>
+<li>EACCES：没有权限</li>
+<li>ENOMEM：核心内存不足</li>
+</ul>
+</li>
+</ul>
+<h2 id="shmat函式原型"><a href="#shmat函式原型" class="headerlink" title="shmat函式原型"></a>shmat函式原型</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;sys/types.h&gt;</span><br><span class="line">#include &lt;sys/shm.h&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="函式說明"><a href="#函式說明" class="headerlink" title="函式說明"></a>函式說明</h3><ul>
+<li>連線共享記憶體識別符號為shmid的共享記憶體,連線成功後把共享記憶體區物件對映到呼叫程序的地址空間,隨後可像本地空間一樣訪問</li>
+<li><code>void *shmat(int shmid, const void *shmaddr, int shmflg)</code><h3 id="函式傳入值"><a href="#函式傳入值" class="headerlink" title="函式傳入值"></a>函式傳入值</h3></li>
+</ul>
+<ul>
+<li>msqid<ul>
+<li>共享記憶體識別符號</li>
+</ul>
+</li>
+<li>shmaddr<ul>
+<li>指定共享記憶體出現在程序記憶體地址的什麼位置,直接指定為NULL讓核心自己決定一個合適的地址位置</li>
+</ul>
+</li>
+<li>shmflg<ul>
+<li>SHM_RDONLY:為只讀模式,其他為讀寫模式<h3 id="函式返回值"><a href="#函式返回值" class="headerlink" title="函式返回值"></a>函式返回值</h3></li>
+</ul>
+</li>
+<li>成功:附加好的共享記憶體地址</li>
+<li>出錯:-1,錯誤原因存於error中<ul>
+<li>附加說明<ul>
+<li>fork後子程序繼承已連線的共享記憶體地址。exec後該子程序與已連線的共享記憶體地址自動脫離(detach)。程序結束後,已連線的共享記憶體地址會自動脫離(detach)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>錯誤程式碼</li>
+<li>EACCES:無許可權以指定方式連線共享記憶體</li>
+<li>EINVAL:無效的引數shmid或shmaddr</li>
+<li>ENOMEM:核心記憶體不足</li>
+</ul>
+<h2 id="shmdt函式原型"><a href="#shmdt函式原型" class="headerlink" title="shmdt函式原型"></a>shmdt函式原型</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;sys/types.h&gt;</span><br><span class="line">#include &lt;sys/shm.h&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="函式說明-1"><a href="#函式說明-1" class="headerlink" title="函式說明"></a>函式說明</h3><ul>
+<li>與shmat函式相反,是用來斷開與共享記憶體附加點的地址,禁止本程序訪問此片共享記憶體</li>
+<li><code>int shmdt(const void *shmaddr)</code><h3 id="函式傳入值-1"><a href="#函式傳入值-1" class="headerlink" title="函式傳入值"></a>函式傳入值</h3></li>
+<li>shmaddr:連線的共享記憶體的起始地址<h3 id="函式返回值-1"><a href="#函式返回值-1" class="headerlink" title="函式返回值"></a>函式返回值</h3></li>
+<li>成功:0</li>
+<li>出錯:-1,錯誤原因存於error中<ul>
+<li>附加說明<ul>
+<li>本函式呼叫並不刪除所指定的共享記憶體區,而只是將先前用shmat函式連線(attach)好的共享記憶體脫離(detach)目前的程序</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>錯誤程式碼</li>
+<li>EINVAL:無效的引數shmaddr</li>
+</ul>
+<h2 id="shmctl函式原型"><a href="#shmctl函式原型" class="headerlink" title="shmctl函式原型"></a>shmctl函式原型</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;sys/types.h&gt;</span><br><span class="line">#include &lt;sys/shm.h&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="函式說明-2"><a href="#函式說明-2" class="headerlink" title="函式說明"></a>函式說明</h3><ul>
+<li>完成對共享記憶體的控制</li>
+<li><code>int shmctl(int shmid, int cmd, struct shmid_ds *buf)</code><h3 id="函式傳入值-2"><a href="#函式傳入值-2" class="headerlink" title="函式傳入值"></a>函式傳入值</h3></li>
+<li>msqid<ul>
+<li>共享記憶體識別符號</li>
+</ul>
+</li>
+<li>cmd<ul>
+<li>IPC_STAT:得到共享記憶體的狀態,把共享記憶體的shmid_ds結構複製到buf中</li>
+<li>IPC_SET:改變共享記憶體的狀態,把buf所指的shmid_ds結構中的uid、gid、mode複製到共享記憶體的shmid_ds結構內</li>
+<li>IPC_RMID:刪除這片共享記憶體</li>
+</ul>
+</li>
+<li>buf<ul>
+<li>共享記憶體管理結構體。具體說明參見共享記憶體核心結構定義部分<h3 id="函式返回值-2"><a href="#函式返回值-2" class="headerlink" title="函式返回值"></a>函式返回值</h3></li>
+</ul>
+</li>
+<li>成功:0</li>
+<li>出錯:-1,錯誤原因存於error中</li>
+<li>錯誤程式碼</li>
+<li>EACCESS:引數cmd為IPC_STAT,確無許可權讀取該共享記憶體</li>
+<li>EFAULT:引數buf指向無效的記憶體地址</li>
+<li>EIDRM:識別符號為msqid的共享記憶體已被刪除</li>
+<li>EINVAL:無效的引數cmd或shmid</li>
+<li>EPERM:引數cmd為IPC_SET或IPC_RMID,卻無足夠的許可權執行</li>
+</ul>
+<h2 id="reference"><a href="#reference" class="headerlink" title="reference"></a>reference</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://www.itread01.com/p/150887.html">共享記憶體函式（shmget、shmat、shmdt、shmctl）及其範例 - IT閱讀</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/guoping16/article/details/6584058">共享内存函数（shmget、shmat、shmdt、shmctl）及其范例_guoping16的专栏-CSDN博客_shmdt</a></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/note/" rel="tag"># note</a>
+              <a href="/tags/c-c/" rel="tag"># c/c++</a>
+              <a href="/tags/shmget/" rel="tag"># shmget</a>
+              <a href="/tags/shmat/" rel="tag"># shmat</a>
+              <a href="/tags/shmdt/" rel="tag"># shmdt</a>
+              <a href="/tags/shmctl/" rel="tag"># shmctl</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/12/27/etc-hosts/" rel="prev" title="etc/hosts">
+                  <i class="fa fa-chevron-left"></i> etc/hosts
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Lin Yunwen</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>總字數：</span>
+    <span title="總字數">335k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>所需總閱讀時間 &asymp;</span>
+    <span title="所需總閱讀時間">10:09</span>
+  </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>
