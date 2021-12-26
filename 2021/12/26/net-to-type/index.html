@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/linyunwen_icon/icon_32x32.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/linyunwen_icon/icon_32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/linyunwen_icon/icon_16x16.png">
+  <link rel="mask-icon" href="/images/linyunwen_icon/icon_32x32.png" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css" integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"linyunwen.github.io","root":"/","images":"/images","scheme":"Gemini","version":"8.6.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"disqus","storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"${hits} 找到 ${time} 個結果","hits":"找到 ${hits} 個結果"}}</script><script src="/js/config.js"></script>
+<meta name="description" content="net to typentohs &#x3D; net to host short int 16位htons &#x3D; host to net short int 16位ntohl &#x3D; net to host long int 32位htonl &#x3D; host to net long int 32位">
+<meta property="og:type" content="article">
+<meta property="og:title" content="net to type">
+<meta property="og:url" content="https://linyunwen.github.io/2021/12/26/net-to-type/index.html">
+<meta property="og:site_name" content="Lin Yunwen&#39;s Blog">
+<meta property="og:description" content="net to typentohs &#x3D; net to host short int 16位htons &#x3D; host to net short int 16位ntohl &#x3D; net to host long int 32位htonl &#x3D; host to net long int 32位">
+<meta property="og:locale" content="zh_TW">
+<meta property="article:published_time" content="2021-12-26T02:47:04.000Z">
+<meta property="article:modified_time" content="2021-12-26T02:47:52.351Z">
+<meta property="article:author" content="Lin Yunwen">
+<meta property="article:tag" content="linux">
+<meta property="article:tag" content="c&#x2F;c++">
+<meta property="article:tag" content="ntohl">
+<meta property="article:tag" content="ntohs">
+<meta property="article:tag" content="htonl">
+<meta property="article:tag" content="htons">
+<meta property="article:tag" content="file system">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://linyunwen.github.io/2021/12/26/net-to-type/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-TW","comments":true,"permalink":"https://linyunwen.github.io/2021/12/26/net-to-type/","path":"2021/12/26/net-to-type/","title":"net to type"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>net to type | Lin Yunwen's Blog</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-H43D6184CW"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"G-H43D6184CW","only_pageview":false}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Lin Yunwen's Blog</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">keep moving forward</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>標籤</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#net-to-type"><span class="nav-number">1.</span> <span class="nav-text">net to type</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#introduction"><span class="nav-number">1.1.</span> <span class="nav-text">introduction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ntohs"><span class="nav-number">1.2.</span> <span class="nav-text">ntohs()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#htons"><span class="nav-number">1.3.</span> <span class="nav-text">htons()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#inet-ntoa"><span class="nav-number">1.4.</span> <span class="nav-text">inet_ntoa()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#reference"><span class="nav-number">1.5.</span> <span class="nav-text">reference</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-overview">
+            <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Lin Yunwen"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Lin Yunwen</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">131</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">169</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/LinYunWen" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;LinYunWen" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:l40303k@gmail.com" title="E-Mail → mailto:l40303k@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="回到頂端">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://linyunwen.github.io/2021/12/26/net-to-type/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Lin Yunwen">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Lin Yunwen's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          net to type
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">發表於</span>
+      
+
+      <time title="創建時間：2021-12-26 10:47:04 / 修改時間：10:47:52" itemprop="dateCreated datePublished" datetime="2021-12-26T10:47:04+08:00">2021-12-26</time>
+    </span>
+
+  
+      </div>
+      <div class="post-meta">
+    <span class="post-meta-item" title="文章字數">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">文章字數：</span>
+      <span>1.5k</span>
+    </span>
+    <span class="post-meta-item" title="所需閱讀時間">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+      <span>3 分鐘</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="net-to-type"><a href="#net-to-type" class="headerlink" title="net to type"></a>net to type</h1><p>ntohs = net to host short int 16位<br>htons = host to net short int 16位<br>ntohl = net to host long int 32位<br>htonl = host to net long int 32位</p>
+<span id="more"></span>
+<h2 id="introduction"><a href="#introduction" class="headerlink" title="introduction"></a>introduction</h2><ul>
+<li>網路位元組順序NBO（Network Byte Order）<ul>
+<li>按從高到低的順序儲存，在網路上使用同一的網路位元組順序，可避免相容性問題；</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>主機位元組順序HBO(Host Byte Order)<ul>
+<li>不同的機器HBO不相同，與CPU的設計有關，資料的順序是由CPU決定的，而與作業系統無關；</li>
+<li>如Intel x86結構下，short型數0x1234表示為34 12，int型數0x12345678表示為78 56 34 12；</li>
+<li>如IBM power PC結構下，short型數0x1234表示為 12 34，int型數0x12345678表示為 12 34 56 78.</li>
+</ul>
+</li>
+<li>由於這個原因，不同體系結構的機器之間不能直接通訊，所以要轉換成一種約定的順序，也就是網路位元組順序，其實就是如同power pc那樣的順序。在PC開發中有ntohl和htonl函式可以用來進行網路位元組和主機位元組的轉換</li>
+</ul>
+<h2 id="ntohs"><a href="#ntohs" class="headerlink" title="ntohs()"></a>ntohs()</h2><ul>
+<li>將一個無符號短整形數從網路位元組順序轉換為主機位元組順序。<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;winsock.h&gt;</span><br><span class="line">u_short PASCAL FAR ntohs( u_short netshort);</span><br><span class="line">// netshort：一個以網路位元組順序表達的16位數。</span><br></pre></td></tr></table></figure></li>
+<li>註釋：本函式將一個16位數由網路位元組順序轉換為主機位元組順序。</li>
+<li>返回值：ntohs()返回一個以主機位元組順序表達的數。</li>
+</ul>
+<h2 id="htons"><a href="#htons" class="headerlink" title="htons()"></a>htons()</h2><ul>
+<li>簡述：將主機的無符號短整形數轉換成網路位元組順序。<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;winsock.h&gt;</span><br><span class="line">u_short PASCAL FAR htons( u_short hostshort);</span><br><span class="line">// hostshort：主機位元組順序表達的16位數。</span><br></pre></td></tr></table></figure></li>
+<li>註釋：本函式將一個16位數從主機位元組順序轉換成網路位元組順序。</li>
+<li>返回值：htons()返回一個網路位元組順序的值。</li>
+</ul>
+<ul>
+<li>這2個函式提供了主機位元組順序與網路位元組順序的轉換<ul>
+<li>比如網路位元組 為 00 01</li>
+<li>u_short    a;</li>
+<li>如何直接對應的話    a=0100; 為什麼呢？因為主機是從高位元組到低位元組的，所以應該轉化後a=ntohs(0001); 這樣 a=0001;</li>
+</ul>
+</li>
+</ul>
+<h2 id="inet-ntoa"><a href="#inet-ntoa" class="headerlink" title="inet_ntoa()"></a>inet_ntoa()</h2><ul>
+<li>將網路地址轉換成“.”點隔的字串格式。</li>
+</ul>
+<ul>
+<li><p>#include　&lt;winsock.h&gt;</p>
+</li>
+<li><p><code>char FAR* PASCAL FAR inet_ntoa( struct in_addr in);</code></p>
+<ul>
+<li>in：一個表示Internet主機地址的結構。</li>
+</ul>
+</li>
+<li><p>註釋：</p>
+<ul>
+<li>本函式將一個用in引數所表示的Internet地址結構轉換成以“.” 間隔的諸如“a.b.c.d”的字串形式。請注意inet_ntoa()返回的字串存放在WINDOWS套介面實現所分配的記憶體中。應用程式不應假設該記憶體是如何分配的。在同一個執行緒的下一個WINDOWS套介面呼叫前，資料將保證是有效。</li>
+</ul>
+</li>
+<li><p>返回值：</p>
+<ul>
+<li>若無錯誤發生，inet_ntoa()返回一個字元指標。否則的話，返回NVLL。其中的資料應在下一個WINDOWS套介面呼叫前複製出來。</li>
+</ul>
+<h2 id="reference"><a href="#reference" class="headerlink" title="reference"></a>reference</h2></li>
+</ul>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://jyhshin.pixnet.net/blog/post/26587993">到底 ntohl() 與 htonl() 做了什麼? @ 邱小新の工作筆記 :: 痞客邦 ::</a></li>
+<li><a target="_blank" rel="noopener" href="https://codertw.com/%E7%A8%8B%E5%BC%8F%E8%AA%9E%E8%A8%80/624590/">ntohs, ntohl, htons,htonl的比較和詳解 | 程式前沿</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.itread01.com/content/1544971156.html">socket程式設計為什麼需要htons(), ntohl(), ntohs()，htons() 函式 - IT閱讀</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.itread01.com/content/1549505556.html">ntohs, ntohl, htons,htonl的比較和詳解 - IT閱讀</a></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/linux/" rel="tag"># linux</a>
+              <a href="/tags/c-c/" rel="tag"># c/c++</a>
+              <a href="/tags/ntohl/" rel="tag"># ntohl</a>
+              <a href="/tags/ntohs/" rel="tag"># ntohs</a>
+              <a href="/tags/htonl/" rel="tag"># htonl</a>
+              <a href="/tags/htons/" rel="tag"># htons</a>
+              <a href="/tags/file-system/" rel="tag"># file system</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/12/26/ext-get-ele/" rel="prev" title="Extjs get Element">
+                  <i class="fa fa-chevron-left"></i> Extjs get Element
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Lin Yunwen</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>總字數：</span>
+    <span title="總字數">332k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>所需總閱讀時間 &asymp;</span>
+    <span title="所需總閱讀時間">10:03</span>
+  </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>
