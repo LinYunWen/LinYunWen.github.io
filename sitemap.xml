@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://linyunwen.github.io/2021/12/26/ext-get-ele/</loc>
+    
+    <lastmod>2021-12-26</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://linyunwen.github.io/2021/12/26/c-c-string2cstring/</loc>
     
     <lastmod>2021-12-26</lastmod>
@@ -2035,6 +2042,34 @@
   
   <url>
     <loc>https://linyunwen.github.io/tags/cstring/</loc>
+    <lastmod>2021-12-26</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://linyunwen.github.io/tags/extjs/</loc>
+    <lastmod>2021-12-26</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://linyunwen.github.io/tags/javascript/</loc>
+    <lastmod>2021-12-26</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://linyunwen.github.io/tags/get/</loc>
+    <lastmod>2021-12-26</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://linyunwen.github.io/tags/fly/</loc>
     <lastmod>2021-12-26</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
