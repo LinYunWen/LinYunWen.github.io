@@ -133,14 +133,14 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">131</span>
+          <span class="site-state-item-count">132</span>
           <span class="site-state-item-name">文章</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">169</span>
+        <span class="site-state-item-count">170</span>
         <span class="site-state-item-name">標籤</span></a>
       </div>
   </nav>
@@ -178,6 +178,114 @@
 
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://linyunwen.github.io/2021/11/20/css-selector/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Lin Yunwen">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Lin Yunwen's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2021/11/20/css-selector/" class="post-title-link" itemprop="url">CSS Selector</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">發表於</span>
+      
+
+      <time title="創建時間：2021-11-20 11:29:42 / 修改時間：11:51:20" itemprop="dateCreated datePublished" datetime="2021-11-20T11:29:42+08:00">2021-11-20</time>
+    </span>
+
+  
+      </div>
+      <div class="post-meta">
+    <span class="post-meta-item" title="文章字數">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">文章字數：</span>
+      <span>536</span>
+    </span>
+    <span class="post-meta-item" title="所需閱讀時間">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+      <span>1 分鐘</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="CSS-Selector"><a href="#CSS-Selector" class="headerlink" title="CSS Selector"></a>CSS Selector</h1><h2 id="相連、space、-的差別"><a href="#相連、space、-的差別" class="headerlink" title="相連、space、, 的差別"></a>相連、space、, 的差別</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">.one .two&#123;&#125;    /*兩個 class 中有空格*/</span><br><span class="line">.one.two&#123;&#125;     /*兩個 class 中沒有空格*/</span><br><span class="line">.one, .two&#123;&#125;   /*兩個 class 中出現逗號*/</span><br></pre></td></tr></table></figure>
+<ul>
+<li>第一個的 one 和 two 中間沒有包含空格<ul>
+<li>某個區塊必須同時具有 one 和 two 的 class 時，才能被 CSS 所選擇到。</li>
+</ul>
+</li>
+<li>第二個的 one 和 two 中間包含空格<ul>
+<li>我必須要是在 one 裡面的 two，才會被選擇到。</li>
+<li>反之 .two .one，中間同樣有空格的話，指的是 two 裡面又包含 one</li>
+</ul>
+</li>
+<li>第三個的 one 和 two 中間包含逗號<ul>
+<li> class 中有 one 或 two，都會被編輯器所選擇到。<h2 id="gt"><a href="#gt" class="headerlink" title="&gt;"></a>&gt;</h2></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>目標必須是直系後代，親生子女才可以，也就是說，必須剛好就在下一層，才會獲選。<h2 id=""><a href="#" class="headerlink" title="~"></a>~</h2></li>
+<li>~ 與 + 這兩個符號都是目標都在選取同一個層級的HTML標籤<h2 id="-1"><a href="#-1" class="headerlink" title="+"></a>+</h2></li>
+<li><ul>
+<li>這個符號，也是選取同階層的目標，只是目標更限縮了，不是弟弟妹妹都行，而是排行剛好就在其後的大弟或大妹才擁有套用樣式的資格。</li>
+</ul>
+</li>
+</ul>
+<h2 id="reference"><a href="#reference" class="headerlink" title="reference"></a>reference</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://pjchender.blogspot.com/2015/03/cssmultiple-selectorsspace.html">[技術分享] CSS中的多重選擇器（Multiple Selectors）包含空白或逗號 ~ PJCHENder 那些沒告訴你的小細節</a></li>
+<li><a target="_blank" rel="noopener" href="https://selflearningsuccess.com/css-combinators/">CSS組合選擇器中的符號：5個選擇器符號功用介紹</a></li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -1075,113 +1183,6 @@
 
 
 
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://linyunwen.github.io/2021/10/21/ntpdate/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="Lin Yunwen">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Lin Yunwen's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2021/10/21/ntpdate/" class="post-title-link" itemprop="url">ntpdate</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">發表於</span>
-
-      <time title="創建時間：2021-10-21 21:16:01" itemprop="dateCreated datePublished" datetime="2021-10-21T21:16:01+08:00">2021-10-21</time>
-    </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">更新於</span>
-        <time title="修改時間：2021-11-07 09:26:08" itemprop="dateModified" datetime="2021-11-07T09:26:08+08:00">2021-11-07</time>
-      </span>
-
-  
-      </div>
-      <div class="post-meta">
-    <span class="post-meta-item" title="文章字數">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">文章字數：</span>
-      <span>3k</span>
-    </span>
-    <span class="post-meta-item" title="所需閱讀時間">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
-      <span>5 分鐘</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="ntpdate"><a href="#ntpdate" class="headerlink" title="ntpdate"></a>ntpdate</h1><blockquote>
-<ul>
-<li>NTP 服務（<code>ntpd</code>）本身就有自動校時的功能，若啟用 NTP 服務後，就不可以使用 <code>ntpdate</code> 的方式校時，兩者僅能擇一使用。</li>
-</ul>
-</blockquote>
-<ul>
-<li>以手動更新系統時間</li>
-<li><code>ntpdate time.stdtime.gov.tw</code><br>:::info</li>
-<li>台灣常見 NTP 伺服器<ul>
-<li>  <code>tock.stdtime.gov.tw</code></li>
-<li>  <code>watch.stdtime.gov.tw</code></li>
-<li>  <code>time.stdtime.gov.tw</code></li>
-<li>  <code>clock.stdtime.gov.tw</code></li>
-<li>  <code>tick.stdtime.gov.tw</code><br>:::
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2021/10/21/ntpdate/#more" rel="contents">
-                閱讀全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
   <nav class="pagination">
     <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="上一頁"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/14/">14</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right" aria-label="下一頁"></i></a>
   </nav>
@@ -1207,14 +1208,14 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>總字數：</span>
-    <span title="總字數">332k</span>
+    <span title="總字數">333k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>所需總閱讀時間 &asymp;</span>
-    <span title="所需總閱讀時間">10:03</span>
+    <span title="所需總閱讀時間">10:05</span>
   </span>
 </div>
 
