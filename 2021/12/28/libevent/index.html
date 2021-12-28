@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/linyunwen_icon/icon_32x32.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/linyunwen_icon/icon_32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/linyunwen_icon/icon_16x16.png">
+  <link rel="mask-icon" href="/images/linyunwen_icon/icon_32x32.png" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css" integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"linyunwen.github.io","root":"/","images":"/images","scheme":"Gemini","version":"8.6.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"disqus","storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"${hits} 找到 ${time} 個結果","hits":"找到 ${hits} 個結果"}}</script><script src="/js/config.js"></script>
+<meta name="description" content="libeventintroduction 在課堂上學過 Unix Network Programming 後，我們知道在處理多 User 時會有幾種方法解決： 一個新的 Connection 進來，用 fork() 產生一個 Process 處理。 一個新的 Connection 進來，用 pthread_create() 產生一個 Thread 處理。 一個新的 Connection 進來，丟入">
+<meta property="og:type" content="article">
+<meta property="og:title" content="libevent">
+<meta property="og:url" content="https://linyunwen.github.io/2021/12/28/libevent/index.html">
+<meta property="og:site_name" content="Lin Yunwen&#39;s Blog">
+<meta property="og:description" content="libeventintroduction 在課堂上學過 Unix Network Programming 後，我們知道在處理多 User 時會有幾種方法解決： 一個新的 Connection 進來，用 fork() 產生一個 Process 處理。 一個新的 Connection 進來，用 pthread_create() 產生一個 Thread 處理。 一個新的 Connection 進來，丟入">
+<meta property="og:locale" content="zh_TW">
+<meta property="article:published_time" content="2021-12-28T13:45:18.000Z">
+<meta property="article:modified_time" content="2021-12-28T13:46:26.361Z">
+<meta property="article:author" content="Lin Yunwen">
+<meta property="article:tag" content="note">
+<meta property="article:tag" content="c&#x2F;c++">
+<meta property="article:tag" content="libevent">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://linyunwen.github.io/2021/12/28/libevent/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-TW","comments":true,"permalink":"https://linyunwen.github.io/2021/12/28/libevent/","path":"2021/12/28/libevent/","title":"libevent"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>libevent | Lin Yunwen's Blog</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-H43D6184CW"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"G-H43D6184CW","only_pageview":false}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Lin Yunwen's Blog</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">keep moving forward</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>標籤</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#libevent"><span class="nav-number">1.</span> <span class="nav-text">libevent</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#introduction"><span class="nav-number">1.1.</span> <span class="nav-text">introduction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#feature"><span class="nav-number">1.2.</span> <span class="nav-text">feature</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#usage"><span class="nav-number">1.3.</span> <span class="nav-text">usage</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#reference"><span class="nav-number">1.4.</span> <span class="nav-text">reference</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-overview">
+            <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Lin Yunwen"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Lin Yunwen</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">134</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">175</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/LinYunWen" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;LinYunWen" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:l40303k@gmail.com" title="E-Mail → mailto:l40303k@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="回到頂端">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://linyunwen.github.io/2021/12/28/libevent/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Lin Yunwen">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Lin Yunwen's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          libevent
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">發表於</span>
+      
+
+      <time title="創建時間：2021-12-28 21:45:18 / 修改時間：21:46:26" itemprop="dateCreated datePublished" datetime="2021-12-28T21:45:18+08:00">2021-12-28</time>
+    </span>
+
+  
+      </div>
+      <div class="post-meta">
+    <span class="post-meta-item" title="文章字數">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">文章字數：</span>
+      <span>4.1k</span>
+    </span>
+    <span class="post-meta-item" title="所需閱讀時間">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+      <span>7 分鐘</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="libevent"><a href="#libevent" class="headerlink" title="libevent"></a>libevent</h1><h2 id="introduction"><a href="#introduction" class="headerlink" title="introduction"></a>introduction</h2><ul>
+<li>在課堂上學過 Unix Network Programming 後，我們知道在處理多 User 時會有幾種方法解決：<ul>
+<li>一個新的 Connection 進來，用 fork() 產生一個 Process 處理。</li>
+<li>一個新的 Connection 進來，用 pthread_create() 產生一個 Thread 處理。</li>
+<li>一個新的 Connection 進來，丟入 Event-based Array，由 Main Process 以 Nonblocking 的方式處理所有的 I/O。<span id="more"></span></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>這三種方法當然也都有各自的缺點：<ul>
+<li>用 fork() 的問題在於每一個 Connection 進來時的成本太高。</li>
+<li>用 Multi-thread 的問題在於 Thread-safe 與 Deadlock 問題難以解決，另外有 Memory-leak 的問題要處理。</li>
+<li>用 Event-based 的方式在於實做上不好寫，尤其是要注意到事件產生時必須 Nonblocking，於是會需要實做 Buffering 的問題，而 Multi-thread 所會遇到的 Memory-leak 問題在這邊會更嚴重。而在多 CPU 的系統上沒有辦法使用到所有的 CPU resource。</li>
+</ul>
+</li>
+<li>當然，針對前面兩項有各自的解法：<ul>
+<li>以 Poll 的方式解決：當一個 Process 處理完一個 Connection 後，不直接死掉，而繼續回到 accept() 的狀態繼續處理，但這樣會遇到 Memory-leak 的問題，於是採用這種方式的人通常會再加上「處理過 N 個 Connection 後死掉，由 Parent Process 再 fork() 一隻新的」。最有名的例子是 Apache 1.3。</li>
+<li>Thread-safe 的問題可以透過自己撰寫，或是尋找其他 Thread-safe Library 直接使用。Memory-leak 的問題可以試著透過 Garbage Collection Library 分析出來。Apache 2.0 的 Thread MPM 就是使用這個模式。</li>
+</ul>
+</li>
+<li>目前高效率的 Server 都偏好採用 Event-based，一方面是沒有 Create Process/Thread 所造成的 Overhead，另外一方面是不需要透過 Shared Memory 或是 Mutex 在不同的 Process/Thread 之間交換資料。<ul>
+<li>然而，Event-based 在實做上的幾個複雜的地方在於：<ul>
+<li>select() 與 poll() 的效率過慢，造成每次要判斷「有哪些 Event 發生」這件事情的成本很高，這在 BSD 支援 kqueue()、Linux 支援 epoll()、Solaris 支援 /dev/poll 後就解決了，但這兩組 Function 都不是 Standard，於是在不同的平台上就必須再改一次。</li>
+<li>因為 Nonblocking，所以在 write() 或是 send() 時滿了需要自己 Buffering。</li>
+<li>因為 Nonblocking，所以不能使用 fgets() 或是其他類似的 function，於是需要自己刻一個 Nonblocking 的 fgets()。但是使用者所丟過來的資料又不能保證在一次 read() 或 recv() 就有一行，於是要自己做 Buffering。</li>
+<li>實際上這三件事情在 libevent 都有 Library 處理掉了。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="feature"><a href="#feature" class="headerlink" title="feature"></a>feature</h2><ul>
+<li>事件驱动，高性能；<ul>
+<li>libevent預設情況下是單執行緒，每個執行緒有且僅有一個event_base，這對應一個struct event_base結構體（以及附於其上的事件管理器），用來schedule託管給它的一系列event，可以和作業系統的程序管理類</li>
+<li>當一個事件發生後，event_base會在合適的時間（不一定是立即）去呼叫繫結在這個事件上的函式（傳入一些預定義的引數，以及在繫結時指定的一個引數），直到這個函式執行完，再返回schedule其他事件。</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>轻量级，专注于网络；</li>
+<li>跨平台，支持 Windows、Linux、Mac Os等；</li>
+<li>支持多种 I/O多路复用技术， epoll、poll、dev/poll、select 和kqueue 等；</li>
+<li>支持 I/O，定时器和信号等事件；<ul>
+<li>定時器的資料結構使用最小堆（Min Heap），以提高效率。</li>
+<li>網路IO和訊號的資料結構採用了雙向連結串列(TAILQ)。</li>
+<li>在實現上主要有3種連結串列:EVLIST_INSERTED, EVLIST_ACTIVE, EVLIST_TIMEOUT，一個ev在這3種連結串列之間被插入或刪除，處於EVLIST_ACTIVE連結串列中的ev最後將會被排程執行。</li>
+</ul>
+</li>
+</ul>
+<p>-　Libevent是基于 Reactor 模式的网络库，在 Reactor 模式中，通常都有一个事件循环(Event Loop)，在 Libevent 中，这个事件循环就是event_base结构体：<br>-　默认情况下，当一个事件变得活跃时，Libevent 会执行这个事件的回调函数，但同时也会将这个事件从事件循环中移除</p>
+<h2 id="usage"><a href="#usage" class="headerlink" title="usage"></a>usage</h2><ul>
+<li><p>首先建立一個event_base物件</p>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">struct event_base *event_base_new(void);           // 创建事件循环</span><br><span class="line">void event_base_free(struct event_base *base);     // 销毁事件循环</span><br><span class="line">int event_base_dispatch(struct event_base *base);  // 运行事件循环</span><br><span class="line"></span><br><span class="line">//建立一個event_base</span><br><span class="line">struct event_base *base = event_base_new();</span><br><span class="line">assert(base != NULL);</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>struct event_base *base = event_base_new()用以建立一個事件處理的全域性變數，可以理解為這是一個負責集中處理各種出入IO事件的總管家，它負責接收和派發所有輸入輸出IO事件的資訊，這裡呼叫的是函式event_base_new(), 很多程式裡這裡用的是event_init()，區別就是前者是執行緒安全的、而後者是非執行緒安全的，後者在其官方說明中已經被標誌為過時的函式、且建議用前者代替，libevent中還有很多類似的函式，比如建議用event_base_dispatch代替event_dispatch，用event_assign代替event_set和event_base_set等，關於libevent介面的詳細說明見其官方說明libevent_doc。</p>
+</li>
+<li><p>event_base內部有一個迴圈，迴圈阻塞在epoll/kqueue等系統呼叫上，直到有一個或者一些事件發生，然後去處理這些事件。當然，這些事件要被繫結在這個event_base上。每個事件對應一個struct event，可以是監聽一個fd或者POSIX訊號量之類。struct event使用event_new來建立和繫結，使用event_add來啟用：</p>
+</li>
+</ul>
+</li>
+<li><p>建立一個event物件，並且將其監聽的socket託管給event_base,指定要監聽的事件型別，並綁上相應的回撥函式</p>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">struct event *event_new(struct event_base *base, // 事件循环</span><br><span class="line">                        evutil_socket_t fd,      // 文件描述符</span><br><span class="line">                        short what,              // 事件类型</span><br><span class="line">                        event_callback_fn cb,    // 回调函数</span><br><span class="line">                        void *arg);              // 传递给回调函数的参数</span><br><span class="line"></span><br><span class="line">//建立並繫結一個event</span><br><span class="line">struct event *listen_event;</span><br><span class="line">//引數：event_base, 監聽的fd，事件型別及屬性，繫結的回撥函式，給回撥函式的引數</span><br><span class="line">listen_event = event_new(base, listener, EV_READ|EV_PERSIST, callback_func, (void*)base);</span><br></pre></td></tr></table></figure>
+<ul>
+<li>將該socket託管給event_base，指定要監聽的事件型別，並繫結上相應的回撥函式(及需要給它的引數)。對於listener socket來說，只需要監聽EV_READ|EV_PERSIST<ul>
+<li>(a) EV_TIMEOUT: 超時</li>
+<li>(b) EV_READ: 只要網路緩衝中還有資料，回撥函式就會被觸發</li>
+<li>(c) EV_WRITE: 只要塞給網路緩衝的資料被寫完，回撥函式就會被觸發</li>
+<li>(d) EV_SIGNAL: POSIX訊號量，參考manual吧</li>
+<li>(e) EV_PERSIST: 不指定這個屬性的話，回撥函式被觸發後事件會被刪除</li>
+<li>(f) EV_ET: Edge-Trigger邊緣觸發，參考EPOLL_ET</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>通過event_add方法啟動監聽事件</p>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">int event_add(struct event *ev,             // 事件</span><br><span class="line">              const struct timeval *tv);    // 超时时间</span><br><span class="line"></span><br><span class="line">//引數：event，超時時間(struct timeval *型別的，NULL表示無超時設定)</span><br><span class="line">event_add(listen_event, NULL);</span><br></pre></td></tr></table></figure></li>
+<li><p>進入事件迴圈</p>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">//啟動事件迴圈</span><br><span class="line">event_base_dispatch(base);</span><br></pre></td></tr></table></figure>
+<ul>
+<li>需要啟動event_base的迴圈，這樣才能開始處理髮生的事件。迴圈的啟動使用event_base_dispatch，迴圈將一直持續，直到不再有需要關注的事件，或者是遇到event_loopbreak()/event_loopexit()函式。</li>
+</ul>
+</li>
+</ul>
+<h2 id="reference"><a href="#reference" class="headerlink" title="reference"></a>reference</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://aceld.gitbooks.io/libevent/content/">Libevent深入浅出 · libevent深入浅出</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.gslin.info/2005/11/network-programming-using-libevent-i.html">Gea-Suan Lin’s BLOG for ACG &amp; Others…: Network Programming Using Libevent - (I)</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.gslin.info/2005/11/network-programming-using-libevent-ii.html">Gea-Suan Lin’s BLOG for ACG &amp; Others…: Network Programming Using Libevent - (II)</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.gslin.info/2005/11/network-programming-using-libevent-iii.html">Gea-Suan Lin’s BLOG for ACG &amp; Others…: Network Programming Using Libevent - (III)</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.itread01.com/content/1546368317.html">linux下libevent的安裝和使用例子：資料回顯 - IT閱讀</a></li>
+<li><a target="_blank" rel="noopener" href="http://www.wangafu.net/~nickm/libevent-2.1/doxygen/html/">libevent: Main Page</a></li>
+<li><a target="_blank" rel="noopener" href="https://libevent.org/">libevent</a></li>
+<li><a target="_blank" rel="noopener" href="http://senlinzhan.github.io/2017/08/12/libevent/">Libevent 编程指南 | Senlin’s Blog</a></li>
+<li><a target="_blank" rel="noopener" href="https://codertw.com/%E7%A8%8B%E5%BC%8F%E8%AA%9E%E8%A8%80/88763/">Libevent學習——Echo Server based on libevent | 程式前沿</a></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/note/" rel="tag"># note</a>
+              <a href="/tags/c-c/" rel="tag"># c/c++</a>
+              <a href="/tags/libevent/" rel="tag"># libevent</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/12/27/c-c-share-memory/" rel="prev" title="共享記憶體函式">
+                  <i class="fa fa-chevron-left"></i> 共享記憶體函式
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Lin Yunwen</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>總字數：</span>
+    <span title="總字數">339k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>所需總閱讀時間 &asymp;</span>
+    <span title="所需總閱讀時間">10:16</span>
+  </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>
