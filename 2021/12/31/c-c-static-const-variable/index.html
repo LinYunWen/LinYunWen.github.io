@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/linyunwen_icon/icon_32x32.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/linyunwen_icon/icon_32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/linyunwen_icon/icon_16x16.png">
+  <link rel="mask-icon" href="/images/linyunwen_icon/icon_32x32.png" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css" integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"linyunwen.github.io","root":"/","images":"/images","scheme":"Gemini","version":"8.6.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"disqus","storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"${hits} 找到 ${time} 個結果","hits":"找到 ${hits} 個結果"}}</script><script src="/js/config.js"></script>
+<meta name="description" content="static, const variable A lot of people gave the basic answer but nobody pointed out that in C++ const defaults to static at namespace level (and some gave wrong information). See the C++98 standard se">
+<meta property="og:type" content="article">
+<meta property="og:title" content="static, const variable">
+<meta property="og:url" content="https://linyunwen.github.io/2021/12/31/c-c-static-const-variable/index.html">
+<meta property="og:site_name" content="Lin Yunwen&#39;s Blog">
+<meta property="og:description" content="static, const variable A lot of people gave the basic answer but nobody pointed out that in C++ const defaults to static at namespace level (and some gave wrong information). See the C++98 standard se">
+<meta property="og:locale" content="zh_TW">
+<meta property="article:published_time" content="2021-12-31T02:15:17.000Z">
+<meta property="article:modified_time" content="2021-12-31T02:15:43.027Z">
+<meta property="article:author" content="Lin Yunwen">
+<meta property="article:tag" content="note">
+<meta property="article:tag" content="c&#x2F;c++">
+<meta property="article:tag" content="book section">
+<meta property="article:tag" content="static">
+<meta property="article:tag" content="const">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://linyunwen.github.io/2021/12/31/c-c-static-const-variable/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-TW","comments":true,"permalink":"https://linyunwen.github.io/2021/12/31/c-c-static-const-variable/","path":"2021/12/31/c-c-static-const-variable/","title":"static, const variable"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>static, const variable | Lin Yunwen's Blog</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-H43D6184CW"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"G-H43D6184CW","only_pageview":false}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Lin Yunwen's Blog</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">keep moving forward</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>標籤</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#static-const-variable"><span class="nav-number">1.</span> <span class="nav-text">static, const variable</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#introduction"><span class="nav-number">1.1.</span> <span class="nav-text">introduction</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Static"><span class="nav-number">1.1.1.</span> <span class="nav-text">Static</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Const"><span class="nav-number">1.1.2.</span> <span class="nav-text">Const</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#static-const"><span class="nav-number">1.1.3.</span> <span class="nav-text">static const</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#in-deiffernt-level"><span class="nav-number">1.2.</span> <span class="nav-text">in deiffernt level</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#At-namespace-level"><span class="nav-number">1.2.1.</span> <span class="nav-text">At namespace level</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#At-function-level"><span class="nav-number">1.2.2.</span> <span class="nav-text">At function level</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#At-class-level"><span class="nav-number">1.2.3.</span> <span class="nav-text">At class level</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#in-header-file"><span class="nav-number">1.3.</span> <span class="nav-text">in header file</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#example"><span class="nav-number">1.4.</span> <span class="nav-text">example</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#in-header-file-1"><span class="nav-number">1.4.1.</span> <span class="nav-text">in header file</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#in-class"><span class="nav-number">1.4.2.</span> <span class="nav-text">in class</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#reference"><span class="nav-number">1.5.</span> <span class="nav-text">reference</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-overview">
+            <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Lin Yunwen"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Lin Yunwen</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">137</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">179</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/LinYunWen" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;LinYunWen" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:l40303k@gmail.com" title="E-Mail → mailto:l40303k@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="回到頂端">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://linyunwen.github.io/2021/12/31/c-c-static-const-variable/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Lin Yunwen">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Lin Yunwen's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          static, const variable
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">發表於</span>
+      
+
+      <time title="創建時間：2021-12-31 10:15:17 / 修改時間：10:15:43" itemprop="dateCreated datePublished" datetime="2021-12-31T10:15:17+08:00">2021-12-31</time>
+    </span>
+
+  
+      </div>
+      <div class="post-meta">
+    <span class="post-meta-item" title="文章字數">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">文章字數：</span>
+      <span>4.4k</span>
+    </span>
+    <span class="post-meta-item" title="所需閱讀時間">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+      <span>8 分鐘</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="static-const-variable"><a href="#static-const-variable" class="headerlink" title="static, const variable"></a>static, const variable</h1><ul>
+<li>A lot of people gave the basic answer but nobody pointed out that in C++ const defaults to static at namespace level (and some gave wrong information). See the C++98 standard section 3.5.3.<span id="more"></span>
+<ul>
+<li>First some background:<ul>
+<li>Translation unit: A source file after the pre-processor (recursively) included all its include files.</li>
+<li>Static linkage: A symbol is only available within its translation unit.</li>
+<li>External linkage: A symbol is available from other translation units.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="introduction"><a href="#introduction" class="headerlink" title="introduction"></a>introduction</h2><h3 id="Static"><a href="#Static" class="headerlink" title="Static"></a>Static</h3><ul>
+<li>determines the lifetime and visibility/accessibility of the variable.</li>
+<li>it will remain in the memory the whole time when the program is running, while the normal or auto variables are destroyed when the function (where the variable was defined) is over.<h3 id="Const"><a href="#Const" class="headerlink" title="Const"></a>Const</h3></li>
+<li>is a type qualifier. </li>
+<li>it will not accept further change in its value.<h3 id="static-const"><a href="#static-const" class="headerlink" title="static const"></a>static const</h3></li>
+<li>“static const” is basically a combination of static(a storage specifier) and const(a type qualifier).</li>
+<li>So combining static and const, we can say that when a variable is initialized using static const, it will retain its value till the execution of the program and also, it will not accept any change in its value.</li>
+</ul>
+<h2 id="in-deiffernt-level"><a href="#in-deiffernt-level" class="headerlink" title="in deiffernt level"></a>in deiffernt level</h2><h3 id="At-namespace-level"><a href="#At-namespace-level" class="headerlink" title="At namespace level"></a>At namespace level</h3><ul>
+<li>This includes the global namespace aka global variables.<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">static const int sci = 0; // sci is explicitly static</span><br><span class="line">const int ci = 1;         // ci is implicitly static</span><br><span class="line">extern const int eci = 2; // eci is explicitly extern</span><br><span class="line">extern int ei = 3;        // ei is explicitly extern</span><br><span class="line">int i = 4;                // i is implicitly extern</span><br><span class="line">static int si = 5;        // si is explicitly static</span><br></pre></td></tr></table></figure>
+<h3 id="At-function-level"><a href="#At-function-level" class="headerlink" title="At function level"></a>At function level</h3></li>
+<li>static means the value is maintained between function calls.</li>
+<li>The semantics of function static variables is similar to global variables in that they reside in the program’s data-segment (and not the stack or the heap), see this question for more details about static variables’ lifetime.</li>
+</ul>
+<h3 id="At-class-level"><a href="#At-class-level" class="headerlink" title="At class level"></a>At class level</h3><ul>
+<li>static means the value is shared between all instances of the class and const means it doesn’t change.</li>
+</ul>
+<h2 id="in-header-file"><a href="#in-header-file" class="headerlink" title="in header file"></a>in header file</h2><blockquote>
+<ul>
+<li>When static variable is declared in a header file is its scope limited to .h file or across all units.</li>
+</ul>
+</blockquote>
+<ul>
+<li>There is no such thing as a “header file scope”. The header file gets <em>included</em> into source files.</li>
+<li>The translation unit is the source file <em>including</em> the text from the header files.</li>
+<li>Whatever you write in a header file gets <strong><em>copied</em></strong> into each including source file.</li>
+<li>As such, a static variable declared in a header file is like a static variable in each individual source file.</li>
+<li>Since declaring a variable <code>static</code> this way means internal linkage, every translation unit <code>#include</code>ing your header file gets its <strong>own</strong>, <strong>individual</strong> variable (which is not visible outside your translation unit).<blockquote>
+<p>I would like to know what is the difference between static variables in a header file vs declared in a class.</p>
+</blockquote>
+</li>
+<li>In a class declaration, <code>static</code> means that all instances of the class <em>share</em> this member variable; i.e., you might have hundreds of objects of this type, but whenever one of these objects refers to the <code>static</code> (or “class”) variable, it’s the same value for all objects. You could think of it as a “class global”.<blockquote>
+<p>Also generally static variable is initialized in .cpp file when declared in a class right ?</p>
+</blockquote>
+</li>
+<li>Yes, <em>one</em> (and only <em>one</em>) translation unit must initialize the class variable.<blockquote>
+<p>So that does mean static variable scope is limited to 2 compilation units ?</p>
+</blockquote>
+</li>
+<li>  A header is not a compilation unit,</li>
+<li>  <code>static</code> means completely different things depending on context.</li>
+<li>Global <code>static</code> limits scope to the translation unit. Class <code>static</code> means global to all instances.</li>
+</ul>
+<p><strong>PS:</strong> Check the last paragraph of Chubsdad’s answer, about how you shouldn’t use <code>static</code> in C++ for indicating internal linkage, but anonymous namespaces. (Because he’s right. ;-) )</p>
+<h2 id="example"><a href="#example" class="headerlink" title="example"></a>example</h2><h3 id="in-header-file-1"><a href="#in-header-file-1" class="headerlink" title="in header file"></a>in header file</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// &#x27;common.h&#x27;</span></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">int</span> zzz;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>This variable <code>&#39;zzz&#39;</code> has internal linkage (This same variable can not be accessed in other translation units). Each translation unit which includes <code>&#39;common.h&#39;</code> has it’s own unique object of name <code>&#39;zzz&#39;</code>.</li>
+</ul>
+<h3 id="in-class"><a href="#in-class" class="headerlink" title="in class"></a>in class</h3><ul>
+<li>Static variable in a class is not a part of the subobject of the class. There is only one copy of a static data member shared by all the objects of the class.<blockquote>
+<p>$9.4.2/6 - “Static data members of a class in namespace scope have external linkage (3.5).A local class shall not have static data members.”</p>
+</blockquote>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// &#x27;myclass.h</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">myclass</span>&#123;</span></span><br><span class="line">   <span class="keyword">static</span> <span class="keyword">int</span> zzz;        <span class="comment">// this is only a declaration</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// myclass.cpp</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;myclass.h&quot;</span></span></span><br><span class="line"><span class="keyword">int</span> myclass::zzz = <span class="number">0</span>           <span class="comment">// this is a definition, </span></span><br><span class="line">                               <span class="comment">// should be done once and only once</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// hisclass.cpp</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;myclass.h&quot;</span></span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">f</span><span class="params">()</span></span>&#123;myclass::zzz = <span class="number">2</span>;&#125;    <span class="comment">// myclass::zzz is always the same in any </span></span><br><span class="line">                               <span class="comment">// translation unit</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ourclass.cpp</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;myclass.h&quot;</span></span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">g</span><span class="params">()</span></span>&#123;myclass::zzz = <span class="number">2</span>;&#125;    <span class="comment">// myclass::zzz is always the same in any </span></span><br><span class="line">                               <span class="comment">// translation unit</span></span><br></pre></td></tr></table></figure></li>
+<li>So, class static members are not limited to only 2 translation units. They need to be defined only once in any one of the translation units.<blockquote>
+<p>Note: usage of ‘static’ to declare file scope variable is deprecated and unnamed namespace is a superior alternate</p>
+</blockquote>
+</li>
+</ul>
+<h2 id="reference"><a href="#reference" class="headerlink" title="reference"></a>reference</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/3698043/static-variables-in-c/3698179#3698179">Static variables in C++ - Stack Overflow</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.geeksforgeeks.org/static-const-vs-define-vs-enum/">“static const” vs “#define” vs “enum” - GeeksforGeeks</a></li>
+<li><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/177437/what-does-const-static-mean-in-c-and-c/53883715">What does ‘const static’ mean in C and C++? - Stack Overflow</a></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/note/" rel="tag"># note</a>
+              <a href="/tags/c-c/" rel="tag"># c/c++</a>
+              <a href="/tags/book-section/" rel="tag"># book section</a>
+              <a href="/tags/static/" rel="tag"># static</a>
+              <a href="/tags/const/" rel="tag"># const</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/12/31/c-c-map/" rel="prev" title="c/c++-map">
+                  <i class="fa fa-chevron-left"></i> c/c++-map
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Lin Yunwen</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>總字數：</span>
+    <span title="總字數">346k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>所需總閱讀時間 &asymp;</span>
+    <span title="所需總閱讀時間">10:29</span>
+  </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>
