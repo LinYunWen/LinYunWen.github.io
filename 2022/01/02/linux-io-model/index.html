@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/linyunwen_icon/icon_32x32.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/linyunwen_icon/icon_32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/linyunwen_icon/icon_16x16.png">
+  <link rel="mask-icon" href="/images/linyunwen_icon/icon_32x32.png" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css" integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"linyunwen.github.io","root":"/","images":"/images","scheme":"Gemini","version":"8.6.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"disqus","storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"${hits} 找到 ${time} 個結果","hits":"找到 ${hits} 個結果"}}</script><script src="/js/config.js"></script>
+<meta name="description" content="IO modelintroductionKernal Space, User Space 作業系統的核心是核心，獨立於普通的應用程式，可以訪問受保護的記憶體空間，也有訪問底層硬體裝置的所有許可權。為了保證使用者程式不能直接操作核心（kernel），保證核心的安全 CPU 執行程式時，會在 user space 與 kernel space 之間來回切換，user space 的系統函式庫，會轉換為">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux IO model">
+<meta property="og:url" content="https://linyunwen.github.io/2022/01/02/linux-io-model/index.html">
+<meta property="og:site_name" content="Lin Yunwen&#39;s Blog">
+<meta property="og:description" content="IO modelintroductionKernal Space, User Space 作業系統的核心是核心，獨立於普通的應用程式，可以訪問受保護的記憶體空間，也有訪問底層硬體裝置的所有許可權。為了保證使用者程式不能直接操作核心（kernel），保證核心的安全 CPU 執行程式時，會在 user space 與 kernel space 之間來回切換，user space 的系統函式庫，會轉換為">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://3.bp.blogspot.com/-d2Lp3_9RFcY/XTRbOwed2SI/AAAAAAAABGM/_joXdGIUuTYuKIX-mWkJDzM-1vVSiInBwCLcBGAs/s400/LinuxIO_1_blocking.png">
+<meta property="og:image" content="https://3.bp.blogspot.com/-7cEbiG7qhgE/XTRbO_mMQ6I/AAAAAAAABGI/HdJ8K_w-5PU5zavnpJN6433DN6cwTF5ewCPcBGAYYCw/s400/LinuxIO_2_nonblicking.png">
+<meta property="og:image" content="https://1.bp.blogspot.com/--WxtFM20bnU/XTRbOwCvMLI/AAAAAAAABGQ/IM_7wIXFKiAJqRAOwTMPNZS0edRFCKzPwCPcBGAYYCw/s400/LinuxIO_3_io_multiplexing.png">
+<meta property="og:image" content="https://4.bp.blogspot.com/-dGQrUvm0vZY/XTRbPgq5sUI/AAAAAAAABGo/TDtJRra7XsEV53QX4H9hFe165t-Ff4-EQCPcBGAYYCw/s400/LinuxIO_4_signal_driven.png">
+<meta property="og:image" content="https://1.bp.blogspot.com/-8lFJu3825Gk/XTRbP0lg39I/AAAAAAAABGo/Ht--7Qj1C9U0875aUIiW6PjeZ7b5vcxPACPcBGAYYCw/s400/LinuxIO_5_asynchronous.png">
+<meta property="og:image" content="https://2.bp.blogspot.com/-OS9b91VNQgk/XTRbQP8XGBI/AAAAAAAABGs/Yw7YzwAUWBkbRwBYzZpfboDsXDwNwQIFwCPcBGAYYCw/s400/LinuxIO_6_IOModels.png">
+<meta property="article:published_time" content="2022-01-02T10:18:46.000Z">
+<meta property="article:modified_time" content="2022-01-02T10:19:48.653Z">
+<meta property="article:author" content="Lin Yunwen">
+<meta property="article:tag" content="linux">
+<meta property="article:tag" content="c&#x2F;c++">
+<meta property="article:tag" content="book section">
+<meta property="article:tag" content="io model">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://3.bp.blogspot.com/-d2Lp3_9RFcY/XTRbOwed2SI/AAAAAAAABGM/_joXdGIUuTYuKIX-mWkJDzM-1vVSiInBwCLcBGAs/s400/LinuxIO_1_blocking.png">
+
+
+<link rel="canonical" href="https://linyunwen.github.io/2022/01/02/linux-io-model/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-TW","comments":true,"permalink":"https://linyunwen.github.io/2022/01/02/linux-io-model/","path":"2022/01/02/linux-io-model/","title":"Linux IO model"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Linux IO model | Lin Yunwen's Blog</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-H43D6184CW"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"G-H43D6184CW","only_pageview":false}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Lin Yunwen's Blog</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">keep moving forward</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>標籤</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#IO-model"><span class="nav-number">1.</span> <span class="nav-text">IO model</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#introduction"><span class="nav-number">1.1.</span> <span class="nav-text">introduction</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Kernal-Space-User-Space"><span class="nav-number">1.1.1.</span> <span class="nav-text">Kernal Space, User Space</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Buffered-I-O"><span class="nav-number">1.1.2.</span> <span class="nav-text">Buffered I&#x2F;O</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#IO-model-1"><span class="nav-number">1.2.</span> <span class="nav-text">IO model</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#blocking-IO"><span class="nav-number">1.2.1.</span> <span class="nav-text">blocking IO</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#nonblocking-IO"><span class="nav-number">1.2.2.</span> <span class="nav-text">nonblocking IO</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#IO-multiplexing"><span class="nav-number">1.2.3.</span> <span class="nav-text">IO multiplexing</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#signal-driven"><span class="nav-number">1.2.4.</span> <span class="nav-text">signal driven</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#asynchronous"><span class="nav-number">1.2.5.</span> <span class="nav-text">asynchronous</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Comparison"><span class="nav-number">1.2.6.</span> <span class="nav-text">Comparison</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#reference"><span class="nav-number">1.3.</span> <span class="nav-text">reference</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-overview">
+            <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Lin Yunwen"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Lin Yunwen</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">140</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">182</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/LinYunWen" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;LinYunWen" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:l40303k@gmail.com" title="E-Mail → mailto:l40303k@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="回到頂端">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://linyunwen.github.io/2022/01/02/linux-io-model/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Lin Yunwen">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Lin Yunwen's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Linux IO model
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">發表於</span>
+      
+
+      <time title="創建時間：2022-01-02 18:18:46 / 修改時間：18:19:48" itemprop="dateCreated datePublished" datetime="2022-01-02T18:18:46+08:00">2022-01-02</time>
+    </span>
+
+  
+      </div>
+      <div class="post-meta">
+    <span class="post-meta-item" title="文章字數">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">文章字數：</span>
+      <span>2.3k</span>
+    </span>
+    <span class="post-meta-item" title="所需閱讀時間">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+      <span>4 分鐘</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="IO-model"><a href="#IO-model" class="headerlink" title="IO model"></a>IO model</h1><h2 id="introduction"><a href="#introduction" class="headerlink" title="introduction"></a>introduction</h2><h3 id="Kernal-Space-User-Space"><a href="#Kernal-Space-User-Space" class="headerlink" title="Kernal Space, User Space"></a>Kernal Space, User Space</h3><ul>
+<li>作業系統的核心是核心，獨立於普通的應用程式，可以訪問受保護的記憶體空間，也有訪問底層硬體裝置的所有許可權。為了保證使用者程式不能直接操作核心（kernel），保證核心的安全</li>
+<li>CPU 執行程式時，會在 user space 與 kernel space 之間來回切換，user space 的系統函式庫，會轉換為 kernel space 的 system call，並由 kernel 處理，當 system call 完成後，就會回到 user space 繼續下去。</li>
+<li>32 bits 的 OS，定址空間是 2^32 也就是 4G。kernel space 限制為 1G (虛擬地址0xC0000000到0xFFFFFFFF)，而 user space 為 3G (虛擬地址0x00000000到0xBFFFFFFF)，由各 process 使用。</li>
+<li>64 bits 的 OS，會將 virtual address 分成一半，第一個 bit 為 0 是 user space，第一個 bit 為 1 是 kernel space，理論上是 8EB+8EB。但目前 processors 只實作了 <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/X86-64#Canonical_form_addresses">48 bits</a>，也就是 128TB+128TB。<span id="more"></span>
+<h3 id="Buffered-I-O"><a href="#Buffered-I-O" class="headerlink" title="Buffered I/O"></a>Buffered I/O</h3></li>
+<li>大多數文件系統的默認I/O 操作都是 Buffered I/O，在 Linux 會將 IO 資料先暫存在 page cache 中，也就是先複製到 kernel 的 buffer，然後再由 kernel buffer 複製到 user space。</li>
+<li>Buffered I/O 分離了 user space 及實際的儲存設備，可以減少 HD 的讀取次數，提高系統效能。</li>
+<li>但也因為多次複製，可能會造成 CPU 及 cache buffer 的消耗，有些特殊的應用，會避開 kernel cache buffer，而直接由 user space 儲存到 HD，以獲取更高的效能。<h2 id="IO-model-1"><a href="#IO-model-1" class="headerlink" title="IO model"></a>IO model</h2></li>
+<li>因為資料會先複製到 kernel buffer 裡面，然後再複製到 user space，當對一個資料進行 read，會經歷兩個階段：<ol>
+<li> waiting for data to be ready</li>
+<li> copying the data from the kernel to the process</li>
+</ol>
+</li>
+<li>因為兩階段的 IO，linux 產生了五種 IO model<ol>
+<li> blocking IO</li>
+<li> nonblocking IO</li>
+<li> IO multiplexing</li>
+<li> signal driven IO (不常用)</li>
+<li> asynchronous IO</li>
+</ol>
+</li>
+</ul>
+<h3 id="blocking-IO"><a href="#blocking-IO" class="headerlink" title="blocking IO"></a>blocking IO</h3><p><a target="_blank" rel="noopener" href="https://3.bp.blogspot.com/-d2Lp3_9RFcY/XTRbOwed2SI/AAAAAAAABGM/_joXdGIUuTYuKIX-mWkJDzM-1vVSiInBwCLcBGAs/s1600/LinuxIO_1_blocking.png"><img src="https://3.bp.blogspot.com/-d2Lp3_9RFcY/XTRbOwed2SI/AAAAAAAABGM/_joXdGIUuTYuKIX-mWkJDzM-1vVSiInBwCLcBGAs/s400/LinuxIO_1_blocking.png"></a></p>
+<ul>
+<li>linux 預設大部分的 socket 都是使用 blocking IO</li>
+<li>當 process 呼叫 recv_from，會進入 wait for data 階段，在這個階段的 process 會進入 blocking 狀態，直到 kernel 將資料複製到 user space，該 process 才會解除 blocking 狀態，重新運作。</li>
+<li>blocking IO 就是兩個階段的 IO 都被 block</li>
+</ul>
+<h3 id="nonblocking-IO"><a href="#nonblocking-IO" class="headerlink" title="nonblocking IO"></a>nonblocking IO</h3><p><a target="_blank" rel="noopener" href="https://3.bp.blogspot.com/-7cEbiG7qhgE/XTRbO_mMQ6I/AAAAAAAABGI/HdJ8K_w-5PU5zavnpJN6433DN6cwTF5ewCPcBGAYYCw/s1600/LinuxIO_2_nonblicking.png"><img src="https://3.bp.blogspot.com/-7cEbiG7qhgE/XTRbO_mMQ6I/AAAAAAAABGI/HdJ8K_w-5PU5zavnpJN6433DN6cwTF5ewCPcBGAYYCw/s400/LinuxIO_2_nonblicking.png"></a></p>
+<ul>
+<li>當 process 呼叫 recv_from 如果 kernel 還沒將資料準備好，他不會 block process，而是產生 error，直到 kernel 將資料準備好，就會複製到 user space，並完成該讀取的工作。</li>
+<li>nonblocking 需要 process 不斷向 kernel 詢問，資料是否 ready。</li>
+</ul>
+<h3 id="IO-multiplexing"><a href="#IO-multiplexing" class="headerlink" title="IO multiplexing"></a>IO multiplexing</h3><p><a target="_blank" rel="noopener" href="https://1.bp.blogspot.com/--WxtFM20bnU/XTRbOwCvMLI/AAAAAAAABGQ/IM_7wIXFKiAJqRAOwTMPNZS0edRFCKzPwCPcBGAYYCw/s1600/LinuxIO_3_io_multiplexing.png"><img src="https://1.bp.blogspot.com/--WxtFM20bnU/XTRbOwCvMLI/AAAAAAAABGQ/IM_7wIXFKiAJqRAOwTMPNZS0edRFCKzPwCPcBGAYYCw/s400/LinuxIO_3_io_multiplexing.png"></a></p>
+<ul>
+<li>這就是常見的 select, poll, epoll，也稱為 event driven IO。</li>
+<li>這個方式可讓單一 porcess 就可以處理多個 IO，他會不斷地 polling 多個 socket，當某個 socket 有收到資料，就會主動callback 通知 process。</li>
+<li>如果是 select，當 process 呼叫了 select，該 process 就會被 block，同時 kernel 會監控所有 select 處理的 sockets，如果有資料，select 就會 return，然後再由 process 呼叫 read，將資料由 kernel 複製到 user space。</li>
+<li>這個方法類似 blocking IO，但進行了兩個 system call (select 及 recv_from)，但 select 可處理多個 sockets。</li>
+<li>select/epoll 的優點是可以處理多個 sockets，而不是效能。一般在 IO multiplexing 中，socket 都是設定為 non-blocking 的，process 是在 select 被 block 而不是 recv_from。</li>
+</ul>
+<h3 id="signal-driven"><a href="#signal-driven" class="headerlink" title="signal driven"></a>signal driven</h3><p><a target="_blank" rel="noopener" href="https://4.bp.blogspot.com/-dGQrUvm0vZY/XTRbPgq5sUI/AAAAAAAABGo/TDtJRra7XsEV53QX4H9hFe165t-Ff4-EQCPcBGAYYCw/s1600/LinuxIO_4_signal_driven.png"><img src="https://4.bp.blogspot.com/-dGQrUvm0vZY/XTRbPgq5sUI/AAAAAAAABGo/TDtJRra7XsEV53QX4H9hFe165t-Ff4-EQCPcBGAYYCw/s400/LinuxIO_4_signal_driven.png"></a></p>
+<ul>
+<li>先通知 kernel 如果某個 socket 有資料時，就以 signal 通知 process，process 在第二個步驟，才會被 block。</li>
+</ul>
+<h3 id="asynchronous"><a href="#asynchronous" class="headerlink" title="asynchronous"></a>asynchronous</h3><p><a target="_blank" rel="noopener" href="https://1.bp.blogspot.com/-8lFJu3825Gk/XTRbP0lg39I/AAAAAAAABGo/Ht--7Qj1C9U0875aUIiW6PjeZ7b5vcxPACPcBGAYYCw/s1600/LinuxIO_5_asynchronous.png"><img src="https://1.bp.blogspot.com/-8lFJu3825Gk/XTRbP0lg39I/AAAAAAAABGo/Ht--7Qj1C9U0875aUIiW6PjeZ7b5vcxPACPcBGAYYCw/s400/LinuxIO_5_asynchronous.png"></a></p>
+<ul>
+<li>當 process 進行 read，就可以處理別的事情，當 kernel 收到非同步 read，就會馬上 return，直到將資料複製到 user space，完成後，才會發送 signal 給 process，通知已經完成了 read。</li>
+</ul>
+<h3 id="Comparison"><a href="#Comparison" class="headerlink" title="Comparison"></a>Comparison</h3><p><a target="_blank" rel="noopener" href="https://2.bp.blogspot.com/-OS9b91VNQgk/XTRbQP8XGBI/AAAAAAAABGs/Yw7YzwAUWBkbRwBYzZpfboDsXDwNwQIFwCPcBGAYYCw/s1600/LinuxIO_6_IOModels.png"><img src="https://2.bp.blogspot.com/-OS9b91VNQgk/XTRbQP8XGBI/AAAAAAAABGs/Yw7YzwAUWBkbRwBYzZpfboDsXDwNwQIFwCPcBGAYYCw/s400/LinuxIO_6_IOModels.png"></a></p>
+<ul>
+<li>  non-blocking 跟 asynchronous 是不同的</li>
+<li>  synchronous 跟 asynchronous 的差異是 IO operation 會不會 blocking process，因此前面四種 model 都屬於 synchronous IO</li>
+<li>  nonblocking IO 中，在複製資料到 user space 的步驟，還是會有 blocking 的狀態</li>
+</ul>
+<h2 id="reference"><a href="#reference" class="headerlink" title="reference"></a>reference</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/272891398">一文搞懂select、poll和epoll区别 - 知乎</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.maxkit.com.tw/2019/07/linux-io-select-poll-epoll.html">Maxkit: Linux IO: select, poll, epoll</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.gushiciku.cn/pl/poOl/zh-tw">面試官：select、poll、epoll有何區別？我：阿巴阿巴…_SegmentFault部落格 - MdEditor</a></li>
+<li><a target="_blank" rel="noopener" href="https://iter01.com/562148.html">Linux IO模式及 select、poll、epoll詳解（含部分例項原始碼） | IT人</a></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/linux/" rel="tag"># linux</a>
+              <a href="/tags/c-c/" rel="tag"># c/c++</a>
+              <a href="/tags/book-section/" rel="tag"># book section</a>
+              <a href="/tags/io-model/" rel="tag"># io model</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/01/02/c-c-string2int/" rel="prev" title="string to int">
+                  <i class="fa fa-chevron-left"></i> string to int
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Lin Yunwen</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>總字數：</span>
+    <span title="總字數">351k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>所需總閱讀時間 &asymp;</span>
+    <span title="所需總閱讀時間">10:39</span>
+  </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>
