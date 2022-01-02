@@ -133,14 +133,14 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">138</span>
+          <span class="site-state-item-count">139</span>
           <span class="site-state-item-name">文章</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">180</span>
+        <span class="site-state-item-count">181</span>
         <span class="site-state-item-name">標籤</span></a>
       </div>
   </nav>
@@ -178,6 +178,108 @@
 
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://linyunwen.github.io/2021/10/18/c-c-localtime/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Lin Yunwen">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Lin Yunwen's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2021/10/18/c-c-localtime/" class="post-title-link" itemprop="url">C/C++ localtime</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">發表於</span>
+      
+
+      <time title="創建時間：2021-10-18 20:37:45 / 修改時間：20:40:16" itemprop="dateCreated datePublished" datetime="2021-10-18T20:37:45+08:00">2021-10-18</time>
+    </span>
+
+  
+      </div>
+      <div class="post-meta">
+    <span class="post-meta-item" title="文章字數">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">文章字數：</span>
+      <span>1.9k</span>
+    </span>
+    <span class="post-meta-item" title="所需閱讀時間">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+      <span>4 分鐘</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="C-C-localtime"><a href="#C-C-localtime" class="headerlink" title="C/C++ localtime"></a>C/C++ localtime</h1><ul>
+<li><code>#include &lt;time.h&gt;</code></li>
+</ul>
+<h2 id="參數"><a href="#參數" class="headerlink" title="參數"></a>參數</h2><ul>
+<li>timer    -    pointer to a time_t object to convert</li>
+<li>buf    -    pointer to a struct tm object to store the result  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">struct tm &#123;</span><br><span class="line">    int tm_sec;         /* seconds */</span><br><span class="line">    int tm_min;         /* minutes */</span><br><span class="line">    int tm_hour;        /* hours */</span><br><span class="line">    int tm_mday;        /* day of the month */</span><br><span class="line">    int tm_mon;         /* month */</span><br><span class="line">    int tm_year;        /* year */</span><br><span class="line">    int tm_wday;        /* day of the week */</span><br><span class="line">    int tm_yday;        /* day in the year */</span><br><span class="line">    int tm_isdst;       /* daylight saving time */</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h2 id="Return-value"><a href="#Return-value" class="headerlink" title="Return value"></a>Return value</h2></li>
+<li>1)<ul>
+<li>pointer to a static internal tm object on success</li>
+<li>or null pointer otherwise. The structure may be shared between gmtime, localtime, and ctime and may be overwritten on each invocation.</li>
+</ul>
+</li>
+<li>2-3)<ul>
+<li>copy of the buf pointer</li>
+<li>or null pointer on error (which may be a runtime constraint violation or a failure to convert the specified time to local calendar time)
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2021/10/18/c-c-localtime/#more" rel="contents">
+                閱讀全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -1018,98 +1120,6 @@
 
 
 
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://linyunwen.github.io/2021/10/09/pppoe/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="Lin Yunwen">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Lin Yunwen's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2021/10/09/pppoe/" class="post-title-link" itemprop="url">PPPOE</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">發表於</span>
-      
-
-      <time title="創建時間：2021-10-09 17:14:45 / 修改時間：17:15:36" itemprop="dateCreated datePublished" datetime="2021-10-09T17:14:45+08:00">2021-10-09</time>
-    </span>
-
-  
-      </div>
-      <div class="post-meta">
-    <span class="post-meta-item" title="文章字數">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">文章字數：</span>
-      <span>2.2k</span>
-    </span>
-    <span class="post-meta-item" title="所需閱讀時間">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
-      <span>4 分鐘</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="PPPOE"><a href="#PPPOE" class="headerlink" title="PPPOE"></a>PPPOE</h1><ul>
-<li>Point-to-Point Protocol over Ethernet</li>
-<li>是將對等協定（PPP）封裝在乙太網路（Ethernet）框架中的一種網路隧道協定</li>
-<li>由於協定中整合PPP協定，所以實現出傳統乙太網路不能提供的身分驗證、加密以及壓縮等功能，也可用於纜線數據機（cable modem）和數位使用者線路（DSL）等以乙太網路協定向使用者提供接入服務的協定體系</li>
-<li>本質上，它是一個允許在乙太網路廣播域中的兩個乙太網路介面間建立對等隧道的協定。
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2021/10/09/pppoe/#more" rel="contents">
-                閱讀全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
   <nav class="pagination">
     <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left" aria-label="上一頁"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/14/">14</a><a class="extend next" rel="next" href="/page/5/"><i class="fa fa-angle-right" aria-label="下一頁"></i></a>
   </nav>
@@ -1135,14 +1145,14 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>總字數：</span>
-    <span title="總字數">348k</span>
+    <span title="總字數">349k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>所需總閱讀時間 &asymp;</span>
-    <span title="所需總閱讀時間">10:33</span>
+    <span title="所需總閱讀時間">10:35</span>
   </span>
 </div>
 
