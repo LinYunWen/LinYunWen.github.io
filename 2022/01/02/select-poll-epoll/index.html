@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/linyunwen_icon/icon_32x32.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/linyunwen_icon/icon_32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/linyunwen_icon/icon_16x16.png">
+  <link rel="mask-icon" href="/images/linyunwen_icon/icon_32x32.png" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css" integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"linyunwen.github.io","root":"/","images":"/images","scheme":"Gemini","version":"8.6.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"disqus","storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"${hits} 找到 ${time} 個結果","hits":"找到 ${hits} 個結果"}}</script><script src="/js/config.js"></script>
+<meta name="description" content="epoll, poll, selectselect - 時間複雜度O(n) int select (int n, fd_set *readfds, fd_set *writefds, fd_set *exceptfds, struct timeval *timeout); select 可監視 writefd, readfd, 及 exceptfd。呼叫 select 後，該 process 會被">
+<meta property="og:type" content="article">
+<meta property="og:title" content="select-poll-epoll">
+<meta property="og:url" content="https://linyunwen.github.io/2022/01/02/select-poll-epoll/index.html">
+<meta property="og:site_name" content="Lin Yunwen&#39;s Blog">
+<meta property="og:description" content="epoll, poll, selectselect - 時間複雜度O(n) int select (int n, fd_set *readfds, fd_set *writefds, fd_set *exceptfds, struct timeval *timeout); select 可監視 writefd, readfd, 及 exceptfd。呼叫 select 後，該 process 會被">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://i.imgur.com/Cky3Tmr.png">
+<meta property="article:published_time" content="2022-01-02T10:20:30.000Z">
+<meta property="article:modified_time" content="2022-01-02T11:33:13.115Z">
+<meta property="article:author" content="Lin Yunwen">
+<meta property="article:tag" content="note">
+<meta property="article:tag" content="c&#x2F;c++">
+<meta property="article:tag" content="book section">
+<meta property="article:tag" content="epoll">
+<meta property="article:tag" content="poll">
+<meta property="article:tag" content="select">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.imgur.com/Cky3Tmr.png">
+
+
+<link rel="canonical" href="https://linyunwen.github.io/2022/01/02/select-poll-epoll/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-TW","comments":true,"permalink":"https://linyunwen.github.io/2022/01/02/select-poll-epoll/","path":"2022/01/02/select-poll-epoll/","title":"select-poll-epoll"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>select-poll-epoll | Lin Yunwen's Blog</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-H43D6184CW"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"G-H43D6184CW","only_pageview":false}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Lin Yunwen's Blog</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">keep moving forward</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>標籤</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#epoll-poll-select"><span class="nav-number">1.</span> <span class="nav-text">epoll, poll, select</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#select-%E6%99%82%E9%96%93%E8%A4%87%E9%9B%9C%E5%BA%A6O-n"><span class="nav-number">1.1.</span> <span class="nav-text">select - 時間複雜度O(n)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BC%BA%E7%82%B9"><span class="nav-number">1.1.1.</span> <span class="nav-text">缺点</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#poll-%E6%99%82%E9%96%93%E8%A4%87%E9%9B%9C%E5%BA%A6O-n"><span class="nav-number">1.2.</span> <span class="nav-text">poll - 時間複雜度O(n)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#epoll-%E6%99%82%E9%96%93%E8%A4%87%E9%9B%9C%E5%BA%A6O-1"><span class="nav-number">1.3.</span> <span class="nav-text">epoll - 時間複雜度O(1)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#summary"><span class="nav-number">1.4.</span> <span class="nav-text">summary</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%94%AF%E6%8F%B4%E4%B8%80%E5%80%8B%E7%A8%8B%E5%BA%8F%E6%89%80%E8%83%BD%E9%96%8B%E5%95%9F%E7%9A%84%E6%9C%80%E5%A4%A7%E9%80%A3%E7%B7%9A%E6%95%B8"><span class="nav-number">1.4.1.</span> <span class="nav-text">支援一個程序所能開啟的最大連線數</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#FD%E5%8A%87%E5%A2%9E%E5%BE%8C%E5%B8%B6%E4%BE%86%E7%9A%84IO%E6%95%88%E7%8E%87%E5%95%8F%E9%A1%8C"><span class="nav-number">1.4.2.</span> <span class="nav-text">FD劇增後帶來的IO效率問題</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A8%8A%E6%81%AF%E5%82%B3%E9%81%9E%E6%96%B9%E5%BC%8F"><span class="nav-number">1.4.3.</span> <span class="nav-text">訊息傳遞方式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#reference"><span class="nav-number">1.5.</span> <span class="nav-text">reference</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-overview">
+            <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Lin Yunwen"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Lin Yunwen</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">141</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">185</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/LinYunWen" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;LinYunWen" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:l40303k@gmail.com" title="E-Mail → mailto:l40303k@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="回到頂端">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://linyunwen.github.io/2022/01/02/select-poll-epoll/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Lin Yunwen">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Lin Yunwen's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          select-poll-epoll
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">發表於</span>
+      
+
+      <time title="創建時間：2022-01-02 18:20:30 / 修改時間：19:33:13" itemprop="dateCreated datePublished" datetime="2022-01-02T18:20:30+08:00">2022-01-02</time>
+    </span>
+
+  
+      </div>
+      <div class="post-meta">
+    <span class="post-meta-item" title="文章字數">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">文章字數：</span>
+      <span>3.4k</span>
+    </span>
+    <span class="post-meta-item" title="所需閱讀時間">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+      <span>6 分鐘</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="epoll-poll-select"><a href="#epoll-poll-select" class="headerlink" title="epoll, poll, select"></a>epoll, poll, select</h1><h2 id="select-時間複雜度O-n"><a href="#select-時間複雜度O-n" class="headerlink" title="select - 時間複雜度O(n)"></a>select - 時間複雜度O(n)</h2><ul>
+<li><code>int select (int n, fd_set *readfds, fd_set *writefds, fd_set *exceptfds, struct timeval *timeout);</code><ul>
+<li>select 可監視 writefd, readfd, 及 exceptfd。呼叫 select 後，該 process 會被 blocked，直到某個 fd ready 或是 timeout。當 select return 後，必須要 traverse 所有 fdset，來找到 ready 的 fd。</li>
+</ul>
+</li>
+<li>select 在所有平台都支援，缺點是監視的 fd 有數量上限，通常是 1024，但可修改 macro 或是重新編譯 kernel 增加這個上限。</li>
+<li>32位機預設是1024個。64位機預設是2048.<br><img src="https://i.imgur.com/Cky3Tmr.png"></li>
+</ul>
+<span id="more"></span>
+
+<h3 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h3><ul>
+<li>内核需要将消息传递到用户空间，都需要内核拷贝动作。需要维护一个用来存放大量fd的数据结构，使得用户空间和内核空间在传递该结构时复制开销大。</li>
+<li>每次调用select，都需把fd集合从用户态拷贝到内核态，fd很多时开销就很大</li>
+<li>同时每次调用select都需在内核遍历传递进来的所有fd，fd很多时开销就很大</li>
+<li>select支持的文件描述符数量太小了，默认最大支持1024个</li>
+<li>主动轮询效率很低</li>
+</ul>
+<h2 id="poll-時間複雜度O-n"><a href="#poll-時間複雜度O-n" class="headerlink" title="poll - 時間複雜度O(n)"></a>poll - 時間複雜度O(n)</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">int poll (struct pollfd *fds, unsigned int nfds, int timeout);</span><br><span class="line"></span><br><span class="line">struct pollfd &#123;</span><br><span class="line">    int fd; /* file descriptor */</span><br><span class="line">    short events; /* requested events to watch */</span><br><span class="line">    short revents; /* returned events witnessed */</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>poll 使用一個 pollfd pointer 表示 fd，該 pollfd 包含要監視的 event及發生的 event，pollfd 沒有數量上限。poll return 後，必須 traverse pollfd，找到 ready 的 fd。</li>
+<li>poll本質上和select沒有區別</li>
+<li>poll還有一個特點是“水平觸發”，如果報告了fd後，沒有被處理，那麼下次poll時會再次報告該fd。</li>
+</ul>
+<h2 id="epoll-時間複雜度O-1"><a href="#epoll-時間複雜度O-1" class="headerlink" title="epoll - 時間複雜度O(1)"></a>epoll - 時間複雜度O(1)</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">// size 為監視的 fd 數量</span><br><span class="line">int epoll_create(int size)；</span><br><span class="line">int epoll_ctl(int epfd, int op, int fd, struct epoll_event *event)；</span><br><span class="line">int epoll_wait(int epfd, struct epoll_event * events, int maxevents, int timeout);</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>int epoll_create(int size)；</code><ul>
+<li>當產生了 epoll 後，會佔用一個 fd value，不同於 select 必須提供最大監視 fd 數量 +1，size 並不是該 epoll 能監視的 fd 數量上限，而是配置 kernel 內部資料的建議參數。</li>
+<li>在linux下如果檢視/proc/程式id/fd/，是能夠看到這個fd的，所以在使用完epoll後，必須呼叫close()關閉，否則可能導致fd被耗盡。</li>
+</ul>
+</li>
+<li><code>int epoll_ctl(int epfd, int op, int fd, struct epoll_event *event)；</code><ul>
+<li>  epfd: 是 epoll_create 的 return value</li>
+<li>  op: 有三個 macro 表示 operation: EPOLL_CTL_ADD, EPOLL_CTL_DEL, EPOLL_CTL_MOD，分別是新增、刪除、修改 fd 監視的 events</li>
+<li>  fd: 需要監視的 fd</li>
+<li>epoll_event: 告訴 kernel 要監視什麼 event<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">struct epoll_event &#123;</span><br><span class="line">  __uint32_t events;  /* Epoll events */</span><br><span class="line">  epoll_data_t data;  /* User data variable */</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">//events 是以下幾個 macro 的集合：</span><br><span class="line">EPOLLIN：表示對應的文件描述符可以讀（包括對端SOCKET正常關閉）</span><br><span class="line">EPOLLOUT：表示對應的文件描述符可以寫</span><br><span class="line">EPOLLPRI：表示對應的文件描述符有緊急的資料可讀（這裡應該表示有外部資料到來）</span><br><span class="line">EPOLLERR：表示對應的文件描述符發生錯誤</span><br><span class="line">EPOLLHUP：表示對應的文件描述符被掛斷</span><br><span class="line">EPOLLET： 將EPOLL設為 Edge Triggered 模式，這是相對於水平觸發(Level Triggered)來說的</span><br><span class="line">EPOLLONESHOT：只監聽一次事件，當監聽完這次事件之後，如果還需要繼續監聽這個socket的話，需要再次把這個socket加入到EPOLL隊列</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><code>int epoll_wait(int epfd, struct epoll_event * events, int maxevents, int timeout);</code><ul>
+<li>等待 epfd 的 IO event</li>
+<li>最多回傳 maxevents 個 events</li>
+<li>events 是事件的集合，maxevents 不能超過 epoll_create 的 size</li>
+<li>timeout 為 0 表示要馬上 return，如果回傳的事件數量為 0 表示發生了 timeout</li>
+</ul>
+</li>
+<li>epoll 對 fd 的操作有兩種模式:LT (Level Trigger) 及 ET (Edge Trigger)<ul>
+<li>LT:<ul>
+<li>  當 epoll_wait 偵測到 fd 事件發生，將該事件通知 process，該 process 可不立刻處理該 event，當下次呼叫 epoll_wait 時，會再次通知 process 這個事件</li>
+<li>同時支援 blocking 與 non-blocking socket，可對該 ready 的 fd 進行 IO，如果不做，kernel 會持續通知 ready</li>
+<li>如果你不作任何操作，核心還是會繼續通知你的</li>
+</ul>
+</li>
+<li>ET:<ul>
+<li>  當 epoll_wait 偵測到 fd 事件發生，將該事件通知 process，該 process 必須立刻處理該 event，如果沒有處理，當下次呼叫 epoll_wait 時，不會再次通知 process 這個事件</li>
+<li>這是高速運作方式，只支援 non-blocking socket</li>
+<li>ET模式在很大程度上減少了epoll事件被重複觸發的次數，因此效率要比LT模式高</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="summary"><a href="#summary" class="headerlink" title="summary"></a>summary</h2><ul>
+<li>在 select/poll 中，process 必須呼叫某些 function，kernel 才會對該 fd 進行監視，而 epoll 事先利用 epoll_ctl 註冊 fd，當某個 fd ready 後，會透過 callback 機制，啟動這個 fd，當 process 呼叫 epoll_wait 就可得到通知。</li>
+<li>如果沒有大量的 idle/dead connection，epoll 的效率不會比 select/poll 高很多。<h3 id="支援一個程序所能開啟的最大連線數"><a href="#支援一個程序所能開啟的最大連線數" class="headerlink" title="支援一個程序所能開啟的最大連線數"></a>支援一個程序所能開啟的最大連線數</h3></li>
+<li>select<ul>
+<li>單個程序所能開啟的最大連線數有FD_SETSIZE巨集定義，其大小是32個整數的大小（在32位的機器上，大小就是32_32，同理64位機器上FD_SETSIZE為32_64），當然我們可以對進行修改，然後重新編譯核心，但是效能可能會受到影響，這需要進一步的測試。</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>poll<ul>
+<li>poll本質上和select沒有區別，但是它沒有最大連線數的限制，原因是它是基於連結串列來儲存的</li>
+</ul>
+</li>
+<li>epoll<ul>
+<li>雖然連線數有上限，但是很大，1G記憶體的機器上可以開啟10萬左右的連線，2G記憶體的機器可以開啟20萬左右的連線<h3 id="FD劇增後帶來的IO效率問題"><a href="#FD劇增後帶來的IO效率問題" class="headerlink" title="FD劇增後帶來的IO效率問題"></a>FD劇增後帶來的IO效率問題</h3></li>
+</ul>
+</li>
+<li>select<ul>
+<li>因為每次呼叫時都會對連線進行線性遍歷，所以隨著FD的增加會造成遍歷速度慢的“線性下降效能問題”。</li>
+</ul>
+</li>
+<li>poll<ul>
+<li>同上</li>
+</ul>
+</li>
+<li>epoll<ul>
+<li>因為epoll核心中實現是根據每個fd上的callback函式來實現的，只有活躍的socket才會主動呼叫callback，所以在活躍socket較少的情況下，使用epoll沒有前面兩者的線性下降的效能問題，但是所有socket都很活躍的情況下，可能會有效能問題。<h3 id="訊息傳遞方式"><a href="#訊息傳遞方式" class="headerlink" title="訊息傳遞方式"></a>訊息傳遞方式</h3></li>
+</ul>
+</li>
+<li>select<ul>
+<li>核心需要將訊息傳遞到使用者空間，都需要核心拷貝動作</li>
+</ul>
+</li>
+<li>poll<ul>
+<li>同上</li>
+</ul>
+</li>
+<li>epoll<ul>
+<li>epoll通過核心和使用者空間共享一塊記憶體來實現的。</li>
+</ul>
+</li>
+</ul>
+<h2 id="reference"><a href="#reference" class="headerlink" title="reference"></a>reference</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/272891398">一文搞懂select、poll和epoll区别 - 知乎</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.maxkit.com.tw/2019/07/linux-io-select-poll-epoll.html">Maxkit: Linux IO: select, poll, epoll</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.gushiciku.cn/pl/poOl/zh-tw">面試官：select、poll、epoll有何區別？我：阿巴阿巴…_SegmentFault部落格 - MdEditor</a></li>
+<li><a target="_blank" rel="noopener" href="https://iter01.com/562148.html">Linux IO模式及 select、poll、epoll詳解（含部分例項原始碼） | IT人</a></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/note/" rel="tag"># note</a>
+              <a href="/tags/c-c/" rel="tag"># c/c++</a>
+              <a href="/tags/book-section/" rel="tag"># book section</a>
+              <a href="/tags/epoll/" rel="tag"># epoll</a>
+              <a href="/tags/poll/" rel="tag"># poll</a>
+              <a href="/tags/select/" rel="tag"># select</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/01/02/linux-io-model/" rel="prev" title="Linux IO model">
+                  <i class="fa fa-chevron-left"></i> Linux IO model
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Lin Yunwen</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>總字數：</span>
+    <span title="總字數">355k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>所需總閱讀時間 &asymp;</span>
+    <span title="所需總閱讀時間">10:45</span>
+  </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

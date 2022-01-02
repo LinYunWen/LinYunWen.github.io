@@ -133,14 +133,14 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">140</span>
+          <span class="site-state-item-count">141</span>
           <span class="site-state-item-name">文章</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">182</span>
+        <span class="site-state-item-count">185</span>
         <span class="site-state-item-name">標籤</span></a>
       </div>
   </nav>
@@ -178,6 +178,118 @@
 
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://linyunwen.github.io/2021/09/07/rtii/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Lin Yunwen">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Lin Yunwen's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2021/09/07/rtii/" class="post-title-link" itemprop="url">RTII</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">發表於</span>
+
+      <time title="創建時間：2021-09-07 21:54:41" itemprop="dateCreated datePublished" datetime="2021-09-07T21:54:41+08:00">2021-09-07</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新於</span>
+        <time title="修改時間：2021-09-08 21:16:51" itemprop="dateModified" datetime="2021-09-08T21:16:51+08:00">2021-09-08</time>
+      </span>
+
+  
+      </div>
+      <div class="post-meta">
+    <span class="post-meta-item" title="文章字數">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">文章字數：</span>
+      <span>2.8k</span>
+    </span>
+    <span class="post-meta-item" title="所需閱讀時間">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+      <span>5 分鐘</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="RTTI"><a href="#RTTI" class="headerlink" title="RTTI"></a>RTTI</h1><ul>
+<li>Run-Time Type Information，也有人寫作 Run-Time Type Identification</li>
+<li>代表著執行時期取得物件的型態資訊</li>
+<li>在 C++ 中，可以使用定義於 <code>type_info</code> 的 <code>typeid</code> 來實作。</li>
+<li>最單純的RTTI包括﹕</li>
+<li>●類別識別(class identification)──包括類別名稱或ID。</li>
+</ul>
+<ul>
+<li>●繼承關係(inheritance relationship)──支持執行時期的「往下變換型態」(downward casting)﹐亦即動態轉型態(dynamic casting) 。</li>
+<li>在對象數據庫存取上﹐還需要下述RTTI﹕</li>
+<li>●對象結構(object layout) ──包括屬性的型態、名稱及其位置（position或offset）。</li>
+<li>●成員函數表(table of functions)──包括函數的型態、名稱、及其參數型態等。</li>
+<li>其目的是協助對象的I/O 和永存(persistence) ﹐也提供偵錯訊息等。<h2 id="introduction"><a href="#introduction" class="headerlink" title="introduction"></a>introduction</h2></li>
+</ul>
+<ul>
+<li>typeid用於在執行時辨識型態訊息</li>
+<li>dynamic_cast具有執行時型態辨識和型態轉換匹配2個功能</li>
+<li>實現方法為每個型態對應一個const type_info型態物件，儲存了這個確切型態訊息。</li>
+<li>在C++標準標頭檔&lt;typeinfo&gt;中，type_info類多載了operator=()、operator!=()、name()等成員函式。
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2021/09/07/rtii/#more" rel="contents">
+                閱讀全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -1189,116 +1301,8 @@
 
 
 
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://linyunwen.github.io/2021/08/25/mv-advice/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="Lin Yunwen">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Lin Yunwen's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2021/08/25/mv-advice/" class="post-title-link" itemprop="url">mv advice</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">發表於</span>
-      
-
-      <time title="創建時間：2021-08-25 08:12:39 / 修改時間：08:13:23" itemprop="dateCreated datePublished" datetime="2021-08-25T08:12:39+08:00">2021-08-25</time>
-    </span>
-
-  
-      </div>
-      <div class="post-meta">
-    <span class="post-meta-item" title="文章字數">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">文章字數：</span>
-      <span>3.3k</span>
-    </span>
-    <span class="post-meta-item" title="所需閱讀時間">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
-      <span>6 分鐘</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="mv-advice"><a href="#mv-advice" class="headerlink" title="mv advice"></a>mv advice</h1><ul>
-<li><p><a target="_blank" rel="noopener" href="http://www.ubuntu-tw.org/modules/newbb/viewtopic.php?viewmode=compact&topic_id=36216&forum=1">不好意思 很基礎的問題 請問一下有關 mv 的指令? [論壇 - Ubuntu安裝問題] | Ubuntu 正體中文站</a></p>
-<ul>
-<li>以檔案為單位，複製成功之後刪除</li>
-<li></li>
-<li>mv應該不會複製檔案喔  </li>
-</ul>
-<ul>
-<li>是直接更改inode，所以速度很快  </li>
-<li>也因此不能跨partition</li>
-</ul>
-<ul>
-<li><p>是不跨partition時是只改inode,所以是瞬間完成  </p>
-</li>
-<li><p>跨partition就是要搬過去了…會比較慢  </p>
-</li>
-<li><p>不過也是成功後才砍檔案</p>
-</li>
-<li><p>或是早期版本不能跨partition，造成我有這個印象，所以現在跨partition搬移我都不用mv  </p>
-</li>
-<li><p>我指的早期版本是slackware 4.0之前的版本mv的運作方式</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2021/08/25/mv-advice/#more" rel="contents">
-                閱讀全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/7/"><i class="fa fa-angle-left" aria-label="上一頁"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><span class="page-number current">8</span><a class="page-number" href="/page/9/">9</a><span class="space">&hellip;</span><a class="page-number" href="/page/14/">14</a><a class="extend next" rel="next" href="/page/9/"><i class="fa fa-angle-right" aria-label="下一頁"></i></a>
+    <a class="extend prev" rel="prev" href="/page/7/"><i class="fa fa-angle-left" aria-label="上一頁"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><span class="page-number current">8</span><a class="page-number" href="/page/9/">9</a><span class="space">&hellip;</span><a class="page-number" href="/page/15/">15</a><a class="extend next" rel="next" href="/page/9/"><i class="fa fa-angle-right" aria-label="下一頁"></i></a>
   </nav>
 
 </div>
@@ -1322,14 +1326,14 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>總字數：</span>
-    <span title="總字數">351k</span>
+    <span title="總字數">355k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>所需總閱讀時間 &asymp;</span>
-    <span title="所需總閱讀時間">10:39</span>
+    <span title="所需總閱讀時間">10:45</span>
   </span>
 </div>
 
