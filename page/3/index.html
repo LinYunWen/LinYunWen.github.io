@@ -133,14 +133,14 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">142</span>
+          <span class="site-state-item-count">143</span>
           <span class="site-state-item-name">文章</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">187</span>
+        <span class="site-state-item-count">188</span>
         <span class="site-state-item-name">標籤</span></a>
       </div>
   </nav>
@@ -178,6 +178,119 @@
 
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://linyunwen.github.io/2021/11/20/c-c-volatile/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Lin Yunwen">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Lin Yunwen's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2021/11/20/c-c-volatile/" class="post-title-link" itemprop="url">C/C++ volatile</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">發表於</span>
+      
+
+      <time title="創建時間：2021-11-20 14:13:51 / 修改時間：14:14:42" itemprop="dateCreated datePublished" datetime="2021-11-20T14:13:51+08:00">2021-11-20</time>
+    </span>
+
+  
+      </div>
+      <div class="post-meta">
+    <span class="post-meta-item" title="文章字數">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">文章字數：</span>
+      <span>832</span>
+    </span>
+    <span class="post-meta-item" title="所需閱讀時間">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+      <span>2 分鐘</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="C-C-volatile"><a href="#C-C-volatile" class="headerlink" title="C/C++ volatile"></a>C/C++ volatile</h1><blockquote>
+<ul>
+<li>C/C++才會有這個保留字</li>
+</ul>
+</blockquote>
+<h2 id="introduction"><a href="#introduction" class="headerlink" title="introduction"></a>introduction</h2><ul>
+<li>用它宣告的型別變量表示可以被某些編譯器未知的因素更改，比如：作業系統、硬體或者其它執行緒等。</li>
+<li>遇到這個關鍵字宣告的變數，編譯器對訪問該變數的程式碼就不再進行優化，從而可以提供對特殊地址的穩定訪問。</li>
+<li>宣告時語法：volatile int vInt;</li>
+<li>當要求使用 volatile 宣告的變數的值的時候，系統總是重新從它所在的記憶體讀取資料，即使它前面的指令剛剛從該處讀取過資料。而且讀取的資料立刻被儲存。<ul>
+<li>e.g.  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">volatile int i=10;</span><br><span class="line">int a = i;</span><br><span class="line">（ 其他程式碼，並未明確告訴編譯器，對 i 進行過操作）</span><br><span class="line">int b = i;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>volatile 指出 i 是隨時可能發生變化的，每次使用它的時候必須從 i的地址中讀取，因而編譯器生成的彙編程式碼會重新從i的地址讀取資料放在 b 中</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="usage"><a href="#usage" class="headerlink" title="usage"></a>usage</h2><ul>
+<li>有2兩個場合(I/O &amp; multithread program) 會使用到</li>
+</ul>
+<h3 id="e-g"><a href="#e-g" class="headerlink" title="e.g."></a>e.g.</h3><ul>
+<li>I/O, 假設有一程式片斷如下  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">U8   *pPort;</span><br><span class="line">U8   i, j, k;</span><br><span class="line"></span><br><span class="line">pPort = (U8 *)0x800000;</span><br><span class="line"></span><br><span class="line">i = *pPort;     </span><br><span class="line">j = *pPort;     </span><br><span class="line">k = *pPort;     </span><br></pre></td></tr></table></figure>
+<ul>
+<li>以上的i, j, k很有可能被compiler最佳化而導致產生 <code>i = j = k = *pPort;</code> 的code, 也就是說只從pPort讀取一次, 而產生 i = j = k 的結果</li>
+<li>但是原本的程式的目的是要從同一個I/O port讀取3次的值給不同的變數, i, j, k的值很可能不同(例如從此 I/O port 讀取溫度), 因此i = j = k 的結果不是我們所要的</li>
+<li>改為 <code>volatile U8   *pPort;</code> 告訴compiler, pPort變數具有揮發性的特性, 所以與它有關的程式碼請不要作最佳化動作. 因而  </li>
+</ul>
+</li>
+<li><h2 id="Global-variables-in-Multithread-program"><a href="#Global-variables-in-Multithread-program" class="headerlink" title="Global variables in Multithread program"></a>Global variables in Multithread program</h2><h2 id="reference"><a href="#reference" class="headerlink" title="reference"></a>reference</h2></li>
+<li><a target="_blank" rel="noopener" href="https://www.itread01.com/content/1541748543.html">C++ volatile用法 - IT閱讀</a></li>
+<li><a target="_blank" rel="noopener" href="https://freestyler.pixnet.net/blog/post/23872864">C/C++中的volatile使用時機? @ Everything Will Flow :: 痞客邦 ::</a></li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -1080,109 +1193,6 @@
 
 
 
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://linyunwen.github.io/2021/10/23/vim-plugin/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="Lin Yunwen">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Lin Yunwen's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2021/10/23/vim-plugin/" class="post-title-link" itemprop="url">Vim Plugin</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">發表於</span>
-
-      <time title="創建時間：2021-10-23 13:34:09" itemprop="dateCreated datePublished" datetime="2021-10-23T13:34:09+08:00">2021-10-23</time>
-    </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">更新於</span>
-        <time title="修改時間：2021-11-07 09:25:57" itemprop="dateModified" datetime="2021-11-07T09:25:57+08:00">2021-11-07</time>
-      </span>
-
-  
-      </div>
-      <div class="post-meta">
-    <span class="post-meta-item" title="文章字數">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">文章字數：</span>
-      <span>5.4k</span>
-    </span>
-    <span class="post-meta-item" title="所需閱讀時間">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
-      <span>10 分鐘</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="Vim-Plugin"><a href="#Vim-Plugin" class="headerlink" title="Vim Plugin"></a>Vim Plugin</h1><h2 id="management"><a href="#management" class="headerlink" title="management"></a>management</h2><h3 id="vim-plug"><a href="#vim-plug" class="headerlink" title="vim-plug"></a><a target="_blank" rel="noopener" href="https://github.com/junegunn/vim-plug">vim-plug</a></h3><ul>
-<li><p>Download plug.vim and put it in the “autoload” directory.</p>
-<ul>
-<li><code>curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim</code></li>
-</ul>
-</li>
-<li><p>.vimrc</p>
-  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">call plug#begin(&#x27;~/.vim/plugged&#x27;)</span><br><span class="line">Plug &#x27;plugin&#x27;</span><br><span class="line">call plug#end()</span><br></pre></td></tr></table></figure></li>
-<li><p>install</p>
-  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">// 先退出 vim 再進去執行 :PluginInstall</span><br><span class="line">// or</span><br><span class="line">vim +PluginInstall +qall</span><br></pre></td></tr></table></figure>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2021/10/23/vim-plugin/#more" rel="contents">
-                閱讀全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
   <nav class="pagination">
     <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left" aria-label="上一頁"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/15/">15</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right" aria-label="下一頁"></i></a>
   </nav>
@@ -1208,14 +1218,14 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>總字數：</span>
-    <span title="總字數">356k</span>
+    <span title="總字數">358k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>所需總閱讀時間 &asymp;</span>
-    <span title="所需總閱讀時間">10:47</span>
+    <span title="所需總閱讀時間">10:51</span>
   </span>
 </div>
 

@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/linyunwen_icon/icon_32x32.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/linyunwen_icon/icon_32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/linyunwen_icon/icon_16x16.png">
+  <link rel="mask-icon" href="/images/linyunwen_icon/icon_32x32.png" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css" integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"linyunwen.github.io","root":"/","images":"/images","scheme":"Gemini","version":"8.6.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"disqus","storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"${hits} 找到 ${time} 個結果","hits":"找到 ${hits} 個結果"}}</script><script src="/js/config.js"></script>
+<meta name="description" content="Linux dd Commandintroduction convert and copy a file (Copy a file, converting and formatting according to the operands.) 該名稱來自數據複製器 (data duplicator)，但幽默地說它也意味著磁盤破壞者或數據破壞者 (data destroyer)，因為它是一個非常強大的">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux dd Command">
+<meta property="og:url" content="https://linyunwen.github.io/2022/01/12/linux-dd/index.html">
+<meta property="og:site_name" content="Lin Yunwen&#39;s Blog">
+<meta property="og:description" content="Linux dd Commandintroduction convert and copy a file (Copy a file, converting and formatting according to the operands.) 該名稱來自數據複製器 (data duplicator)，但幽默地說它也意味著磁盤破壞者或數據破壞者 (data destroyer)，因為它是一個非常強大的">
+<meta property="og:locale" content="zh_TW">
+<meta property="article:published_time" content="2022-01-12T14:52:29.000Z">
+<meta property="article:modified_time" content="2022-01-12T23:36:45.291Z">
+<meta property="article:author" content="Lin Yunwen">
+<meta property="article:tag" content="note">
+<meta property="article:tag" content="linux">
+<meta property="article:tag" content="book section">
+<meta property="article:tag" content="disk">
+<meta property="article:tag" content="dd">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://linyunwen.github.io/2022/01/12/linux-dd/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-TW","comments":true,"permalink":"https://linyunwen.github.io/2022/01/12/linux-dd/","path":"2022/01/12/linux-dd/","title":"Linux dd Command"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Linux dd Command | Lin Yunwen's Blog</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-H43D6184CW"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"G-H43D6184CW","only_pageview":false}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Lin Yunwen's Blog</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">keep moving forward</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>標籤</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Linux-dd-Command"><span class="nav-number">1.</span> <span class="nav-text">Linux dd Command</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#introduction"><span class="nav-number">1.1.</span> <span class="nav-text">introduction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#param"><span class="nav-number">1.2.</span> <span class="nav-text">param</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E8%AA%AA%E6%98%8E"><span class="nav-number">1.2.1.</span> <span class="nav-text">常用說明</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#e-g"><span class="nav-number">1.3.</span> <span class="nav-text">e.g.</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%82%99%E4%BB%BD%E6%95%B4%E9%A1%86%E7%A1%AC%E7%A2%9F"><span class="nav-number">1.3.1.</span> <span class="nav-text">備份整顆硬碟</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BB%BA%E7%AB%8B%E5%9B%BA%E5%AE%9A%E5%A4%A7%E5%B0%8F%E7%9A%84%E6%AA%94%E6%A1%88"><span class="nav-number">1.3.2.</span> <span class="nav-text">建立固定大小的檔案</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9%E6%AA%94%E6%A1%88%E5%85%A7%E5%AE%B9"><span class="nav-number">1.3.3.</span> <span class="nav-text">修改檔案內容</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#reference"><span class="nav-number">1.4.</span> <span class="nav-text">reference</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-overview">
+            <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Lin Yunwen"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Lin Yunwen</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">143</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">188</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/LinYunWen" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;LinYunWen" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:l40303k@gmail.com" title="E-Mail → mailto:l40303k@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="回到頂端">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://linyunwen.github.io/2022/01/12/linux-dd/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Lin Yunwen">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Lin Yunwen's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Linux dd Command
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">發表於</span>
+
+      <time title="創建時間：2022-01-12 22:52:29" itemprop="dateCreated datePublished" datetime="2022-01-12T22:52:29+08:00">2022-01-12</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新於</span>
+        <time title="修改時間：2022-01-13 07:36:45" itemprop="dateModified" datetime="2022-01-13T07:36:45+08:00">2022-01-13</time>
+      </span>
+
+  
+      </div>
+      <div class="post-meta">
+    <span class="post-meta-item" title="文章字數">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">文章字數：</span>
+      <span>2k</span>
+    </span>
+    <span class="post-meta-item" title="所需閱讀時間">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+      <span>4 分鐘</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="Linux-dd-Command"><a href="#Linux-dd-Command" class="headerlink" title="Linux dd Command"></a>Linux dd Command</h1><h2 id="introduction"><a href="#introduction" class="headerlink" title="introduction"></a>introduction</h2><ul>
+<li>convert and copy a file (Copy a file, converting and formatting according to the operands.)</li>
+<li>該名稱來自數據複製器 (data duplicator)，但幽默地說它也意味著磁盤破壞者或數據破壞者 (data destroyer)，因為它是一個非常強大的工具</li>
+<li>用途<ul>
+<li>硬碟讀寫效能測試</li>
+<li>備份與回復整顆硬碟的資料。</li>
+</ul>
+<ul>
+<li>備份與回復原始設備檔案，例如 MBR（master boot record）。</li>
+<li>轉換資料格式，例如 ASCII 轉換為 EBCDIC，大小寫轉換等。</li>
+<li>建立固定大小的檔案。</li>
+</ul>
+</li>
+</ul>
+<h2 id="param"><a href="#param" class="headerlink" title="param"></a>param</h2><ul>
+<li>bs=BYTES<ul>
+<li>read and write BYTES bytes at a time (also see ibs=,obs=)</li>
+</ul>
+</li>
+<li>cbs=BYTES<ul>
+<li>convert BYTES bytes at a time</li>
+</ul>
+</li>
+<li>conv=CONVS<ul>
+<li>convert the file as per the comma separated symbol list</li>
+</ul>
+</li>
+<li>count=BLOCKS<ul>
+<li>copy only BLOCKS input blocks</li>
+</ul>
+</li>
+<li>ibs=BYTES<ul>
+<li>read BYTES bytes at a time (default: 512)</li>
+</ul>
+</li>
+<li>if=FILE<ul>
+<li>read from FILE instead of stdin</li>
+</ul>
+</li>
+<li>iflag=FLAGS<ul>
+<li>read as per the comma separated symbol list</li>
+</ul>
+</li>
+<li>obs=BYTES<ul>
+<li>write BYTES bytes at a time (default: 512)</li>
+</ul>
+</li>
+<li>of=FILE<ul>
+<li>write to FILE instead of stdout</li>
+</ul>
+</li>
+<li>oflag=FLAGS<ul>
+<li>write as per the comma separated symbol list</li>
+</ul>
+</li>
+<li>seek=BLOCKS<ul>
+<li>skip BLOCKS obs-sized blocks at start of output</li>
+</ul>
+</li>
+<li>skip=BLOCKS<ul>
+<li>skip BLOCKS ibs-sized blocks at start of input</li>
+</ul>
+</li>
+<li>status=noxfer<ul>
+<li>suppress transfer statistics</li>
+</ul>
+</li>
+<li>count_bytes<ul>
+<li>treat ‘count=N’ as a byte count (iflag only)</li>
+</ul>
+</li>
+<li>skip_bytes<ul>
+<li>treat ‘skip=N’ as a byte count (iflag only)</li>
+</ul>
+</li>
+<li>seek_bytes<ul>
+<li>treat ‘seek=N’ as a byte count (oflag only)</li>
+</ul>
+</li>
+</ul>
+<h3 id="常用說明"><a href="#常用說明" class="headerlink" title="常用說明"></a>常用說明</h3><ul>
+<li>  <code>if=FILE</code>：指定輸入檔案名稱（input file）為 <code>FILE</code>。</li>
+<li>  <code>of=FILE</code>：指定輸出檔案名稱（output file）為 <code>FILE</code>。</li>
+<li>  <code>ibs=BYTES</code>：指定輸入區塊大小（input block size），一次讀取 <code>BYTES</code> 位元組的資料，預設為 512 位元組。</li>
+<li>  <code>obs=BYTES</code>：指定輸出區塊大小（output block size），一次寫入 <code>BYTES</code> 位元組的資料，預設為 512 位元組。</li>
+<li>  <code>bs=BYTES</code>：指定 block size，一次讀取與寫入 <code>BYTES</code> 位元組的資料，此選項會覆蓋 <code>ibs</code> 與 <code>obs</code> 的設定。</li>
+<li>  <code>cbs=BYTES</code>：一次轉換 <code>BYTES</code> 位元組的資料。</li>
+<li>  <code>count=N</code>：只處理 <code>N</code> 個輸入區塊，每個區塊的大小為 <code>ibs</code>。</li>
+<li>  <code>seek=N</code>：在輸出時跳過輸出檔案的前 <code>N</code> 個區塊，每個區塊的大小為 <code>obs</code>。</li>
+<li>  <code>skip=N</code>：在輸入時跳過輸入檔案的前 <code>N</code> 個區塊，每個區塊的大小為 <code>ibs</code>。</li>
+<li>  <code>conv=CONVS</code>：指定資料的轉換選項，如果一次要指定多種轉換，則以逗點分隔。</li>
+</ul>
+<h2 id="e-g"><a href="#e-g" class="headerlink" title="e.g."></a>e.g.</h2><h3 id="備份整顆硬碟"><a href="#備份整顆硬碟" class="headerlink" title="備份整顆硬碟"></a>備份整顆硬碟</h3><ul>
+<li>將 <code>/dev/sda</code> 所有的資料寫入 <code>/dev/sdb</code>：  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo dd if=/dev/sda of=/dev/sdb</span><br><span class="line">// 讀取錯誤時還是繼續拷貝資料的話，就要加上 `conv=noerror` 參數，這個選項通常在備份資料時會使用到，另外加上 `sync` 可以讓 `dd` 以 synchronized I/O 的方式備份資料：</span><br><span class="line">sudo dd if=/dev/sda of=/dev/sdb conv=noerror,sync</span><br></pre></td></tr></table></figure>
+<h3 id="建立固定大小的檔案"><a href="#建立固定大小的檔案" class="headerlink" title="建立固定大小的檔案"></a>建立固定大小的檔案</h3></li>
+<li>建立一個 10MB 大小的檔案：  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">dd if=/dev/zero of=file1 bs=10485760 count=1</span><br><span class="line">// 這裏的 block size 的計算方式為 10*1024*1024 = 10MB。</span><br></pre></td></tr></table></figure>
+<h3 id="修改檔案內容"><a href="#修改檔案內容" class="headerlink" title="修改檔案內容"></a>修改檔案內容</h3></li>
+<li>將檔案開頭的 512 bytes 改為 null：  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">dd if=/dev/zero of=file1 bs=512 count=1 conv=notrunc</span><br><span class="line"># 這裡的 notrunc 參數代表不要將輸出檔案截短，只取代開頭的前 512 bytes，其餘內容不變。假設 file1 不存在，那麼這行指令就會建立一個 512 bytes 的 file1 檔案。</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+<h2 id="reference"><a href="#reference" class="headerlink" title="reference"></a>reference</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://blog.gtwang.org/linux/dd-command-examples/">dd 指令教學與實用範例，備份與回復資料的小工具 - G. T. Wang</a></li>
+<li><a target="_blank" rel="noopener" href="https://code.yidas.com/linux-dd-command-test-io/">[Linux] 使用dd指令 – 硬碟讀寫效能測試 – YIDAS Code</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.desdelinux.net/zh-TW/guia-completa-y-detallada-con-ejemplos-de-dd/">DD的完整和詳細指南（帶有示例）| 從Linux</a></li>
+<li><a target="_blank" rel="noopener" href="https://man7.org/linux/man-pages/man1/dd.1.html">dd(1) - Linux manual page</a></li>
+<li><a target="_blank" rel="noopener" href="https://linux.die.net/man/1/dd">dd(1): convert/copy file - Linux man page</a></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/note/" rel="tag"># note</a>
+              <a href="/tags/linux/" rel="tag"># linux</a>
+              <a href="/tags/book-section/" rel="tag"># book section</a>
+              <a href="/tags/disk/" rel="tag"># disk</a>
+              <a href="/tags/dd/" rel="tag"># dd</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/01/03/c-c-decltype/" rel="prev" title="c/c++-decltype">
+                  <i class="fa fa-chevron-left"></i> c/c++-decltype
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Lin Yunwen</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>總字數：</span>
+    <span title="總字數">358k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>所需總閱讀時間 &asymp;</span>
+    <span title="所需總閱讀時間">10:51</span>
+  </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>
