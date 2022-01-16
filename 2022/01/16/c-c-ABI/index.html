@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/linyunwen_icon/icon_32x32.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/linyunwen_icon/icon_32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/linyunwen_icon/icon_16x16.png">
+  <link rel="mask-icon" href="/images/linyunwen_icon/icon_32x32.png" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css" integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"linyunwen.github.io","root":"/","images":"/images","scheme":"Gemini","version":"8.6.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"disqus","storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"${hits} 找到 ${time} 個結果","hits":"找到 ${hits} 個結果"}}</script><script src="/js/config.js"></script>
+<meta name="description" content="Application Binary Interface (ABI) 應用程式二進位制介面，描述了應用程式和作業系統之間，一個應用和它的庫之間，或應用的組成部分之間的底層介面。 想要保持二進位制相容相較於API相容來說要難上許多，並且影響ABI相容的因素也非常多從硬體到作業系統再到編譯器，程式語言等，並且非常難以統一 ABI 更改是不可避免的。發生這種情況時，除非重新編譯以使用新版本的庫，否則使用">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Application Binary Interface (ABI)">
+<meta property="og:url" content="https://linyunwen.github.io/2022/01/16/c-c-ABI/index.html">
+<meta property="og:site_name" content="Lin Yunwen&#39;s Blog">
+<meta property="og:description" content="Application Binary Interface (ABI) 應用程式二進位制介面，描述了應用程式和作業系統之間，一個應用和它的庫之間，或應用的組成部分之間的底層介面。 想要保持二進位制相容相較於API相容來說要難上許多，並且影響ABI相容的因素也非常多從硬體到作業系統再到編譯器，程式語言等，並且非常難以統一 ABI 更改是不可避免的。發生這種情況時，除非重新編譯以使用新版本的庫，否則使用">
+<meta property="og:locale" content="zh_TW">
+<meta property="article:published_time" content="2022-01-16T08:20:29.000Z">
+<meta property="article:modified_time" content="2022-01-16T08:21:15.852Z">
+<meta property="article:author" content="Lin Yunwen">
+<meta property="article:tag" content="note">
+<meta property="article:tag" content="c&#x2F;c++">
+<meta property="article:tag" content="book section">
+<meta property="article:tag" content="ABI">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://linyunwen.github.io/2022/01/16/c-c-ABI/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-TW","comments":true,"permalink":"https://linyunwen.github.io/2022/01/16/c-c-ABI/","path":"2022/01/16/c-c-ABI/","title":"Application Binary Interface (ABI)"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Application Binary Interface (ABI) | Lin Yunwen's Blog</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-H43D6184CW"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"G-H43D6184CW","only_pageview":false}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Lin Yunwen's Blog</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">keep moving forward</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>標籤</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Application-Binary-Interface-ABI"><span class="nav-number">1.</span> <span class="nav-text">Application Binary Interface (ABI)</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#API%E8%88%87ABI%E7%9A%84%E5%8D%80%E5%88%A5"><span class="nav-number">1.1.</span> <span class="nav-text">API與ABI的區別</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ABI-%E4%B8%8D%E7%9B%B8%E5%AE%B9%E7%9A%84%E5%8F%AF%E8%83%BD%E9%9D%A2%E5%90%91"><span class="nav-number">1.2.</span> <span class="nav-text">ABI 不相容的可能面向</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A1%AC%E9%AB%94-%E5%A6%82%E8%99%95%E7%90%86%E5%99%A8"><span class="nav-number">1.2.1.</span> <span class="nav-text">硬體 - 如處理器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%9C%E6%A5%AD%E7%B3%BB%E7%B5%B1"><span class="nav-number">1.2.2.</span> <span class="nav-text">作業系統</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B7%A8%E8%AD%AF%E5%99%A8"><span class="nav-number">1.2.3.</span> <span class="nav-text">編譯器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AA%9E%E8%A8%80%E5%B1%A4%E9%9D%A2-C"><span class="nav-number">1.2.4.</span> <span class="nav-text">語言層面 - C++</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#reference"><span class="nav-number">1.3.</span> <span class="nav-text">reference</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-overview">
+            <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Lin Yunwen"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Lin Yunwen</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">144</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">189</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/LinYunWen" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;LinYunWen" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:l40303k@gmail.com" title="E-Mail → mailto:l40303k@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="回到頂端">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://linyunwen.github.io/2022/01/16/c-c-ABI/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Lin Yunwen">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Lin Yunwen's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Application Binary Interface (ABI)
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">發表於</span>
+      
+
+      <time title="創建時間：2022-01-16 16:20:29 / 修改時間：16:21:15" itemprop="dateCreated datePublished" datetime="2022-01-16T16:20:29+08:00">2022-01-16</time>
+    </span>
+
+  
+      </div>
+      <div class="post-meta">
+    <span class="post-meta-item" title="文章字數">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">文章字數：</span>
+      <span>2.7k</span>
+    </span>
+    <span class="post-meta-item" title="所需閱讀時間">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+      <span>5 分鐘</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="Application-Binary-Interface-ABI"><a href="#Application-Binary-Interface-ABI" class="headerlink" title="Application Binary Interface (ABI)"></a>Application Binary Interface (ABI)</h1><ul>
+<li>應用程式二進位制介面，描述了應用程式和作業系統之間，一個應用和它的庫之間，或應用的組成部分之間的底層介面。</li>
+<li>想要保持二進位制相容相較於<code>API</code>相容來說要難上許多，並且影響<code>ABI</code>相容的因素也非常多從硬體到作業系統再到編譯器，程式語言等，並且非常難以統一</li>
+<li>ABI 更改是不可避免的。發生這種情況時，除非重新編譯以使用新版本的庫，否則使用該庫的任何程序都將無法運行。如果 ABI 更改但 API 沒有更改，則新舊庫版本有時稱為“源兼容”。這意味著雖然為一個庫版本編譯的程序不能與另一個庫版本一起使用，但如果重新編譯，為一個庫版本編寫的源代碼將適用於另一個庫版本。<span id="more"></span>
+<blockquote>
+<ul>
+<li>此外，關於您關於 C++ 名稱修飾的註釋：在庫文件中定位函數時，通常按名稱查找該函數。C++ 允許您重載函數名稱，因此僅名稱不足以識別函數。C++ 編譯器有自己的內部處理方式，稱為_名稱修飾_。ABI 可以定義對函數名稱進行編碼的標準方式，以便使用不同語言或編譯器構建的程序可以找到所需的內容。當您<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/1041866/what-is-the-effect-of-extern-c-in-c"><code>extern &quot;c&quot;</code></a>在 C++ 程序中使用時，您是在指示編譯器使用一種標準化的方式來記錄其他軟件可以理解的名稱。</li>
+</ul>
+</blockquote>
+</li>
+</ul>
+<h2 id="API與ABI的區別"><a href="#API與ABI的區別" class="headerlink" title="API與ABI的區別"></a>API與ABI的區別</h2><ul>
+<li><code>ABI</code>從名字上看是二進位制介面，而二進位制檔案再<code>linux</code>以<code>ELF</code>檔案型別表示，<code>windows</code>以<code>PE-COFF</code>檔案型別表示。<ul>
+<li>可重定位檔案 (Relocatable File)<ul>
+<li>包含了程式碼和資料    如Linux的.o、.a</li>
+<li>windows的.obj、.lib</li>
+</ul>
+</li>
+<li>可執行檔案（Executable File)<ul>
+<li>包含了可以直接執行的程式    如/bin/ls 檔案</li>
+<li>windows的.exe</li>
+</ul>
+</li>
+<li>共享目標檔案 (Shared Object File)<ul>
+<li>包含了程式碼和資料    Linux 的.so</li>
+<li>windows的dll</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>二進位制檔案的生成是通過編譯器或者連結器，那麼<code>API</code>和<code>ABI</code>都是誰需要去遵循這個規則呢，如下面的程式碼假設它將會被編譯成一個<code>myso</code>動態庫，你可以將它當成一個<code>API</code>。</li>
+<li>e.g.<ul>
+<li>  API：庫的使用者可能需要去遵循這個介面規範，<code>Add</code>函式的引數個數以及引數型別等等。</li>
+<li>  ABI：<code>main</code>使用到了<code>Add</code>這個<code>API</code>，這個<code>API</code>包含再一個<code>myso</code>動態庫裡面，現在設計到一個符號尋找機制，即編譯器需要去<code>myso</code>動態庫裡面尋找<code>Add</code>這個符號，那符號的命名規則不一致會導致什麼結果？如<code>gcc1.0</code>版本的符號命名規則是再函式前面加一個<code>_</code>，即最後<code>Add</code>符號名稱<code>_Add</code>, <code>gcc2.0</code>版本的符號命名規則是再函式後面加一個<code>_</code>, 即最後Add符號名稱<code>Add_</code>。思考一個問題，<code>myso</code>是利用<code>gcc1.0</code>版本編譯，<code>main</code>使用<code>gcc2.0</code>版本編譯，會出現是什麼問題？ 編譯器會提示你<code>Add_</code>符號未定義，這裡說的符號匯出規則也就是屬於<code>ABI</code>相容問題。</li>
+</ul>
+</li>
+</ul>
+<p>:::danger</p>
+<ul>
+<li>影響你API不相容的可能是你使用的API<strong>新增了引數</strong>。</li>
+<li>影響ABI不相容的可能僅僅就是<strong>編譯器版本不同</strong><ul>
+<li>當然編譯器僅僅只是導致ABI不相容的一個方面。</li>
+</ul>
+</li>
+<li>一個是原始碼層面，一個是編譯器層面（或者說二進位制層面，即編譯器生成的二進位制）<br>:::</li>
+</ul>
+<h2 id="ABI-不相容的可能面向"><a href="#ABI-不相容的可能面向" class="headerlink" title="ABI 不相容的可能面向"></a>ABI 不相容的可能面向</h2><h3 id="硬體-如處理器"><a href="#硬體-如處理器" class="headerlink" title="硬體 - 如處理器"></a>硬體 - 如處理器</h3><ul>
+<li>最近<code>Apple</code>釋出了最新款<code>Mac</code>筆記本，號稱可以直接使用<code>iPhone</code>和<code>ipad</code>的應用，怎麼做到的？這個就是一個二進位制相容問題，<code>Apple</code>再最新的<code>Mac</code>筆記本上放棄了之前一直使用的<code>intel</code>晶片，從而採用自研的<code>M1</code>晶片，這個<code>M1</code>的自研晶片架構就是<code>ARM</code>架構和蘋果<code>A</code>系列晶片架構一樣，從而才有可能實現二進位制級別的相容。<blockquote>
+<p>二進位制裡面包含了指令和資料，而<code>CPU</code>有一個核心作用就是處理指令，不同架構的<code>CPU</code>指令集都不同，從而產生的二進位制也會不同，例如你在程式碼中呼叫了<code>print</code>函式，最終在<code>X86</code>生成的二進位制檔案的一條指令是<code>call 0x1234</code>, 但是在<code>ARM</code>處理器下它可能沒有<code>call</code>指令，它的跳轉指令可能是<code>jar</code>。</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="作業系統"><a href="#作業系統" class="headerlink" title="作業系統"></a>作業系統</h3><ul>
+<li>二進位制檔案型別<ul>
+<li>一個可執行的二進位制檔案包含的不僅僅是機制指令，還包括各種資料、程式執行資源。<ul>
+<li>如上面提到的二進位制檔案型別:<ul>
+<li>windows - PE-COFF</li>
+<li>linux - ELF</li>
+<li>macos - MACH-O</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>它們的二進位制檔案格式各不相同，導致windows無法解析linux下的ELF檔案格式，從而無法完成可執行檔案在執行之前的一系列初始化操作</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>程式庫不同（API）<ul>
+<li>檔案操作、輸入輸出、記憶體申請釋放、任務排程等都需要用到特定作業系統的特定庫。</li>
+</ul>
+</li>
+</ul>
+<h3 id="編譯器"><a href="#編譯器" class="headerlink" title="編譯器"></a>編譯器</h3><ul>
+<li>如C++函式簽名<ul>
+<li>函式簽名的目的就是讓編譯器能夠根據對應的簽名規則生成一個符號，編譯器根據這個符號來識別和處理函式，函式簽名包含了一個函式的資訊，其中包括<ul>
+<li>函式名</li>
+<li>引數型別</li>
+<li>引數個數</li>
+<li>類名</li>
+<li>名稱空間</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>e.g.<ul>
+<li><code>int Function(int i);</code><ul>
+<li>上面的程式碼在gcc和vc編譯器生成之後的符號：</li>
+<li>gcc : <code>_Z8Functioni</code></li>
+<li>vc++: <code>?Function@@YAHH@Z</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>就算是相同版本的gcc也一樣可能出現二進位制不相容<ul>
+<li>如gcc4.9版本C++ string,list符號命名和gcc5.1之後的符號命名都是不同的gcc5.1上會增加__cxx11，所以一樣會產生在gcc4.9編譯的庫，再gcc5.1上使用不了（符號未定義，如果使用了string，list）</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="語言層面-C"><a href="#語言層面-C" class="headerlink" title="語言層面 - C++"></a>語言層面 - C++</h3><ul>
+<li>  內建型別的大小以及對齊方式（如大端、小端）。</li>
+<li>  <code>struct</code>、<code>union</code>、陣列等的儲存方式和記憶體分佈。</li>
+<li>  函式呼叫方式，比如引數入棧順序、返回值如何保持等。</li>
+<li>  堆疊的分佈方式，比如引數和區域性變數在堆疊裡的位置，引數傳遞方法等。</li>
+<li>  繼承類體系的記憶體分佈，如基類、虛基類再繼承類中的位置等。</li>
+<li>  指向成員函式的指標的記憶體分佈，如何傳遞this指標</li>
+<li>  如何呼叫虛擬函式，<code>vtable</code>的內容和分佈形式，<code>vtable</code>指標在<code>object</code>中的位置等。</li>
+<li>  <code>templte</code> 如何例項化</li>
+<li>  外部符號的修飾</li>
+<li>  全域性物件的構造和析構</li>
+<li>  異常的產生和捕獲機制</li>
+<li>  <code>RTTI</code>如何實現<br>…</li>
+</ul>
+<h2 id="reference"><a href="#reference" class="headerlink" title="reference"></a>reference</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://www.gushiciku.cn/pl/pSTt/zh-tw">細談ABI (Application Binary interface)_spider集控團隊 - MdEditor</a></li>
+<li><a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E5%BA%94%E7%94%A8%E4%BA%8C%E8%BF%9B%E5%88%B6%E6%8E%A5%E5%8F%A3">應用二進位介面 - 維基百科，自由的百科全書</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.quora.com/What-exactly-is-an-Application-Binary-Interface-ABI-Who-defines-it-the-operating-system-a-programming-language">What exactly is an Application Binary Interface (ABI)? Who defines it (the operating system, a programming language)? - Quora</a></li>
+<li><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/2171177/what-is-an-application-binary-interface-abi">compiler construction - What is an application binary interface (ABI)? - Stack Overflow</a></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/note/" rel="tag"># note</a>
+              <a href="/tags/c-c/" rel="tag"># c/c++</a>
+              <a href="/tags/book-section/" rel="tag"># book section</a>
+              <a href="/tags/ABI/" rel="tag"># ABI</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/01/12/linux-dd/" rel="prev" title="Linux dd Command">
+                  <i class="fa fa-chevron-left"></i> Linux dd Command
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Lin Yunwen</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>總字數：</span>
+    <span title="總字數">361k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>所需總閱讀時間 &asymp;</span>
+    <span title="所需總閱讀時間">10:56</span>
+  </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>
