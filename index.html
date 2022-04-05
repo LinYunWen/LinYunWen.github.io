@@ -133,14 +133,14 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">149</span>
+          <span class="site-state-item-count">150</span>
           <span class="site-state-item-name">文章</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">194</span>
+        <span class="site-state-item-count">196</span>
         <span class="site-state-item-name">標籤</span></a>
       </div>
   </nav>
@@ -178,6 +178,112 @@
 
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://linyunwen.github.io/2022/04/05/natural-order/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Lin Yunwen">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Lin Yunwen's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/04/05/natural-order/" class="post-title-link" itemprop="url">Natural Order</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">發表於</span>
+      
+
+      <time title="創建時間：2022-04-05 11:07:09 / 修改時間：11:07:32" itemprop="dateCreated datePublished" datetime="2022-04-05T11:07:09+08:00">2022-04-05</time>
+    </span>
+
+  
+      </div>
+      <div class="post-meta">
+    <span class="post-meta-item" title="文章字數">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">文章字數：</span>
+      <span>695</span>
+    </span>
+    <span class="post-meta-item" title="所需閱讀時間">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+      <span>1 分鐘</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="Natural-Order"><a href="#Natural-Order" class="headerlink" title="Natural Order"></a>Natural Order</h1><blockquote>
+<ul>
+<li>it is also called version sorting</li>
+</ul>
+</blockquote>
+<h2 id="intro"><a href="#intro" class="headerlink" title="intro"></a>intro</h2><ul>
+<li>通常將字母和數字方開來處理，而數字的部分會以數字組的方式處理</li>
+<li>以避免下列狀況<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">// 按字母顺序排序：</span><br><span class="line">1.  1111</span><br><span class="line">2.  22</span><br><span class="line"></span><br><span class="line">// 自然排序：</span><br><span class="line">1.  22</span><br><span class="line">2.  1111</span><br></pre></td></tr></table></figure>
+<h2 id="code-example"><a href="#code-example" class="headerlink" title="code example"></a>code example</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> </span><br><span class="line">    CONCAT(prefix, suffix)</span><br><span class="line"><span class="keyword">FROM</span></span><br><span class="line">    items</span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> </span><br><span class="line">    prefix , suffix;</span><br></pre></td></tr></table></figure>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> </span><br><span class="line">    item_no</span><br><span class="line"><span class="keyword">FROM</span></span><br><span class="line">    items</span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> <span class="built_in">CAST</span>(item_no <span class="keyword">AS</span> UNSIGNED) , item_no;</span><br></pre></td></tr></table></figure>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> </span><br><span class="line">    item_no</span><br><span class="line"><span class="keyword">FROM</span></span><br><span class="line">    items</span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> LENGTH(item_no) , item_no;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h2 id="reference"><a href="#reference" class="headerlink" title="reference"></a>reference</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://www.sqlitetutorial.net/sqlite-order-by/">SQLite Order By - Sorting Result Set in Various Orders</a></li>
+<li><a target="_blank" rel="noopener" href="https://sqlite.org/forum/forumpost/cff93834d2">SQLite Forum: Natural sort order</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.mysqltutorial.org/mysql-natural-sorting/">MySQL Natural Sorting with ORDER BY clause</a></li>
+<li><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/36618910/natural-sorting-of-alphanumeric-values-in-sqlite-using-android">Natural sorting of alphanumeric values in sqlite using android - Stack Overflow</a></li>
+<li><a target="_blank" rel="noopener" href="https://wikichi.icu/wiki/Natural_sort_order">自然排序顺序-维基百科</a></li>
+<li><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/28281501/sqlite-3-version-sort-string">sorting - SQLite 3 Version Sort String - Stack Overflow</a></li>
+<li><a target="_blank" rel="noopener" href="https://seven332.github.io/algorithm/2017/09/25/natural-sorting.html">自然排序</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.codinghorror.com/sorting-for-humans-natural-sort-order/">Sorting for Humans : Natural Sort Order</a></li>
+<li><a target="_blank" rel="noopener" href="https://docs.microsoft.com/en-us/previous-versions/technet-magazine/hh475812(v=msdn.10)?redirectedfrom=MSDN">Windows Confidential: The Evolution of Sorting | Microsoft Docs</a></li>
+<li><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/153633/natural-sort-in-mysql">sql - Natural Sort in MySQL - Stack Overflow</a></li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -1227,98 +1333,6 @@
 
 
 
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://linyunwen.github.io/2022/01/02/linux-io-model/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="Lin Yunwen">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Lin Yunwen's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/01/02/linux-io-model/" class="post-title-link" itemprop="url">Linux IO model</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">發表於</span>
-      
-
-      <time title="創建時間：2022-01-02 18:18:46 / 修改時間：18:19:48" itemprop="dateCreated datePublished" datetime="2022-01-02T18:18:46+08:00">2022-01-02</time>
-    </span>
-
-  
-      </div>
-      <div class="post-meta">
-    <span class="post-meta-item" title="文章字數">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">文章字數：</span>
-      <span>2.3k</span>
-    </span>
-    <span class="post-meta-item" title="所需閱讀時間">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
-      <span>4 分鐘</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="IO-model"><a href="#IO-model" class="headerlink" title="IO model"></a>IO model</h1><h2 id="introduction"><a href="#introduction" class="headerlink" title="introduction"></a>introduction</h2><h3 id="Kernal-Space-User-Space"><a href="#Kernal-Space-User-Space" class="headerlink" title="Kernal Space, User Space"></a>Kernal Space, User Space</h3><ul>
-<li>作業系統的核心是核心，獨立於普通的應用程式，可以訪問受保護的記憶體空間，也有訪問底層硬體裝置的所有許可權。為了保證使用者程式不能直接操作核心（kernel），保證核心的安全</li>
-<li>CPU 執行程式時，會在 user space 與 kernel space 之間來回切換，user space 的系統函式庫，會轉換為 kernel space 的 system call，並由 kernel 處理，當 system call 完成後，就會回到 user space 繼續下去。</li>
-<li>32 bits 的 OS，定址空間是 2^32 也就是 4G。kernel space 限制為 1G (虛擬地址0xC0000000到0xFFFFFFFF)，而 user space 為 3G (虛擬地址0x00000000到0xBFFFFFFF)，由各 process 使用。</li>
-<li>64 bits 的 OS，會將 virtual address 分成一半，第一個 bit 為 0 是 user space，第一個 bit 為 1 是 kernel space，理論上是 8EB+8EB。但目前 processors 只實作了 <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/X86-64#Canonical_form_addresses">48 bits</a>，也就是 128TB+128TB。
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2022/01/02/linux-io-model/#more" rel="contents">
-                閱讀全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
   <nav class="pagination">
     <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/15/">15</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一頁"></i></a>
   </nav>
@@ -1344,14 +1358,14 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>總字數：</span>
-    <span title="總字數">371k</span>
+    <span title="總字數">372k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>所需總閱讀時間 &asymp;</span>
-    <span title="所需總閱讀時間">11:14</span>
+    <span title="所需總閱讀時間">11:16</span>
   </span>
 </div>
 
