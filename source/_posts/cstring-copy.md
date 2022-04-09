@@ -8,7 +8,7 @@ tags: [note, string, copy, c/c++]
 ## strdup
 > - #include <string.h>
 > - char *strdup(const char *s1);
-
+<!--more-->
 ### intro
 - return a pointer to a new string, which is a duplicate of the string pointed to by s1. The returned pointer can be passed to free().
 - A null pointer is returned if the new string cannot be created.

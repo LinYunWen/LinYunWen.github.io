@@ -12,6 +12,7 @@ tags: [note, lua]
 - Starts program prog in a separated process
 - returns a file handle that you can use to read data from this program (if mode is "r", the default) or to write data to this program (if mode is "w").
 - 如果失敗會直接中斷 program
+<!--more-->
 #### mode
 * The mode string can be any of the following:
     * "r": read mode (the default);

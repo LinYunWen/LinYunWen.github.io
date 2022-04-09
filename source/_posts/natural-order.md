@@ -6,6 +6,7 @@ tags: [note, natural order, sort]
 
 # Natural Order
 > - it is also called version sorting
+<!--more-->
 ## intro
 - 通常將字母和數字方開來處理，而數字的部分會以數字組的方式處理
 - 以避免下列狀況

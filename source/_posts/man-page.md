@@ -8,7 +8,7 @@ tags: [note, man page, linux]
 
 ## introduction
 - 手冊頁（英語：Manual pages，縮寫man page）是在Unix或類Unix作業系統線上軟體文件的一種普遍的形式
-
+<!--more-->
 ## section
 > - 每個章節對應不同的類別：
 -   1：可執行的程式或是 shell 指令。
