@@ -28,7 +28,7 @@
 <meta property="og:description" content="const charintroduction Read the pointer declarations right-to-left. const 放在 type 前或後是相同的 const char * const * is the same as char const * const *: a (non-const) pointer to a const pointer to a const">
 <meta property="og:locale" content="zh_TW">
 <meta property="article:published_time" content="2022-04-10T02:36:59.000Z">
-<meta property="article:modified_time" content="2022-04-10T02:37:30.091Z">
+<meta property="article:modified_time" content="2022-04-10T03:20:20.961Z">
 <meta property="article:author" content="Lin Yunwen">
 <meta property="article:tag" content="note">
 <meta property="article:tag" content="c&#x2F;c++">
@@ -142,14 +142,14 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">152</span>
+          <span class="site-state-item-count">153</span>
           <span class="site-state-item-name">文章</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">198</span>
+        <span class="site-state-item-count">199</span>
         <span class="site-state-item-name">標籤</span></a>
       </div>
   </nav>
@@ -222,7 +222,7 @@
       <span class="post-meta-item-text">發表於</span>
       
 
-      <time title="創建時間：2022-04-10 10:36:59 / 修改時間：10:37:30" itemprop="dateCreated datePublished" datetime="2022-04-10T10:36:59+08:00">2022-04-10</time>
+      <time title="創建時間：2022-04-10 10:36:59 / 修改時間：11:20:20" itemprop="dateCreated datePublished" datetime="2022-04-10T10:36:59+08:00">2022-04-10</time>
     </span>
 
   
@@ -256,11 +256,10 @@
 <li>const 放在 type 前或後是相同的<ul>
 <li><code>const char * const *</code> is the same as <code>char const * const *</code>: a (non-const) pointer to a const pointer to a const char.</li>
 <li><code>const char *</code> is the same as <code>char const *</code>: a (non-const) pointer to a const char.</li>
-<li><code>const char * *</code> is the same as <code>char const * *</code>: a (non-const) pointer to a (non-const) pointer to a const char.</li>
+<li><code>const char * *</code> is the same as <code>char const * *</code>: a (non-const) pointer to a (non-const) pointer to a const char.<span id="more"></span>
+<h2 id="brief"><a href="#brief" class="headerlink" title="brief"></a>brief</h2></li>
 </ul>
 </li>
-</ul>
-<h2 id="brief"><a href="#brief" class="headerlink" title="brief"></a>brief</h2><ul>
 <li>  <code>const X* p</code> means “<code>p</code> points to an <code>X</code> that is <code>const</code>“: the <code>X</code> object can’t be changed <a target="_blank" rel="noopener" href="https://isocpp.org/wiki/faq/const-correctness#ptr-to-const-aliasing">via <code>p</code></a>.</li>
 <li>  <code>X* const p</code> means “<code>p</code> is a <code>const</code> pointer to an <code>X</code> that is <code>non-const</code>“: you can’t change the pointer <code>p</code> itself, but you can change the <code>X</code> object <a target="_blank" rel="noopener" href="https://isocpp.org/wiki/faq/const-correctness#ptr-to-const-aliasing">via <code>p</code></a>.</li>
 <li>  <code>const X* const p</code> means “p is a <code>const</code> pointer to an <code>X</code> that is <code>const</code>“: you can’t change the pointer <code>p</code> itself, nor can you change the <code>X</code> object <a target="_blank" rel="noopener" href="https://isocpp.org/wiki/faq/const-correctness#ptr-to-const-aliasing">via <code>p</code></a>.</li>
@@ -306,6 +305,9 @@
                 </a>
             </div>
             <div class="post-nav-item">
+                <a href="/2022/04/10/c-cast-conversion/" rel="next" title="c++ cast and conversion">
+                  c++ cast and conversion <i class="fa fa-chevron-right"></i>
+                </a>
             </div>
           </div>
     </footer>
@@ -338,14 +340,14 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>總字數：</span>
-    <span title="總字數">374k</span>
+    <span title="總字數">375k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>所需總閱讀時間 &asymp;</span>
-    <span title="所需總閱讀時間">11:20</span>
+    <span title="所需總閱讀時間">11:23</span>
   </span>
 </div>
 
