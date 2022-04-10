@@ -14,7 +14,7 @@ tags: [note, linux, dd, disk, book section]
     * 備份與回復原始設備檔案，例如 MBR（master boot record）。
     * 轉換資料格式，例如 ASCII 轉換為 EBCDIC，大小寫轉換等。
     * 建立固定大小的檔案。
-
+<!--more-->
 ## param
 * bs=BYTES
     * read and write BYTES bytes at a time (also see ibs=,obs=)

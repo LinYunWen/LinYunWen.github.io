@@ -12,6 +12,7 @@ tags: [note, css, selector, book section]
 .one.two{}     /*兩個 class 中沒有空格*/
 .one, .two{}   /*兩個 class 中出現逗號*/
 ```
+<!--more-->
 * 第一個的 one 和 two 中間沒有包含空格
     * 某個區塊必須同時具有 one 和 two 的 class 時，才能被 CSS 所選擇到。
 * 第二個的 one 和 two 中間包含空格

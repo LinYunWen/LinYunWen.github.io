@@ -20,7 +20,7 @@ tags: note, c/c++, volatile, book section
         int b = i;
         ```
         - volatile 指出 i 是隨時可能發生變化的，每次使用它的時候必須從 i的地址中讀取，因而編譯器生成的彙編程式碼會重新從i的地址讀取資料放在 b 中
-
+<!--more-->
 ## usage
 - 有2兩個場合(I/O & multithread program) 會使用到
 

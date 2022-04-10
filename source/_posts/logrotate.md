@@ -13,6 +13,7 @@ tags: [note, linux, log]
     - /etc/logrotate.d/
 - Logrotate 是基於 cron 來執行的
 - restart service: `sudo /usr/sbin/logrotate -v /etc/logrotate.conf
+<!--more-->
 ## 切割介紹
 - 比如以系統日誌/var/log/message做切割來簡單說明下：
     - 第一次執行完rotate(輪轉)之後，原本的messages會變成messages.1，而且會製造一個空的messages給系統來儲存日誌；

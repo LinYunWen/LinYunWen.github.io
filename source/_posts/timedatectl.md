@@ -17,7 +17,7 @@ $ timedatectl
 systemd-timesyncd.service active: yes
                  RTC in local TZ: no
 ```
-<!--moe-->
+<!--more-->
 ## options
 ```
 --no-ask-password
