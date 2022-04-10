@@ -29,7 +29,7 @@
 <meta property="og:locale" content="zh_TW">
 <meta property="og:image" content="https://i.imgur.com/baSUGIm.png">
 <meta property="article:published_time" content="2021-09-18T06:27:59.000Z">
-<meta property="article:modified_time" content="2021-09-18T06:29:35.065Z">
+<meta property="article:modified_time" content="2022-04-10T01:15:19.033Z">
 <meta property="article:author" content="Lin Yunwen">
 <meta property="article:tag" content="note">
 <meta property="article:tag" content="linux">
@@ -222,10 +222,16 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">發表於</span>
-      
 
-      <time title="創建時間：2021-09-18 14:27:59 / 修改時間：14:29:35" itemprop="dateCreated datePublished" datetime="2021-09-18T14:27:59+08:00">2021-09-18</time>
+      <time title="創建時間：2021-09-18 14:27:59" itemprop="dateCreated datePublished" datetime="2021-09-18T14:27:59+08:00">2021-09-18</time>
     </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新於</span>
+        <time title="修改時間：2022-04-10 09:15:19" itemprop="dateModified" datetime="2022-04-10T09:15:19+08:00">2022-04-10</time>
+      </span>
 
   
       </div>
@@ -258,7 +264,7 @@
 </li>
 <li><p>是 systemd unit</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"># 顯示目前狀態</span><br><span class="line">$ timedatectl</span><br><span class="line">                      Local time: Mon 2020-04-06 18:11:32 CST</span><br><span class="line">                  Universal time: Mon 2020-04-06 10:11:32 UTC</span><br><span class="line">                        RTC time: Mon 2020-04-06 10:11:33</span><br><span class="line">                       Time zone: Asia/Taipei (CST, +0800)</span><br><span class="line">       System clock synchronized: yes</span><br><span class="line">systemd-timesyncd.service active: yes</span><br><span class="line">                 RTC in local TZ: no</span><br></pre></td></tr></table></figure>
-<!--moe-->
+<span id="more"></span>
 <h2 id="options"><a href="#options" class="headerlink" title="options"></a>options</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">--no-ask-password</span><br><span class="line">           在執行特權操作時不向用戶索要密碼。</span><br><span class="line"></span><br><span class="line">status</span><br><span class="line">   顯示系統時鐘與RTC的當前狀態， 包括時區設置與網絡時間同步服務的狀態。</span><br><span class="line">   注意，所謂&quot;網絡時間同步服務的狀態&quot;實際上只是 systemd-timesyncd.service 服務的狀態，</span><br><span class="line">   並不檢查是否存在其他時間同步服務。 這是默認命令。</span><br><span class="line"></span><br><span class="line">set-time [TIME]</span><br><span class="line">   將系統時鐘設爲指定的時間， 並同時更新RTC時間。 [TIME] 是一個形如 &quot;2012-10-30</span><br><span class="line">   18:17:16&quot;的時間字符串。</span><br><span class="line"></span><br><span class="line">set-timezone [TIMEZONE]</span><br><span class="line">   設置系統時區，也就是更新 /etc/localtime 軟連接的指向。 可以用下面的 list-timezones</span><br><span class="line">   命令列出所有可用時區。 如果RTC被設爲本地時間， 此命令還會同時更新RTC時間。 詳見</span><br><span class="line">   localtime(5) 手冊。</span><br><span class="line"></span><br><span class="line">list-timezones</span><br><span class="line">   列出所有可用時區，每行一個。 列出的值可以用作前述 set-timezone 命令的參數。</span><br><span class="line"></span><br><span class="line">set-local-rtc [BOOL]</span><br><span class="line">   設爲 &quot;no&quot; 表示在RTC中存儲UTC時間； 設爲 &quot;yes&quot; 表示在RTC中存儲本地時間。</span><br><span class="line">   應該盡一切可能在RTC中存儲UTC時間。 儘量不要在RTC中存儲本地時間，</span><br><span class="line">   因爲這會造成一系列麻煩， 尤其是在切換時區以及調整夏令時或冬令時的時候。</span><br><span class="line">   注意，除非明確使用了 --adjust-system-clock 選項，</span><br><span class="line">   否則此命令還會同時用系統時鐘更新RTC時間。 此命令還會改變 /etc/adjtime</span><br><span class="line">   文件第三行的內容，詳見 hwclock(8) 手冊。</span><br><span class="line"></span><br><span class="line">set-ntp [BOOL]</span><br><span class="line">   是否開啓網絡時間同步。 設爲 &quot;yes&quot; 則啓用並啓動 systemd-timesyncd.service 服務， 設爲</span><br><span class="line">   &quot;no&quot; 則停止並停用它。 該命令除了控制 systemd-timesyncd.service</span><br><span class="line">   服務的狀態，不做任何其他操作。 也就是說，設爲 &quot;yes&quot; 相當於執行 systemctl enable --now</span><br><span class="line">   systemd-timesyncd.service 命令； 而設爲 &quot;no&quot; 則相當於執行 systemctl disable --now</span><br><span class="line">   systemd-timesyncd.service 命令；</span><br><span class="line"></span><br><span class="line">   注意，即使使用此命令關閉了 systemd-timesyncd.service 服務，</span><br><span class="line">   仍然有可能存在其他時間同步服務。 另外，嚴格來說， systemd-timesyncd.service</span><br><span class="line">   除了同步時間之外，還同時兼有其他功能，</span><br><span class="line">   例如在無網絡且無RTC的系統上維持系統的&quot;單調時鐘&quot;。 詳見 systemd-timesyncd.service(8)</span><br><span class="line">   手冊。</span><br></pre></td></tr></table></figure></li>
 <li><p>e.g.</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">// timedatectl 也可以用來設定系統時間，設定方式為：</span><br><span class="line">sudo timedatectl set-time &quot;2016-11-12&quot;</span><br><span class="line">// 設定日期與時間的方式：</span><br><span class="line">sudo timedatectl set-time &quot;2016-11-12 18:10:40&quot;</span><br><span class="line">// 也可以只更改時間：</span><br><span class="line">sudo timedatectl set-time &quot;18:10:40&quot;</span><br></pre></td></tr></table></figure>

@@ -981,7 +981,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">更新於</span>
-        <time title="修改時間：2022-01-13 07:36:45" itemprop="dateModified" datetime="2022-01-13T07:36:45+08:00">2022-01-13</time>
+        <time title="修改時間：2022-04-10 09:12:41" itemprop="dateModified" datetime="2022-04-10T09:12:41+08:00">2022-04-10</time>
       </span>
 
   
@@ -1020,107 +1020,15 @@
 <ul>
 <li>備份與回復原始設備檔案，例如 MBR（master boot record）。</li>
 <li>轉換資料格式，例如 ASCII 轉換為 EBCDIC，大小寫轉換等。</li>
-<li>建立固定大小的檔案。</li>
-</ul>
-</li>
-</ul>
-<h2 id="param"><a href="#param" class="headerlink" title="param"></a>param</h2><ul>
-<li>bs=BYTES<ul>
-<li>read and write BYTES bytes at a time (also see ibs=,obs=)</li>
-</ul>
-</li>
-<li>cbs=BYTES<ul>
-<li>convert BYTES bytes at a time</li>
-</ul>
-</li>
-<li>conv=CONVS<ul>
-<li>convert the file as per the comma separated symbol list</li>
-</ul>
-</li>
-<li>count=BLOCKS<ul>
-<li>copy only BLOCKS input blocks</li>
-</ul>
-</li>
-<li>ibs=BYTES<ul>
-<li>read BYTES bytes at a time (default: 512)</li>
-</ul>
-</li>
-<li>if=FILE<ul>
-<li>read from FILE instead of stdin</li>
-</ul>
-</li>
-<li>iflag=FLAGS<ul>
-<li>read as per the comma separated symbol list</li>
-</ul>
-</li>
-<li>obs=BYTES<ul>
-<li>write BYTES bytes at a time (default: 512)</li>
-</ul>
-</li>
-<li>of=FILE<ul>
-<li>write to FILE instead of stdout</li>
-</ul>
-</li>
-<li>oflag=FLAGS<ul>
-<li>write as per the comma separated symbol list</li>
-</ul>
-</li>
-<li>seek=BLOCKS<ul>
-<li>skip BLOCKS obs-sized blocks at start of output</li>
-</ul>
-</li>
-<li>skip=BLOCKS<ul>
-<li>skip BLOCKS ibs-sized blocks at start of input</li>
-</ul>
-</li>
-<li>status=noxfer<ul>
-<li>suppress transfer statistics</li>
-</ul>
-</li>
-<li>count_bytes<ul>
-<li>treat ‘count=N’ as a byte count (iflag only)</li>
-</ul>
-</li>
-<li>skip_bytes<ul>
-<li>treat ‘skip=N’ as a byte count (iflag only)</li>
-</ul>
-</li>
-<li>seek_bytes<ul>
-<li>treat ‘seek=N’ as a byte count (oflag only)</li>
-</ul>
-</li>
-</ul>
-<h3 id="常用說明"><a href="#常用說明" class="headerlink" title="常用說明"></a>常用說明</h3><ul>
-<li>  <code>if=FILE</code>：指定輸入檔案名稱（input file）為 <code>FILE</code>。</li>
-<li>  <code>of=FILE</code>：指定輸出檔案名稱（output file）為 <code>FILE</code>。</li>
-<li>  <code>ibs=BYTES</code>：指定輸入區塊大小（input block size），一次讀取 <code>BYTES</code> 位元組的資料，預設為 512 位元組。</li>
-<li>  <code>obs=BYTES</code>：指定輸出區塊大小（output block size），一次寫入 <code>BYTES</code> 位元組的資料，預設為 512 位元組。</li>
-<li>  <code>bs=BYTES</code>：指定 block size，一次讀取與寫入 <code>BYTES</code> 位元組的資料，此選項會覆蓋 <code>ibs</code> 與 <code>obs</code> 的設定。</li>
-<li>  <code>cbs=BYTES</code>：一次轉換 <code>BYTES</code> 位元組的資料。</li>
-<li>  <code>count=N</code>：只處理 <code>N</code> 個輸入區塊，每個區塊的大小為 <code>ibs</code>。</li>
-<li>  <code>seek=N</code>：在輸出時跳過輸出檔案的前 <code>N</code> 個區塊，每個區塊的大小為 <code>obs</code>。</li>
-<li>  <code>skip=N</code>：在輸入時跳過輸入檔案的前 <code>N</code> 個區塊，每個區塊的大小為 <code>ibs</code>。</li>
-<li>  <code>conv=CONVS</code>：指定資料的轉換選項，如果一次要指定多種轉換，則以逗點分隔。</li>
-</ul>
-<h2 id="e-g"><a href="#e-g" class="headerlink" title="e.g."></a>e.g.</h2><h3 id="備份整顆硬碟"><a href="#備份整顆硬碟" class="headerlink" title="備份整顆硬碟"></a>備份整顆硬碟</h3><ul>
-<li>將 <code>/dev/sda</code> 所有的資料寫入 <code>/dev/sdb</code>：  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo dd if=/dev/sda of=/dev/sdb</span><br><span class="line">// 讀取錯誤時還是繼續拷貝資料的話，就要加上 `conv=noerror` 參數，這個選項通常在備份資料時會使用到，另外加上 `sync` 可以讓 `dd` 以 synchronized I/O 的方式備份資料：</span><br><span class="line">sudo dd if=/dev/sda of=/dev/sdb conv=noerror,sync</span><br></pre></td></tr></table></figure>
-<h3 id="建立固定大小的檔案"><a href="#建立固定大小的檔案" class="headerlink" title="建立固定大小的檔案"></a>建立固定大小的檔案</h3></li>
-<li>建立一個 10MB 大小的檔案：  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">dd if=/dev/zero of=file1 bs=10485760 count=1</span><br><span class="line">// 這裏的 block size 的計算方式為 10*1024*1024 = 10MB。</span><br></pre></td></tr></table></figure>
-<h3 id="修改檔案內容"><a href="#修改檔案內容" class="headerlink" title="修改檔案內容"></a>修改檔案內容</h3></li>
-<li>將檔案開頭的 512 bytes 改為 null：  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">dd if=/dev/zero of=file1 bs=512 count=1 conv=notrunc</span><br><span class="line"># 這裡的 notrunc 參數代表不要將輸出檔案截短，只取代開頭的前 512 bytes，其餘內容不變。假設 file1 不存在，那麼這行指令就會建立一個 512 bytes 的 file1 檔案。</span><br></pre></td></tr></table></figure>
-
-
-
-</li>
-</ul>
-<h2 id="reference"><a href="#reference" class="headerlink" title="reference"></a>reference</h2><ul>
-<li><a target="_blank" rel="noopener" href="https://blog.gtwang.org/linux/dd-command-examples/">dd 指令教學與實用範例，備份與回復資料的小工具 - G. T. Wang</a></li>
-<li><a target="_blank" rel="noopener" href="https://code.yidas.com/linux-dd-command-test-io/">[Linux] 使用dd指令 – 硬碟讀寫效能測試 – YIDAS Code</a></li>
-<li><a target="_blank" rel="noopener" href="https://blog.desdelinux.net/zh-TW/guia-completa-y-detallada-con-ejemplos-de-dd/">DD的完整和詳細指南（帶有示例）| 從Linux</a></li>
-<li><a target="_blank" rel="noopener" href="https://man7.org/linux/man-pages/man1/dd.1.html">dd(1) - Linux manual page</a></li>
-<li><a target="_blank" rel="noopener" href="https://linux.die.net/man/1/dd">dd(1): convert/copy file - Linux man page</a></li>
-</ul>
-
+<li>建立固定大小的檔案。
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2022/01/12/linux-dd/#more" rel="contents">
+                閱讀全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 

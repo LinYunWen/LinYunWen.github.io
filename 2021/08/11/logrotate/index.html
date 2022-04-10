@@ -28,7 +28,7 @@
 <meta property="og:description" content="logrotate logrotate - rotates, compresses, and mails system logs  logrotate 的設定 Linux系統預設安裝logrotate工具，它預設的配置檔案在： &#x2F;etc&#x2F;logrotate.conf &#x2F;etc&#x2F;logrotate.d&#x2F;   Logrotate 是基於 cron 來執行的 restart service: &#96;sudo">
 <meta property="og:locale" content="zh_TW">
 <meta property="article:published_time" content="2021-08-11T12:59:23.000Z">
-<meta property="article:modified_time" content="2021-08-11T12:59:40.971Z">
+<meta property="article:modified_time" content="2022-04-10T01:17:57.724Z">
 <meta property="article:author" content="Lin Yunwen">
 <meta property="article:tag" content="note">
 <meta property="article:tag" content="linux">
@@ -219,10 +219,16 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">發表於</span>
-      
 
-      <time title="創建時間：2021-08-11 20:59:23 / 修改時間：20:59:40" itemprop="dateCreated datePublished" datetime="2021-08-11T20:59:23+08:00">2021-08-11</time>
+      <time title="創建時間：2021-08-11 20:59:23" itemprop="dateCreated datePublished" datetime="2021-08-11T20:59:23+08:00">2021-08-11</time>
     </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新於</span>
+        <time title="修改時間：2022-04-10 09:17:57" itemprop="dateModified" datetime="2022-04-10T09:17:57+08:00">2022-04-10</time>
+      </span>
 
   
       </div>
@@ -260,7 +266,8 @@
 </ul>
 </li>
 <li>Logrotate 是基於 cron 來執行的</li>
-<li>restart service: `sudo /usr/sbin/logrotate -v /etc/logrotate.conf<h2 id="切割介紹"><a href="#切割介紹" class="headerlink" title="切割介紹"></a>切割介紹</h2></li>
+<li>restart service: `sudo /usr/sbin/logrotate -v /etc/logrotate.conf<span id="more"></span>
+<h2 id="切割介紹"><a href="#切割介紹" class="headerlink" title="切割介紹"></a>切割介紹</h2></li>
 <li>比如以系統日誌/var/log/message做切割來簡單說明下：<ul>
 <li>第一次執行完rotate(輪轉)之後，原本的messages會變成messages.1，而且會製造一個空的messages給系統來儲存日誌；</li>
 <li>第二次執行之後，messages.1會變成messages.2，而messages會變成messages.1，又造成一個空的messages來儲存日誌！</li>
