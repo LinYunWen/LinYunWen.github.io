@@ -133,14 +133,14 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">154</span>
+          <span class="site-state-item-count">155</span>
           <span class="site-state-item-name">文章</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">201</span>
+        <span class="site-state-item-count">204</span>
         <span class="site-state-item-name">標籤</span></a>
       </div>
   </nav>
@@ -178,6 +178,257 @@
 
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://linyunwen.github.io/2022/06/26/qos/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Lin Yunwen">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Lin Yunwen's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/06/26/qos/" class="post-title-link" itemprop="url">QoS</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">發表於</span>
+      
+
+      <time title="創建時間：2022-06-26 07:42:09 / 修改時間：07:42:32" itemprop="dateCreated datePublished" datetime="2022-06-26T07:42:09+08:00">2022-06-26</time>
+    </span>
+
+  
+      </div>
+      <div class="post-meta">
+    <span class="post-meta-item" title="文章字數">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">文章字數：</span>
+      <span>3.4k</span>
+    </span>
+    <span class="post-meta-item" title="所需閱讀時間">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+      <span>6 分鐘</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="QoS"><a href="#QoS" class="headerlink" title="QoS"></a>QoS</h1><ul>
+<li>封包的 QoS(Quality of Service) 表示該封包的品質，品質越好，表示有越低的延遲、掉包、…，作法是利用封包 header 的特定欄位值，來表示此封包 的優先等級。</li>
+<li>此欄位定義在 網路架構 第三層(Internet Protocol) header 的欄位中，長度為 8 bits，在 IPv4 和 IPv6 的 header 中的位置不同。<ul>
+<li>在 IPv4 Header 此欄位稱為： DSCP / ToS</li>
+<li>在 IPv6 Header 此欄位稱為： Traffic Class<h2 id="intro"><a href="#intro" class="headerlink" title="intro"></a>intro</h2></li>
+</ul>
+</li>
+<li>在網路實行 QoS 一般分為 Integrated Services (IntServ) 和 Differentiated Services (DiffServ) 兩大方向<h3 id="IntServ"><a href="#IntServ" class="headerlink" title="IntServ"></a>IntServ</h3></li>
+<li>IntServ 的 QoS 實施方法是預先在訊息即將通過的每一隻 Router 預留網絡資源 (主要是 Bandwidth)，讓訊息封包通過時保證有足夠資源去提供服務。<ul>
+<li>用道路來作比喻，有一輛消防車趕著去救火，如若遇到交通擠塞便不能提供服務了，IntServ 就好比在每一個路段都把其中一條行車線劃為緊急車輛通道，只有像消防車這類緊急車輛可以使用。</li>
+<li>缺點是就算沒有緊急車輛通過，所有道路使用者也不可使用這條預留路線。<h3 id="DiffServ"><a href="#DiffServ" class="headerlink" title="DiffServ"></a>DiffServ</h3></li>
+</ul>
+</li>
+<li>DiffServ 則不預先設置緊急通道，當道路暢通時，所有車輛可自由使用任何路線。當某路段發生壅塞 (Congestion) 時，該路段才會實施交通管制，包括把道路分為緊急線、快線和慢線等，然後把車輛分門別類，按其緊急性去使用不同的路線<ul>
+<li>例如緊急車輛使用緊急線，私人車用快線，公共交通工具使用慢線。甚至會在路線上選擇一些車輛炸掉 😨 (Packet Drop) 來舒緩 Congestion，通當是慢線車輛遭殃。</li>
+</ul>
+</li>
+<li>DiffServ 巧妙的地方在於每段道路可設立自己的交通管制方法，路段間互不影響，稱為 Per-hop Behavior (PHB)。而且交通管制措施只會在發生 Congestion 時才會實行，不像 IntServ 需長期預留路線。DiffServ 缺點在於設定比較複雜。</li>
+</ul>
+<h3 id="ToS-Type-of-Service"><a href="#ToS-Type-of-Service" class="headerlink" title="ToS (Type of Service)"></a>ToS (Type of Service)</h3><ul>
+<li>ToS (Type of Service)，細分成 Precedence 及 ToS 欄位<ul>
+<li><code>| Precedence(3) | ToS(4) | Unused(1) |</code></li>
+<li>Precedence (RFC-1112) – 值越高，優先權越高  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">| 111 | Network Control |</span><br><span class="line">| 110 | Internetwork Control |</span><br><span class="line">| 101 | Critic/ECP |</span><br><span class="line">| 100 | Flash Override |</span><br><span class="line">| 011 | Flash |</span><br><span class="line">| 010 | Immediate |</span><br><span class="line">| 001 | Priority |</span><br><span class="line">| 000 | Routine |</span><br></pre></td></tr></table></figure></li>
+<li>ToS (RFC-1349) – 值越大，優先權越高。這些值的組合是沒有意義的，分別獨立。   <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">| 1000 | Minimize Delay |</span><br><span class="line">| 0100 | Maximize Throughput |</span><br><span class="line">| 0010 | Maximize Reliability |</span><br><span class="line">| 0001 | Minimize Monetary Cost |</span><br><span class="line">| 0000 | Normal Service(Default) |</span><br></pre></td></tr></table></figure>
+:::warning</li>
+<li>Type of Service 最早定義在 RFC-791。之後的 RFC-2474 則改變了這些區域的代表意義，稱作 DS (Differentiated Services)。</li>
+<li>ToS 因為定義問題，使得支援性比較低，實際網路上都是用 DS，因此在 IPv6 階段，ToS 已經不支援了。<br>:::<h3 id="DSCP-Differentiated-Service-Code-Point"><a href="#DSCP-Differentiated-Service-Code-Point" class="headerlink" title="DSCP (Differentiated Service Code Point)"></a>DSCP (Differentiated Service Code Point)</h3></li>
+</ul>
+</li>
+<li>RFC-2474，分成 Class Selector、Drop Precedence 及 Explicit Congestion Notification (ECN)欄位</li>
+<li>Class selector values (3)</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>DSCP</th>
+<th>Binary</th>
+<th>Hex</th>
+<th>Decimal</th>
+<th>Typical application</th>
+<th>Examples</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>CS0 (Default)</td>
+<td>000</td>
+<td>0x00</td>
+<td>0</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>CS1</td>
+<td>001</td>
+<td>0x08</td>
+<td>8</td>
+<td>Scavenger</td>
+<td>YouTube, Gaming, P2P</td>
+</tr>
+<tr>
+<td>CS2</td>
+<td>010</td>
+<td>0x10</td>
+<td>16</td>
+<td>OAM</td>
+<td>SNMP, SSH, Syslog</td>
+</tr>
+<tr>
+<td>CS3</td>
+<td>011</td>
+<td>0x18</td>
+<td>24</td>
+<td>Signaling</td>
+<td>SCCP, SIP, H.323</td>
+</tr>
+<tr>
+<td>CS4</td>
+<td>100</td>
+<td>0x20</td>
+<td>32</td>
+<td>Realtime</td>
+<td>TelePresence</td>
+</tr>
+<tr>
+<td>CS5</td>
+<td>101</td>
+<td>0x28</td>
+<td>40</td>
+<td>Broadcast video</td>
+<td>Cisco IPVS</td>
+</tr>
+<tr>
+<td>CS6</td>
+<td>110</td>
+<td>0x30</td>
+<td>48</td>
+<td>Network control</td>
+<td>EIGRP, OSPF, HSRP, IKE</td>
+</tr>
+<tr>
+<td>CS7</td>
+<td>111</td>
+<td>0x38</td>
+<td>56</td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<ul>
+<li><p>Drop Precedence value (3) </p>
+<table>
+<thead>
+<tr>
+<th>Drop Precedence</th>
+<th>Binary</th>
+<th>Hex</th>
+<th>Decimal</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Undefined</td>
+<td>000</td>
+<td>0x00</td>
+<td>0</td>
+</tr>
+<tr>
+<td>Low</td>
+<td>010</td>
+<td>0x02</td>
+<td>2</td>
+</tr>
+<tr>
+<td>Medium</td>
+<td>100</td>
+<td>0x04</td>
+<td>4</td>
+</tr>
+<tr>
+<td>Heigh</td>
+<td>110</td>
+<td>0x06</td>
+<td>6</td>
+</tr>
+<tr>
+<td>:::danger</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+</li>
+<li><p>The EF marking of 46 does NOT follow the drop preference rules of the assured forwarding model. Please do NOT think that the 11 means high drop preference.<br>:::</p>
+</li>
+</ul>
+<h2 id="ntp"><a href="#ntp" class="headerlink" title="ntp"></a>ntp</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">From tests that were performed, indications are that precise time</span><br><span class="line">distribution requires a very low packet delay variation (jitter)</span><br><span class="line">transport.  Therefore, we suggest that the following guidelines for</span><br><span class="line">Network Time Protocol (NTP) be used:</span><br><span class="line"></span><br><span class="line">o  When NTP is used for providing high-accuracy timing within an</span><br><span class="line">   administrator&#x27;s (carrier&#x27;s) network or to end users/clients, the</span><br><span class="line">   Telephony service class should be used, and NTP packets should be</span><br><span class="line">   marked with EF DSCP value.</span><br><span class="line">o  For applications that require &quot;wall clock&quot; timing accuracy, the</span><br><span class="line">   Standard service class should be used, and packets should be</span><br><span class="line">   marked with DF DSCP.</span><br></pre></td></tr></table></figure>
+<ul>
+<li>wall clock time<ul>
+<li>Wall-clock time is the time that a clock on the wall (or a stopwatch in hand) would measure as having elapsed between the start of the process and ‘now’.</li>
+<li>The user-cpu time and system-cpu time are pretty much as you said - the amount of time spent in user code and the amount of time spent in kernel code.</li>
+<li>The units are seconds (and subseconds, which might be microseconds or nanoseconds).</li>
+<li><strong>The wall-clock time is not the number of seconds that the process has spent on the CPU; it is the elapsed time, including time spent waiting for its turn on the CPU (while other processes get to run).</strong></li>
+</ul>
+</li>
+</ul>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://www.itsfun.com.tw/DSCP/wiki-0476865-2738445">DSCP：DSCP差分服務代碼點(Differentiated Services Code -華人百科</a></li>
+<li><a target="_blank" rel="noopener" href="https://silverwind1982.pixnet.net/blog/post/351505688">QoS: ToS vs. DSCP @ 拾人牙慧 :: 痞客邦 ::</a></li>
+<li><a target="_blank" rel="noopener" href="https://datatracker.ietf.org/doc/html/rfc4594#section-5.2">RFC 4594 - Configuration Guidelines for DiffServ Service Classes</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.jannet.hk/quality-of-service-qos-router-zh-hant/">QoS on Router 路由器的服務品質 - Jan Ho 的網絡世界</a></li>
+<li><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/7335920/what-specifically-are-wall-clock-time-user-cpu-time-and-system-cpu-time-in-uni">What specifically are wall-clock-time, user-cpu-time, and system-cpu-time in UNIX? - Stack Overflow</a></li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -1031,95 +1282,6 @@
 
 
 
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://linyunwen.github.io/2022/01/16/c-c-extern-c/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="Lin Yunwen">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Lin Yunwen's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/01/16/c-c-extern-c/" class="post-title-link" itemprop="url">extern "C"</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">發表於</span>
-      
-
-      <time title="創建時間：2022-01-16 16:33:23 / 修改時間：16:34:03" itemprop="dateCreated datePublished" datetime="2022-01-16T16:33:23+08:00">2022-01-16</time>
-    </span>
-
-  
-      </div>
-      <div class="post-meta">
-    <span class="post-meta-item" title="文章字數">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">文章字數：</span>
-      <span>2k</span>
-    </span>
-    <span class="post-meta-item" title="所需閱讀時間">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
-      <span>4 分鐘</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="extern-“C”"><a href="#extern-“C”" class="headerlink" title="extern “C”"></a>extern “C”</h1><h2 id="introduction"><a href="#introduction" class="headerlink" title="introduction"></a>introduction</h2><ul>
-<li>extern “C” makes a function-name in C++ have C linkage (compiler does not mangle the name) so that client C code can link to (use) your function using a C compatible header file that contains just the declaration of your function.
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2022/01/16/c-c-extern-c/#more" rel="contents">
-                閱讀全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
   <nav class="pagination">
     <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/16/">16</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一頁"></i></a>
   </nav>
@@ -1145,14 +1307,14 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>總字數：</span>
-    <span title="總字數">376k</span>
+    <span title="總字數">379k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>所需總閱讀時間 &asymp;</span>
-    <span title="所需總閱讀時間">11:23</span>
+    <span title="所需總閱讀時間">11:29</span>
   </span>
 </div>
 
