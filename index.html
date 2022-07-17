@@ -133,14 +133,14 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">155</span>
+          <span class="site-state-item-count">156</span>
           <span class="site-state-item-name">文章</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">204</span>
+        <span class="site-state-item-count">205</span>
         <span class="site-state-item-name">標籤</span></a>
       </div>
   </nav>
@@ -178,6 +178,139 @@
 
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://linyunwen.github.io/2022/07/17/iptables/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Lin Yunwen">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Lin Yunwen's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/07/17/iptables/" class="post-title-link" itemprop="url">iptables</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">發表於</span>
+      
+
+      <time title="創建時間：2022-07-17 10:42:37 / 修改時間：10:42:51" itemprop="dateCreated datePublished" datetime="2022-07-17T10:42:37+08:00">2022-07-17</time>
+    </span>
+
+  
+      </div>
+      <div class="post-meta">
+    <span class="post-meta-item" title="文章字數">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">文章字數：</span>
+      <span>877</span>
+    </span>
+    <span class="post-meta-item" title="所需閱讀時間">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+      <span>2 分鐘</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="iptables"><a href="#iptables" class="headerlink" title="iptables"></a>iptables</h1><ul>
+<li><img src="https://i.imgur.com/tfV09Hc.png"><ul>
+<li>基本上, iptables接到封包後, 會經由三個以上的主要規則表(tables)來處理:<ul>
+<li>(1)Mangle: 即圖中的M, 通常都不使用這個規則表了.</li>
+<li>(2)NAT: 即圖中的N,</li>
+<li>(3)Filter: 即圖中的F.</li>
+<li>當然還有一個Raw規則表, 也是少用.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><img src="https://i.imgur.com/iTKquQ5.png"></li>
+</ul>
+<h2 id="四表五鏈"><a href="#四表五鏈" class="headerlink" title="四表五鏈"></a>四表五鏈</h2><ul>
+<li>我們加規則，加到每個鏈中，每個鏈中的規則有很多，有一部分規則是相似的，根據這些規則的型別，把相似的規則放在一起，這些放在一起的規則的集合稱為表。<ul>
+<li>filter表：負責過濾功能；</li>
+</ul>
+<ul>
+<li>nat表：network address translation，網路地址轉換功能；</li>
+<li>mangle表：拆解、修改、並重新封裝報文；</li>
+<li>raw表：關閉nat表上啟用的連線追蹤機制；</li>
+</ul>
+</li>
+<li>因為每個鏈中都有不同規則，所以表存在於每一個鏈中，但不是每個鏈都有這4種表<ul>
+<li>PREROUTING 的規則可以存在於：raw表，mangle表，nat表。</li>
+</ul>
+<ul>
+<li>INPUT 的規則可以存在於：mangle表，filter表，nat表（centos7中有nat表，centos6中沒有）。</li>
+<li>FORWARD 的規則可以存在於：mangle表，filter表。</li>
+<li>OUTPUT 的規則可以存在於：raw表mangle表，nat表，filter表。</li>
+<li>POSTROUTING 的規則可以存在於：mangle表，nat表。</li>
+</ul>
+</li>
+<li>表的處理優先順序如下：<ul>
+<li><code>raw --&gt; mangle --&gt; nat --&gt; filter</code></li>
+<li><img src="https://i.imgur.com/haJy4EW.png"></li>
+</ul>
+</li>
+<li>只要遇到一個匹配的規則就按照這個規則進行處理，後面的規則對這個資料就不再起作用。<blockquote>
+<ul>
+<li>拒絕可以使用DROP，也可以使用REJECT關鍵字</li>
+<li>DROP不會給客戶端返回任何資訊，所以客戶端看到的情況就是連線超時，很難判斷是防火牆原因還是網路裝置故障等原因。</li>
+<li>REJECT則明確返回給客戶端一個拒絕的資訊，客戶端會知道我是被防火牆拒絕了。</li>
+<li>可根據場景使用，REJECT更適合除錯，DROP抗攻擊上面更安全些。</li>
+</ul>
+</blockquote>
+</li>
+</ul>
+<h2 id="reference"><a href="#reference" class="headerlink" title="reference"></a>reference</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://ithelp.ithome.com.tw/articles/10138792">Linux Pi的奇幻旅程(26)-防火牆 - iT 邦幫忙::一起幫忙解決難題，拯救 IT 人的一天</a></li>
+<li><a target="_blank" rel="noopener" href="https://iter01.com/550867.html">iptables基礎原理和使用簡介 | IT人</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.twblogs.net/a/5b7f238e2b717767c6adfdc9">超級詳細的iptables介紹 - 台部落</a></li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -1193,95 +1326,6 @@
 
 
 
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://linyunwen.github.io/2022/01/18/linux-uid/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="Lin Yunwen">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Lin Yunwen's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/01/18/linux-uid/" class="post-title-link" itemprop="url">Linux uid</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">發表於</span>
-      
-
-      <time title="創建時間：2022-01-18 08:55:14 / 修改時間：08:55:43" itemprop="dateCreated datePublished" datetime="2022-01-18T08:55:14+08:00">2022-01-18</time>
-    </span>
-
-  
-      </div>
-      <div class="post-meta">
-    <span class="post-meta-item" title="文章字數">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">文章字數：</span>
-      <span>425</span>
-    </span>
-    <span class="post-meta-item" title="所需閱讀時間">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
-      <span>1 分鐘</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="Linux-uid"><a href="#Linux-uid" class="headerlink" title="Linux uid"></a>Linux uid</h1><ul>
-<li>RUID, EUID,SUID來表示實際用戶ID，有效用戶ID，設置用戶ID
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2022/01/18/linux-uid/#more" rel="contents">
-                閱讀全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
   <nav class="pagination">
     <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/16/">16</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一頁"></i></a>
   </nav>
@@ -1307,14 +1351,14 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>總字數：</span>
-    <span title="總字數">379k</span>
+    <span title="總字數">380k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>所需總閱讀時間 &asymp;</span>
-    <span title="所需總閱讀時間">11:29</span>
+    <span title="所需總閱讀時間">11:30</span>
   </span>
 </div>
 
