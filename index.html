@@ -133,14 +133,14 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">156</span>
+          <span class="site-state-item-count">157</span>
           <span class="site-state-item-name">文章</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">205</span>
+        <span class="site-state-item-count">207</span>
         <span class="site-state-item-name">標籤</span></a>
       </div>
   </nav>
@@ -178,6 +178,102 @@
 
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://linyunwen.github.io/2023/01/28/pyro/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Lin Yunwen">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Lin Yunwen's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2023/01/28/pyro/" class="post-title-link" itemprop="url">pyro</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">發表於</span>
+      
+
+      <time title="創建時間：2023-01-28 20:28:24 / 修改時間：20:28:51" itemprop="dateCreated datePublished" datetime="2023-01-28T20:28:24+08:00">2023-01-28</time>
+    </span>
+
+  
+      </div>
+      <div class="post-meta">
+    <span class="post-meta-item" title="文章字數">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">文章字數：</span>
+      <span>698</span>
+    </span>
+    <span class="post-meta-item" title="所需閱讀時間">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+      <span>1 分鐘</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="pyro"><a href="#pyro" class="headerlink" title="pyro"></a>pyro</h1><h2 id="intro"><a href="#intro" class="headerlink" title="intro"></a>intro</h2><ul>
+<li>Python Remote Object</li>
+<li>Pyro庫的主要作用是讓我們的應用可以在network下相互通信，是個輕量級的庫</li>
+<li>實現了類似Java 的遠程方法調用（Remote Method Invocation, RMI). 可以調用一個遠程對象（存在於另一個進程中，甚至是另一台機器上）<h2 id="usage"><a href="#usage" class="headerlink" title="usage"></a>usage</h2></li>
+<li>一旦客戶端連接，Pyro將創建類的一個實例，並在一個客戶端代理會話期間使用該單個對象來處理遠程方法調用。一旦客戶端斷開連接，對象就會被移除。另一個客戶端連接為其會話創建另一個實例。</li>
+<li>e.g.  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> Pyro4</span><br><span class="line"></span><br><span class="line"><span class="meta">@Pyro4.expose</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyPyroThing</span>(<span class="params"><span class="built_in">object</span></span>):</span></span><br><span class="line">    <span class="comment"># ... methods that can be called go here...</span></span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;1创建守护进程&#x27;&#x27;&#x27;</span></span><br><span class="line">daemon = Pyro4.Daemon()</span><br><span class="line"></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;2注册uri&#x27;&#x27;&#x27;</span></span><br><span class="line">uri = daemon.register(MyPyroThing)</span><br><span class="line"><span class="built_in">print</span>(uri)</span><br><span class="line"></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;3.启动守护进程&#x27;&#x27;&#x27;</span></span><br><span class="line">daemon.requestLoop()</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/bcc913b1f5f8">Pyro4 概覽- 簡書</a></li>
+<li><a target="_blank" rel="noopener" href="https://python-parallel-programmning-cookbook.readthedocs.io/zh_CN/latest/chapter5/06_Remote_Method_Invocation_with_Pyro4.html">6. 使用Pyro4进行远程方法调用 — python-parallel-programming-cookbook-cn 1.0 文档</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/angelbill3/article/details/84877451">Python Pyro4 - Python Remote Objects_angelbill3的博客-CSDN博客</a></li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -1222,110 +1318,6 @@
 
 
 
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://linyunwen.github.io/2022/01/23/network-domain-ip/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="Lin Yunwen">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Lin Yunwen's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/01/23/network-domain-ip/" class="post-title-link" itemprop="url">Domain/IP 介紹</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">發表於</span>
-      
-
-      <time title="創建時間：2022-01-23 21:58:53 / 修改時間：22:00:04" itemprop="dateCreated datePublished" datetime="2022-01-23T21:58:53+08:00">2022-01-23</time>
-    </span>
-
-  
-      </div>
-      <div class="post-meta">
-    <span class="post-meta-item" title="文章字數">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">文章字數：</span>
-      <span>2.6k</span>
-    </span>
-    <span class="post-meta-item" title="所需閱讀時間">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
-      <span>5 分鐘</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="Domain-IP-介紹"><a href="#Domain-IP-介紹" class="headerlink" title="Domain/IP 介紹"></a>Domain/IP 介紹</h1><h2 id="domain-introduction"><a href="#domain-introduction" class="headerlink" title="domain introduction"></a>domain introduction</h2><blockquote>
-<ul>
-<li>網域 ＝ 網域名稱 ＝ 域名</li>
-</ul>
-</blockquote>
-<ul>
-<li>方便人們記憶</li>
-<li>DNS（Domain Name System）就被發展出來，做為將網域名稱與 IP 位址互相對映的分散式資料庫</li>
-<li>網域通常都是是由右至左解讀：<ul>
-<li>從網址最末端的 “.” (dot = zoot zone) 開始，但通常都不會顯示</li>
-<li>再來是「頂級網域」，通常是 “.com” , “.net”, “gov” 結尾</li>
-<li>接著是你註冊的「根網域」，在上圖的例子中 websiteurl.com 就是根網域</li>
-</ul>
-</li>
-<li>在根網域之前，全部都可以稱為 「子網域」，可以隨意的命名，各階層上限是 63 個字元，總長度不超過 253 個字元即可</li>
-</ul>
-<p><img src="https://i.imgur.com/iJ8uuOa.png"></p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2022/01/23/network-domain-ip/#more" rel="contents">
-                閱讀全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
   <nav class="pagination">
     <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/16/">16</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一頁"></i></a>
   </nav>
@@ -1339,7 +1331,7 @@
 
 <div class="copyright">
   &copy; 
-  <span itemprop="copyrightYear">2022</span>
+  <span itemprop="copyrightYear">2023</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
@@ -1358,7 +1350,7 @@
       <i class="fa fa-coffee"></i>
     </span>
       <span>所需總閱讀時間 &asymp;</span>
-    <span title="所需總閱讀時間">11:30</span>
+    <span title="所需總閱讀時間">11:32</span>
   </span>
 </div>
 
