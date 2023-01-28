@@ -133,14 +133,14 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">157</span>
+          <span class="site-state-item-count">158</span>
           <span class="site-state-item-name">文章</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">207</span>
+        <span class="site-state-item-count">209</span>
         <span class="site-state-item-name">標籤</span></a>
       </div>
   </nav>
@@ -178,6 +178,186 @@
 
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://linyunwen.github.io/2023/01/28/kubernetes/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Lin Yunwen">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Lin Yunwen's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2023/01/28/kubernetes/" class="post-title-link" itemprop="url">kubernetes</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">發表於</span>
+      
+
+      <time title="創建時間：2023-01-28 20:29:55 / 修改時間：20:30:06" itemprop="dateCreated datePublished" datetime="2023-01-28T20:29:55+08:00">2023-01-28</time>
+    </span>
+
+  
+      </div>
+      <div class="post-meta">
+    <span class="post-meta-item" title="文章字數">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">文章字數：</span>
+      <span>3k</span>
+    </span>
+    <span class="post-meta-item" title="所需閱讀時間">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+      <span>5 分鐘</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="Kubernetes-k8s"><a href="#Kubernetes-k8s" class="headerlink" title="Kubernetes (k8s)"></a>Kubernetes (k8s)</h1><blockquote>
+<ul>
+<li>Kubernetes (有時會使用縮寫 K8s，8 是 K 到 s 中間的英文字母個數) 是開放原始碼系統，可在任何位置部署、擴充及管理容器化的應用程式。</li>
+</ul>
+</blockquote>
+<ul>
+<li>Kubernetes（K8S）是一個可以幫助我們管理微服務（microservices）的系統，他可以自動化地部署及管理多台機器上的多個容器（Container）。</li>
+<li>更進一步地說，Kubernetes 想解決的問題是：「手動部署多個容器到多台機器上並監測管理這些容器的狀態非常麻煩。」而 Kubernetes 要提供的解法： 提供一個平台以較高層次的抽象化去自動化操作與管理容器們。</li>
+</ul>
+<h2 id="intro"><a href="#intro" class="headerlink" title="intro"></a>intro</h2><ul>
+<li>同時部署多個容器到多台機器上（Deployment）</li>
+<li>服務的乘載量有變化時，可以對容器做自動擴展（Scaling）</li>
+<li>管理多個容器的狀態，自動偵測並重啟故障的容器（Management）</li>
+</ul>
+<h2 id="Kubernetes-四元件"><a href="#Kubernetes-四元件" class="headerlink" title="Kubernetes 四元件"></a>Kubernetes 四元件</h2><ul>
+<li><img src="https://i.imgur.com/JICVvuf.png"></li>
+</ul>
+<h3 id="Pod"><a href="#Pod" class="headerlink" title="Pod"></a>Pod</h3><ul>
+<li>Kubernetes 運作的最小單位，一個 Pod 對應到一個應用服務（Application）<ul>
+<li>每個 Pod 都有一個身分證，也就是屬於這個 Pod 的 <code>yaml</code> 檔</li>
+<li>一個 Pod 裡面可以有一個或是多個 Container，但一般情況一個 Pod 最好只有一個 Container</li>
+<li>同一個 Pod 中的 Containers 共享相同資源及網路，彼此透過 local port number 溝通</li>
+</ul>
+</li>
+</ul>
+<h3 id="Worker-Node"><a href="#Worker-Node" class="headerlink" title="Worker Node"></a>Worker Node</h3><ul>
+<li>Kubernetes 運作的最小硬體單位，一個 Worker Node（簡稱 Node）對應到一台機器，可以是實體機如你的筆電、或是虛擬機如 AWS 上的一台 EC2 或 GCP 上的一台 Computer Engine。</li>
+<li>每個 Node 中都有三個組件：kubelet、kube-proxy、Container Runtime。<ul>
+<li>kubelet<ul>
+<li>該 Node 的管理員，負責管理該 Node 上的所有 Pods 的狀態並負責與 Master 溝通</li>
+</ul>
+</li>
+<li>kube-proxy<ul>
+<li>該 Node 的傳訊員，負責更新 Node 的 iptables，讓 Kubernetes 中不在該 Node 的其他物件可以得知該 Node 上所有 Pods 的最新狀態</li>
+</ul>
+</li>
+<li>Container Runtime<ul>
+<li>該 Node 真正負責容器執行的程式，以 Docker 容器為例其對應的 Container Runtime 就是 Docker Engine<h3 id="Master-Node"><a href="#Master-Node" class="headerlink" title="Master Node"></a>Master Node</h3></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Kubernetes 運作的指揮中心，可以簡化看成一個特化的 Node 負責管理所有其他 Node</li>
+<li>一個 Master Node（簡稱 Master）中有四個組件：kube-apiserver、etcd、kube-scheduler、kube-controller-manager。<ul>
+<li>kube-apiserver<ul>
+<li>管理整個 Kubernetes 所需 API 的接口（Endpoint），例如從 Command Line 下 kubectl 指令就會把指令送到這裏</li>
+<li>負責 Node 之間的溝通橋樑，每個 Node 彼此不能直接溝通，必須要透過 apiserver 轉介</li>
+<li>負責 Kubernetes 中的請求的身份認證與授權</li>
+</ul>
+</li>
+<li>etcd<ul>
+<li>用來存放 Kubernetes Cluster 的資料作為備份，當 Master 因為某些原因而故障時，我們可以透過 etcd 幫我們還原 Kubernetes 的狀態</li>
+</ul>
+</li>
+<li>kube-controller-manager<ul>
+<li>負責管理並運行 Kubernetes controller 的組件，簡單來說 controller 就是 Kubernetes 裡一個個負責監視 Cluster 狀態的 Process，例如：Node Controller、Replication Controller</li>
+<li>這些 Process 會在 Cluster 與預期狀態（desire state）不符時嘗試更新現有狀態（current state）<ul>
+<li>例如：現在要多開一台機器以應付突然增加的流量，那我的預期狀態就會更新成 N+1，現有狀態為 N，這時相對應的 controller 就會想辦法多開一台機器</li>
+</ul>
+</li>
+<li>controller-manager 的監視與嘗試更新也都需要透過訪問 kube-apiserver 達成</li>
+</ul>
+</li>
+<li>kube-scheduler<ul>
+<li>整個 Kubernetes 的 Pods 調度員，scheduler 會監視新建立但還沒有被指定要跑在哪個 Node 上的 Pod，並根據每個 Node 上面資源規定、硬體限制等條件去協調出一個最適合放置的 Node 讓該 Pod 跑<h3 id="Cluster"><a href="#Cluster" class="headerlink" title="Cluster"></a>Cluster</h3></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Kubernetes 中多個 Node 與 Master 的集合。基本上可以想成在同一個環境裡所有 Node 集合在一起的單位。</li>
+</ul>
+<h2 id="Kubernetes-進階三元件"><a href="#Kubernetes-進階三元件" class="headerlink" title="Kubernetes 進階三元件"></a>Kubernetes 進階三元件</h2><h3 id="Service"><a href="#Service" class="headerlink" title="Service"></a>Service</h3><ul>
+<li>在連線到一個 Pod 的服務資源時，會使用到 <code>port-forward</code> 的指令</li>
+<li>但如果我們有多個 Pods 想要同時被連線時，我們就可以用到 Service 這個進階元件<ul>
+<li>簡單來說，Service 就是 Kubernetes 中用來定義「一群 Pod 要如何被連線及存取」的元件。</li>
+</ul>
+</li>
+</ul>
+<h3 id="Deployment"><a href="#Deployment" class="headerlink" title="Deployment"></a>Deployment</h3><ul>
+<li>要把一個 Pod 做橫向擴展，也就是複製多個相同的 Pod 在 Cluster 中同時提供服務，並監控如果有 Pod 當機我們就要重新把它啟動時，如果我們要一個 Pod 一個 Pod 透過指令建立並監控是很花時間的。因此，我們可以透過 Deployment 這個特殊元件幫我們達成上述的要求。</li>
+</ul>
+<h3 id="Ingress"><a href="#Ingress" class="headerlink" title="Ingress"></a>Ingress</h3><ul>
+<li>了解完了 Service 跟 Deployment 後，接下來就輪到概念稍微複雜的 Ingress 元件了。 在上面有提到 Service 就是 Kubernetes 中用來定義「一群 Pod 要如何被連線及存取」的元件。 但在 Service 中，我們是將每個 Service 元件對外的 port number 跟 Node 上的 port number 做 mapping，這樣在我們的 Service 變多時，port number 以及分流規則的管理變得相當困難。</li>
+<li>而 Ingress 可以透過 HTTP/HTTPS，在我們眾多的 Service 前搭建一個 reverse-proxy。這樣 Ingress 可以幫助我們統一一個對外的 port number，並且根據 hostname 或是 pathname 決定封包要轉發到哪個 Service 上，如同下圖的比較：</li>
+<li><img src="https://miro.medium.com/max/700/0*-41vn0u27YID9UzQ"></li>
+<li>在 Kubernetes 中，Ingress 這項服務其實是由 Ingress Resources、Ingress Server、Ingress Controller 構成<ul>
+<li>Ingress Resources 就是定義 Ingress 的身分證</li>
+<li>Ingress Server 則是實體化用來接收 HTTP/HTTPS 連線的網路伺服器<ul>
+<li>Ingress Server 有各式各樣的實作，就如同市面上的 Web Server 琳瑯滿目一樣</li>
+</ul>
+</li>
+<li>Ingress Controller 就是一個可以把定義好的 Ingress Resources 設定轉換成特定 Ingress Server 實作的角色。</li>
+<li>舉例來說，Kubernetes 由官方維護的兩種 Ingress Controller 就有 <a target="_blank" rel="noopener" href="https://github.com/kubernetes/ingress-gce/blob/master/README.md">ingress-gce</a> 跟 <a target="_blank" rel="noopener" href="https://github.com/kubernetes/ingress-nginx/blob/master/README.md">ingress-nginx</a>，分別可以對應轉換成 GCE 與 Nginx。也有其他非官方在維護的 Controller，詳細的列表可見官網的 <a target="_blank" rel="noopener" href="https://kubernetes.io/docs/concepts/services-networking/ingress-controllers/#additional-controllers">additional-controllers</a>。</li>
+</ul>
+</li>
+</ul>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://cwhu.medium.com/kubernetes-basic-concept-tutorial-e033e3504ec0">Kubernetes 基礎教學（一）原理介紹. Kubernetes 如何運作？什麼是 Pod？什麼是 Node？Master… | by Cheng-Wei Hu | 胡程維 | Medium</a></li>
+<li><a target="_blank" rel="noopener" href="https://cwhu.medium.com/kubernetes-implement-ingress-deployment-tutorial-7431c5f96c3e">Kubernetes 基礎教學（二）實作範例：Pod、Service、Deployment、Ingress | by Cheng-Wei Hu | 胡程維 | Medium</a></li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -1223,101 +1403,6 @@
 
 
 
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://linyunwen.github.io/2022/02/19/man-page/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="Lin Yunwen">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Lin Yunwen's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/02/19/man-page/" class="post-title-link" itemprop="url">man-page</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">發表於</span>
-
-      <time title="創建時間：2022-02-19 11:43:17" itemprop="dateCreated datePublished" datetime="2022-02-19T11:43:17+08:00">2022-02-19</time>
-    </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">更新於</span>
-        <time title="修改時間：2022-04-09 22:45:10" itemprop="dateModified" datetime="2022-04-09T22:45:10+08:00">2022-04-09</time>
-      </span>
-
-  
-      </div>
-      <div class="post-meta">
-    <span class="post-meta-item" title="文章字數">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">文章字數：</span>
-      <span>409</span>
-    </span>
-    <span class="post-meta-item" title="所需閱讀時間">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
-      <span>1 分鐘</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="Man-Page"><a href="#Man-Page" class="headerlink" title="Man Page"></a>Man Page</h1><h2 id="introduction"><a href="#introduction" class="headerlink" title="introduction"></a>introduction</h2><ul>
-<li>手冊頁（英語：Manual pages，縮寫man page）是在Unix或類Unix作業系統線上軟體文件的一種普遍的形式
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2022/02/19/man-page/#more" rel="contents">
-                閱讀全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
   <nav class="pagination">
     <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/16/">16</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一頁"></i></a>
   </nav>
@@ -1343,14 +1428,14 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>總字數：</span>
-    <span title="總字數">380k</span>
+    <span title="總字數">383k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>所需總閱讀時間 &asymp;</span>
-    <span title="所需總閱讀時間">11:32</span>
+    <span title="所需總閱讀時間">11:37</span>
   </span>
 </div>
 
