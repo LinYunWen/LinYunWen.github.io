@@ -133,14 +133,14 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">158</span>
+          <span class="site-state-item-count">159</span>
           <span class="site-state-item-name">文章</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">209</span>
+        <span class="site-state-item-count">210</span>
         <span class="site-state-item-name">標籤</span></a>
       </div>
   </nav>
@@ -178,6 +178,269 @@
 
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://linyunwen.github.io/2023/01/28/k9s/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Lin Yunwen">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Lin Yunwen's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2023/01/28/k9s/" class="post-title-link" itemprop="url">k9s</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">發表於</span>
+      
+
+      <time title="創建時間：2023-01-28 20:31:22 / 修改時間：20:31:32" itemprop="dateCreated datePublished" datetime="2023-01-28T20:31:22+08:00">2023-01-28</time>
+    </span>
+
+  
+      </div>
+      <div class="post-meta">
+    <span class="post-meta-item" title="文章字數">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">文章字數：</span>
+      <span>1.9k</span>
+    </span>
+    <span class="post-meta-item" title="所需閱讀時間">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+      <span>4 分鐘</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="k9s"><a href="#k9s" class="headerlink" title="k9s"></a>k9s</h1><h2 id="intro"><a href="#intro" class="headerlink" title="intro"></a>intro</h2><ul>
+<li>cli 版的 k8s 介面 k9s</li>
+<li>簡單的操作</li>
+<li>查看不同資源<ul>
+<li>看 pods<ul>
+<li><code>:pods</code></li>
+</ul>
+</li>
+<li>檢視服務<ul>
+<li><code>:svc</code> or <code>:service</code></li>
+</ul>
+</li>
+<li>檢視部署<ul>
+<li><code>:deploy</code></li>
+</ul>
+</li>
+<li>檢視權限RBAC<ul>
+<li><code>:rb</code></li>
+</ul>
+</li>
+<li>檢視命名空間<ul>
+<li><code>:namespace</code></li>
+</ul>
+</li>
+<li>檢視排程<ul>
+<li><code>:cj</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>搜尋<ul>
+<li>假設你有 POD 在 k9s 清單中，你應該要怎麼搜尋呢？</li>
+<li>首先你只要在 POD list 的畫面，按下 <code>/</code>，就會如以下畫面</li>
+</ul>
+</li>
+<li>namespace 切換<ul>
+<li>k9s namespace 切換有兩種方式，一種是在進入 k9s 之前輸入</li>
+<li><code>$ k9s -n &#123;your_namespace&#125;</code></li>
+<li>另一種方式就是進入後按下 <code>:</code> 並且輸入 namespace，按下 enter 就會出現如下圖</li>
+</ul>
+</li>
+<li>port-foward<ul>
+<li>回到上面的 POD list 然後隨意進入任一個 POD 裡面，找到你想要 port-foward 的 container，按下 <code>shift + f</code>，就會出現如下了喔</li>
+</ul>
+</li>
+<li>獲取幫助<ul>
+<li>K9s 自帶了許多快捷鍵，可以通過輸入 <code>?</code> 獲取幫助。</li>
+</ul>
+</li>
+</ul>
+<h2 id="shortcut"><a href="#shortcut" class="headerlink" title="shortcut"></a>shortcut</h2><ul>
+<li>enter： 可以看到pod裡面的container資訊，要回到原本pod list畫面只要按esc就能回去</li>
+<li>ctrl+c: 為結束k9s指令</li>
+<li>l : logs，其實還有一個方法，一直按enter就可以看到log</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Action</th>
+<th>Command</th>
+<th>Comment</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Show active keyboard mnemonics and help</td>
+<td><code>?</code></td>
+<td></td>
+</tr>
+<tr>
+<td>Show all available aliases and resources on the cluster</td>
+<td><code>ctrl-a</code> or <code>:alias</code></td>
+<td></td>
+</tr>
+<tr>
+<td>To bail out of K9s</td>
+<td><code>:q</code>, <code>ctrl-c</code></td>
+<td></td>
+</tr>
+<tr>
+<td>View a Kubernetes resource using singular/plural or short-name</td>
+<td><code>:</code>po⏎</td>
+<td>accepts singular, plural, short-name or alias ie pod or pods</td>
+</tr>
+<tr>
+<td>View a Kubernetes resource in a given namespace</td>
+<td><code>:</code>alias namespace⏎</td>
+<td></td>
+</tr>
+<tr>
+<td>Filter out a resource view given a filter</td>
+<td><code>/</code>filter⏎</td>
+<td>Regex2 supported ie `fred</td>
+</tr>
+<tr>
+<td>Inverse regex filer</td>
+<td><code>/</code>! filter⏎</td>
+<td>Keep everything that <em>doesn’t</em> match. Not implemented for logs.</td>
+</tr>
+<tr>
+<td>Filter resource view by labels</td>
+<td><code>/</code>-l label-selector⏎</td>
+<td></td>
+</tr>
+<tr>
+<td>Fuzzy find a resource given a filter</td>
+<td><code>/</code>-f filter⏎</td>
+<td></td>
+</tr>
+<tr>
+<td>Bails out of view/command/filter mode</td>
+<td><code>&lt;esc&gt;</code></td>
+<td></td>
+</tr>
+<tr>
+<td>Key mapping to describe, view, edit, view logs,…</td>
+<td><code>d</code>,<code>v</code>, <code>e</code>, <code>l</code>,…</td>
+<td></td>
+</tr>
+<tr>
+<td>To view and switch to another Kubernetes context</td>
+<td><code>:</code>ctx⏎</td>
+<td></td>
+</tr>
+<tr>
+<td>To view and switch to another Kubernetes context</td>
+<td><code>:</code>ctx context-name⏎</td>
+<td></td>
+</tr>
+<tr>
+<td>To view and switch to another Kubernetes namespace</td>
+<td><code>:</code>ns⏎</td>
+<td></td>
+</tr>
+<tr>
+<td>To view all saved resources</td>
+<td><code>:</code>screendump or sd⏎</td>
+<td></td>
+</tr>
+<tr>
+<td>To delete a resource (TAB and ENTER to confirm)</td>
+<td><code>ctrl-d</code></td>
+<td></td>
+</tr>
+<tr>
+<td>To kill a resource (no confirmation dialog!)</td>
+<td><code>ctrl-k</code></td>
+<td></td>
+</tr>
+<tr>
+<td>Toggle Wide Columns</td>
+<td><code>ctrl-w</code></td>
+<td>Equivalent to <code>kubectl ... -o wide</code></td>
+</tr>
+<tr>
+<td>Toggle Error State</td>
+<td><code>ctrl-z</code></td>
+<td>View resources in error condition</td>
+</tr>
+<tr>
+<td>Launch pulses view</td>
+<td><code>:</code>pulses or pu⏎</td>
+<td></td>
+</tr>
+<tr>
+<td>Launch XRay view</td>
+<td><code>:</code>xray RESOURCE [NAMESPACE]⏎</td>
+<td>RESOURCE can be one of po, svc, dp, rs, sts, ds, NAMESPACE is optional</td>
+</tr>
+<tr>
+<td>Launch Popeye view</td>
+<td><code>:</code>popeye or pop⏎</td>
+<td>See <a target="_blank" rel="noopener" href="https://popeyecli.io/">https://popeyecli.io</a></td>
+</tr>
+</tbody></table>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://ithelp.ithome.com.tw/articles/10249693">Day28 k9s 是什麼？ - iT 邦幫忙::一起幫忙解決難題，拯救 IT 人的一天</a></li>
+<li><a target="_blank" rel="noopener" href="https://tw511.com/a/01/903.html">k9s：你沒看錯，這是一個加速 k8s 叢集管理的工具 - tw511教學網</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.tw511.com/a/01/7189.html">K9s 使用教學：如何高效管理 Kubernetes 叢集 - tw511教學網</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.gushiciku.cn/pl/pBLA/zh-tw">使用k9s來加速Kubernetes叢集的管理_DockOne - MdEditor</a></li>
+<li><a target="_blank" rel="noopener" href="https://k9scli.io/">K9s - Manage Your Kubernetes Clusters In Style</a></li>
+<li><a target="_blank" rel="noopener" href="https://k9scli.io/topics/commands/">Commands</a></li>
+<li><a target="_blank" rel="noopener" href="https://ithelp.ithome.com.tw/articles/10269581">[DAY16]離不開鍵盤的鐵粉必備-k9s - iT 邦幫忙::一起幫忙解決難題，拯救 IT 人的一天</a></li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -1305,104 +1568,6 @@
 
 
 
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://linyunwen.github.io/2022/03/12/lua/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="Lin Yunwen">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Lin Yunwen's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/03/12/lua/" class="post-title-link" itemprop="url">lua</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">發表於</span>
-
-      <time title="創建時間：2022-03-12 22:37:27" itemprop="dateCreated datePublished" datetime="2022-03-12T22:37:27+08:00">2022-03-12</time>
-    </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">更新於</span>
-        <time title="修改時間：2022-04-09 22:45:25" itemprop="dateModified" datetime="2022-04-09T22:45:25+08:00">2022-04-09</time>
-      </span>
-
-  
-      </div>
-      <div class="post-meta">
-    <span class="post-meta-item" title="文章字數">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">文章字數：</span>
-      <span>4.9k</span>
-    </span>
-    <span class="post-meta-item" title="所需閱讀時間">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
-      <span>9 分鐘</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="Lua"><a href="#Lua" class="headerlink" title="Lua"></a>Lua</h1><h2 id="io-popen-v-s-io-execute"><a href="#io-popen-v-s-io-execute" class="headerlink" title="io.popen v.s. io.execute"></a>io.popen v.s. io.execute</h2><h3 id="io-popen-prog-mode"><a href="#io-popen-prog-mode" class="headerlink" title="io.popen (prog [, mode])"></a>io.popen (prog [, mode])</h3><ul>
-<li>This function is system dependent and is not available on all platforms.</li>
-<li>Starts program prog in a separated process</li>
-<li>returns a file handle that you can use to read data from this program (if mode is “r”, the default) or to write data to this program (if mode is “w”).</li>
-<li>如果失敗會直接中斷 program
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2022/03/12/lua/#more" rel="contents">
-                閱讀全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
   <nav class="pagination">
     <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/16/">16</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一頁"></i></a>
   </nav>
@@ -1428,14 +1593,14 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>總字數：</span>
-    <span title="總字數">383k</span>
+    <span title="總字數">385k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>所需總閱讀時間 &asymp;</span>
-    <span title="所需總閱讀時間">11:37</span>
+    <span title="所需總閱讀時間">11:41</span>
   </span>
 </div>
 
